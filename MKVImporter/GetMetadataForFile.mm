@@ -6,8 +6,11 @@
 //  Copyright © 2017 C.W. Betts. All rights reserved.
 //
 
+#import <Foundation/Foundation.h>
 #include <CoreFoundation/CoreFoundation.h>
 #include "GetMetadataForFile.h"
+#include "matroska/FileKax.h"
+#include "ebml/StdIOCallback.h"
 
 //==============================================================================
 //
@@ -31,6 +34,17 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
     Boolean ok = FALSE;
     @autoreleasepool {
 		
+		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
+		NSString *nsPath = (__bridge NSString*)pathToFile;
+			@try {
+			libebml::StdIOCallback ebmlFile(nsPath.fileSystemRepresentation ,MODE_READ);
+			libmatroska::FileMatroska matFile(ebmlFile);
+
+		} @catch (NSException *exception) {
+			ok = FALSE;
+		} @finally {
+			;
+		}
     }
     
     // Return the status
