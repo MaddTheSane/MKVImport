@@ -9,17 +9,15 @@
 /* Begin PBXBuildFile section */
 		55868DFC1E1C189B00CDDED1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFB1E1C189B00CDDED1 /* main.c */; };
 		55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.m */; };
-		55868E011E1C189B00CDDED1 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55868E001E1C189B00CDDED1 /* MySpotlightImporter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = "wrapper.spotlight-importer"; includeInIndex = 0; path = MKVImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
-		55868DFB1E1C189B00CDDED1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		55868DFB1E1C189B00CDDED1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; usesTabs = 0; };
 		55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
-		55868DFF1E1C189B00CDDED1 /* MySpotlightImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
-		55868E001E1C189B00CDDED1 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
 		55868E021E1C189B00CDDED1 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		55868E031E1C189B00CDDED1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetMetadataForFile.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,8 +51,6 @@
 			isa = PBXGroup;
 			children = (
 				55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.m */,
-				55868DFF1E1C189B00CDDED1 /* MySpotlightImporter.h */,
-				55868E001E1C189B00CDDED1 /* MySpotlightImporter.m */,
 				55868E021E1C189B00CDDED1 /* Importer Read Me.txt */,
 				55868E031E1C189B00CDDED1 /* Info.plist */,
 				55868DFA1E1C189B00CDDED1 /* Supporting Files */,
@@ -66,6 +62,7 @@
 			isa = PBXGroup;
 			children = (
 				55868DFB1E1C189B00CDDED1 /* main.c */,
+				55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -137,7 +134,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				55868E011E1C189B00CDDED1 /* MySpotlightImporter.m in Sources */,
 				55868DFC1E1C189B00CDDED1 /* main.c in Sources */,
 				55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.m in Sources */,
 			);
