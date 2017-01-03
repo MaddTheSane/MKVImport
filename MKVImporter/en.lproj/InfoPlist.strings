@@ -1,0 +1,11 @@
+/* 
+  InfoPlist.strings
+  MKVImporter
+
+  Created by C.W. Betts on 1/3/17.
+  Copyright © 2017 C.W. Betts. All rights reserved.
+*/
+
+"org.matroska.mkv" = "Matroska Video";
+"org.matroska.mka" = "Matroska Audio";
+"com.google.webm" = "Google WebM";
