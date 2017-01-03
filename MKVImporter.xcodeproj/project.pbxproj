@@ -1,0 +1,289 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		55868DFC1E1C189B00CDDED1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFB1E1C189B00CDDED1 /* main.c */; };
+		55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.m */; };
+		55868E011E1C189B00CDDED1 /* MySpotlightImporter.m in Sources */ = {isa = PBXBuildFile; fileRef = 55868E001E1C189B00CDDED1 /* MySpotlightImporter.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = "wrapper.spotlight-importer"; includeInIndex = 0; path = MKVImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
+		55868DFB1E1C189B00CDDED1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; };
+		55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GetMetadataForFile.m; sourceTree = "<group>"; };
+		55868DFF1E1C189B00CDDED1 /* MySpotlightImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MySpotlightImporter.h; sourceTree = "<group>"; };
+		55868E001E1C189B00CDDED1 /* MySpotlightImporter.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MySpotlightImporter.m; sourceTree = "<group>"; };
+		55868E021E1C189B00CDDED1 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
+		55868E031E1C189B00CDDED1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		55868DF41E1C189B00CDDED1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		55868DEE1E1C189B00CDDED1 = {
+			isa = PBXGroup;
+			children = (
+				55868DF91E1C189B00CDDED1 /* MKVImporter */,
+				55868DF81E1C189B00CDDED1 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		55868DF81E1C189B00CDDED1 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		55868DF91E1C189B00CDDED1 /* MKVImporter */ = {
+			isa = PBXGroup;
+			children = (
+				55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.m */,
+				55868DFF1E1C189B00CDDED1 /* MySpotlightImporter.h */,
+				55868E001E1C189B00CDDED1 /* MySpotlightImporter.m */,
+				55868E021E1C189B00CDDED1 /* Importer Read Me.txt */,
+				55868E031E1C189B00CDDED1 /* Info.plist */,
+				55868DFA1E1C189B00CDDED1 /* Supporting Files */,
+			);
+			path = MKVImporter;
+			sourceTree = "<group>";
+		};
+		55868DFA1E1C189B00CDDED1 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				55868DFB1E1C189B00CDDED1 /* main.c */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		55868DF61E1C189B00CDDED1 /* MKVImporter */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55868E061E1C189B00CDDED1 /* Build configuration list for PBXNativeTarget "MKVImporter" */;
+			buildPhases = (
+				55868DF31E1C189B00CDDED1 /* Sources */,
+				55868DF41E1C189B00CDDED1 /* Frameworks */,
+				55868DF51E1C189B00CDDED1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = MKVImporter;
+			productName = MKVImporter;
+			productReference = 55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */;
+			productType = "com.apple.product-type.spotlight-importer";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		55868DEF1E1C189B00CDDED1 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0820;
+				ORGANIZATIONNAME = "C.W. Betts";
+				TargetAttributes = {
+					55868DF61E1C189B00CDDED1 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 55868DF21E1C189B00CDDED1 /* Build configuration list for PBXProject "MKVImporter" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 55868DEE1E1C189B00CDDED1;
+			productRefGroup = 55868DF81E1C189B00CDDED1 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				55868DF61E1C189B00CDDED1 /* MKVImporter */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		55868DF51E1C189B00CDDED1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		55868DF31E1C189B00CDDED1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868E011E1C189B00CDDED1 /* MySpotlightImporter.m in Sources */,
+				55868DFC1E1C189B00CDDED1 /* main.c in Sources */,
+				55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		55868E041E1C189B00CDDED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		55868E051E1C189B00CDDED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "-";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		55868E071E1C189B00CDDED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MKVImporter/Info.plist;
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Debug;
+		};
+		55868E081E1C189B00CDDED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = MKVImporter/Info.plist;
+				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				LIBRARY_STYLE = BUNDLE;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		55868DF21E1C189B00CDDED1 /* Build configuration list for PBXProject "MKVImporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55868E041E1C189B00CDDED1 /* Debug */,
+				55868E051E1C189B00CDDED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55868E061E1C189B00CDDED1 /* Build configuration list for PBXNativeTarget "MKVImporter" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55868E071E1C189B00CDDED1 /* Debug */,
+				55868E081E1C189B00CDDED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 55868DEF1E1C189B00CDDED1 /* Project object */;
+}
