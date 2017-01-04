@@ -17,12 +17,19 @@
 #define __private_extern __attribute__((visibility("hidden")))
 #endif
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 // The import function to be implemented in GetMetadataForFile.c
 __private_extern Boolean GetMetadataForFile(void *thisInterface,
 						   CFMutableDictionaryRef attributes,
 						   CFStringRef contentTypeUTI,
 						   CFStringRef pathToFile);
 
+#ifdef __cplusplus
+}
+#endif
 
 
 #endif /* GetMetadataForFile_h */

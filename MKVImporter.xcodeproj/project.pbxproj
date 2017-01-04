@@ -110,6 +110,12 @@
 		55868EEE1E1C1DA300CDDED1 /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
 		55868EF11E1C1EF100CDDED1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */; };
 		55868EF61E1C1F5700CDDED1 /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF81E1C1F5700CDDED1 /* schema.strings */; };
+		55868F111E1C4CD300CDDED1 /* test8.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868F101E1C4CD300CDDED1 /* test8.cpp */; };
+		55868F1D1E1C575600CDDED1 /* test6.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868F1C1E1C575600CDDED1 /* test6.cpp */; };
+		55868F1E1E1C590F00CDDED1 /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E161E1C1C3700CDDED1 /* libebml.a */; };
+		55868F1F1E1C590F00CDDED1 /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E0E1E1C1C2500CDDED1 /* libmatroska.a */; };
+		55868F281E1C591F00CDDED1 /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E161E1C1C3700CDDED1 /* libebml.a */; };
+		55868F291E1C591F00CDDED1 /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E0E1E1C1C2500CDDED1 /* libmatroska.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -127,7 +133,56 @@
 			remoteGlobalIDString = 55868E151E1C1C3700CDDED1;
 			remoteInfo = ebml;
 		};
+		55868F201E1C591600CDDED1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868E0D1E1C1C2500CDDED1;
+			remoteInfo = matroska;
+		};
+		55868F221E1C591600CDDED1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868E151E1C1C3700CDDED1;
+			remoteInfo = ebml;
+		};
+		55868F241E1C591B00CDDED1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868E0D1E1C1C2500CDDED1;
+			remoteInfo = matroska;
+		};
+		55868F261E1C591B00CDDED1 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868E151E1C1C3700CDDED1;
+			remoteInfo = ebml;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		55868F071E1C4CB000CDDED1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		55868F161E1C572700CDDED1 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = "wrapper.spotlight-importer"; includeInIndex = 0; path = MKVImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -238,6 +293,10 @@
 		55868EED1E1C1DA300CDDED1 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
 		55868EF21E1C1EF100CDDED1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55868EF71E1C1F5700CDDED1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
+		55868F091E1C4CB000CDDED1 /* test8 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test8; sourceTree = BUILT_PRODUCTS_DIR; };
+		55868F101E1C4CD300CDDED1 /* test8.cpp */ = {isa = PBXFileReference; fileEncoding = 12; lastKnownFileType = sourcecode.cpp.cpp; name = test8.cpp; path = Vendor/libmatroska/test/mux/test8.cpp; sourceTree = SOURCE_ROOT; };
+		55868F1A1E1C572700CDDED1 /* test6 */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = test6; sourceTree = BUILT_PRODUCTS_DIR; };
+		55868F1C1E1C575600CDDED1 /* test6.cpp */ = {isa = PBXFileReference; fileEncoding = 5; lastKnownFileType = sourcecode.cpp.cpp; name = test6.cpp; path = Vendor/libmatroska/test/mux/test6.cpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -264,6 +323,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55868F061E1C4CB000CDDED1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868F281E1C591F00CDDED1 /* libebml.a in Frameworks */,
+				55868F291E1C591F00CDDED1 /* libmatroska.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55868F151E1C572700CDDED1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868F1E1E1C590F00CDDED1 /* libebml.a in Frameworks */,
+				55868F1F1E1C590F00CDDED1 /* libmatroska.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -272,6 +349,8 @@
 			children = (
 				55868E1A1E1C1C3B00CDDED1 /* Third-party */,
 				55868DF91E1C189B00CDDED1 /* MKVImporter */,
+				55868F1B1E1C573700CDDED1 /* test6 */,
+				55868F0A1E1C4CB000CDDED1 /* test8 */,
 				55868DF81E1C189B00CDDED1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -282,6 +361,8 @@
 				55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */,
 				55868E0E1E1C1C2500CDDED1 /* libmatroska.a */,
 				55868E161E1C1C3700CDDED1 /* libebml.a */,
+				55868F091E1C4CB000CDDED1 /* test8 */,
+				55868F1A1E1C572700CDDED1 /* test6 */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -494,6 +575,22 @@
 			path = win32;
 			sourceTree = "<group>";
 		};
+		55868F0A1E1C4CB000CDDED1 /* test8 */ = {
+			isa = PBXGroup;
+			children = (
+				55868F101E1C4CD300CDDED1 /* test8.cpp */,
+			);
+			path = test8;
+			sourceTree = "<group>";
+		};
+		55868F1B1E1C573700CDDED1 /* test6 */ = {
+			isa = PBXGroup;
+			children = (
+				55868F1C1E1C575600CDDED1 /* test6.cpp */,
+			);
+			name = test6;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -625,6 +722,44 @@
 			productReference = 55868E161E1C1C3700CDDED1 /* libebml.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		55868F081E1C4CB000CDDED1 /* test8 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55868F0D1E1C4CB000CDDED1 /* Build configuration list for PBXNativeTarget "test8" */;
+			buildPhases = (
+				55868F051E1C4CB000CDDED1 /* Sources */,
+				55868F061E1C4CB000CDDED1 /* Frameworks */,
+				55868F071E1C4CB000CDDED1 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55868F251E1C591B00CDDED1 /* PBXTargetDependency */,
+				55868F271E1C591B00CDDED1 /* PBXTargetDependency */,
+			);
+			name = test8;
+			productName = test8;
+			productReference = 55868F091E1C4CB000CDDED1 /* test8 */;
+			productType = "com.apple.product-type.tool";
+		};
+		55868F121E1C572700CDDED1 /* test6 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55868F171E1C572700CDDED1 /* Build configuration list for PBXNativeTarget "test6" */;
+			buildPhases = (
+				55868F131E1C572700CDDED1 /* Sources */,
+				55868F151E1C572700CDDED1 /* Frameworks */,
+				55868F161E1C572700CDDED1 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				55868F211E1C591600CDDED1 /* PBXTargetDependency */,
+				55868F231E1C591600CDDED1 /* PBXTargetDependency */,
+			);
+			name = test6;
+			productName = test8;
+			productReference = 55868F1A1E1C572700CDDED1 /* test6 */;
+			productType = "com.apple.product-type.tool";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -646,6 +781,10 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 					};
+					55868F081E1C4CB000CDDED1 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 55868DF21E1C189B00CDDED1 /* Build configuration list for PBXProject "MKVImporter" */;
@@ -663,6 +802,8 @@
 				55868DF61E1C189B00CDDED1 /* MKVImporter */,
 				55868E0D1E1C1C2500CDDED1 /* matroska */,
 				55868E151E1C1C3700CDDED1 /* ebml */,
+				55868F121E1C572700CDDED1 /* test6 */,
+				55868F081E1C4CB000CDDED1 /* test8 */,
 			);
 		};
 /* End PBXProject section */
@@ -742,6 +883,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55868F051E1C4CB000CDDED1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868F111E1C4CD300CDDED1 /* test8.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55868F131E1C572700CDDED1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868F1D1E1C575600CDDED1 /* test6.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -754,6 +911,26 @@
 			isa = PBXTargetDependency;
 			target = 55868E151E1C1C3700CDDED1 /* ebml */;
 			targetProxy = 55868EE91E1C1D6800CDDED1 /* PBXContainerItemProxy */;
+		};
+		55868F211E1C591600CDDED1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55868E0D1E1C1C2500CDDED1 /* matroska */;
+			targetProxy = 55868F201E1C591600CDDED1 /* PBXContainerItemProxy */;
+		};
+		55868F231E1C591600CDDED1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55868E151E1C1C3700CDDED1 /* ebml */;
+			targetProxy = 55868F221E1C591600CDDED1 /* PBXContainerItemProxy */;
+		};
+		55868F251E1C591B00CDDED1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55868E0D1E1C1C2500CDDED1 /* matroska */;
+			targetProxy = 55868F241E1C591B00CDDED1 /* PBXContainerItemProxy */;
+		};
+		55868F271E1C591B00CDDED1 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55868E151E1C1C3700CDDED1 /* ebml */;
+			targetProxy = 55868F261E1C591B00CDDED1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -952,6 +1129,50 @@
 			};
 			name = Release;
 		};
+		55868F0E1E1C4CB000CDDED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					Vendor/libmatroska,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55868F0F1E1C4CB000CDDED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					Vendor/libmatroska,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		55868F181E1C572700CDDED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					Vendor/libmatroska,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		55868F191E1C572700CDDED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					Vendor/libmatroska,
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -971,6 +1192,7 @@
 				55868E081E1C189B00CDDED1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55868E0F1E1C1C2500CDDED1 /* Build configuration list for PBXNativeTarget "matroska" */ = {
 			isa = XCConfigurationList;
@@ -979,6 +1201,7 @@
 				55868E111E1C1C2500CDDED1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55868E171E1C1C3700CDDED1 /* Build configuration list for PBXNativeTarget "ebml" */ = {
 			isa = XCConfigurationList;
@@ -987,6 +1210,25 @@
 				55868E191E1C1C3700CDDED1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55868F0D1E1C4CB000CDDED1 /* Build configuration list for PBXNativeTarget "test8" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55868F0E1E1C4CB000CDDED1 /* Debug */,
+				55868F0F1E1C4CB000CDDED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55868F171E1C572700CDDED1 /* Build configuration list for PBXNativeTarget "test6" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55868F181E1C572700CDDED1 /* Debug */,
+				55868F191E1C572700CDDED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
