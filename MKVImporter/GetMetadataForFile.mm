@@ -13,6 +13,7 @@
 #include "ebml/StdIOCallback.h"
 
 #include <string>
+#include <vector>
 #include "ebml/EbmlHead.h"
 #include "ebml/EbmlSubHead.h"
 #include "ebml/EbmlStream.h"
@@ -29,10 +30,175 @@
 #include "matroska/KaxSeekHead.h"
 #include "matroska/KaxCuesData.h"
 
+#include <iostream>
+#include <functional>
+#include <algorithm>
+
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
+using namespace std;
 using std::string;
+using std::vector;
 
+
+
+
+
+class MatroskaImport {
+private:
+	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
+		newAttribs = [[NSMutableDictionary alloc] init];
+	}
+	virtual ~MatroskaImport() {
+		attributes = nil;
+		newAttribs = nil;
+	};
+	bool ReadSegmentInfo(KaxInfo &segmentInfo);
+	
+	bool isValidMatroska();
+	void copyDataOver() {
+		[attributes addEntriesFromDictionary:newAttribs];
+	}
+	EbmlElement * NextLevel1Element();
+
+	//! a list of level one elements and their offsets in the segment
+	class MatroskaSeek {
+	public:
+		struct MatroskaSeekContext {
+			EbmlElement		*el_l1;
+			uint64_t		position;
+		};
+		
+		EbmlId GetID() const { return EbmlId(ebmlID, idLength); }
+		bool operator<(const MatroskaSeek &rhs) const { return segmentPos < rhs.segmentPos; }
+		bool operator>(const MatroskaSeek &rhs) const { return segmentPos > rhs.segmentPos; }
+		
+		MatroskaSeekContext GetSeekContext(uint64_t segmentOffset = 0) const {
+			return (MatroskaSeekContext){ NULL, segmentPos + segmentOffset };
+		}
+		
+		uint32_t		ebmlID;
+		uint8_t			idLength;
+		uint64_t		segmentPos;
+	};
+
+	
+	/// we need to save a bit of context when seeking if we're going to seek back
+	/// This function saves el_l1 and the current file position to the returned context
+	/// and clears el_l1 to null in preparation for a seek.
+	MatroskaSeek::MatroskaSeekContext SaveContext();
+	
+	/// This function restores el_l1 to what is saved in the context, deleting the current
+	/// value if not null, and seeks to the specified point in the file.
+	void SetContext(MatroskaSeek::MatroskaSeekContext context);
+
+	
+public:
+	static bool getMetadata(NSMutableDictionary *attribs, NSString *uti, NSString *path);
+	
+private:
+	StdIOCallback _ebmlFile;
+	EbmlStream _aStream;
+	EbmlElement *el_l0;
+	EbmlElement *el_l1;
+	NSMutableDictionary *attributes;
+	NSMutableDictionary *newAttribs;
+	
+	bool seenInfo;
+	bool seenTracks;
+	bool seenChapters;
+
+	//vector<MatroskaTrack>	tracks;
+	vector<MatroskaSeek>	levelOneElements;
+	
+	uint64_t				segmentOffset;
+
+};
+
+bool MatroskaImport::isValidMatroska()
+{
+	bool valid;
+	int upperLevel;
+	auto el_l0 = _aStream.FindNextID(EbmlHead::ClassInfos, ~0);
+	if (el_l0 != NULL) {
+		EbmlElement *dummyElt = NULL;
+		
+		el_l0->Read(_aStream, EbmlHead::ClassInfos.Context, upperLevel, dummyElt, true);
+		
+		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
+			fprintf(stderr, "Not a Matroska file\n");
+			valid = false;
+			goto exit;
+		}
+		
+		EbmlHead *head = static_cast<EbmlHead *>(el_l0);
+		
+		EDocType docType = GetChild<EDocType>(*head);
+		if (string(docType) != "matroska" && string(docType) != "webm") {
+			fprintf(stderr, "Unknown Matroska doctype\n");
+			valid = false;
+			goto exit;
+		}
+		
+		EDocTypeReadVersion readVersion = GetChild<EDocTypeReadVersion>(*head);
+		if (UInt64(readVersion) > 2) {
+			fprintf(stderr, "Matroska file too new to be read\n");
+			valid = false;
+		}
+	} else {
+		fprintf(stderr, "Matroska file missing EBML Head\n");
+		valid = false;
+	}
+	
+exit:
+	
+	delete el_l0;
+	el_l0 = NULL;
+	return valid;
+}
+
+bool MatroskaImport::getMetadata(NSMutableDictionary *attribs, NSString *uti, NSString *path)
+{
+	auto generatorClass = new MatroskaImport(path, attribs);
+	if (!generatorClass->isValidMatroska()) {
+		delete generatorClass;
+		return false;
+	}
+	
+	generatorClass->copyDataOver();
+	delete generatorClass;
+	return false;
+}
+
+bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
+{
+	if (seenInfo)
+		return true;
+	
+	KaxDuration & duration = GetChild<KaxDuration>(segmentInfo);
+	KaxTimecodeScale & timecodeScale = GetChild<KaxTimecodeScale>(segmentInfo);
+	KaxTitle & title = GetChild<KaxTitle>(segmentInfo);
+	KaxWritingApp & writingApp = GetChild<KaxWritingApp>(segmentInfo);
+	KaxMuxingApp & muxingApp = GetChild<KaxMuxingApp>(segmentInfo);
+
+	Float64 movieDuration = Float64(duration);
+	UInt64 timecodeScale1 = UInt64(timecodeScale);
+
+	newAttribs[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
+	
+	if (!title.IsDefaultValue()) {
+		newAttribs[(NSString*)kMDItemTitle] = @(title.GetValueUTF8().c_str());
+	}
+	
+	if (!writingApp.IsDefaultValue()) {
+		newAttribs[(NSString*)kMDItemCreator] = @(writingApp.GetValueUTF8().c_str());
+	}
+	if (writingApp.IsDefaultValue() && !muxingApp.IsDefaultValue()) {
+		newAttribs[(NSString*)kMDItemCreator] = @(muxingApp.GetValueUTF8().c_str());
+	}
+	
+	return false;
+}
 
 //==============================================================================
 //
@@ -59,648 +225,8 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
 		@try {
-			NSMutableArray<NSString*> *codecs = [[NSMutableArray alloc] init];
 			matroska_init();
-			StdIOCallback ebmlFile(nsPath.fileSystemRepresentation, MODE_READ);
-			bool bAllowDummy = true; // even read elements we don't know (needed for CRC checking)
-			
-			// read the EBML head
-			EbmlStream aStream(ebmlFile);
-			EbmlElement * ElementLevel0;
-			EbmlElement * ElementLevel1;
-			EbmlElement * ElementLevel2;
-			EbmlElement * ElementLevel3 = NULL;
-			EbmlElement * ElementLevel4 = NULL;
-			ElementLevel0 = aStream.FindNextID(EbmlHead::ClassInfos, 0xFFFFFFFFL);
-			if (ElementLevel0 != NULL) {
-				//printf("EBML : ");
-				for (unsigned int i=0; i<EbmlId(*ElementLevel0).Length; i++) {
-					//printf("[%02X]", (EbmlId(*ElementLevel0).Value >> (8*(3-i))) & 0xFF);
-				}
-				//printf("\n");
-				
-				ElementLevel0->SkipData(aStream, EbmlHead_Context);
-				if (ElementLevel0 != NULL)
-					delete ElementLevel0;
-			}
-			
-			int UpperElementLevel = 0;
-			KaxSegment * Segment;
-			KaxInfo * SegmentInfo;
-			KaxTrackEntry * TrackAudio;
-			KaxTrackEntry * TrackVideo;
-			KaxCluster *SegmentCluster;
-			KaxCues *CuesEntry;
-			KaxSeekHead *MetaSeek;
-			KaxChapters *Chapters;
-			KaxTags *AllTags;
-			uint64 TimecodeScale = 1000000;
-
-			// find the segment to read
-			ElementLevel0 = aStream.FindNextID(KaxSegment::ClassInfos, 0xFFFFFFFFL);
-			if (ElementLevel0 != NULL) {
-				if (EbmlId(*ElementLevel0) == KaxSegment::ClassInfos.GlobalId) {
-					Segment = static_cast<KaxSegment*>(ElementLevel0);
-					//      MuxedFile.ReadTracks();
-					//      MuxedFile.ReadCodec();
-					// scan the file for a Tracks element (all previous Level1 elements are discarded)
-					ElementLevel1 = aStream.FindNextElement(ElementLevel0->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-					
-					while (ElementLevel1 != NULL) {
-						if (UpperElementLevel > 0) {
-							break;
-						}
-						if (UpperElementLevel < 0) {
-							UpperElementLevel = 0;
-						}
-						
-						/// \todo switch the type of the element to check if it's one we want to handle, like attachements
-						if (EbmlId(*ElementLevel1) == EbmlVoid::ClassInfos.GlobalId) {
-							printf("\n- Void found\n");
-						} else if (EbmlId(*ElementLevel1) == KaxTracks::ClassInfos.GlobalId) {
-							// found the Tracks element
-							printf("\n- Segment Tracks found\n");
-							// handle the data in Tracks here.
-							// poll for new tracks and handle them
-							ElementLevel2 = aStream.FindNextElement(ElementLevel1->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-							
-							while (ElementLevel2 != NULL) {
-								if (UpperElementLevel > 0) {
-									break;
-								}
-								if (UpperElementLevel < 0) {
-									UpperElementLevel = 0;
-								}
-								/// \todo switch the type of the element to check if it's one we want to handle, like attachements
-								if (EbmlId(*ElementLevel2) == KaxTrackEntry::ClassInfos.GlobalId) {
-									//printf("* Found a track\n");
-									
-									ElementLevel3 = aStream.FindNextElement(ElementLevel2->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-									while (ElementLevel3 != NULL) {
-										if (UpperElementLevel > 0) {
-											break;
-										}
-										if (UpperElementLevel < 0) {
-											UpperElementLevel = 0;
-										}
-										// read the data we care about in a track
-										// Track number
-										if (EbmlId(*ElementLevel3) == KaxTrackNumber::ClassInfos.GlobalId) {
-											KaxTrackNumber & TrackNum = *static_cast<KaxTrackNumber*>(ElementLevel3);
-											TrackNum.ReadData(aStream.I_O());
-											printf("Track # %d\n", uint8(TrackNum));
-										}
-										
-										// Track type
-										else if (EbmlId(*ElementLevel3) == KaxTrackType::ClassInfos.GlobalId) {
-											KaxTrackType & TrackType = *static_cast<KaxTrackType*>(ElementLevel3);
-											TrackType.ReadData(aStream.I_O());
-											//printf("Track type : ");
-											switch (uint8(TrackType)) {
-												case track_audio:
-													//printf("Audio");
-													TrackAudio = static_cast<KaxTrackEntry *>(ElementLevel2);
-													TrackAudio->SetGlobalTimecodeScale(TimecodeScale);
-													break;
-												case track_video:
-													//printf("Video");
-													TrackVideo = static_cast<KaxTrackEntry *>(ElementLevel2);
-													TrackVideo->SetGlobalTimecodeScale(TimecodeScale);
-													break;
-												default:
-													//printf("unknown");
-													break;
-											}
-											//printf("\n");
-										} else if (EbmlId(*ElementLevel3) == KaxTrackFlagLacing::ClassInfos.GlobalId) {
-											//printf("Flag Lacing\n");
-										} else if (EbmlId(*ElementLevel3) == KaxCodecID::ClassInfos.GlobalId) {
-											KaxCodecID & CodecID = *static_cast<KaxCodecID*>(ElementLevel3);
-											CodecID.ReadData(aStream.I_O());
-											[codecs addObject:@(string(CodecID).c_str())];
-										}
-										
-										if (UpperElementLevel > 0) {
-											assert(0 == 1); // impossible to be here ?
-											UpperElementLevel--;
-											delete ElementLevel2;
-											ElementLevel2 = ElementLevel3;
-											if (UpperElementLevel > 0)
-												break;
-										} else {
-											ElementLevel3->SkipData(aStream, ElementLevel3->Generic().Context);
-											delete ElementLevel3;
-											
-											ElementLevel3 = aStream.FindNextElement(ElementLevel2->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-										}
-									}
-								}
-								if (UpperElementLevel > 0) {
-									UpperElementLevel--;
-									delete ElementLevel2;
-									ElementLevel2 = ElementLevel3;
-									if (UpperElementLevel > 0)
-										break;
-								} else {
-									ElementLevel2->SkipData(aStream, ElementLevel2->Generic().Context);
-									delete ElementLevel2;
-									
-									ElementLevel2 = aStream.FindNextElement(ElementLevel1->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-								}
-							}
-						}
-						
-						else if (EbmlId(*ElementLevel1) == KaxInfo::ClassInfos.GlobalId) {
-							//printf("\n- Segment Informations found\n");
-							SegmentInfo = static_cast<KaxInfo *>(ElementLevel1);
-							
-							// read the data we care about in matroska
-							/// \todo There should be a way to get the default values of the elements not defined
-							ElementLevel2 = aStream.FindNextElement(ElementLevel1->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-							while (ElementLevel2 != NULL) {
-								if (UpperElementLevel > 0) {
-									break;
-								}
-								if (UpperElementLevel < 0) {
-									UpperElementLevel = 0;
-								}
-								if (EbmlId(*ElementLevel2) == KaxTimecodeScale::ClassInfos.GlobalId) {
-									KaxTimecodeScale *TimeScale = static_cast<KaxTimecodeScale*>(ElementLevel2);
-									TimeScale->ReadData(aStream.I_O());
-									printf("Timecode Scale %d\n", uint32(*TimeScale));
-									TimecodeScale = uint64(*TimeScale);
-								} else if (EbmlId(*ElementLevel2) == KaxDuration::ClassInfos.GlobalId) {
-									printf("Segment duration\n");
-								} else if (EbmlId(*ElementLevel2) == KaxDateUTC::ClassInfos.GlobalId) {
-									printf("Date UTC\n");
-								} else if (EbmlId(*ElementLevel2) == KaxTitle::ClassInfos.GlobalId) {
-									printf("Title\n");
-								} else if (EbmlId(*ElementLevel2) == KaxMuxingApp::ClassInfos.GlobalId) {
-									KaxMuxingApp *pApp = static_cast<KaxMuxingApp*>(ElementLevel2);
-									pApp->ReadData(aStream.I_O());
-									wprintf(L"Muxing App : %ls\n", UTFstring(*pApp).c_str());
-								} else if (EbmlId(*ElementLevel2) == KaxWritingApp::ClassInfos.GlobalId) {
-									KaxWritingApp *pApp = static_cast<KaxWritingApp*>(ElementLevel2);
-									pApp->ReadData(aStream.I_O());
-#if !defined(__CYGWIN__) && !defined(__APPLE__) && !defined(__BEOS__) && !defined(__NetBSD__)
-									wprintf(L"Writing App : %ls (éàôï)\n", UTFstring(*pApp).c_str());
-#else
-									printf("Writing App : %ls (éàôï)\n", UTFstring(*pApp).c_str());
-#endif
-								}
-								
-								if (UpperElementLevel > 0) {
-									UpperElementLevel--;
-									delete ElementLevel2;
-									ElementLevel2 = ElementLevel3;
-									if (UpperElementLevel > 0)
-										break;
-								} else {
-									ElementLevel2->SkipData(aStream, ElementLevel2->Generic().Context);
-									delete ElementLevel2;
-									
-									ElementLevel2 = aStream.FindNextElement(ElementLevel1->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-								}
-							}
-						}
-						
-						else if (EbmlId(*ElementLevel1) == KaxCluster::ClassInfos.GlobalId) {
-							printf("\n- Segment Clusters found\n");
-							SegmentCluster = static_cast<KaxCluster *>(ElementLevel1);
-							//          SegmentCluster->ClearElement();
-							uint32 ClusterTimecode;
-							EbmlCrc32 *pChecksum = NULL;
-							uint32 SizeInCrc;
-							uint64 CrcPositionStart = 0;
-							
-#ifdef MEMORY_READ // read the Cluster in memory and then extract elements from memory
-							SegmentCluster->Read(aStream, KaxCluster::ClassInfos.Context, UpperElementLevel, ElementLevel2, bAllowDummy);
-							if (SegmentCluster->CheckMandatory()) {
-								printf("  * All mandatory elements found *\n");
-							} else {
-								printf("  * Some mandatory elements ar missing !!! *\n");
-							}
-							
-							// display the elements read
-							unsigned int Index0;
-							for (Index0 = 0; Index0<SegmentCluster->ListSize() ;Index0++) {
-								printf(" - found %s\n", (*SegmentCluster)[Index0]->Generic().DebugName);
-							}
-#else // not MEMORY_READ
-							// read blocks and discard the ones we don't care about
-							ElementLevel2 = aStream.FindNextElement(ElementLevel1->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-							while (ElementLevel2 != NULL) {
-								if (UpperElementLevel > 0) {
-									break;
-								}
-								if (UpperElementLevel < 0) {
-									UpperElementLevel = 0;
-								}
-								if (EbmlId(*ElementLevel2) == KaxClusterTimecode::ClassInfos.GlobalId) {
-									printf("Cluster timecode found\n");
-									KaxClusterTimecode & ClusterTime = *static_cast<KaxClusterTimecode*>(ElementLevel2);
-									ClusterTime.ReadData(aStream.I_O());
-									ClusterTimecode = uint32(ClusterTime);
-									SegmentCluster->InitTimecode(ClusterTimecode, TimecodeScale);
-								} else  if (EbmlId(*ElementLevel2) == KaxBlockGroup::ClassInfos.GlobalId) {
-									printf("Block Group found\n");
-#ifdef TEST_BLOCKGROUP_READ
-									KaxBlockGroup & aBlockGroup = *static_cast<KaxBlockGroup*>(ElementLevel2);
-									//              aBlockGroup.ClearElement();
-									// Extract the valuable data from the Block
-									
-									aBlockGroup.Read(aStream, KaxBlockGroup::ClassInfos.Context, UpperElementLevel, ElementLevel3, bAllowDummy);
-									KaxBlock * DataBlock = static_cast<KaxBlock *>(aBlockGroup.FindElt(KaxBlock::ClassInfos));
-									if (DataBlock != NULL) {
-										//                DataBlock->ReadData(aStream.I_O());
-										DataBlock->SetParent(*SegmentCluster);
-										printf("   Track # %d / %d frame%s / Timecode %I64d\n",DataBlock->TrackNum(), DataBlock->NumberFrames(), (DataBlock->NumberFrames() > 1)?"s":"", DataBlock->GlobalTimecode());
-									} else {
-										printf("   A BlockGroup without a Block !!!");
-									}
-									KaxBlockDuration * BlockDuration = static_cast<KaxBlockDuration *>(aBlockGroup.FindElt(KaxBlockDuration::ClassInfos));
-									if (BlockDuration != NULL) {
-										printf("  Block Duration %d scaled ticks : %ld ns\n", uint32(*BlockDuration), uint32(*BlockDuration) * TimecodeScale);
-									}
-									KaxReferenceBlock * RefTime = static_cast<KaxReferenceBlock *>(aBlockGroup.FindElt(KaxReferenceBlock::ClassInfos));
-									if (RefTime != NULL) {
-										printf("  Reference frame at scaled (%d) timecode %ld\n", int32(*RefTime), int32(int64(*RefTime) * TimecodeScale));
-									}
-#else // TEST_BLOCKGROUP_READ
-									// read the data we care about in matroska
-									/// \todo There should be a way to get the default values of the elements not defined
-									ElementLevel3 = aStream.FindNextElement(ElementLevel2->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-									while (ElementLevel3 != NULL) {
-										if (UpperElementLevel > 0) {
-											break;
-										}
-										if (UpperElementLevel < 0) {
-											UpperElementLevel = 0;
-										}
-										if (EbmlId(*ElementLevel3) == KaxBlock::ClassInfos.GlobalId) {
-											printf(" Block Data\n");
-											KaxBlock & DataBlock = *static_cast<KaxBlock*>(ElementLevel3);
-#ifdef NO_DISPLAY_DATA
-											DataBlock.ReadData(aStream.I_O(), SCOPE_PARTIAL_DATA);
-#else // NO_DISPLAY_DATA
-											DataBlock.ReadData(aStream.I_O(), SCOPE_ALL_DATA);
-#endif // NO_DISPLAY_DATA
-											DataBlock.SetParent(*SegmentCluster);
-											//printf("   Track # %d / %d frame%s / Timecode %I64d\n",DataBlock.TrackNum(), DataBlock.NumberFrames(), (DataBlock.NumberFrames() > 1)?"s":"", DataBlock.GlobalTimecode());
-#ifndef NO_DISPLAY_DATA
-											for (unsigned int i=0; i< DataBlock.NumberFrames(); i++) {
-												//printf("   [%s]\n",DataBlock.GetBuffer(i).Buffer()); // STRING ONLY POSSIBLE WITH THIS PARTICULAR EXAMPLE (the binary data is a string)
-											}
-#endif // NO_DISPLAY_DATA
-											//                  printf("Codec ID   : %s\n", &binary(CodecID)); // strings for the moment (example)
-#if MATROSKA_VERSION >= 2
-										} else if (EbmlId(*ElementLevel3) == KaxBlockVirtual::ClassInfos.GlobalId) {
-											//printf(" Virtual Block\n");
-										} else if (EbmlId(*ElementLevel3) == KaxReferenceVirtual::ClassInfos.GlobalId) {
-											//printf("  virtual Reference\n");
-#endif // MATROSKA_VERSION
-										} else if (EbmlId(*ElementLevel3) == KaxReferencePriority::ClassInfos.GlobalId) {
-											//printf("  Reference priority\n");
-										} else if (EbmlId(*ElementLevel3) == KaxReferenceBlock::ClassInfos.GlobalId) {
-											KaxReferenceBlock & RefTime = *static_cast<KaxReferenceBlock*>(ElementLevel3);
-											RefTime.ReadData(aStream.I_O());
-											printf("  Reference frame at scaled (%d) timecode %ld\n", int32(RefTime), int32(int64(RefTime) * TimecodeScale));
-										} else if (EbmlId(*ElementLevel3) == KaxBlockDuration::ClassInfos.GlobalId) {
-											KaxBlockDuration & BlockDuration = *static_cast<KaxBlockDuration*>(ElementLevel3);
-											BlockDuration.ReadData(aStream.I_O());
-											printf("  Block Duration %d scaled ticks : %ld ns\n", uint32(BlockDuration), uint32(BlockDuration) * TimecodeScale);
-										}
-										if (UpperElementLevel > 0) {
-											UpperElementLevel--;
-											delete ElementLevel3;
-											ElementLevel3 = ElementLevel4;
-											if (UpperElementLevel > 0)
-												break;
-										} else {
-											ElementLevel3->SkipData(aStream, ElementLevel3->Generic().Context);
-											
-											ElementLevel3 = aStream.FindNextElement(ElementLevel2->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-										}
-									}
-#endif // TEST_BLOCKGROUP_READ
-								} else if (EbmlId(*ElementLevel2) == EbmlCrc32::ClassInfos.GlobalId) {
-									printf("Cluster CheckSum !\n");
-									pChecksum = static_cast<EbmlCrc32*>(ElementLevel2);
-									pChecksum->ReadData(aStream.I_O());
-									SegmentCluster->ForceChecksum( pChecksum->GetCrc32() ); // not use later
-									SizeInCrc = 0;
-									CrcPositionStart = aStream.I_O().getFilePointer();
-								}
-								
-								if (UpperElementLevel > 0) {
-									UpperElementLevel--;
-									delete ElementLevel2;
-									ElementLevel2 = ElementLevel3;
-									if (UpperElementLevel > 0)
-										break;
-								} else {
-									ElementLevel2->SkipData(aStream, ElementLevel2->Generic().Context);
-									if (ElementLevel2 != pChecksum)
-										delete ElementLevel2;
-									
-									ElementLevel2 = aStream.FindNextElement(ElementLevel1->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-								}
-							}
-#endif // not MEMORY_READ
-							if (pChecksum != NULL) {
-								EbmlCrc32 ComputedChecksum;
-								uint64 CurrPosition = aStream.I_O().getFilePointer();
-								uint64 CrcPositionEnd = ElementLevel2->GetElementPosition();
-								binary *SupposedBufferInCrc = new binary [CrcPositionEnd - CrcPositionStart];
-								aStream.I_O().setFilePointer(CrcPositionStart);
-								aStream.I_O().readFully(SupposedBufferInCrc, CrcPositionEnd - CrcPositionStart);
-								aStream.I_O().setFilePointer(CurrPosition);
-								ComputedChecksum.FillCRC32(SupposedBufferInCrc, CrcPositionEnd - CrcPositionStart);
-								delete [] SupposedBufferInCrc;
-								if (pChecksum->GetCrc32() == ComputedChecksum.GetCrc32()) {
-									printf(" ++ CheckSum verification succeeded ++");
-								} else {
-									printf(" ++ CheckSum verification FAILED !!! ++");
-								}
-								delete pChecksum;
-								pChecksum = NULL;
-							}
-						}
-						else if (EbmlId(*ElementLevel1) == KaxCues::ClassInfos.GlobalId) {
-							printf("\n- Cue entries found\n");
-							CuesEntry = static_cast<KaxCues *>(ElementLevel1);
-							CuesEntry->SetGlobalTimecodeScale(TimecodeScale);
-							// read everything in memory
-							CuesEntry->Read(aStream, KaxCues::ClassInfos.Context, UpperElementLevel, ElementLevel2, bAllowDummy); // build the entries in memory
-							if (CuesEntry->CheckMandatory()) {
-								printf("  * All mandatory elements found *\n");
-							} else {
-								printf("  * Some mandatory elements ar missing !!! *\n");
-							}
-							CuesEntry->Sort();
-							// display the elements read
-							unsigned int Index0;
-							for (Index0 = 0; Index0<CuesEntry->ListSize() ;Index0++) {
-								if ((*CuesEntry)[Index0]->Generic().GlobalId == KaxCuePoint::ClassInfos.GlobalId) {
-									//printf(" Cue Point\n");
-									
-									KaxCuePoint & CuePoint = *static_cast<KaxCuePoint *>((*CuesEntry)[Index0]);
-									unsigned int Index1;
-									for (Index1 = 0; Index1<CuePoint.ListSize() ;Index1++) {
-										if (CuePoint[Index1]->Generic().GlobalId == KaxCueTime::ClassInfos.GlobalId) {
-											KaxCueTime & CueTime = *static_cast<KaxCueTime *>(CuePoint[Index1]);
-											nsAttribs[(NSString*)kMDItemDurationSeconds] = @(uint64(CueTime) * TimecodeScale);
-											//printf("  Time %ld\n", uint64(CueTime) * TimecodeScale);
-										} else if (CuePoint[Index1]->Generic().GlobalId == KaxCueTrackPositions::ClassInfos.GlobalId) {
-											KaxCueTrackPositions & CuePos = *static_cast<KaxCueTrackPositions *>(CuePoint[Index1]);
-											printf("  Positions\n");
-											
-											unsigned int Index2;
-											for (Index2 = 0; Index2<CuePos.ListSize() ;Index2++) {
-												if (CuePos[Index2]->Generic().GlobalId == KaxCueTrack::ClassInfos.GlobalId) {
-													KaxCueTrack & CueTrack = *static_cast<KaxCueTrack *>(CuePos[Index2]);
-													printf("   Track %d\n", uint16(CueTrack));
-												} else if (CuePos[Index2]->Generic().GlobalId == KaxCueClusterPosition::ClassInfos.GlobalId) {
-													KaxCueClusterPosition & CuePoss = *static_cast<KaxCueClusterPosition *>(CuePos[Index2]);
-													printf("   Cluster position %d\n", uint64(CuePoss));
-#if MATROSKA_VERSION >= 2
-												} else if (CuePos[Index2]->Generic().GlobalId == KaxCueReference::ClassInfos.GlobalId) {
-													KaxCueReference & CueRefs = *static_cast<KaxCueReference *>(CuePos[Index2]);
-													printf("   Reference\n");
-													
-													unsigned int Index3;
-													for (Index3 = 0; Index3<CueRefs.ListSize() ;Index3++) {
-														if (CueRefs[Index3]->Generic().GlobalId == KaxCueRefTime::ClassInfos.GlobalId) {
-															KaxCueRefTime & CueTime = *static_cast<KaxCueRefTime *>(CueRefs[Index3]);
-															printf("    Time %d\n", uint32(CueTime));
-														} else if (CueRefs[Index3]->Generic().GlobalId == KaxCueRefCluster::ClassInfos.GlobalId) {
-															KaxCueRefCluster & CueClust = *static_cast<KaxCueRefCluster *>(CueRefs[Index3]);
-															printf("    Cluster position %d\n", uint64(CueClust));
-														} else {
-															printf("    - found %s\n", CueRefs[Index3]->Generic().DebugName);
-														}
-													}
-#endif // MATROSKA_VERSION
-												} else {
-													printf("   - found %s\n", CuePos[Index2]->Generic().DebugName);
-												}
-											}
-										} else {
-											printf("  - found %s\n", CuePoint[Index1]->Generic().DebugName);
-										}
-									}
-								} else {
-									printf(" - found %s\n", (*CuesEntry)[Index0]->Generic().DebugName);
-								}
-							}
-						}
-						else if (EbmlId(*ElementLevel1) == KaxSeekHead::ClassInfos.GlobalId) {
-							printf("\n- Meta Seek found\n");
-							MetaSeek = static_cast<KaxSeekHead *>(ElementLevel1);
-							// read it in memory
-							MetaSeek->Read(aStream, KaxSeekHead::ClassInfos.Context, UpperElementLevel, ElementLevel2, bAllowDummy);
-							if (MetaSeek->CheckMandatory()) {
-								printf("  * All mandatory elements found *\n");
-							} else {
-								printf("  * Some mandatory elements ar missing !!! *\n");
-							}
-							unsigned int Index0;
-							for (Index0 = 0; Index0<MetaSeek->ListSize() ;Index0++) {
-								if ((*MetaSeek)[Index0]->Generic().GlobalId == KaxSeek::ClassInfos.GlobalId) {
-									printf("   Seek Point\n");
-									KaxSeek & SeekPoint = *static_cast<KaxSeek *>((*MetaSeek)[Index0]);
-									unsigned int Index1;
-									for (Index1 = 0; Index1<SeekPoint.ListSize() ;Index1++) {
-										if (SeekPoint[Index1]->Generic().GlobalId == KaxSeekID::ClassInfos.GlobalId) {
-											KaxSeekID * SeekID = static_cast<KaxSeekID *>(SeekPoint[Index1]);
-											printf("    Seek ID ", SeekID->GetBuffer());
-											for (unsigned int i=0; i<SeekID->GetSize(); i++) {
-												printf("%02X", SeekID->GetBuffer()[i]);
-											}
-											printf("\n");
-										} else if (SeekPoint[Index1]->Generic().GlobalId == KaxSeekPosition::ClassInfos.GlobalId) {
-											KaxSeekPosition * SeekPos = static_cast<KaxSeekPosition *>(SeekPoint[Index1]);
-											printf("    Seek position %d\n", uint32(*SeekPos));
-										}
-									}
-								}
-							}
-						} else if (EbmlId(*ElementLevel1) == KaxChapters::ClassInfos.GlobalId) {
-							printf("\n- Chapters found\n");
-							Chapters = static_cast<KaxChapters *>(ElementLevel1);
-							// read it in memory
-							Chapters->Read(aStream, KaxChapters::ClassInfos.Context, UpperElementLevel, ElementLevel2, bAllowDummy);
-							if (Chapters->CheckMandatory()) {
-								printf("  * All mandatory elements found *\n");
-							} else {
-								printf("  * Some mandatory elements ar missing !!! *\n");
-							}
-							unsigned int Index0;
-							for (Index0 = 0; Index0<Chapters->ListSize() ;Index0++) {
-								if ((*Chapters)[Index0]->Generic().GlobalId == KaxEditionEntry::ClassInfos.GlobalId) {
-									printf("   Edition\n");
-									KaxEditionEntry & Edition = *static_cast<KaxEditionEntry *>((*Chapters)[Index0]);
-									unsigned int Index2;
-									for (Index2 = 0; Index2<Edition.ListSize() ;Index2++) {
-										if (Edition[Index2]->Generic().GlobalId == KaxChapterAtom::ClassInfos.GlobalId) {
-											printf("     Chapter Atom\n");
-											KaxChapterAtom & aChapterAtom = *static_cast<KaxChapterAtom *>(Edition[Index2]);
-											unsigned int Index3;
-											for (Index3 = 0; Index3<aChapterAtom.ListSize() ;Index3++) {
-												if (aChapterAtom[Index3]->Generic().GlobalId == KaxChapterUID::ClassInfos.GlobalId) {
-													printf("      Chapter UID 0x%08x\n", uint32(*static_cast<EbmlUInteger *>(aChapterAtom[Index3])) );
-												} else if (aChapterAtom[Index3]->Generic().GlobalId == KaxChapterTimeStart::ClassInfos.GlobalId) {
-													printf("      Time Start %d\n", uint32(*static_cast<EbmlUInteger *>(aChapterAtom[Index3])) );
-												} else if (aChapterAtom[Index3]->Generic().GlobalId == KaxChapterTimeEnd::ClassInfos.GlobalId) {
-													printf("      Time End %d ns\n", uint32(*static_cast<EbmlUInteger *>(aChapterAtom[Index3])) );
-												} else if (aChapterAtom[Index3]->Generic().GlobalId == KaxChapterTrack::ClassInfos.GlobalId) {
-													printf("      Track list\n");
-												} else if (aChapterAtom[Index3]->Generic().GlobalId == KaxChapterDisplay::ClassInfos.GlobalId) {
-													printf("      Display info\n");
-													KaxChapterDisplay & aDisplay = *static_cast<KaxChapterDisplay *>(aChapterAtom[Index3]);
-													unsigned int Index4;
-													for (Index4 = 0; Index4<aDisplay.ListSize() ;Index4++) {
-														if (aDisplay[Index4]->Generic().GlobalId == KaxChapterString::ClassInfos.GlobalId) {
-															printf("       Display \"%ls\"\n", UTFstring(*static_cast<EbmlUnicodeString *>(aDisplay[Index4])).c_str() );
-														} else if (aDisplay[Index4]->Generic().GlobalId == KaxChapterLanguage::ClassInfos.GlobalId) {
-															printf("       For language \"%s\"\n", std::string(*static_cast<EbmlString *>(aDisplay[Index4])).c_str() );
-														} else if (aDisplay[Index4]->Generic().GlobalId == KaxChapterCountry::ClassInfos.GlobalId) {
-															printf("       For country \"%s\"\n", std::string(*static_cast<EbmlString *>(aDisplay[Index4])).c_str() );
-														} else if (aDisplay[Index4]->IsDummy()) {
-															printf("       Dummy !!!\n");
-														}
-													}
-												}
-											}
-										}
-									}
-								}
-							}
-						} else if (EbmlId(*ElementLevel1) == KaxTags::ClassInfos.GlobalId) {
-							printf("\n- Tags found\n");
-							AllTags = static_cast<KaxTags *>(ElementLevel1);
-							// read it in memory
-							AllTags->Read(aStream, KaxTags::ClassInfos.Context, UpperElementLevel, ElementLevel2, bAllowDummy);
-							if (AllTags->CheckMandatory()) {
-								printf("  * All mandatory elements found *\n");
-							} else {
-								printf("  * Some mandatory elements ar missing !!! *\n");
-							}
-							unsigned int Index0;
-							for (Index0 = 0; Index0<AllTags->ListSize() ;Index0++) {
-								if ((*AllTags)[Index0]->Generic().GlobalId == KaxTag::ClassInfos.GlobalId) {
-									printf("   Tag\n");
-									KaxTag & TagElt = *static_cast<KaxTag *>((*AllTags)[Index0]);
-									unsigned int Index1;
-									for (Index1 = 0; Index1<TagElt.ListSize() ;Index1++) {
-										//                 bool bRemoved = false, bRemovedDone = true;
-										if (TagElt[Index1]->Generic().GlobalId == KaxTagTargets::ClassInfos.GlobalId) {
-											printf("    Targets\n");
-											KaxTagTargets & Targets = *static_cast<KaxTagTargets *>(TagElt[Index1]);
-											unsigned int Index2;
-											for (Index2 = 0; Index2<Targets.ListSize() ;Index2++) {
-												if (Targets[Index2]->Generic().GlobalId == KaxTagTrackUID::ClassInfos.GlobalId) {
-													printf("     Track UID\n");
-												} else if (Targets[Index2]->Generic().GlobalId == KaxTagChapterUID::ClassInfos.GlobalId) {
-													printf("     Chapter UID\n");
-#if 0
-												} else if (Targets[Index2]->Generic().GlobalId == KaxTagMultiComment::ClassInfos.GlobalId) {
-													printf("     Comment\n");
-													KaxTagMultiComment & Comment = *static_cast<KaxTagMultiComment *>(Targets[Index2]);
-													unsigned int Index3;
-													for (Index3 = 0; Index3<Comment.ListSize() ;Index3++) {
-														if (Comment[Index3]->Generic().GlobalId == KaxTagMultiCommentName::ClassInfos.GlobalId) {
-															KaxTagMultiCommentName & CommentName = *static_cast<KaxTagMultiCommentName *>(Comment[Index3]);
-															printf("      Comment Name \"%s\"\n", std::string(CommentName).c_str());
-														}
-													}
-													//                    } else if (Targets[Index2]->Generic().GlobalId == DummyRawElement::ClassInfos.GlobalId) {
-#endif
-												}
-											}
-#if 0
-										} else if (TagElt[Index1]->Generic().GlobalId == KaxTagGeneral::ClassInfos.GlobalId) {
-											printf("    General\n");
-											KaxTagGeneral & General = *static_cast<KaxTagGeneral *>(TagElt[Index1]);
-											unsigned int Index2;
-											for (Index2 = 0; Index2<General.ListSize() ;Index2++) {
-												if (General[Index2]->Generic().GlobalId == KaxTagSubject::ClassInfos.GlobalId) {
-													printf("     Subject\n");
-												} else if (General[Index2]->Generic().GlobalId == KaxTagBibliography::ClassInfos.GlobalId) {
-													printf("     Bibliography\n");
-												} else if (General[Index2]->Generic().GlobalId == KaxTagLanguage::ClassInfos.GlobalId) {
-													printf("     Language\n");
-												}
-											}
-										} else if (TagElt[Index1]->Generic().GlobalId == KaxTagMultiCommercial::ClassInfos.GlobalId) {
-											printf("    MultiCommercial\n");
-											KaxTagMultiCommercial & Commercials = *static_cast<KaxTagMultiCommercial *>(TagElt[Index1]);
-											unsigned int Index2;
-											for (Index2 = 0; Index2<Commercials.ListSize() ;Index2++) {
-												if (Commercials[Index2]->Generic().GlobalId == KaxTagCommercial::ClassInfos.GlobalId) {
-													printf("     Commercial\n");
-													KaxTagCommercial & Commercial = *static_cast<KaxTagCommercial *>(Commercials[Index2]);
-													unsigned int Index3;
-													for (Index3 = 0; Index3<Commercial.ListSize() ;Index3++) {
-														if (Commercial[Index3]->Generic().GlobalId == KaxTagMultiCommercialType::ClassInfos.GlobalId) {
-															printf("      Type\n");
-														} else if (Commercial[Index3]->Generic().GlobalId == KaxTagMultiPrice::ClassInfos.GlobalId) {
-															printf("      Prices\n");
-															KaxTagMultiPrice & Prices = *static_cast<KaxTagMultiPrice *>(Commercial[Index3]);
-															unsigned int Index4;
-															for (Index4 = 0; Index4<Prices.ListSize(); Index4++) {
-																if (Prices[Index4]->Generic().GlobalId == KaxTagMultiPriceCurrency::ClassInfos.GlobalId) {
-																	printf("       Currency\n");
-																} else if (Prices[Index4]->Generic().GlobalId == KaxTagMultiPriceAmount::ClassInfos.GlobalId) {
-																	printf("       Amount\n");
-																}
-															}
-														}
-													}
-												}
-											}
-										} else if (TagElt[Index1]->Generic().GlobalId == KaxTagMultiDate::ClassInfos.GlobalId) {
-											printf("    MultiDate\n");
-										} else if (TagElt[Index1]->Generic().GlobalId == KaxTagMultiComment::ClassInfos.GlobalId) {
-											printf("    Comment\n");
-											KaxTagMultiComment & Comment = *static_cast<KaxTagMultiComment *>(TagElt[Index1]);
-											unsigned int Index2;
-											for (Index2 = 0; Index2<Comment.ListSize() ;Index2++) {
-												if (Comment[Index2]->Generic().GlobalId == KaxTagMultiCommentName::ClassInfos.GlobalId) {
-													KaxTagMultiCommentName & CommentName = *static_cast<KaxTagMultiCommentName *>(Comment[Index2]);
-													printf("     Comment Name \"%s\"\n", std::string(CommentName).c_str());
-												}
-											}
-#endif
-										}
-									}
-								}
-							}
-							if (AllTags->HasChecksum()) {
-								if (AllTags->VerifyChecksum()) {
-									printf(" ++ CheckSum verification succeeded ++\n");
-								} else {
-									printf(" ++ CheckSum verification FAILED !!! ++\n");
-								}
-							}
-						}
-						
-						if (UpperElementLevel > 0) {
-							UpperElementLevel--;
-							delete ElementLevel1;
-							ElementLevel1 = ElementLevel2;
-							if (UpperElementLevel > 0)
-								break;
-						} else {
-							ElementLevel1->SkipData(aStream, ElementLevel1->Generic().Context);
-							delete ElementLevel1;
-							
-							ElementLevel1 = aStream.FindNextElement(ElementLevel0->Generic().Context, UpperElementLevel, 0, bAllowDummy);
-						}
-					}
-				}
-			}
-			nsAttribs[(NSString*)kMDItemCodecs] = codecs;
+			ok = MatroskaImport::getMetadata(nsAttribs, (__bridge NSString*)contentTypeUTI, nsPath);
 		} @catch (NSException *exception) {
 			ok = FALSE;
 		} @finally {
@@ -711,3 +237,50 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
     // Return the status
     return ok;
 }
+
+EbmlElement * MatroskaImport::NextLevel1Element()
+{
+	int upperLevel = 0;
+	
+	if (el_l1) {
+		el_l1->SkipData(_aStream, el_l1->Generic().Context);
+		delete el_l1;
+		el_l1 = NULL;
+	}
+	
+	el_l1 = _aStream.FindNextElement(el_l0->Generic().Context, upperLevel, 0xFFFFFFFFL, true);
+	
+	// dummy element -> probably corrupt file, search for next element in meta seek and continue from there
+	if (el_l1 && el_l1->IsDummy()) {
+		vector<MatroskaSeek>::iterator nextElt;
+		MatroskaSeek currElt;
+		currElt.segmentPos = el_l1->GetElementPosition();
+		currElt.idLength = currElt.ebmlID = 0;
+		
+		nextElt = find_if(levelOneElements.begin(), levelOneElements.end(), bind2nd(greater<MatroskaSeek>(), currElt));
+		if (nextElt != levelOneElements.end()) {
+			SetContext(nextElt->GetSeekContext(segmentOffset));
+			NextLevel1Element();
+		}
+	}
+	
+	return el_l1;
+}
+
+
+MatroskaImport::MatroskaSeek::MatroskaSeekContext MatroskaImport::SaveContext()
+{
+	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile.getFilePointer() };
+	el_l1 = NULL;
+	return ret;
+}
+
+void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
+{
+	if (el_l1)
+		delete el_l1;
+	
+	el_l1 = context.el_l1;
+	_ebmlFile.setFilePointer(context.position);
+}
+

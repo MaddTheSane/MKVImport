@@ -185,6 +185,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		557B87F41E1DBA1800F2133E /* MKVImporter.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = MKVImporter.exp; sourceTree = "<group>"; };
 		55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = "wrapper.spotlight-importer"; includeInIndex = 0; path = MKVImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
 		55868DFB1E1C189B00CDDED1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; usesTabs = 0; };
 		55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GetMetadataForFile.mm; sourceTree = "<group>"; };
@@ -386,6 +387,7 @@
 				55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */,
 				55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */,
 				55868EF81E1C1F5700CDDED1 /* schema.strings */,
+				557B87F41E1DBA1800F2133E /* MKVImporter.exp */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -1046,6 +1048,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				EXPORTED_SYMBOLS_FILE = MKVImporter/MKVImporter.exp;
 				HEADER_SEARCH_PATHS = (
 					Vendor/libebml/,
 					Vendor/libmatroska,
@@ -1065,6 +1068,8 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
+				DEAD_CODE_STRIPPING = YES;
+				EXPORTED_SYMBOLS_FILE = MKVImporter/MKVImporter.exp;
 				HEADER_SEARCH_PATHS = (
 					Vendor/libebml/,
 					Vendor/libmatroska,

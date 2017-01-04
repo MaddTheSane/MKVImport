@@ -29,31 +29,22 @@
          
             <!-- 'allattrs' is a whitespace separated list of all of the attributes that this UTI type normally has.
                  It does not have to be exhaustive. -->
-            <allattrs> 
+            <allattrs>
+				kMDItemCodecs
 				kMDItemHasAlphaChannel
 				kMDItemLayerNames
-				kMDItemOrientation
-				kMDItemBitsPerSample
 				kMDItemPixelHeight
 				kMDItemPixelWidth
 				kMDItemColorSpace
-				kMDItemResolutionHeightDPI
-				kMDItemResolutionWidthDPI
-				kMDItemFNumber
-				kMDItemEXIFVersion
-				kMDItemContentCreationDate
             </allattrs>
             <!-- 'displayattrs' is a whitespace separated list of the attributes that should normally be displayed when previewing files of this UTI type. -->
             <displayattrs>
+				kMDItemCodecs
 				kMDItemHasAlphaChannel
 				kMDItemLayerNames
-				kMDItemOrientation
-				kMDItemBitsPerSample
 				kMDItemPixelHeight
 				kMDItemPixelWidth
 				kMDItemColorSpace
-				kMDItemResolutionHeightDPI
-				kMDItemResolutionWidthDPI
             </displayattrs>
             
         </type>
