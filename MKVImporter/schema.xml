@@ -23,6 +23,9 @@
             To see the system's definitions for the builtin attributes and file types, look at the system schema,
             /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Resources/schema.xml
     -->
+	<attributes>
+		<!--<attribute name="com_GitHub_MaddTheSane_ChapterNames" multivalued="true" type="CFString"/>-->
+	</attributes>
 
     <types>
         <type name="org.matroska.mkv">  <!-- add one <type>...</type> entry for each UTI that you need to define.
@@ -48,6 +51,27 @@
             </displayattrs>
             
         </type>
+		
+		<type name="org.matroska.mka">
+		<allattrs>
+			kMDItemCodecs
+			kMDItemHasAlphaChannel
+			kMDItemLayerNames
+			kMDItemPixelHeight
+			kMDItemPixelWidth
+			kMDItemColorSpace
+		</allattrs>
+		<displayattrs>
+			kMDItemCodecs
+			kMDItemHasAlphaChannel
+			kMDItemLayerNames
+			kMDItemPixelHeight
+			kMDItemPixelWidth
+			kMDItemColorSpace
+		</displayattrs>
+		
+		</type>
+
     </types>
 </schema>
 

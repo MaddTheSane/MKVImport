@@ -48,13 +48,20 @@ class MatroskaImport {
 private:
 	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
 		newAttribs = [[NSMutableDictionary alloc] init];
+		segmentOffset = 0;
+		el_l0 = NULL;
+		el_l1 = NULL;
 	}
 	virtual ~MatroskaImport() {
 		attributes = nil;
 		newAttribs = nil;
 	};
 	bool ReadSegmentInfo(KaxInfo &segmentInfo);
-	
+	bool ReadTracks(KaxTracks &trackEntries);
+	bool ReadChapters(KaxChapters &trackEntries);
+	bool ReadAttachments(KaxAttachments &trackEntries);
+	bool ReadMetaSeek(KaxSeekHead &trackEntries);
+
 	bool isValidMatroska();
 	void copyDataOver() {
 		[attributes addEntriesFromDictionary:newAttribs];
@@ -92,6 +99,10 @@ private:
 	/// value if not null, and seeks to the specified point in the file.
 	void SetContext(MatroskaSeek::MatroskaSeekContext context);
 
+	bool ProcessLevel1Element();
+	//void ImportCluster(KaxCluster &cluster, bool addToTrack);
+	
+	void iterateData();
 	
 public:
 	static bool getMetadata(NSMutableDictionary *attribs, NSString *uti, NSString *path);
@@ -117,9 +128,9 @@ private:
 
 bool MatroskaImport::isValidMatroska()
 {
-	bool valid;
+	bool valid = true;
 	int upperLevel;
-	auto el_l0 = _aStream.FindNextID(EbmlHead::ClassInfos, ~0);
+	el_l0 = _aStream.FindNextID(EbmlHead::ClassInfos, ~0);
 	if (el_l0 != NULL) {
 		EbmlElement *dummyElt = NULL;
 		
@@ -144,7 +155,10 @@ bool MatroskaImport::isValidMatroska()
 		if (UInt64(readVersion) > 2) {
 			fprintf(stderr, "Matroska file too new to be read\n");
 			valid = false;
+			goto exit;
 		}
+		el_l0->SkipData(_aStream, EbmlHead_Context);
+
 	} else {
 		fprintf(stderr, "Matroska file missing EBML Head\n");
 		valid = false;
@@ -165,10 +179,81 @@ bool MatroskaImport::getMetadata(NSMutableDictionary *attribs, NSString *uti, NS
 		return false;
 	}
 	
+	generatorClass->iterateData();
+	
 	generatorClass->copyDataOver();
 	delete generatorClass;
-	return false;
+	return true;
 }
+
+void MatroskaImport::iterateData()
+{
+	bool done = false;
+	bool good = true;
+	el_l0 = _aStream.FindNextID(KaxSegment::ClassInfos, ~0);
+	if (!el_l0)
+		return;		// nothing in the file
+	
+	segmentOffset = static_cast<KaxSegment *>(el_l0)->GetDataStart();
+
+	while (!done && NextLevel1Element()) {
+		if (EbmlId(*el_l1) == KaxCluster::ClassInfos.GlobalId) {
+			// all header elements are before clusters in sane files
+			done = true;
+		} else
+			good = ProcessLevel1Element();
+		
+		if (!good)
+			return;
+	}
+
+	do {
+		if (EbmlId(*el_l1) == KaxCluster::ClassInfos.GlobalId) {
+			int upperLevel = 0;
+			EbmlElement *dummyElt = NULL;
+			
+			el_l1->Read(_aStream, KaxCluster::ClassInfos.Context, upperLevel, dummyElt, true);
+			KaxCluster & cluster = *static_cast<KaxCluster *>(el_l1);
+			
+			//ImportCluster(cluster, false);
+		}
+	} while (NextLevel1Element());
+
+}
+
+
+
+
+bool MatroskaImport::ProcessLevel1Element()
+{
+	int upperLevel = 0;
+	EbmlElement *dummyElt = NULL;
+	
+	if (EbmlId(*el_l1) == KaxInfo::ClassInfos.GlobalId) {
+		el_l1->Read(_aStream, KaxInfo::ClassInfos.Context, upperLevel, dummyElt, true);
+		return ReadSegmentInfo(*static_cast<KaxInfo *>(el_l1));
+		
+	} else if (EbmlId(*el_l1) == KaxTracks::ClassInfos.GlobalId) {
+		el_l1->Read(_aStream, KaxTracks::ClassInfos.Context, upperLevel, dummyElt, true);
+		return ReadTracks(*static_cast<KaxTracks *>(el_l1));
+		
+	} else if (EbmlId(*el_l1) == KaxChapters::ClassInfos.GlobalId) {
+		el_l1->Read(_aStream, KaxChapters::ClassInfos.Context, upperLevel, dummyElt, true);
+		return ReadChapters(*static_cast<KaxChapters *>(el_l1));
+		
+	} else if (EbmlId(*el_l1) == KaxAttachments::ClassInfos.GlobalId) {
+		//ComponentResult res;
+		el_l1->Read(_aStream, KaxAttachments::ClassInfos.Context, upperLevel, dummyElt, true);
+		return ReadAttachments(*static_cast<KaxAttachments *>(el_l1));
+		//PrerollSubtitleTracks();
+		//return res;
+	} else if (EbmlId(*el_l1) == KaxSeekHead::ClassInfos.GlobalId) {
+		el_l1->Read(_aStream, KaxSeekHead::ClassInfos.Context, upperLevel, dummyElt, true);
+		return ReadMetaSeek(*static_cast<KaxSeekHead *>(el_l1));
+	}
+	return true;
+}
+
 
 bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 {
@@ -197,7 +282,42 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 		newAttribs[(NSString*)kMDItemCreator] = @(muxingApp.GetValueUTF8().c_str());
 	}
 	
-	return false;
+	return true;
+}
+
+bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
+{
+	return true;
+}
+
+bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
+{
+	NSMutableArray<NSString*> *chapters = [[NSMutableArray alloc] init];
+	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
+	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
+	while (chapterAtom && chapterAtom->GetSize() > 0) {
+		//AddChapterAtom(chapterAtom);
+		KaxChapterDisplay & chapDisplay = GetChild<KaxChapterDisplay>(*chapterAtom);
+		KaxChapterString & chapString = GetChild<KaxChapterString>(chapDisplay);
+		[chapters addObject:@(chapString.GetValueUTF8().c_str())];
+
+		chapterAtom = &GetNextChild<KaxChapterAtom>(edition, *chapterAtom);
+	}
+	
+	newAttribs[(NSString*)kMDItemLayerNames] = [chapters copy];
+	seenChapters = true;
+
+	return true;
+}
+
+bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
+{
+	return true;
+}
+
+bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekEntries)
+{
+	return true;
 }
 
 //==============================================================================

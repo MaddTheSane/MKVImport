@@ -12,8 +12,10 @@
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>org.matroska.mkv</string>
-				<string>com.google.webm</string>
 				<string>org.matroska.mka</string>
+				<string>com.google.webm</string>
+				<string>org.videolan.mkv</string>
+				<string>org.videolan.mka</string>
 			</array>
 		</dict>
 	</array>
