@@ -373,6 +373,43 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_complex:
+			{
+				KaxTrackVideo *vidTrack = FindChild<KaxTrackVideo>(track);
+				if (vidTrack) {
+					KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(*vidTrack);
+					KaxVideoPixelHeight &curKaxHeight = GetChild<KaxVideoPixelHeight>(*vidTrack);
+					///KaxVideoColourSpace
+					uint32 curWidth = uint32(curKaxWidth);
+					uint32 curHeight = uint32(curKaxHeight);
+					if (curWidth >= biggestWidth && curHeight >= biggestHeight) {
+						biggestWidth = curWidth;
+						biggestHeight = curHeight;
+					}
+				}
+			}
+			{
+				KaxTrackAudio *audTrack = FindChild<KaxTrackAudio>(track);
+				if (audTrack) {
+					KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(*audTrack);
+					KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(*audTrack);
+					//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
+					double curSampling = curKaxSampling.GetValue();
+					int curChannels = (int)curKaxChannels.GetValue();
+					if (curSampling > sampleRate) {
+						sampleRate = curSampling;
+					}
+					if (curChannels > maxChannels) {
+						maxChannels = curChannels;
+					}
+				}
+			}
+
+				codec = mkvCodecShortener(&track);
+				if (codec) {
+					[codecSet addObject:codec];
+				}
+
+				break;
 			case track_logo:
 			case track_buttons:
 			case track_control:
