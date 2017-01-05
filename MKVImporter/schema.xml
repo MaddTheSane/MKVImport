@@ -24,7 +24,7 @@
             /System/Library/Frameworks/CoreServices.framework/Frameworks/Metadata.framework/Resources/schema.xml
     -->
 	<attributes>
-		<!--<attribute name="com_GitHub_MaddTheSane_ChapterNames" multivalued="true" type="CFString"/>-->
+		<attribute name="com_GitHub_MaddTheSane_ChapterNames" multivalued="true" type="CFString"/>
 	</attributes>
 
     <types>
@@ -39,6 +39,7 @@
 				kMDItemPixelHeight
 				kMDItemPixelWidth
 				kMDItemColorSpace
+				com_GitHub_MaddTheSane_ChapterNames
             </allattrs>
             <!-- 'displayattrs' is a whitespace separated list of the attributes that should normally be displayed when previewing files of this UTI type. -->
             <displayattrs>
@@ -60,6 +61,7 @@
 			kMDItemPixelHeight
 			kMDItemPixelWidth
 			kMDItemColorSpace
+			com_GitHub_MaddTheSane_ChapterNames
 		</allattrs>
 		<displayattrs>
 			kMDItemCodecs

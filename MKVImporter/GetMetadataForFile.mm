@@ -33,6 +33,7 @@
 #include <iostream>
 #include <functional>
 #include <algorithm>
+#include "mkvNameShortener.hpp"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
@@ -40,7 +41,7 @@ using namespace std;
 using std::string;
 using std::vector;
 
-
+#define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
 
 
 
@@ -173,7 +174,7 @@ exit:
 
 bool MatroskaImport::getMetadata(NSMutableDictionary *attribs, NSString *uti, NSString *path)
 {
-	auto generatorClass = new MatroskaImport(path, attribs);
+	MatroskaImport *generatorClass = new MatroskaImport(path, attribs);
 	if (!generatorClass->isValidMatroska()) {
 		delete generatorClass;
 		return false;
@@ -272,7 +273,10 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	newAttribs[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
 	
 	if (!title.IsDefaultValue()) {
-		newAttribs[(NSString*)kMDItemTitle] = @(title.GetValueUTF8().c_str());
+		NSString *nsTitle = @(title.GetValueUTF8().c_str());
+		if (![nsTitle isEqualToString:@""]) {
+			newAttribs[(NSString*)kMDItemTitle] = nsTitle;
+		}
 	}
 	
 	if (!writingApp.IsDefaultValue()) {
@@ -287,6 +291,75 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 
 bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 {
+	if (seenTracks)
+		return true;
+	
+	NSMutableSet<NSString*> *langSet = [[NSMutableSet alloc] init];
+	NSMutableSet<NSString*> *codecSet = [[NSMutableSet alloc] init];
+	NSMutableArray<NSString*> *trackNames = [[NSMutableArray alloc] init];
+	
+	for (int i = 0; i < trackEntries.ListSize(); i++) {
+		if (EbmlId(*trackEntries[i]) != KaxTrackEntry::ClassInfos.GlobalId)
+			continue;
+		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntries[i]);
+		//KaxTrackNumber & number = GetChild<KaxTrackNumber>(track);
+		KaxTrackType & type = GetChild<KaxTrackType>(track);
+		//KaxTrackDefaultDuration * defaultDuration = FindChild<KaxTrackDefaultDuration>(track);
+		//KaxTrackFlagDefault & enabled = GetChild<KaxTrackFlagDefault>(track);
+		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
+		
+		KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
+		KaxTrackName & trackName = GetChild<KaxTrackName>(track);
+		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
+		NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)@(string(trackLang).c_str())));
+		if (nsLang) {
+			[langSet addObject:nsLang];
+		}
+		NSString *codec;
+		switch (uint8(type)) {
+			case track_video:
+				codec = mkvCodecShortener(&track);
+				if (codec) {
+					[codecSet addObject:codec];
+				}
+				
+				break;
+				
+			case track_audio:
+				codec = mkvCodecShortener(&track);
+				if (codec) {
+					[codecSet addObject:codec];
+				}
+
+				break;
+				
+			case track_subtitle:
+				//TODO: parse SSA, get font list?
+				break;
+				
+			case track_complex:
+			case track_logo:
+			case track_buttons:
+			case track_control:
+				// not likely to be implemented soon
+			default:
+				continue;
+		}
+		
+		//SetMediaLanguage(mkvTrack.theMedia, qtLang);
+		
+		if (!trackName.IsDefaultValue()) {
+			const char *cTrackName = UTFstring(trackName).GetUTF8().c_str();
+			NSString *nsTrackName = @(cTrackName);
+			[trackNames addObject:nsTrackName];
+		}
+	}
+	
+	newAttribs[(NSString*)kMDItemLanguages] = langSet.allObjects;
+	newAttribs[(NSString*)kMDItemCodecs] = codecSet.allObjects;
+	newAttribs[(NSString*)kMDItemLayerNames] = [trackNames copy];
+	
+	seenTracks = true;
 	return true;
 }
 
@@ -304,7 +377,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 		chapterAtom = &GetNextChild<KaxChapterAtom>(edition, *chapterAtom);
 	}
 	
-	newAttribs[(NSString*)kMDItemLayerNames] = [chapters copy];
+	newAttribs[kChapterNames] = [chapters copy];
 	seenChapters = true;
 
 	return true;
@@ -315,8 +388,53 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	return true;
 }
 
-bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekEntries)
+bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 {
+	bool okay = true;
+	KaxSeek *seekEntry = FindChild<KaxSeek>(seekHead);
+	
+	// don't re-read a seek head that's already been read
+	uint64_t currPos = seekHead.GetElementPosition();
+	vector<MatroskaSeek>::iterator itr = levelOneElements.begin();
+	for (; itr != levelOneElements.end(); itr++) {
+		if (itr->GetID() == KaxSeekHead::ClassInfos.GlobalId &&
+			itr->segmentPos + segmentOffset == currPos)
+			return true;
+	}
+	
+	while (seekEntry && seekEntry->GetSize() > 0) {
+		MatroskaSeek newSeekEntry;
+		KaxSeekID & seekID = GetChild<KaxSeekID>(*seekEntry);
+		KaxSeekPosition & position = GetChild<KaxSeekPosition>(*seekEntry);
+		EbmlId elementID = EbmlId(seekID.GetBuffer(), seekID.GetSize());
+		
+		newSeekEntry.ebmlID = elementID.Value;
+		newSeekEntry.idLength = elementID.Length;
+		newSeekEntry.segmentPos = position;
+		
+		// recursively read seek heads that are pointed to by the current one
+		// as well as the level one elements we care about
+		if (elementID == KaxInfo::ClassInfos.GlobalId ||
+			elementID == KaxTracks::ClassInfos.GlobalId ||
+			elementID == KaxChapters::ClassInfos.GlobalId ||
+			elementID == KaxAttachments::ClassInfos.GlobalId ||
+			elementID == KaxSeekHead::ClassInfos.GlobalId) {
+			
+			MatroskaSeek::MatroskaSeekContext savedContext = SaveContext();
+			SetContext(newSeekEntry.GetSeekContext(segmentOffset));
+			if (NextLevel1Element())
+				okay = ProcessLevel1Element();
+			
+			SetContext(savedContext);
+			if (!okay) return false;
+		}
+		
+		levelOneElements.push_back(newSeekEntry);
+		seekEntry = &GetNextChild<KaxSeek>(seekHead, *seekEntry);
+	}
+	
+	sort(levelOneElements.begin(), levelOneElements.end());
+	
 	return true;
 }
 
@@ -344,6 +462,8 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 		
 		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
+		// Obj-C @try blocks do capture c++ exceptions when using the newer OBJ-C ABI.
+		// NOT available in 32-bit Mac code only.
 		@try {
 			matroska_init();
 			ok = MatroskaImport::getMetadata(nsAttribs, (__bridge NSString*)contentTypeUTI, nsPath);

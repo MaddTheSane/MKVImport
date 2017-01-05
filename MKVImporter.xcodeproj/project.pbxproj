@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
 		55868DFC1E1C189B00CDDED1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFB1E1C189B00CDDED1 /* main.c */; };
 		55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */; };
 		55868E4C1E1C1CA700CDDED1 /* libmatroska.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E1F1E1C1CA700CDDED1 /* libmatroska.h */; };
@@ -186,6 +187,8 @@
 
 /* Begin PBXFileReference section */
 		557B87F41E1DBA1800F2133E /* MKVImporter.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = MKVImporter.exp; sourceTree = "<group>"; };
+		557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mkvNameShortener.mm; sourceTree = "<group>"; };
+		557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mkvNameShortener.hpp; sourceTree = "<group>"; };
 		55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */ = {isa = PBXFileReference; explicitFileType = "wrapper.spotlight-importer"; includeInIndex = 0; path = MKVImporter.mdimporter; sourceTree = BUILT_PRODUCTS_DIR; };
 		55868DFB1E1C189B00CDDED1 /* main.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = main.c; sourceTree = "<group>"; usesTabs = 0; };
 		55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = GetMetadataForFile.mm; sourceTree = "<group>"; };
@@ -371,7 +374,10 @@
 		55868DF91E1C189B00CDDED1 /* MKVImporter */ = {
 			isa = PBXGroup;
 			children = (
+				55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */,
 				55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */,
+				557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */,
+				557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */,
 				55868E021E1C189B00CDDED1 /* Importer Read Me.txt */,
 				55868E031E1C189B00CDDED1 /* Info.plist */,
 				55868DFA1E1C189B00CDDED1 /* Supporting Files */,
@@ -384,7 +390,6 @@
 			children = (
 				55868EED1E1C1DA300CDDED1 /* schema.xml */,
 				55868DFB1E1C189B00CDDED1 /* main.c */,
-				55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */,
 				55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */,
 				55868EF81E1C1F5700CDDED1 /* schema.strings */,
 				557B87F41E1DBA1800F2133E /* MKVImporter.exp */,
@@ -828,6 +833,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */,
 				55868DFC1E1C189B00CDDED1 /* main.c in Sources */,
 				55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */,
 			);
