@@ -141,7 +141,7 @@ HRESULT MetadataImporterQueryInterface(void *thisInstance,REFIID iid,LPVOID *ppv
         *ppv = thisInstance;
         CFRelease(interfaceID);
         return S_OK;
-    } else if (CFEqual(interfaceID,IUnknownUUID)) {
+    } else if (CFEqual(interfaceID, IUnknownUUID)) {
         /* If the IUnknown interface was requested, same as above. */
         ((MDPlugType*)thisInstance )->conduitInterface->AddRef(thisInstance);
         *ppv = thisInstance;
@@ -176,7 +176,7 @@ ULONG MetadataImporterPluginAddRef(void *thisInstance)
 ULONG MetadataImporterPluginRelease(void *thisInstance)
 {
     ((MDPlugType*)thisInstance)->refCount -= 1;
-    if (((MDPlugType*)thisInstance)->refCount == 0){
+    if (((MDPlugType*)thisInstance)->refCount == 0) {
         DeallocMetadataImporterPluginType((MDPlugType*)thisInstance );
         return 0;
     }else{
@@ -194,8 +194,8 @@ void *MetadataImporterPluginFactory(CFAllocatorRef allocator,CFUUIDRef typeID)
     /* If correct type is being requested, allocate an
      * instance of TestType and return the IUnknown interface.
      */
-    if (CFEqual(typeID,kMDImporterTypeID)){
-        CFUUIDRef uuid = CFUUIDCreateFromString(kCFAllocatorDefault,CFSTR(PLUGIN_ID));
+    if (CFEqual(typeID, kMDImporterTypeID)) {
+        CFUUIDRef uuid = CFUUIDCreateFromString(kCFAllocatorDefault, CFSTR(PLUGIN_ID));
         MDPlugType *result = AllocMetadataImporterPluginType(uuid);
         CFRelease(uuid);
         return result;
