@@ -208,6 +208,7 @@ void MatroskaImport::iterateData()
 			return;
 	}
 
+#if 0
 	do {
 		if (EbmlId(*el_l1) == KaxCluster::ClassInfos.GlobalId) {
 			int upperLevel = 0;
@@ -219,7 +220,7 @@ void MatroskaImport::iterateData()
 			//ImportCluster(cluster, false);
 		}
 	} while (NextLevel1Element());
-
+#endif
 }
 
 
@@ -311,8 +312,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
 		KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
-		NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)@(string(trackLang).c_str())));
-		if (nsLang) {
+		NSString *threeCharLang = @(string(trackLang).c_str());
+		NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)threeCharLang));
+		if (nsLang && ![nsLang isEqualToString:@"und"]) {
 			[langSet addObject:nsLang];
 		}
 		NSString *codec;
@@ -351,13 +353,19 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		if (!trackName.IsDefaultValue()) {
 			const char *cTrackName = UTFstring(trackName).GetUTF8().c_str();
 			NSString *nsTrackName = @(cTrackName);
-			[trackNames addObject:nsTrackName];
+			if (![nsTrackName isEqualToString:@""]) {
+				[trackNames addObject:nsTrackName];
+			}
 		}
 	}
 	
-	newAttribs[(NSString*)kMDItemLanguages] = langSet.allObjects;
+	if (langSet.count > 0) {
+		newAttribs[(NSString*)kMDItemLanguages] = langSet.allObjects;
+	}
 	newAttribs[(NSString*)kMDItemCodecs] = codecSet.allObjects;
-	newAttribs[(NSString*)kMDItemLayerNames] = [trackNames copy];
+	if (trackNames.count > 0) {
+		newAttribs[(NSString*)kMDItemLayerNames] = [trackNames copy];
+	}
 	
 	seenTracks = true;
 	return true;
