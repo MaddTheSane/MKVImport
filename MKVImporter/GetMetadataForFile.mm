@@ -14,6 +14,9 @@
 
 #include <string>
 #include <vector>
+#include <iostream>
+#include <functional>
+#include <algorithm>
 #include "ebml/EbmlHead.h"
 #include "ebml/EbmlSubHead.h"
 #include "ebml/EbmlStream.h"
@@ -30,20 +33,13 @@
 #include "matroska/KaxSeekHead.h"
 #include "matroska/KaxCuesData.h"
 
-#include <iostream>
-#include <functional>
-#include <algorithm>
 #include "mkvNameShortener.hpp"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using namespace std;
-using std::string;
-using std::vector;
 
 #define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
-
-
 
 class MatroskaImport {
 private:
@@ -265,6 +261,7 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	KaxDuration & duration = GetChild<KaxDuration>(segmentInfo);
 	KaxTimecodeScale & timecodeScale = GetChild<KaxTimecodeScale>(segmentInfo);
 	KaxTitle & title = GetChild<KaxTitle>(segmentInfo);
+	KaxDateUTC * date = FindChild<KaxDateUTC>(segmentInfo);
 	KaxWritingApp & writingApp = GetChild<KaxWritingApp>(segmentInfo);
 	KaxMuxingApp & muxingApp = GetChild<KaxMuxingApp>(segmentInfo);
 
@@ -272,6 +269,11 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	UInt64 timecodeScale1 = UInt64(timecodeScale);
 
 	newAttribs[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
+	
+	if (date) {
+		NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:date->GetValue()];
+		newAttribs[(NSString*)kMDItemContentCreationDate] = createDate;
+	}
 	
 	if (!title.IsDefaultValue()) {
 		NSString *nsTitle = @(title.GetValueUTF8().c_str());
@@ -282,10 +284,10 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	
 	if (!writingApp.IsDefaultValue()) {
 		newAttribs[(NSString*)kMDItemCreator] = @(writingApp.GetValueUTF8().c_str());
-	}
-	if (writingApp.IsDefaultValue() && !muxingApp.IsDefaultValue()) {
+	} else if (!muxingApp.IsDefaultValue()) {
 		newAttribs[(NSString*)kMDItemCreator] = @(muxingApp.GetValueUTF8().c_str());
 	}
+	seenInfo = true;
 	
 	return true;
 }
@@ -298,6 +300,11 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	NSMutableSet<NSString*> *langSet = [[NSMutableSet alloc] init];
 	NSMutableSet<NSString*> *codecSet = [[NSMutableSet alloc] init];
 	NSMutableArray<NSString*> *trackNames = [[NSMutableArray alloc] init];
+	//Because there may be more than one video track
+	uint32 biggestWidth = 0;
+	uint32 biggestHeight = 0;
+	int maxChannels = 0;
+	double sampleRate = 0;
 	
 	for (int i = 0; i < trackEntries.ListSize(); i++) {
 		if (EbmlId(*trackEntries[i]) != KaxTrackEntry::ClassInfos.GlobalId)
@@ -320,6 +327,18 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		NSString *codec;
 		switch (uint8(type)) {
 			case track_video:
+			{
+				KaxTrackVideo &vidTrack = GetChild<KaxTrackVideo>(track);
+				KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(vidTrack);
+				KaxVideoPixelHeight &curKaxHeight = GetChild<KaxVideoPixelHeight>(vidTrack);
+				///KaxVideoColourSpace
+				uint32 curWidth = uint32(curKaxWidth);
+				uint32 curHeight = uint32(curKaxHeight);
+				if (curWidth >= biggestWidth && curHeight >= biggestHeight) {
+					biggestWidth = curWidth;
+					biggestHeight = curHeight;
+				}
+			}
 				codec = mkvCodecShortener(&track);
 				if (codec) {
 					[codecSet addObject:codec];
@@ -328,6 +347,20 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_audio:
+			{
+				KaxTrackAudio &audTrack = GetChild<KaxTrackAudio>(track);
+				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
+				KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(audTrack);
+				//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
+				double curSampling = curKaxSampling.GetValue();
+				int curChannels = (int)curKaxChannels.GetValue();
+				if (curSampling > sampleRate) {
+					sampleRate = curSampling;
+				}
+				if (curChannels > maxChannels) {
+					maxChannels = curChannels;
+				}
+			}
 				codec = mkvCodecShortener(&track);
 				if (codec) {
 					[codecSet addObject:codec];
@@ -365,6 +398,14 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	newAttribs[(NSString*)kMDItemCodecs] = codecSet.allObjects;
 	if (trackNames.count > 0) {
 		newAttribs[(NSString*)kMDItemLayerNames] = [trackNames copy];
+	}
+	if (biggestWidth != 0 && biggestHeight != 0) {
+		newAttribs[(NSString*)kMDItemPixelHeight] = @(biggestHeight);
+		newAttribs[(NSString*)kMDItemPixelWidth] = @(biggestWidth);
+	}
+	if (maxChannels == 0) {
+		newAttribs[(NSString*)kMDItemAudioChannelCount] = @(maxChannels);
+		newAttribs[(NSString*)kMDItemAudioSampleRate] = @(sampleRate);
 	}
 	
 	seenTracks = true;
