@@ -129,9 +129,13 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 {
 	KaxCodecID *tr_codec = FindChild<KaxCodecID>(*tr_entry);
+	KaxCodecName *codecName = FindChild<KaxCodecName>(*tr_entry);
 	if (tr_codec == NULL)
 		return nil;
 	
+	if (codecName) {
+		return @(codecName->GetValueUTF8().c_str());
+	}
 	
 	string codecString(*tr_codec);
 	
