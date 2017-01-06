@@ -246,11 +246,9 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 		attributes[(NSString*)kMDItemRecordingDate] = createDate;
 	}
 	
-	if (!title.IsDefaultValue()) {
+	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
 		NSString *nsTitle = @(title.GetValueUTF8().c_str());
-		if (![nsTitle isEqualToString:@""]) {
-			attributes[(NSString*)kMDItemTitle] = nsTitle;
-		}
+		attributes[(NSString*)kMDItemTitle] = nsTitle;
 	}
 	
 	{
@@ -302,12 +300,10 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		}
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
-			if (!trackName.IsDefaultValue()) {
+			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
 				const char *cTrackName = UTFstring(trackName).GetUTF8().c_str();
 				NSString *nsTrackName = @(cTrackName);
-				if (![nsTrackName isEqualToString:@""]) {
-					[trackNames addObject:nsTrackName];
-				}
+				[trackNames addObject:nsTrackName];
 			}
 		}
 		NSString *codec;
@@ -420,6 +416,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		attributes[(NSString*)kMDItemAudioChannelCount] = @(maxChannels);
 		attributes[(NSString*)kMDItemAudioSampleRate] = @(sampleRate);
 	}
+	//TODO: kMDItemMediaTypes
 	
 	seenTracks = true;
 	return true;
