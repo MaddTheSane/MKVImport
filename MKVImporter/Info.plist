@@ -16,6 +16,7 @@
 				<string>com.google.webm</string>
 				<string>org.videolan.mkv</string>
 				<string>org.videolan.mka</string>
+				<string>org.videolan.webm</string>
 			</array>
 		</dict>
 	</array>
