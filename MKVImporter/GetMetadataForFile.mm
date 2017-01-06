@@ -44,12 +44,14 @@ using namespace std;
 class MatroskaImport {
 private:
 	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
+		mediaTypes = [[NSMutableSet alloc] initWithCapacity:6];
 		segmentOffset = 0;
 		el_l0 = NULL;
 		el_l1 = NULL;
 	}
 	virtual ~MatroskaImport() {
 		attributes = nil;
+		mediaTypes = nil;
 	};
 	bool ReadSegmentInfo(KaxInfo &segmentInfo);
 	bool ReadTracks(KaxTracks &trackEntries);
@@ -58,6 +60,9 @@ private:
 	bool ReadMetaSeek(KaxSeekHead &trackEntries);
 
 	bool isValidMatroska();
+	void copyDataOver() {
+		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.allObjects;
+	}
 	EbmlElement * NextLevel1Element();
 
 	//! a list of level one elements and their offsets in the segment
@@ -94,6 +99,9 @@ private:
 	bool ProcessLevel1Element();
 	
 	void iterateData();
+	void addMediaType(NSString *theType) {
+		[mediaTypes addObject:theType];
+	}
 	
 public:
 	static bool getMetadata(NSMutableDictionary *attribs, NSString *uti, NSString *path);
@@ -104,6 +112,7 @@ private:
 	EbmlElement *el_l0;
 	EbmlElement *el_l1;
 	NSMutableDictionary *attributes;
+	NSMutableSet<NSString*> *mediaTypes;
 	
 	bool seenInfo;
 	bool seenTracks;
@@ -168,6 +177,7 @@ bool MatroskaImport::getMetadata(NSMutableDictionary *attribs, NSString *uti, NS
 	}
 	
 	generatorClass->iterateData();
+	generatorClass->copyDataOver();
 	
 	delete generatorClass;
 	return true;
@@ -309,6 +319,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		NSString *codec;
 		switch (uint8(type)) {
 			case track_video:
+				addMediaType(@"Video");
 			{
 				KaxTrackVideo &vidTrack = GetChild<KaxTrackVideo>(track);
 				KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(vidTrack);
@@ -329,6 +340,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_audio:
+				addMediaType(@"Sound");
 			{
 				KaxTrackAudio &audTrack = GetChild<KaxTrackAudio>(track);
 				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
@@ -351,10 +363,12 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_subtitle:
+				addMediaType(@"Subtitles");
 				//TODO: parse SSA, get font list?
 				break;
 				
 			case track_complex:
+				addMediaType(@"Muxed");
 			{
 				KaxTrackVideo *vidTrack = FindChild<KaxTrackVideo>(track);
 				if (vidTrack) {
@@ -393,9 +407,14 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 
 				break;
 			case track_logo:
+				addMediaType(@"Logo");
+				break;
 			case track_buttons:
+				addMediaType(@"Buttons");
+				break;
 			case track_control:
-				// not likely to be implemented soon
+				addMediaType(@"Control");
+				break;
 			default:
 				break;
 		}
@@ -416,7 +435,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		attributes[(NSString*)kMDItemAudioChannelCount] = @(maxChannels);
 		attributes[(NSString*)kMDItemAudioSampleRate] = @(sampleRate);
 	}
-	//TODO: kMDItemMediaTypes
 	
 	seenTracks = true;
 	return true;
@@ -424,6 +442,8 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 
 bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 {
+	addMediaType(@"Chapters");
+
 	NSMutableArray<NSString*> *chapters = [[NSMutableArray alloc] init];
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
@@ -443,6 +463,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 
 bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 {
+	addMediaType(@"Attachments");
 	//TODO: implement? ignore?
 	return true;
 }
