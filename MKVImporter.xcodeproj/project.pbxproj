@@ -1060,11 +1060,11 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
-				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_STYLE = BUNDLE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Debug;
@@ -1081,11 +1081,11 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
-				INSTALL_PATH = "@executable_path/../Contents/Library/Spotlight";
+				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_STYLE = BUNDLE;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SKIP_INSTALL = YES;
+				SKIP_INSTALL = NO;
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Release;
@@ -1101,6 +1101,7 @@
 				);
 				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -1115,6 +1116,7 @@
 				);
 				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
@@ -1126,6 +1128,7 @@
 				HEADER_SEARCH_PATHS = Vendor/libebml/;
 				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Debug;
 		};
@@ -1137,6 +1140,7 @@
 				HEADER_SEARCH_PATHS = Vendor/libebml/;
 				KEEP_PRIVATE_EXTERNS = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
 			};
 			name = Release;
 		};
