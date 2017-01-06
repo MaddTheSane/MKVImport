@@ -450,7 +450,9 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
 		KaxChapterDisplay & chapDisplay = GetChild<KaxChapterDisplay>(*chapterAtom);
 		KaxChapterString & chapString = GetChild<KaxChapterString>(chapDisplay);
-		[chapters addObject:@(chapString.GetValueUTF8().c_str())];
+		if (chapString.GetValue().length() != 0) {
+			[chapters addObject:@(chapString.GetValueUTF8().c_str())];
+		}
 
 		chapterAtom = &GetNextChild<KaxChapterAtom>(edition, *chapterAtom);
 	}
