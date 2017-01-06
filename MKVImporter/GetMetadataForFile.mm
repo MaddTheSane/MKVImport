@@ -44,14 +44,12 @@ using namespace std;
 class MatroskaImport {
 private:
 	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
-		newAttribs = [[NSMutableDictionary alloc] init];
 		segmentOffset = 0;
 		el_l0 = NULL;
 		el_l1 = NULL;
 	}
 	virtual ~MatroskaImport() {
 		attributes = nil;
-		newAttribs = nil;
 	};
 	bool ReadSegmentInfo(KaxInfo &segmentInfo);
 	bool ReadTracks(KaxTracks &trackEntries);
@@ -60,9 +58,6 @@ private:
 	bool ReadMetaSeek(KaxSeekHead &trackEntries);
 
 	bool isValidMatroska();
-	void copyDataOver() {
-		[attributes addEntriesFromDictionary:newAttribs];
-	}
 	EbmlElement * NextLevel1Element();
 
 	//! a list of level one elements and their offsets in the segment
@@ -109,7 +104,6 @@ private:
 	EbmlElement *el_l0;
 	EbmlElement *el_l1;
 	NSMutableDictionary *attributes;
-	NSMutableDictionary *newAttribs;
 	
 	bool seenInfo;
 	bool seenTracks;
@@ -175,7 +169,6 @@ bool MatroskaImport::getMetadata(NSMutableDictionary *attribs, NSString *uti, NS
 	
 	generatorClass->iterateData();
 	
-	generatorClass->copyDataOver();
 	delete generatorClass;
 	return true;
 }
@@ -246,17 +239,17 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	Float64 movieDuration = Float64(duration);
 	UInt64 timecodeScale1 = UInt64(timecodeScale);
 
-	newAttribs[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
+	attributes[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
 	
-	if (date) {
+	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
 		NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:date->GetValue()];
-		newAttribs[(NSString*)kMDItemRecordingDate] = createDate;
+		attributes[(NSString*)kMDItemRecordingDate] = createDate;
 	}
 	
 	if (!title.IsDefaultValue()) {
 		NSString *nsTitle = @(title.GetValueUTF8().c_str());
 		if (![nsTitle isEqualToString:@""]) {
-			newAttribs[(NSString*)kMDItemTitle] = nsTitle;
+			attributes[(NSString*)kMDItemTitle] = nsTitle;
 		}
 	}
 	
@@ -264,18 +257,16 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 		NSString *creator = nil;
 		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
 			creator = @(writingApp.GetValueUTF8().c_str());
-		}
-		if (creator == nil && !muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
+		} else if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
 			creator = @(muxingApp.GetValueUTF8().c_str());
 		}
 		
 		if (creator) {
-			newAttribs[(NSString*)kMDItemCreator] = creator;
+			attributes[(NSString*)kMDItemCreator] = creator;
 		}
 	}
 	
 	seenInfo = true;
-	
 	return true;
 }
 
@@ -415,19 +406,19 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	}
 	
 	if (langSet.count > 0) {
-		newAttribs[(NSString*)kMDItemLanguages] = langSet.allObjects;
+		attributes[(NSString*)kMDItemLanguages] = langSet.allObjects;
 	}
-	newAttribs[(NSString*)kMDItemCodecs] = codecSet.allObjects;
+	attributes[(NSString*)kMDItemCodecs] = codecSet.allObjects;
 	if (trackNames.count > 0) {
-		newAttribs[(NSString*)kMDItemLayerNames] = [trackNames copy];
+		attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
 	}
 	if (biggestWidth != 0 && biggestHeight != 0) {
-		newAttribs[(NSString*)kMDItemPixelHeight] = @(biggestHeight);
-		newAttribs[(NSString*)kMDItemPixelWidth] = @(biggestWidth);
+		attributes[(NSString*)kMDItemPixelHeight] = @(biggestHeight);
+		attributes[(NSString*)kMDItemPixelWidth] = @(biggestWidth);
 	}
-	if (maxChannels == 0) {
-		newAttribs[(NSString*)kMDItemAudioChannelCount] = @(maxChannels);
-		newAttribs[(NSString*)kMDItemAudioSampleRate] = @(sampleRate);
+	if (maxChannels != 0) {
+		attributes[(NSString*)kMDItemAudioChannelCount] = @(maxChannels);
+		attributes[(NSString*)kMDItemAudioSampleRate] = @(sampleRate);
 	}
 	
 	seenTracks = true;
@@ -447,7 +438,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 		chapterAtom = &GetNextChild<KaxChapterAtom>(edition, *chapterAtom);
 	}
 	
-	newAttribs[kChapterNames] = [chapters copy];
+	attributes[kChapterNames] = [chapters copy];
 	seenChapters = true;
 
 	return true;
