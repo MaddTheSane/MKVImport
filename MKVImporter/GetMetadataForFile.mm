@@ -120,7 +120,6 @@ private:
 	vector<MatroskaSeek>	levelOneElements;
 	
 	uint64_t				segmentOffset;
-
 };
 
 bool MatroskaImport::isValidMatroska()
@@ -219,9 +218,6 @@ void MatroskaImport::iterateData()
 #endif
 }
 
-
-
-
 bool MatroskaImport::ProcessLevel1Element()
 {
 	int upperLevel = 0;
@@ -252,6 +248,7 @@ bool MatroskaImport::ProcessLevel1Element()
 	return true;
 }
 
+#define nvd "no_variable_data"
 
 bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 {
@@ -282,11 +279,20 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 		}
 	}
 	
-	if (!writingApp.IsDefaultValue()) {
-		newAttribs[(NSString*)kMDItemCreator] = @(writingApp.GetValueUTF8().c_str());
-	} else if (!muxingApp.IsDefaultValue()) {
-		newAttribs[(NSString*)kMDItemCreator] = @(muxingApp.GetValueUTF8().c_str());
+	{
+		NSString *creator = nil;
+		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
+			creator = @(writingApp.GetValueUTF8().c_str());
+		}
+		if (creator == nil && !muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
+			creator = @(muxingApp.GetValueUTF8().c_str());
+		}
+		
+		if (creator) {
+			newAttribs[(NSString*)kMDItemCreator] = creator;
+		}
 	}
+	
 	seenInfo = true;
 	
 	return true;
@@ -316,13 +322,24 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		//KaxTrackFlagDefault & enabled = GetChild<KaxTrackFlagDefault>(track);
 		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
 		
-		KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
-		KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
-		NSString *threeCharLang = @(string(trackLang).c_str());
-		NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)threeCharLang));
-		if (nsLang && ![nsLang isEqualToString:@"und"]) {
-			[langSet addObject:nsLang];
+		{
+			KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
+			NSString *threeCharLang = @(string(trackLang).c_str());
+			NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)threeCharLang));
+			if (nsLang && ![nsLang isEqualToString:@"und"]) {
+				[langSet addObject:nsLang];
+			}
+		}
+		{
+			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
+			if (!trackName.IsDefaultValue()) {
+				const char *cTrackName = UTFstring(trackName).GetUTF8().c_str();
+				NSString *nsTrackName = @(cTrackName);
+				if (![nsTrackName isEqualToString:@""]) {
+					[trackNames addObject:nsTrackName];
+				}
+			}
 		}
 		NSString *codec;
 		switch (uint8(type)) {
@@ -353,7 +370,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(audTrack);
 				//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
 				double curSampling = curKaxSampling.GetValue();
-				int curChannels = (int)curKaxChannels.GetValue();
+				int curChannels = uint32(curKaxChannels);
 				if (curSampling > sampleRate) {
 					sampleRate = curSampling;
 				}
@@ -415,17 +432,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 			case track_control:
 				// not likely to be implemented soon
 			default:
-				continue;
-		}
-		
-		//SetMediaLanguage(mkvTrack.theMedia, qtLang);
-		
-		if (!trackName.IsDefaultValue()) {
-			const char *cTrackName = UTFstring(trackName).GetUTF8().c_str();
-			NSString *nsTrackName = @(cTrackName);
-			if (![nsTrackName isEqualToString:@""]) {
-				[trackNames addObject:nsTrackName];
-			}
+				break;
 		}
 	}
 	
@@ -455,7 +462,6 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
-		//AddChapterAtom(chapterAtom);
 		KaxChapterDisplay & chapDisplay = GetChild<KaxChapterDisplay>(*chapterAtom);
 		KaxChapterString & chapString = GetChild<KaxChapterString>(chapDisplay);
 		[chapters addObject:@(chapString.GetValueUTF8().c_str())];
@@ -471,6 +477,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 
 bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 {
+	//TODO: implement? ignore?
 	return true;
 }
 
@@ -593,7 +600,6 @@ EbmlElement * MatroskaImport::NextLevel1Element()
 	return el_l1;
 }
 
-
 MatroskaImport::MatroskaSeek::MatroskaSeekContext MatroskaImport::SaveContext()
 {
 	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile.getFilePointer() };
@@ -609,4 +615,3 @@ void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
 	el_l1 = context.el_l1;
 	_ebmlFile.setFilePointer(context.position);
 }
-
