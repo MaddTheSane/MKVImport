@@ -122,7 +122,7 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 	if (macEncoding) {
 		return [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:NSMacOSRomanStringEncoding];
 	} else {
-		return [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:NSMacOSRomanStringEncoding];
+		return [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingDOSLatinUS)];
 	}
 }
 
@@ -147,7 +147,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 		
 		// offset to biCompression in BITMAPINFO
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer() + 16;
-		return osType2CodecName((p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3]);
+		return osType2CodecName((p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3], false);
 		
 	} else if (codecString == MKV_A_MS) {
 		// acm compatibility mode, twocc is in private info
@@ -162,7 +162,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 			if (kWavCodecIDs[i].twocc == twocc)
 				return @(kWavCodecIDs[i].cType);
 		}
-		return osType2CodecName('ms\0\0' | twocc);
+		return osType2CodecName('ms\0\0' | twocc, false);
 		
 	} else if (codecString == MKV_V_QT) {
 		// QT compatibility mode, private info is the ImageDescription structure, big endian

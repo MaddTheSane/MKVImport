@@ -97,7 +97,6 @@ private:
 	void SetContext(MatroskaSeek::MatroskaSeekContext context);
 
 	bool ProcessLevel1Element();
-	//void ImportCluster(KaxCluster &cluster, bool addToTrack);
 	
 	void iterateData();
 	
@@ -116,7 +115,6 @@ private:
 	bool seenTracks;
 	bool seenChapters;
 
-	//vector<MatroskaTrack>	tracks;
 	vector<MatroskaSeek>	levelOneElements;
 	
 	uint64_t				segmentOffset;
@@ -202,20 +200,6 @@ void MatroskaImport::iterateData()
 		if (!good)
 			return;
 	}
-
-#if 0
-	do {
-		if (EbmlId(*el_l1) == KaxCluster::ClassInfos.GlobalId) {
-			int upperLevel = 0;
-			EbmlElement *dummyElt = NULL;
-			
-			el_l1->Read(_aStream, KaxCluster::ClassInfos.Context, upperLevel, dummyElt, true);
-			KaxCluster & cluster = *static_cast<KaxCluster *>(el_l1);
-			
-			//ImportCluster(cluster, false);
-		}
-	} while (NextLevel1Element());
-#endif
 }
 
 bool MatroskaImport::ProcessLevel1Element()
@@ -236,11 +220,8 @@ bool MatroskaImport::ProcessLevel1Element()
 		return ReadChapters(*static_cast<KaxChapters *>(el_l1));
 		
 	} else if (EbmlId(*el_l1) == KaxAttachments::ClassInfos.GlobalId) {
-		//ComponentResult res;
 		el_l1->Read(_aStream, KaxAttachments::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadAttachments(*static_cast<KaxAttachments *>(el_l1));
-		//PrerollSubtitleTracks();
-		//return res;
 	} else if (EbmlId(*el_l1) == KaxSeekHead::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxSeekHead::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadMetaSeek(*static_cast<KaxSeekHead *>(el_l1));
@@ -316,10 +297,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		if (EbmlId(*trackEntries[i]) != KaxTrackEntry::ClassInfos.GlobalId)
 			continue;
 		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntries[i]);
-		//KaxTrackNumber & number = GetChild<KaxTrackNumber>(track);
 		KaxTrackType & type = GetChild<KaxTrackType>(track);
-		//KaxTrackDefaultDuration * defaultDuration = FindChild<KaxTrackDefaultDuration>(track);
-		//KaxTrackFlagDefault & enabled = GetChild<KaxTrackFlagDefault>(track);
 		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
 		
 		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
@@ -499,7 +477,7 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 		MatroskaSeek newSeekEntry;
 		KaxSeekID & seekID = GetChild<KaxSeekID>(*seekEntry);
 		KaxSeekPosition & position = GetChild<KaxSeekPosition>(*seekEntry);
-		EbmlId elementID = EbmlId(seekID.GetBuffer(), seekID.GetSize());
+		EbmlId elementID = EbmlId(seekID.GetBuffer(), (unsigned int)seekID.GetSize());
 		
 		newSeekEntry.ebmlID = elementID.Value;
 		newSeekEntry.idLength = elementID.Length;
@@ -556,7 +534,7 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
 		// Obj-C @try blocks do capture c++ exceptions when using the newer OBJ-C ABI.
-		// NOT available in 32-bit Mac code only.
+		// NOT available in 32-bit Mac code.
 		@try {
 			matroska_init();
 			ok = MatroskaImport::getMetadata(nsAttribs, (__bridge NSString*)contentTypeUTI, nsPath);
