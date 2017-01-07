@@ -98,7 +98,7 @@ private:
 
 	bool ProcessLevel1Element();
 	
-	void iterateData();
+	bool iterateData();
 	void addMediaType(NSString *theType) {
 		[mediaTypes addObject:theType];
 	}
@@ -176,20 +176,20 @@ bool MatroskaImport::getMetadata(NSMutableDictionary *attribs, NSString *uti, NS
 		return false;
 	}
 	
-	generatorClass->iterateData();
+	bool isSuccessful = generatorClass->iterateData();
 	generatorClass->copyDataOver();
 	
 	delete generatorClass;
-	return true;
+	return isSuccessful;
 }
 
-void MatroskaImport::iterateData()
+bool MatroskaImport::iterateData()
 {
 	bool done = false;
 	bool good = true;
 	el_l0 = _aStream.FindNextID(KaxSegment::ClassInfos, ~0);
 	if (!el_l0)
-		return;		// nothing in the file
+		return false;		// nothing in the file
 	
 	segmentOffset = static_cast<KaxSegment *>(el_l0)->GetDataStart();
 
@@ -201,8 +201,10 @@ void MatroskaImport::iterateData()
 			good = ProcessLevel1Element();
 		
 		if (!good)
-			return;
+			return false;
 	}
+	
+	return true;
 }
 
 bool MatroskaImport::ProcessLevel1Element()
