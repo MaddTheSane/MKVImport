@@ -114,7 +114,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 //TODO: check against common entries, use those names as opposed to just returning raw OSTypes.
 static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 {
-	union {
+	union OSTypeBridge {
 		char cStr[4];
 		OSType type;
 	} ourCodec;
@@ -133,7 +133,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 	if (tr_codec == NULL)
 		return nil;
 	
-	if (codecName) {
+	if (codecName && codecName->GetSize() != 0) {
 		return @(codecName->GetValueUTF8().c_str());
 	}
 	

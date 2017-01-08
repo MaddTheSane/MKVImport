@@ -338,7 +338,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				if (codec) {
 					[codecSet addObject:codec];
 				}
-				
 				break;
 				
 			case track_audio:
@@ -361,7 +360,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				if (codec) {
 					[codecSet addObject:codec];
 				}
-
 				break;
 				
 			case track_subtitle:
@@ -406,17 +404,20 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				if (codec) {
 					[codecSet addObject:codec];
 				}
-
 				break;
+				
 			case track_logo:
 				addMediaType(@"Logo");
 				break;
+				
 			case track_buttons:
 				addMediaType(@"Buttons");
 				break;
+				
 			case track_control:
 				addMediaType(@"Control");
 				break;
+				
 			default:
 				break;
 		}
@@ -510,7 +511,8 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 				okay = ProcessLevel1Element();
 			
 			SetContext(savedContext);
-			if (!okay) return false;
+			if (!okay)
+				return false;
 		}
 		
 		levelOneElements.push_back(newSeekEntry);
@@ -546,16 +548,14 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 		
 		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
-		// Obj-C @try blocks do capture c++ exceptions when using the newer OBJ-C ABI.
-		// NOT available in 32-bit Mac code.
-		@try {
+		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
+		try {
 			matroska_init();
-			ok = MatroskaImport::getMetadata(nsAttribs, (__bridge NSString*)contentTypeUTI, nsPath);
-		} @catch (NSException *exception) {
+			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
+		} catch (...) {
 			ok = FALSE;
-		} @finally {
-			matroska_done();
 		}
+		matroska_done();
     }
 	
     // Return the status
