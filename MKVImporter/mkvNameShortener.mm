@@ -24,6 +24,7 @@ typedef struct {
 } MatroskaQT_Codec;
 
 
+//TODO/FIXME: should this be exaustive?
 static const WavCodec kWavCodecIDs[] = {
 	{ "mp2", 0x50 },
 	{ "mp3", 0x55 },
@@ -40,6 +41,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "mp4", "V_MPEG4/ISO/SP" },
 	{ "mp4", "V_MPEG4/ISO/AP" },
 	{ "H.264", "V_MPEG4/ISO/AVC" },
+	{ "H.265", "V_MPEGH/ISO/HEVC" },
 	{ "MS-MPEG4", "V_MPEG4/MS/V3" },
 	{ "MPEG 1", "V_MPEG1" },
 	{ "MPEG 2", "V_MPEG2" },
