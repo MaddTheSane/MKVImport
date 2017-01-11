@@ -15,7 +15,7 @@ using std::string;
 
 typedef struct {
 	const char *cType;
-	int twocc;
+	unsigned short twocc;
 } WavCodec;
 
 typedef struct {
@@ -26,10 +26,10 @@ typedef struct {
 
 static const WavCodec kWavCodecIDs[] = {
 	{ "mp2", 0x50 },
-	{ "MP3", 0x55 },
+	{ "mp3", 0x55 },
 	{ "ac3", 0x2000 },
 	{ "DTS", 0x2001 },
-	{ "aac", 0xff },
+	{ "AAC", 0xff },
 	{ "FLAC", 0xf1ac },
 	{ 0, 0 }
 };
@@ -41,8 +41,8 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "mp4", "V_MPEG4/ISO/AP" },
 	{ "H.264", "V_MPEG4/ISO/AVC" },
 	{ "MS-MPEG4", "V_MPEG4/MS/V3" },
-	{ "mpeg1", "V_MPEG1" },
-	{ "mpeg2", "V_MPEG2" },
+	{ "MPEG 1", "V_MPEG1" },
+	{ "MPEG 2", "V_MPEG2" },
 	{ "RealVideo", "V_REAL/RV10" },
 	{ "RealVideo", "V_REAL/RV20" },
 	{ "RealVideo", "V_REAL/RV30" },
@@ -52,16 +52,16 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "VP8", "V_VP8" },
 	{ "VP9", "V_VP9" },
 	
-	{ "aac", "A_AAC" },
-	{ "aac", "A_AAC/MPEG4/LC" },
-	{ "aac", "A_AAC/MPEG4/MAIN" },
-	{ "aac", "A_AAC/MPEG4/LC/SBR" },
-	{ "aac", "A_AAC/MPEG4/SSR" },
-	{ "aac", "A_AAC/MPEG4/LTP" },
-	{ "aac", "A_AAC/MPEG2/LC" },
-	{ "aac", "A_AAC/MPEG2/MAIN" },
-	{ "aac", "A_AAC/MPEG2/LC/SBR" },
-	{ "aac", "A_AAC/MPEG2/SSR" },
+	{ "AAC", "A_AAC" },
+	{ "AAC", "A_AAC/MPEG4/LC" },
+	{ "AAC", "A_AAC/MPEG4/MAIN" },
+	{ "AAC", "A_AAC/MPEG4/LC/SBR" },
+	{ "AAC", "A_AAC/MPEG4/SSR" },
+	{ "AAC", "A_AAC/MPEG4/LTP" },
+	{ "AAC", "A_AAC/MPEG2/LC" },
+	{ "AAC", "A_AAC/MPEG2/MAIN" },
+	{ "AAC", "A_AAC/MPEG2/LC/SBR" },
+	{ "AAC", "A_AAC/MPEG2/SSR" },
 	{ "mp1", "A_MPEG/L1" },
 	{ "mp2", "A_MPEG/L2" },
 	{ "mp3", "A_MPEG/L3" },
@@ -70,14 +70,14 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	// anything special for these two?
 	{ "ac3", "A_AC3/BSID9" },
 	{ "ac3", "A_AC3/BSID10" },
-	{ "vorbis", "A_VORBIS" },
+	{ "Vorbis", "A_VORBIS" },
 	{ "FLAC", "A_FLAC" },
 	{ "Linear PCM", "A_PCM/INT/LIT" },
 	{ "Linear PCM", "A_PCM/INT/BIG" },
 	{ "Linear PCM", "A_PCM/FLOAT/IEEE" },
 	{ "DTS", "A_DTS" },
 	{ "TrueType Audio", "A_TTA1" },
-	{ "Wavepack", "A_WAVPACK4" },
+	{ "WavPack", "A_WAVPACK4" },
 	{ "RealAudio", "A_REAL/14_4" },
 	{ "RealAudio", "A_REAL/28_8" },
 	{ "RealAudio", "A_REAL/COOK" },
@@ -156,7 +156,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 			return 0;
 		
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer();
-		int twocc = p[0] | (p[1] << 8);
+		unsigned short twocc = p[0] | (p[1] << 8);
 		
 		for (int i = 0; kWavCodecIDs[i].cType; i++) {
 			if (kWavCodecIDs[i].twocc == twocc)

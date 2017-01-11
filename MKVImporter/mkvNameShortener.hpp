@@ -14,6 +14,6 @@
 
 @class NSString;
 
-NSString *mkvCodecShortener(libmatroska::KaxTrackEntry *tr_entry);
+NSString *__nullable mkvCodecShortener(libmatroska::KaxTrackEntry *__nonnull tr_entry);
 
 #endif /* mkvNameShortener_hpp */
