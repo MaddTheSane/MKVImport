@@ -37,9 +37,9 @@ static const WavCodec kWavCodecIDs[] = {
 
 static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "raw", "V_UNCOMPRESSED" },
-	{ "mp4", "V_MPEG4/ISO/ASP" },
-	{ "mp4", "V_MPEG4/ISO/SP" },
-	{ "mp4", "V_MPEG4/ISO/AP" },
+	{ "MPEG 4", "V_MPEG4/ISO/ASP" },
+	{ "MPEG 4", "V_MPEG4/ISO/SP" },
+	{ "MPEG 4", "V_MPEG4/ISO/AP" },
 	{ "H.264", "V_MPEG4/ISO/AVC" },
 	{ "H.265", "V_MPEGH/ISO/HEVC" },
 	{ "MS-MPEG4", "V_MPEG4/MS/V3" },
