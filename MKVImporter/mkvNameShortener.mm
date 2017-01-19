@@ -73,6 +73,8 @@ static const WavCodec kWavCodecIDs[] = {
 	{ kAudioFormatDTS, 0x2001 },
 	{ kAudioFormatMPEG4AAC, 0xff },
 	{ kAudioFormatXiphFLAC, 0xf1ac },
+	{ "WMA 1", 0x0160 },
+	{ "WMA 2", 0x0161 },
 	{ 0, 0 }
 };
 
