@@ -903,7 +903,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${TARGET_BUILD_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources\n\"${TARGET_BUILD_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist";
+			shellScript = "cd \"${TARGET_BUILD_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources\n\"${BUILT_PRODUCTS_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist";
 		};
 /* End PBXShellScriptBuildPhase section */
 
