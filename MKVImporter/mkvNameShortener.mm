@@ -161,24 +161,25 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		NSMutableDictionary<NSNumber*, NSString*> *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
+		@autoreleasepool {
 		NSBundle *ourBundle = [NSBundle bundleForClass:[MKVOnlyClassForGettingBackToOurBundle class]];
-		NSURL *typeMapURL = [ourBundle URLForResource:@"OSTypeMap" withExtension:@"plist"];
-		if (!typeMapURL) {
-			//Just use the four-char from the
+		NSURL *osTypeMapURL = [ourBundle URLForResource:@"OSTypeMap" withExtension:@"plist"];
+		if (!osTypeMapURL) {
+			//Just use the four-char code instead, I guess
 			return;
 		}
-		NSDictionary<NSString*,NSArray<id>*> *ourDict = [[NSDictionary alloc] initWithContentsOfURL:typeMapURL];
-		for (NSString *key in ourDict) {
-			NSArray<id>* ourObj = ourDict[key];
-			for (id aType in ourObj) {
-				if ([aType isKindOfClass:[NSNumber class]]) {
-					osTypeCodecMap2[aType] = key;
+		NSDictionary<NSString*,NSArray<id>*> *mapDict = [[NSDictionary alloc] initWithContentsOfURL:osTypeMapURL];
+		for (NSString *key in mapDict) {
+			NSArray<id>* ourArr = mapDict[key];
+			for (id entry in ourArr) {
+				if ([entry isKindOfClass:[NSNumber class]]) {
+					osTypeCodecMap2[(NSNumber*)entry] = key;
 				} else /* NSString */ {
-					OSType properOSType = UTGetOSTypeFromString((__bridge CFStringRef)aType);
+					OSType properOSType = UTGetOSTypeFromString((__bridge CFStringRef)entry);
 					osTypeCodecMap2[@(properOSType)] = key;
-
 				}
 			}
+		}
 		}
 		osTypeCodecMap = [osTypeCodecMap2 copy];
 	});

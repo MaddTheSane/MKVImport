@@ -304,14 +304,16 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
 		
 		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
-		{
+		do {
 			KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
-			NSString *threeCharLang = @(string(trackLang).c_str());
-			NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)threeCharLang));
-			if (nsLang && ![nsLang isEqualToString:@"und"]) {
-				[langSet addObject:nsLang];
+			string cppLang(trackLang);
+			if (cppLang == "und") {
+				break;
 			}
-		}
+			NSString *threeCharLang = @(cppLang.c_str());
+			NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)threeCharLang));
+			[langSet addObject:nsLang];
+		} while (0);
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
