@@ -52,6 +52,11 @@ private:
 	virtual ~MatroskaImport() {
 		attributes = nil;
 		mediaTypes = nil;
+		if (el_l1)
+			delete el_l1;
+		
+		if (el_l0)
+			delete el_l0;
 	};
 	bool ReadSegmentInfo(KaxInfo &segmentInfo);
 	bool ReadTracks(KaxTracks &trackEntries);
