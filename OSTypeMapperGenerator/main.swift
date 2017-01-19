@@ -482,3 +482,4 @@ if CommandLine.arguments.count != 2 {
 }
 
 mainFunc()
+print("Done")
