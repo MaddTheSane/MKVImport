@@ -13,6 +13,47 @@
 using namespace libmatroska;
 using std::string;
 
+@interface MKVOnlyClassForGettingBackToOurBundle : NSObject
+@end
+
+@implementation MKVOnlyClassForGettingBackToOurBundle
+@end
+
+#define kSubFormatSSA "SSA"
+#define kSubFormatASS "Advanced SSA"
+#define kSubFormatUTF8 "UTF-8"
+#define kSubFormatVobSub "VobSub"
+
+#define kVideoCodecIndeo3 "Indeo 3"
+#define kVideoCodecIndeo4 "Indeo 4"
+#define kVideoCodecIndeo5 "Indeo 5"
+#define kH264CodecType "H.264"
+#define kMPEG4VisualCodecType "MPEG 4"
+//#define kMPEG4VisualCodecType "MPEG 4"
+#define kVideoFormatMSMPEG4v1 "MS-MPEG4v1"
+#define kVideoFormatMSMPEG4v2 "MS-MPEG4v2"
+#define kVideoFormatMSMPEG4v3 "MS-MPEG4v3"
+#define kVideoFormatDV "DV"
+#define kMPEG1VisualCodecType "MPEG 1"
+#define kMPEG2VisualCodecType "MPEG 2"
+#define kVideoFormatVP3 "VP3"
+#define kVideoFormatVP5 "VP5"
+#define kVideoFormatVP6 "VP6"
+#define kVideoFormatVP8 "VP8"
+#define kVideoFormatMSVideo "MS Video 1"
+#define kVideoFormatMSRLE "MS RLE"
+
+#define kAudioFormatMPEGLayer1 "mp1"
+#define kAudioFormatMPEGLayer2 "mp2"
+#define kAudioFormatMPEGLayer3 "mp3"
+#define kAudioCodecIndeo2 "Indeo Audio"
+#define kAudioFormatDTS "DTS"
+#define kAudioFormatMPEG4AAC "AAC"
+#define kAudioFormatAC3 "ac3"
+#define kAudioFormatXiphFLAC "FLAC"
+#define kAudioFormatXiphVorbis "Vorbis"
+#define kAudioFormatLinearPCM "Linear PCM"
+
 typedef struct {
 	const char *cType;
 	unsigned short twocc;
@@ -26,58 +67,58 @@ typedef struct {
 
 //TODO/FIXME: should this be exaustive?
 static const WavCodec kWavCodecIDs[] = {
-	{ "mp2", 0x50 },
-	{ "mp3", 0x55 },
-	{ "ac3", 0x2000 },
-	{ "DTS", 0x2001 },
-	{ "AAC", 0xff },
-	{ "FLAC", 0xf1ac },
+	{ kAudioFormatMPEGLayer2, 0x50 },
+	{ kAudioFormatMPEGLayer3, 0x55 },
+	{ kAudioFormatAC3, 0x2000 },
+	{ kAudioFormatDTS, 0x2001 },
+	{ kAudioFormatMPEG4AAC, 0xff },
+	{ kAudioFormatXiphFLAC, 0xf1ac },
 	{ 0, 0 }
 };
 
 static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "raw", "V_UNCOMPRESSED" },
-	{ "MPEG 4", "V_MPEG4/ISO/ASP" },
-	{ "MPEG 4", "V_MPEG4/ISO/SP" },
-	{ "MPEG 4", "V_MPEG4/ISO/AP" },
-	{ "H.264", "V_MPEG4/ISO/AVC" },
+	{ kMPEG4VisualCodecType, "V_MPEG4/ISO/ASP" },
+	{ kMPEG4VisualCodecType, "V_MPEG4/ISO/SP" },
+	{ kMPEG4VisualCodecType, "V_MPEG4/ISO/AP" },
+	{ kH264CodecType, "V_MPEG4/ISO/AVC" },
 	{ "H.265", "V_MPEGH/ISO/HEVC" },
-	{ "MS-MPEG4", "V_MPEG4/MS/V3" },
-	{ "MPEG 1", "V_MPEG1" },
-	{ "MPEG 2", "V_MPEG2" },
+	{ kVideoFormatMSMPEG4v3, "V_MPEG4/MS/V3" },
+	{ kMPEG1VisualCodecType, "V_MPEG1" },
+	{ kMPEG2VisualCodecType, "V_MPEG2" },
 	{ "RealVideo", "V_REAL/RV10" },
 	{ "RealVideo", "V_REAL/RV20" },
 	{ "RealVideo", "V_REAL/RV30" },
 	{ "RealVideo", "V_REAL/RV40" },
 	{ "Theora", "V_THEORA" },
 	{ "Snow", "V_SNOW" },
-	{ "VP8", "V_VP8" },
+	{ kVideoFormatVP8, "V_VP8" },
 	{ "VP9", "V_VP9" },
 	
-	{ "AAC", "A_AAC" },
-	{ "AAC", "A_AAC/MPEG4/LC" },
-	{ "AAC", "A_AAC/MPEG4/MAIN" },
-	{ "AAC", "A_AAC/MPEG4/LC/SBR" },
-	{ "AAC", "A_AAC/MPEG4/SSR" },
-	{ "AAC", "A_AAC/MPEG4/LTP" },
-	{ "AAC", "A_AAC/MPEG2/LC" },
-	{ "AAC", "A_AAC/MPEG2/MAIN" },
-	{ "AAC", "A_AAC/MPEG2/LC/SBR" },
-	{ "AAC", "A_AAC/MPEG2/SSR" },
-	{ "mp1", "A_MPEG/L1" },
-	{ "mp2", "A_MPEG/L2" },
-	{ "mp3", "A_MPEG/L3" },
-	{ "ac3", "A_AC3" },
-	{ "ac3", "A_AC3" },
+	{ kAudioFormatMPEG4AAC, "A_AAC" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/LC" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/MAIN" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/LC/SBR" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/SSR" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/LTP" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG2/LC" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG2/MAIN" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG2/LC/SBR" },
+	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG2/SSR" },
+	{ kAudioFormatMPEGLayer1, "A_MPEG/L1" },
+	{ kAudioFormatMPEGLayer2, "A_MPEG/L2" },
+	{ kAudioFormatMPEGLayer3, "A_MPEG/L3" },
+	{ kAudioFormatAC3, "A_AC3" },
+	{ kAudioFormatAC3, "A_AC3" },
 	// anything special for these two?
-	{ "ac3", "A_AC3/BSID9" },
-	{ "ac3", "A_AC3/BSID10" },
-	{ "Vorbis", "A_VORBIS" },
-	{ "FLAC", "A_FLAC" },
-	{ "Linear PCM", "A_PCM/INT/LIT" },
-	{ "Linear PCM", "A_PCM/INT/BIG" },
-	{ "Linear PCM", "A_PCM/FLOAT/IEEE" },
-	{ "DTS", "A_DTS" },
+	{ kAudioFormatAC3, "A_AC3/BSID9" },
+	{ kAudioFormatAC3, "A_AC3/BSID10" },
+	{ kAudioFormatXiphVorbis, "A_VORBIS" },
+	{ kAudioFormatXiphFLAC, "A_FLAC" },
+	{ kAudioFormatLinearPCM, "A_PCM/INT/LIT" },
+	{ kAudioFormatLinearPCM, "A_PCM/INT/BIG" },
+	{ kAudioFormatLinearPCM, "A_PCM/FLOAT/IEEE" },
+	{ kAudioFormatDTS, "A_DTS" },
 	{ "TrueType Audio", "A_TTA1" },
 	{ "WavPack", "A_WAVPACK4" },
 	{ "RealAudio", "A_REAL/14_4" },
@@ -91,7 +132,6 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kBMPCodecType, "S_IMAGE/BMP" },
 	{ kSubFormatUSF, "S_TEXT/USF" },
 #endif
-#if 0
 	{ kSubFormatSSA, "S_TEXT/SSA" },
 	{ kSubFormatSSA, "S_SSA" },
 	{ kSubFormatASS, "S_TEXT/ASS" },
@@ -99,7 +139,6 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kSubFormatUTF8, "S_TEXT/UTF8" },
 	{ kSubFormatUTF8, "S_TEXT/ASCII" },
 	{ kSubFormatVobSub, "S_VOBSUB" },
-#endif
 };
 
 
@@ -113,9 +152,38 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 #define MKV_A_PCM_LIT "A_PCM/INT/LIT"
 #define MKV_A_PCM_FLOAT "A_PCM/FLOAT/IEEE"
 
-//TODO: check against common entries, use those names as opposed to just returning raw OSTypes.
+static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
+
 static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 {
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		NSMutableDictionary<NSNumber*, NSString*> *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
+		NSBundle *ourBundle = [NSBundle bundleForClass:[MKVOnlyClassForGettingBackToOurBundle class]];
+		NSURL *typeMapURL = [ourBundle URLForResource:@"OSTypeMap" withExtension:@"plist"];
+		if (!typeMapURL) {
+			//Just use the four-char from the
+			return;
+		}
+		NSDictionary<NSString*,NSArray<id>*> *ourDict = [[NSDictionary alloc] initWithContentsOfURL:typeMapURL];
+		for (NSString *key in ourDict) {
+			NSArray<id>* ourObj = ourDict[key];
+			for (id aType in ourObj) {
+				if ([aType isKindOfClass:[NSNumber class]]) {
+					osTypeCodecMap2[aType] = key;
+				} else /* NSString */ {
+					OSType properOSType = UTGetOSTypeFromString((__bridge CFStringRef)aType);
+					osTypeCodecMap2[@(properOSType)] = key;
+
+				}
+			}
+		}
+		osTypeCodecMap = [osTypeCodecMap2 copy];
+	});
+	NSString *codecName = osTypeCodecMap[@(codec)];
+	if (codecName) {
+		return codecName;
+	}
 	union OSTypeBridge {
 		char cStr[4];
 		OSType type;

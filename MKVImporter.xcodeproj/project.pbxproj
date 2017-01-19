@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		55239B6E1E301A1200B5B7D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55239B6D1E301A1200B5B7D0 /* main.swift */; };
 		557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
 		55868DFC1E1C189B00CDDED1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFB1E1C189B00CDDED1 /* main.c */; };
 		55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */; };
@@ -120,6 +121,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		55239B721E301A1E00B5B7D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55239B6A1E301A1200B5B7D0;
+			remoteInfo = OSTypeMapperGenerator;
+		};
 		55868EE71E1C1D6800CDDED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
@@ -165,6 +173,15 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		55239B691E301A1200B5B7D0 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
 		55868F071E1C4CB000CDDED1 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -186,6 +203,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OSTypeMapperGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
+		55239B6D1E301A1200B5B7D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		557B87F41E1DBA1800F2133E /* MKVImporter.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = MKVImporter.exp; sourceTree = "<group>"; };
 		557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mkvNameShortener.mm; sourceTree = "<group>"; };
 		557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mkvNameShortener.hpp; sourceTree = "<group>"; };
@@ -304,6 +323,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		55239B681E301A1200B5B7D0 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55868DF41E1C189B00CDDED1 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -348,6 +374,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		55239B6C1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {
+			isa = PBXGroup;
+			children = (
+				55239B6D1E301A1200B5B7D0 /* main.swift */,
+			);
+			path = OSTypeMapperGenerator;
+			sourceTree = "<group>";
+		};
 		55868DEE1E1C189B00CDDED1 = {
 			isa = PBXGroup;
 			children = (
@@ -355,6 +389,7 @@
 				55868DF91E1C189B00CDDED1 /* MKVImporter */,
 				55868F1B1E1C573700CDDED1 /* test6 */,
 				55868F0A1E1C4CB000CDDED1 /* test8 */,
+				55239B6C1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
 				55868DF81E1C189B00CDDED1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -367,6 +402,7 @@
 				55868E161E1C1C3700CDDED1 /* libebml.a */,
 				55868F091E1C4CB000CDDED1 /* test8 */,
 				55868F1A1E1C572700CDDED1 /* test6 */,
+				55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -676,6 +712,23 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55239B6F1E301A1200B5B7D0 /* Build configuration list for PBXNativeTarget "OSTypeMapperGenerator" */;
+			buildPhases = (
+				55239B671E301A1200B5B7D0 /* Sources */,
+				55239B681E301A1200B5B7D0 /* Frameworks */,
+				55239B691E301A1200B5B7D0 /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = OSTypeMapperGenerator;
+			productName = OSTypeMapperGenerator;
+			productReference = 55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */;
+			productType = "com.apple.product-type.tool";
+		};
 		55868DF61E1C189B00CDDED1 /* MKVImporter */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55868E061E1C189B00CDDED1 /* Build configuration list for PBXNativeTarget "MKVImporter" */;
@@ -683,10 +736,12 @@
 				55868DF31E1C189B00CDDED1 /* Sources */,
 				55868DF41E1C189B00CDDED1 /* Frameworks */,
 				55868DF51E1C189B00CDDED1 /* Resources */,
+				55239B741E30606C00B5B7D0 /* ShellScript */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				55239B731E301A1E00B5B7D0 /* PBXTargetDependency */,
 				55868EE81E1C1D6800CDDED1 /* PBXTargetDependency */,
 				55868EEA1E1C1D6800CDDED1 /* PBXTargetDependency */,
 			);
@@ -773,9 +828,14 @@
 		55868DEF1E1C189B00CDDED1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0820;
 				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "C.W. Betts";
 				TargetAttributes = {
+					55239B6A1E301A1200B5B7D0 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 					55868DF61E1C189B00CDDED1 = {
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
@@ -811,6 +871,7 @@
 				55868E151E1C1C3700CDDED1 /* ebml */,
 				55868F121E1C572700CDDED1 /* test6 */,
 				55868F081E1C4CB000CDDED1 /* test8 */,
+				55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
 			);
 		};
 /* End PBXProject section */
@@ -828,7 +889,33 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		55239B741E30606C00B5B7D0 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/OSTypeMapperGenerator/main.swift",
+			);
+			outputPaths = (
+				"\"${TARGET_BUILD_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources/OSTypeMap.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${TARGET_BUILD_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources\n\"${TARGET_BUILD_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
+		55239B671E301A1200B5B7D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55239B6E1E301A1200B5B7D0 /* main.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55868DF31E1C189B00CDDED1 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -910,6 +997,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		55239B731E301A1E00B5B7D0 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */;
+			targetProxy = 55239B721E301A1E00B5B7D0 /* PBXContainerItemProxy */;
+		};
 		55868EE81E1C1D6800CDDED1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 55868E0D1E1C1C2500CDDED1 /* matroska */;
@@ -962,6 +1054,30 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		55239B701E301A1200B5B7D0 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CODE_SIGN_IDENTITY = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Debug;
+		};
+		55239B711E301A1200B5B7D0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
+				CODE_SIGN_IDENTITY = "";
+				MACOSX_DEPLOYMENT_TARGET = 10.12;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_VERSION = 3.0;
+			};
+			name = Release;
+		};
 		55868E041E1C189B00CDDED1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1006,6 +1122,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
 		};
@@ -1046,6 +1163,7 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
 		};
@@ -1199,6 +1317,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		55239B6F1E301A1200B5B7D0 /* Build configuration list for PBXNativeTarget "OSTypeMapperGenerator" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55239B701E301A1200B5B7D0 /* Debug */,
+				55239B711E301A1200B5B7D0 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
 		55868DF21E1C189B00CDDED1 /* Build configuration list for PBXProject "MKVImporter" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

@@ -227,9 +227,11 @@ bool MatroskaImport::ProcessLevel1Element()
 	} else if (EbmlId(*el_l1) == KaxAttachments::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxAttachments::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadAttachments(*static_cast<KaxAttachments *>(el_l1));
+		
 	} else if (EbmlId(*el_l1) == KaxSeekHead::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxSeekHead::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadMetaSeek(*static_cast<KaxSeekHead *>(el_l1));
+		
 	}
 	return true;
 }
@@ -313,7 +315,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
-				const char *cTrackName = UTFstring(trackName).GetUTF8().c_str();
+				const char *cTrackName = trackName.GetValueUTF8().c_str();
 				NSString *nsTrackName = @(cTrackName);
 				[trackNames addObject:nsTrackName];
 			}
