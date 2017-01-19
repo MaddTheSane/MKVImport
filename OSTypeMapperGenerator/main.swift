@@ -17,57 +17,57 @@ struct FourCharCodec {
 	var fourocc: Code
 }
 
-func mainFunc() {
-	let kVideoCodecIndeo3 = "Indeo 3"
-	let kVideoCodecIndeo4 = "Indeo 4"
-	let kVideoCodecIndeo5 = "Indeo 5"
-	let kMPEG4VisualCodecType = "MPEG 4"
-	//let kMPEG4VisualCodecType = "MPEG 4"
-	let kVideoFormatMSMPEG4v1 = "MS-MPEG4v1"
-	let kVideoFormatMSMPEG4v2 = "MS-MPEG4v2"
-	let kVideoFormatMSMPEG4v3 = "MS-MPEG4v3"
-	let kVideoFormatDV = "DV"
-	let kMPEG1VisualCodecType = "MPEG 1"
-	let kMPEG2VisualCodecType = "MPEG 2"
-	let kVideoFormatVP3 = "VP3"
-	let kVideoFormatVP5 = "VP5"
-	let kVideoFormatVP6 = "VP6"
-	let kVideoFormatVP8 = "VP8"
-	let kVideoFormatMSVideo = "MS Video 1"
-	let kVideoFormatMSRLE = "MS RLE"
-	let kVideoFormatH261 = "H.261"
-	let kVideoFormatH263 = "H.263"
-	let kH264CodecType = "H.264"
-	let kVideoFormatHEVC = "H.265"
-	let kVideoFormatRAW = "Raw Video"
-	let kVideoFormatProRes = "ProRes"
-	let kVideoFormatMJPEG = "Motion JPEG"
-	let kVideoFormatSorenson = "Sorenson Video"
-	let kVideoFormatWMV = "WMV"
+let kVideoCodecIndeo2 = "Indeo 2"
+let kVideoCodecIndeo3 = "Indeo 3"
+let kVideoCodecIndeo4 = "Indeo 4"
+let kVideoCodecIndeo5 = "Indeo 5"
+let kMPEG4VisualCodecType = "MPEG 4"
+//let kMPEG4VisualCodecType = "MPEG 4"
+let kVideoFormatMSMPEG4v1 = "MS-MPEG4v1"
+let kVideoFormatMSMPEG4v2 = "MS-MPEG4v2"
+let kVideoFormatMSMPEG4v3 = "MS-MPEG4v3"
+let kVideoFormatDV = "DV"
+let kMPEG1VisualCodecType = "MPEG 1"
+let kMPEG2VisualCodecType = "MPEG 2"
+let kVideoFormatVP3 = "VP3"
+let kVideoFormatVP5 = "VP5"
+let kVideoFormatVP6 = "VP6"
+let kVideoFormatVP8 = "VP8"
+let kVideoFormatMSVideo = "MS Video 1"
+let kVideoFormatMSRLE = "MS RLE"
+let kVideoFormatH261 = "H.261"
+let kVideoFormatH263 = "H.263"
+let kH264CodecType = "H.264"
+let kVideoFormatHEVC = "H.265"
+let kVideoFormatRAW = "Raw Video"
+let kVideoFormatProRes = "ProRes"
+let kVideoFormatMJPEG = "Motion JPEG"
+let kVideoFormatSorenson = "Sorenson Video"
+let kVideoFormatWMV = "WMV"
+let kVideoFormatJPEG2000 = "JPEG 2000"
 
-	let kAudioFormatMPEGLayer1 = "mp1"
-	let kAudioFormatMPEGLayer2 = "mp2"
-	let kAudioFormatMPEGLayer3 = "mp3"
-	let kAudioCodecIndeo2 = "Indeo Audio"
-	let kAudioFormatDTS = "DTS"
-	let kAudioFormatMPEG4AAC = "AAC"
-	let kAudioFormatDV = "DV Audio"
-	let kAudioFormatAC3 = "ac3"
-	let kAudioFormatXiphFLAC = "FLAC"
-	let kAudioFormatXiphVorbis = "Vorbis"
-	let kAudioFormatLinearPCM = "Linear PCM"
-	let kAudioFormatSpeex = "Speex"
-	
-	
-	
+let kAudioFormatMPEGLayer1 = "mp1"
+let kAudioFormatMPEGLayer2 = "mp2"
+let kAudioFormatMPEGLayer3 = "mp3"
+let kAudioFormatDTS = "DTS"
+let kAudioFormatMPEG4AAC = "AAC"
+let kAudioFormatDV = "DV Audio"
+let kAudioFormatAC3 = "ac3"
+let kAudioFormatXiphFLAC = "FLAC"
+let kAudioFormatXiphVorbis = "Vorbis"
+let kAudioFormatLinearPCM = "Linear PCM"
+let kAudioFormatSpeex = "Speex"
+
+func mainFunc() {
+	//TODO: remove codecs used natively by Matroskas.
 	let kOSTypeCodecIDs: [FourCharCodec] = {
 		var toRet = [FourCharCodec]()
 		//Taken from libavformat/riff.c from ffmpeg
+		toRet.append(FourCharCodec(cType: kVideoCodecIndeo2, fourocc: .string("RT21")));
 		toRet.append(FourCharCodec(cType: kVideoCodecIndeo3, fourocc: .string("IV31")));
 		toRet.append(FourCharCodec(cType: kVideoCodecIndeo3, fourocc: .string("IV32")));
 		toRet.append(FourCharCodec(cType: kVideoCodecIndeo4, fourocc: .string("IV41")));
 		toRet.append(FourCharCodec(cType: kVideoCodecIndeo5, fourocc: .string("IV50")));
-		toRet.append(FourCharCodec(cType: kAudioCodecIndeo2, fourocc: .string("RT21")));
 		toRet.append(FourCharCodec(cType: kAudioFormatMPEGLayer2, fourocc: .osType(0x6D730050))) // 'ms\0\0' + 0x50
 		toRet.append(FourCharCodec(cType: kMPEG4VisualCodecType, fourocc: .string("FMP4")));
 		toRet.append(FourCharCodec(cType: kMPEG4VisualCodecType, fourocc: .string("DIVX")));
@@ -181,6 +181,51 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: "zlib", fourocc: .string("ZLIB")))
 		toRet.append(FourCharCodec(cType: "Snow", fourocc: .string("SNOW")))
 		
+		toRet.append(FourCharCodec(cType: kMPEG1VisualCodecType, fourocc: .osType(1 << 24 | 16)))
+		toRet.append(FourCharCodec(cType: kMPEG2VisualCodecType, fourocc: .osType(2 << 24 | 16)))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .osType(3 << 24 | 16)))
+		toRet.append(FourCharCodec(cType: kMPEG4VisualCodecType, fourocc: .osType(4 << 24 | 16)))
+		
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("I420")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YUY2")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("Y422")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("V422")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YUNV")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("UYNV")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("UYNY")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("uyv1")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("2Vu1")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("2vuy")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("yuvs")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("yuv2")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("P422")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YV12")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YV16")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YV24")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("UYVY")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("VYUY")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("IYUV")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("Y800")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("Y8  ")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("HDYC")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YVU9")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("VDTZ"))) /* SoftLab-NSK VideoTizer */
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("Y411")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("NV12")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("NV21")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("Y41B")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("Y42B")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YUV9")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YVU9")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("auv2")))
+		toRet.append(FourCharCodec(cType: kVideoFormatRAW, fourocc: .string("YVYU")))
+
+		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("mjp2")))
+		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("MJ2C")))
+		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("LJ2C")))
+		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("LJ2K")))
+		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("IPJ2")))
+
 		//Code taken from libavformat/isom.c from ffmpeg
 		toRet.append(FourCharCodec(cType: kVideoFormatVP8, fourocc: .string("VP80")));
 		toRet.append(FourCharCodec(cType: kAudioFormatMPEGLayer1, fourocc: .string(".mp1")));
@@ -213,25 +258,21 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: kVideoFormatH263, fourocc: .string("h263"))); /* H263 */
 		toRet.append(FourCharCodec(cType: kVideoFormatH263, fourocc: .string("s263"))); /* H263 ?? works */
 		
-		/*
-		Not including these: most MKV creators will put them in their Matroska codec.
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("avc1"))); /* AVC-1/H.264 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai5p"))); /* AVC-Intra  50M 720p24/30/60 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai5q"))); /* AVC-Intra  50M 720p25/50 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai52"))); /* AVC-Intra  50M 1080p25/50 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai53"))); /* AVC-Intra  50M 1080p24/30/60 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai55"))); /* AVC-Intra  50M 1080i50 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai56"))); /* AVC-Intra  50M 1080i60 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai1p"))); /* AVC-Intra 100M 720p24/30/60 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai1q"))); /* AVC-Intra 100M 720p25/50 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai12"))); /* AVC-Intra 100M 1080p25/50 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai13"))); /* AVC-Intra 100M 1080p24/30/60 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai15"))); /* AVC-Intra 100M 1080i50 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("ai16"))); /* AVC-Intra 100M 1080i60 */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("AVin"))); /* AVC-Intra with implicit SPS/PPS */
-		toRet.append(FourCharCodec(cType: AV_CODEC_ID_H264, fourocc: .string("aivx"))); /* XAVC 4:2:2 10bit */
-		
-		*/
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("avc1"))); /* AVC-1/H.264 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai5p"))); /* AVC-Intra  50M 720p24/30/60 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai5q"))); /* AVC-Intra  50M 720p25/50 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai52"))); /* AVC-Intra  50M 1080p25/50 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai53"))); /* AVC-Intra  50M 1080p24/30/60 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai55"))); /* AVC-Intra  50M 1080i50 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai56"))); /* AVC-Intra  50M 1080i60 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai1p"))); /* AVC-Intra 100M 720p24/30/60 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai1q"))); /* AVC-Intra 100M 720p25/50 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai12"))); /* AVC-Intra 100M 1080p25/50 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai13"))); /* AVC-Intra 100M 1080p24/30/60 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai15"))); /* AVC-Intra 100M 1080i50 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("ai16"))); /* AVC-Intra 100M 1080i60 */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("AVin"))); /* AVC-Intra with implicit SPS/PPS */
+		toRet.append(FourCharCodec(cType: kH264CodecType, fourocc: .string("aivx"))); /* XAVC 4:2:2 10bit */
 		
 		toRet.append(FourCharCodec(cType: kMPEG1VisualCodecType, fourocc: .string("m1v ")));
 		toRet.append(FourCharCodec(cType: kMPEG1VisualCodecType, fourocc: .string("m1v1"))); /* Apple MPEG-1 Camcorder */
@@ -393,17 +434,17 @@ func mainFunc() {
 		
 		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("WMV1")))
 		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("WMV2")))
-		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("GXVE")))
+		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("GXVE"))) //WMV 2
 		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("WMV3")))
-
+		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("mjp2"))) /* JPEG 2000 produced by FCP */
 		
 		return toRet
 	}()
 	
-	var codecDict = [String: [NSObject]]()
+	var codecDict2 = [String: Set<NSObject>]()
 	for obj in kOSTypeCodecIDs {
-		if codecDict[obj.cType] == nil {
-			codecDict[obj.cType] = []
+		if codecDict2[obj.cType] == nil {
+			codecDict2[obj.cType] = []
 		}
 		let obj2: NSObject
 		switch obj.fourocc {
@@ -413,8 +454,16 @@ func mainFunc() {
 			obj2 = NSNumber(value: aOSTy)
 		}
 		
-		codecDict[obj.cType]!.append(obj2)
+		codecDict2[obj.cType]!.insert(obj2)
 	}
+	
+	let codecDict: [String: [NSObject]] = {
+		var tmpDict = [String: [NSObject]]()
+		for (key, set) in codecDict2 {
+			tmpDict[key] = set.map {return $0}
+		}
+		return tmpDict
+	}()
 	
 	let aDat = try! PropertyListSerialization.data(fromPropertyList: codecDict, format: .xml, options: 0)
 	
