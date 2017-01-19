@@ -459,8 +459,8 @@ func mainFunc() {
 	
 	let codecDict: [String: [NSObject]] = {
 		var tmpDict = [String: [NSObject]]()
-		for (key, set) in codecDict2 {
-			tmpDict[key] = set.map {return $0}
+		for (key, aSet) in codecDict2 {
+			tmpDict[key] = Array(aSet)
 		}
 		return tmpDict
 	}()
