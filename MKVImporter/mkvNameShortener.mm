@@ -129,6 +129,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "RealAudio", "A_REAL/SIPR" },
 	{ "RealAudio Lossless", "A_REAL/RALF" },
 	{ "Atrac3", "A_REAL/ATRC" },
+	{ "Opus", "A_OPUS" },
 	
 #if 0
 	{ kBMPCodecType, "S_IMAGE/BMP" },

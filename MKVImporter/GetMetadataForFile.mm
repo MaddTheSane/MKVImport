@@ -52,12 +52,16 @@ private:
 	virtual ~MatroskaImport() {
 		attributes = nil;
 		mediaTypes = nil;
-		if (el_l1)
+		if (el_l1) {
 			delete el_l1;
+			el_l1 = NULL;
+		}
 		
-		if (el_l0)
+		if (el_l0) {
 			delete el_l0;
-	};
+			el_l0 = NULL;
+		}
+	}
 	bool ReadSegmentInfo(KaxInfo &segmentInfo);
 	bool ReadTracks(KaxTracks &trackEntries);
 	bool ReadChapters(KaxChapters &trackEntries);
@@ -533,6 +537,8 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 	return true;
 }
 
+#pragma mark -
+
 //==============================================================================
 //
 //  Get metadata attributes from document files
@@ -570,6 +576,8 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
     // Return the status
     return ok;
 }
+
+#pragma mark - Element code
 
 EbmlElement * MatroskaImport::NextLevel1Element()
 {
