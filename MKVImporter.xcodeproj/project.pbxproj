@@ -1322,6 +1322,7 @@
 				55239B711E301A1200B5B7D0 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		55868DF21E1C189B00CDDED1 /* Build configuration list for PBXProject "MKVImporter" */ = {
 			isa = XCConfigurationList;

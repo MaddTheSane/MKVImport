@@ -589,7 +589,7 @@ EbmlElement * MatroskaImport::NextLevel1Element()
 		el_l1 = NULL;
 	}
 	
-	el_l1 = _aStream.FindNextElement(el_l0->Generic().Context, upperLevel, 0xFFFFFFFFL, true);
+	el_l1 = _aStream.FindNextElement(el_l0->Generic().Context, upperLevel, ~0, true);
 	
 	// dummy element -> probably corrupt file, search for next element in meta seek and continue from there
 	if (el_l1 && el_l1->IsDummy()) {
