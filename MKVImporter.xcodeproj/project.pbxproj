@@ -104,7 +104,6 @@
 		55868EE01E1C1CB600CDDED1 /* IOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA91E1C1CB600CDDED1 /* IOCallback.cpp */; };
 		55868EE11E1C1CB600CDDED1 /* MemIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EAA1E1C1CB600CDDED1 /* MemIOCallback.cpp */; };
 		55868EE21E1C1CB600CDDED1 /* MemReadIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EAB1E1C1CB600CDDED1 /* MemReadIOCallback.cpp */; };
-		55868EE41E1C1CB600CDDED1 /* WinIOCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868EAF1E1C1CB600CDDED1 /* WinIOCallback.h */; };
 		55868EE51E1C1CB600CDDED1 /* SafeReadIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EB01E1C1CB600CDDED1 /* SafeReadIOCallback.cpp */; };
 		55868EE61E1C1CB600CDDED1 /* StdIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EB11E1C1CB600CDDED1 /* StdIOCallback.cpp */; };
 		55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E161E1C1C3700CDDED1 /* libebml.a */; };
@@ -309,8 +308,6 @@
 		55868EA91E1C1CB600CDDED1 /* IOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOCallback.cpp; sourceTree = "<group>"; };
 		55868EAA1E1C1CB600CDDED1 /* MemIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemIOCallback.cpp; sourceTree = "<group>"; };
 		55868EAB1E1C1CB600CDDED1 /* MemReadIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemReadIOCallback.cpp; sourceTree = "<group>"; };
-		55868EAE1E1C1CB600CDDED1 /* WinIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = WinIOCallback.cpp; sourceTree = "<group>"; };
-		55868EAF1E1C1CB600CDDED1 /* WinIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WinIOCallback.h; sourceTree = "<group>"; };
 		55868EB01E1C1CB600CDDED1 /* SafeReadIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SafeReadIOCallback.cpp; sourceTree = "<group>"; };
 		55868EB11E1C1CB600CDDED1 /* StdIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StdIOCallback.cpp; sourceTree = "<group>"; };
 		55868EED1E1C1DA300CDDED1 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
@@ -604,18 +601,8 @@
 		55868EAC1E1C1CB600CDDED1 /* platform */ = {
 			isa = PBXGroup;
 			children = (
-				55868EAD1E1C1CB600CDDED1 /* win32 */,
 			);
 			path = platform;
-			sourceTree = "<group>";
-		};
-		55868EAD1E1C1CB600CDDED1 /* win32 */ = {
-			isa = PBXGroup;
-			children = (
-				55868EAE1E1C1CB600CDDED1 /* WinIOCallback.cpp */,
-				55868EAF1E1C1CB600CDDED1 /* WinIOCallback.h */,
-			);
-			path = win32;
 			sourceTree = "<group>";
 		};
 		55868F0A1E1C4CB000CDDED1 /* test8 */ = {
@@ -705,7 +692,6 @@
 				55868ECA1E1C1CB600CDDED1 /* MemIOCallback.h in Headers */,
 				55868EBB1E1C1CB600CDDED1 /* EbmlEndian.h in Headers */,
 				55868EC51E1C1CB600CDDED1 /* EbmlUInteger.h in Headers */,
-				55868EE41E1C1CB600CDDED1 /* WinIOCallback.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

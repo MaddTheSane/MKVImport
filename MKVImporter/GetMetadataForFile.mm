@@ -265,7 +265,7 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	attributes[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
 	
 	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
-		NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:date->GetValue()];
+		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetValue()];
 		attributes[(NSString*)kMDItemRecordingDate] = createDate;
 	}
 	
@@ -378,6 +378,11 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 			case track_subtitle:
 				addMediaType(@"Subtitles");
 				//TODO: parse SSA, get font list?
+				
+				codec = mkvCodecShortener(&track);
+				if (codec) {
+					[codecSet addObject:codec];
+				}
 				break;
 				
 			case track_complex:
@@ -464,6 +469,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
+		//TODO: get locale from KaxChapterLanguage and KaxChapterCountry
 		KaxChapterDisplay & chapDisplay = GetChild<KaxChapterDisplay>(*chapterAtom);
 		KaxChapterString & chapString = GetChild<KaxChapterString>(chapDisplay);
 		if (chapString.GetValue().length() != 0) {

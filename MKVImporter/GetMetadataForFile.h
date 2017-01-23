@@ -21,7 +21,7 @@
 extern "C" {
 #endif
 
-// The import function to be implemented in GetMetadataForFile.c
+/// The import function to be implemented in GetMetadataForFile.c
 __private_extern
 Boolean GetMetadataForFile(void *thisInterface,
 						   CFMutableDictionaryRef attributes,

@@ -58,6 +58,8 @@ private let kAudioFormatXiphVorbis = "Vorbis"
 private let kAudioFormatLinearPCM = "Linear PCM"
 private let kAudioFormatSpeex = "Speex"
 
+private let kSubtitleFormatText = "Raw Text"
+
 func mainFunc() {
 	//TODO: remove codecs used natively by Matroskas.
 	let kOSTypeCodecIDs: [FourCharCodec] = {
@@ -437,6 +439,10 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("GXVE"))) //WMV 2
 		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("WMV3")))
 		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("mjp2"))) /* JPEG 2000 produced by FCP */
+		
+		toRet.append(FourCharCodec(cType: kSubtitleFormatText, fourocc: .string("text")))
+		toRet.append(FourCharCodec(cType: kSubtitleFormatText, fourocc: .string("tx3g")))
+		toRet.append(FourCharCodec(cType: "Closed Captions", fourocc: .string("c608")))
 		
 		return toRet
 	}()

@@ -140,7 +140,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kSubFormatASS, "S_TEXT/ASS" },
 	{ kSubFormatASS, "S_ASS" },
 	{ kSubFormatUTF8, "S_TEXT/UTF8" },
-	{ kSubFormatUTF8, "S_TEXT/ASCII" },
+	{ kSubFormatUTF8, "S_TEXT/ASCII" }, // Valid ASCII is valid UTF :D
 	{ kSubFormatVobSub, "S_VOBSUB" },
 };
 
