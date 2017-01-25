@@ -885,11 +885,11 @@
 				"$(SRCROOT)/OSTypeMapperGenerator/main.swift",
 			);
 			outputPaths = (
-				"\"${TARGET_BUILD_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources/OSTypeMap.plist",
+				"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Resources/OSTypeMap.plist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${TARGET_BUILD_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources\n\"${BUILT_PRODUCTS_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist";
+			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources\npwd\n\"${BUILT_PRODUCTS_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist";
 		};
 /* End PBXShellScriptBuildPhase section */
 
