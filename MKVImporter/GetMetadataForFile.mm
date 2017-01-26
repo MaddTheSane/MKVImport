@@ -630,14 +630,13 @@ void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
 
 #pragma mark -
 
-static NSString *getLanguageCode(const std::string & cppLang)
+static NSString *getLanguageCode(const string & cppLang)
 {
 	if (cppLang == "und") {
 		return nil;
 	}
-	CFStringRef threeCharLang = CFStringCreateWithCString(kCFAllocatorDefault, cppLang.c_str(), kCFStringEncodingASCII);
-	NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, threeCharLang));
-	CFRelease(threeCharLang);
+	NSString *threeCharLang = @(cppLang.c_str());
+	NSString *nsLang = [NSLocale canonicalLanguageIdentifierFromString:threeCharLang];
 	return nsLang;
 }
 
@@ -662,5 +661,6 @@ static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCo
 		}
 		locale = [locale stringByAppendingFormat:@"_%s", theCountry.c_str()];
 	}
+	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
 	return locale;
 }
