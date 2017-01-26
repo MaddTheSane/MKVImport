@@ -41,6 +41,9 @@ using namespace std;
 
 #define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
 
+static NSString *getLanguageCode(KaxTrackEntry & track);
+__unused static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
+
 class MatroskaImport {
 private:
 	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
@@ -313,16 +316,12 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
 		
 		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
-		do {
-			KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
-			string cppLang(trackLang);
-			if (cppLang == "und") {
-				break;
+		{
+			NSString *nsLang = getLanguageCode(track);
+			if (nsLang) {
+				[langSet addObject:nsLang];
 			}
-			NSString *threeCharLang = @(cppLang.c_str());
-			NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, (CFStringRef)threeCharLang));
-			[langSet addObject:nsLang];
-		} while (0);
+		}
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
@@ -566,7 +565,6 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 
     Boolean ok = FALSE;
     @autoreleasepool {
-		
 		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
 		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
@@ -628,4 +626,41 @@ void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
 	
 	el_l1 = context.el_l1;
 	_ebmlFile.setFilePointer(context.position);
+}
+
+#pragma mark -
+
+static NSString *getLanguageCode(const std::string & cppLang)
+{
+	if (cppLang == "und") {
+		return nil;
+	}
+	CFStringRef threeCharLang = CFStringCreateWithCString(kCFAllocatorDefault, cppLang.c_str(), kCFStringEncodingASCII);
+	NSString *nsLang = CFBridgingRelease(CFLocaleCreateCanonicalLanguageIdentifierFromString(kCFAllocatorDefault, threeCharLang));
+	CFRelease(threeCharLang);
+	return nsLang;
+}
+
+static NSString *getLanguageCode(KaxTrackEntry & track)
+{
+	KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
+	string cppLang(trackLang);
+	return getLanguageCode(cppLang);
+}
+
+static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country)
+{
+	string threeLang(language);
+	NSString *locale = getLanguageCode(threeLang);
+	if (!locale) {
+		return nil;
+	}
+	if (country) {
+		string theCountry(*country);
+		if (theCountry.length() == 0) {
+			return locale;
+		}
+		locale = [locale stringByAppendingFormat:@"_%s", theCountry.c_str()];
+	}
+	return locale;
 }
