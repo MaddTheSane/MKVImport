@@ -42,7 +42,7 @@ using namespace std;
 #define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
 
 static NSString *getLanguageCode(KaxTrackEntry & track);
-__unused static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
+static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 
 class MatroskaImport {
 private:
@@ -462,23 +462,39 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 
 bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 {
+	if (seenChapters) {
+		return true;
+	}
 	addMediaType(@"Chapters");
 
-	NSMutableArray<NSString*> *chapters = [[NSMutableArray alloc] init];
+	NSMutableDictionary<NSString*,NSMutableArray<NSString*>*> *chapters = [[NSMutableDictionary alloc] init];
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
 		//TODO: get locale from KaxChapterLanguage and KaxChapterCountry
-		KaxChapterDisplay & chapDisplay = GetChild<KaxChapterDisplay>(*chapterAtom);
-		KaxChapterString & chapString = GetChild<KaxChapterString>(chapDisplay);
-		if (chapString.GetValue().length() != 0) {
-			[chapters addObject:@(chapString.GetValueUTF8().c_str())];
+		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
+		while (chapDisplay && chapDisplay->GetSize() > 0) {
+			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
+			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
+			KaxChapterCountry * chapCountry = FindChild<KaxChapterCountry>(*chapDisplay);
+			NSString *chapLocale = getLocaleCode(chapLang, chapCountry);
+			if (chapString.GetValue().length() != 0) {
+				if (![chapters objectForKey:chapLocale]) {
+					chapters[chapLocale] = [[NSMutableArray alloc] init];
+				}
+				[chapters[chapLocale] addObject:@(chapString.GetValueUTF8().c_str())];
+			}
+			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}
 
-		chapterAtom = &GetNextChild<KaxChapterAtom>(edition, *chapterAtom);
+		chapterAtom = FindNextChild<KaxChapterAtom>(edition, *chapterAtom);
 	}
 	
-	attributes[kChapterNames] = [chapters copy];
+	if (chapters.count == 1) {
+		attributes[kChapterNames] = [chapters[chapters.allKeys.firstObject] copy];
+	} else {
+		attributes[kChapterNames] = [chapters copy];
+	}
 	seenChapters = true;
 
 	return true;
@@ -534,7 +550,7 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 		}
 		
 		levelOneElements.push_back(newSeekEntry);
-		seekEntry = &GetNextChild<KaxSeek>(seekHead, *seekEntry);
+		seekEntry = FindNextChild<KaxSeek>(seekHead, *seekEntry);
 	}
 	
 	sort(levelOneElements.begin(), levelOneElements.end());
