@@ -442,7 +442,7 @@ func mainFunc() {
 		
 		toRet.append(FourCharCodec(cType: kSubtitleFormatText, fourocc: .string("text")))
 		toRet.append(FourCharCodec(cType: kSubtitleFormatText, fourocc: .string("tx3g")))
-		toRet.append(FourCharCodec(cType: "Closed Captions", fourocc: .string("c608")))
+		toRet.append(FourCharCodec(cType: "CEA 608", fourocc: .string("c608")))
 		
 		return toRet
 	}()

@@ -96,6 +96,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "Snow", "V_SNOW" },
 	{ kVideoFormatVP8, "V_VP8" },
 	{ "VP9", "V_VP9" },
+	{ "ProRes", "V_PRORES" },
 	
 	{ kAudioFormatMPEG4AAC, "A_AAC" },
 	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/LC" },
@@ -111,7 +112,6 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kAudioFormatMPEGLayer2, "A_MPEG/L2" },
 	{ kAudioFormatMPEGLayer3, "A_MPEG/L3" },
 	{ kAudioFormatAC3, "A_AC3" },
-	{ kAudioFormatAC3, "A_AC3" },
 	// anything special for these two?
 	{ kAudioFormatAC3, "A_AC3/BSID9" },
 	{ kAudioFormatAC3, "A_AC3/BSID10" },
@@ -121,6 +121,8 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kAudioFormatLinearPCM, "A_PCM/INT/BIG" },
 	{ kAudioFormatLinearPCM, "A_PCM/FLOAT/IEEE" },
 	{ kAudioFormatDTS, "A_DTS" },
+	{ "DTS Lossless", "A_DTS/LOSSLESS" },
+	{ "DTS Express", "A_DTS/EXPRESS" },
 	{ "TrueType Audio", "A_TTA1" },
 	{ "WavPack", "A_WAVPACK4" },
 	{ "RealAudio", "A_REAL/14_4" },
@@ -130,11 +132,12 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "RealAudio Lossless", "A_REAL/RALF" },
 	{ "Atrac3", "A_REAL/ATRC" },
 	{ "Opus", "A_OPUS" },
+	{ "Apple Lossless", "A_ALAC" },
 	
 #if 0
 	{ kBMPCodecType, "S_IMAGE/BMP" },
-	{ kSubFormatUSF, "S_TEXT/USF" },
 #endif
+	{ "Universal Subtitles", "S_TEXT/USF" },
 	{ kSubFormatSSA, "S_TEXT/SSA" },
 	{ kSubFormatSSA, "S_SSA" },
 	{ kSubFormatASS, "S_TEXT/ASS" },
@@ -142,6 +145,25 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kSubFormatUTF8, "S_TEXT/UTF8" },
 	{ kSubFormatUTF8, "S_TEXT/ASCII" }, // Valid ASCII is valid UTF :D
 	{ kSubFormatVobSub, "S_VOBSUB" },
+	{ "KATE", "S_KATE" },
+	{ "WebVTT", "S_TEXT/WEBVTT" },
+	
+#ifdef UNSUPPORTEDCODECS
+	// Currently unsupported codecs:
+	{ "WMV", "V_MSWMV" }, // Video, Microsoft Video
+	{ kVideoCodecIndeo5, "V_INDEO5" }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
+	{ "Motion JPEG", "V_MJPEG" }, // Video, MJpeg codec (lossy mode, general)
+	{ "Motion JPEG2000", "V_MJPEG2000" }, // Video, MJpeg 2000
+	{ "Motion JPEG2000 Lossless", "V_MJPEG2000LL" }, // Video, MJpeg Lossless
+	{ "DV Video", "V_DV" }, // Video, DV Video, type 1 (audio and video mixed)
+	{ "Ogg Tarkin", "V_TARKIN" }, // Video, Ogg Tarkin
+	{ "VP4", "V_ON2VP4" }, // Video, ON2, VP4
+	{ "VP5", "V_ON2VP5" }, // Video, ON2, VP5
+	{ "3ivx", "V_3IVX" }, // Video, 3ivX (is D4 decoder downwards compatible?)
+	{ "HuffYuv", "V_HUFFYUV" }, // Video, HuffYuv, lossless; auch als VfW möglich
+	{ "CoreYuv", "V_COREYUV" }, // Video, CoreYuv, lossless; auch als VfW möglich
+	{ "Rududu Wavelet", "V_RUDUDU" }, // Nicola's Rududu Wavelet codec
+#endif
 };
 
 
