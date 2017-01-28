@@ -16,6 +16,11 @@
 #define __private_extern __attribute__((visibility("hidden")))
 #endif
 
+#ifndef __nullable
+#define __nullable
+#define __nonnull
+#endif
+
 @class NSString;
 
 __private_extern NSString *__nullable mkvCodecShortener(libmatroska::KaxTrackEntry *__nonnull tr_entry);

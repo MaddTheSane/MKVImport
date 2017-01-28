@@ -46,13 +46,15 @@ static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCo
 
 class MatroskaImport {
 private:
-	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
+	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes([attribs retain]), seenInfo(false), seenTracks(false), seenChapters(false) {
 		mediaTypes = [[NSMutableSet alloc] initWithCapacity:6];
 		segmentOffset = 0;
 		el_l0 = NULL;
 		el_l1 = NULL;
 	}
 	virtual ~MatroskaImport() {
+		[attributes release];
+		[mediaTypes release];
 		attributes = nil;
 		mediaTypes = nil;
 		if (el_l1) {
@@ -73,7 +75,7 @@ private:
 
 	bool isValidMatroska();
 	void copyDataOver() {
-		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.allObjects;
+		[attributes setObject:[mediaTypes allObjects] forKey:(NSString*)kMDItemMediaTypes];
 	}
 	EbmlElement * NextLevel1Element();
 
@@ -124,7 +126,7 @@ private:
 	EbmlElement *el_l0;
 	EbmlElement *el_l1;
 	NSMutableDictionary *attributes;
-	NSMutableSet<NSString*> *mediaTypes;
+	NSMutableSet *mediaTypes;
 	
 	bool seenInfo;
 	bool seenTracks;
@@ -265,28 +267,28 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	Float64 movieDuration = Float64(duration);
 	UInt64 timecodeScale1 = UInt64(timecodeScale);
 
-	attributes[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
+	[attributes setObject:[NSNumber numberWithDouble:(movieDuration * timecodeScale1) / 1e9] forKey:(NSString*)kMDItemDurationSeconds];
 	
 	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
-		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetValue()];
-		attributes[(NSString*)kMDItemRecordingDate] = createDate;
+		NSDate *createDate = [NSDate dateWithTimeIntervalSince1970:date->GetValue()];
+		[attributes setObject:createDate forKey:(NSString*)kMDItemRecordingDate];
 	}
 	
 	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
-		NSString *nsTitle = @(title.GetValueUTF8().c_str());
-		attributes[(NSString*)kMDItemTitle] = nsTitle;
+		NSString *nsTitle = [NSString stringWithUTF8String:title.GetValueUTF8().c_str()];
+		[attributes setObject:nsTitle forKey:(NSString*)kMDItemTitle];
 	}
 	
 	{
 		NSString *creator = nil;
 		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
-			creator = @(writingApp.GetValueUTF8().c_str());
+			creator = [NSString stringWithUTF8String:writingApp.GetValueUTF8().c_str()];
 		} else if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
-			creator = @(muxingApp.GetValueUTF8().c_str());
+			creator = [NSString stringWithUTF8String:muxingApp.GetValueUTF8().c_str()];
 		}
 		
 		if (creator) {
-			attributes[(NSString*)kMDItemCreator] = creator;
+			[attributes setObject:creator forKey:(NSString*)kMDItemCreator];
 		}
 	}
 	
@@ -299,9 +301,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	if (seenTracks)
 		return true;
 	
-	NSMutableSet<NSString*> *langSet = [[NSMutableSet alloc] init];
-	NSMutableSet<NSString*> *codecSet = [[NSMutableSet alloc] init];
-	NSMutableArray<NSString*> *trackNames = [[NSMutableArray alloc] init];
+	NSMutableSet *langSet = [[NSMutableSet alloc] init];
+	NSMutableSet *codecSet = [[NSMutableSet alloc] init];
+	NSMutableArray *trackNames = [[NSMutableArray alloc] init];
 	//Because there may be more than one video track
 	uint32 biggestWidth = 0;
 	uint32 biggestHeight = 0;
@@ -326,7 +328,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
 				const char *cTrackName = trackName.GetValueUTF8().c_str();
-				NSString *nsTrackName = @(cTrackName);
+				NSString *nsTrackName = [NSString stringWithUTF8String:cTrackName];
 				[trackNames addObject:nsTrackName];
 			}
 		}
@@ -441,19 +443,19 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	}
 	
 	if (langSet.count > 0) {
-		attributes[(NSString*)kMDItemLanguages] = langSet.allObjects;
+		[attributes setObject:langSet.allObjects forKey:(NSString*)kMDItemLanguages];
 	}
-	attributes[(NSString*)kMDItemCodecs] = codecSet.allObjects;
+	[attributes setObject:codecSet.allObjects forKey:(NSString*)kMDItemCodecs];
 	if (trackNames.count > 0) {
-		attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
+		[attributes setObject:[NSArray arrayWithArray:trackNames] forKey:(NSString*)kMDItemLayerNames];
 	}
 	if (biggestWidth != 0 && biggestHeight != 0) {
-		attributes[(NSString*)kMDItemPixelHeight] = @(biggestHeight);
-		attributes[(NSString*)kMDItemPixelWidth] = @(biggestWidth);
+		[attributes setObject:[NSNumber numberWithUnsignedInt:biggestHeight] forKey:(NSString*)kMDItemPixelHeight];
+		[attributes setObject:[NSNumber numberWithUnsignedInt:biggestWidth] forKey:(NSString*)kMDItemPixelWidth];
 	}
 	if (maxChannels != 0) {
-		attributes[(NSString*)kMDItemAudioChannelCount] = @(maxChannels);
-		attributes[(NSString*)kMDItemAudioSampleRate] = @(sampleRate);
+		[attributes setObject:[NSNumber numberWithInt:maxChannels] forKey:(NSString*)kMDItemAudioChannelCount];
+		[attributes setObject:[NSNumber numberWithDouble:sampleRate] forKey:(NSString*)kMDItemAudioSampleRate];
 	}
 	
 	seenTracks = true;
@@ -467,7 +469,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	}
 	addMediaType(@"Chapters");
 
-	NSMutableDictionary<NSString*,NSMutableArray<NSString*>*> *chapters = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary *chapters = [[NSMutableDictionary alloc] init];
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
@@ -479,9 +481,9 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			NSString *chapLocale = getLocaleCode(chapLang, chapCountry);
 			if (chapString.GetValue().length() != 0) {
 				if (![chapters objectForKey:chapLocale]) {
-					chapters[chapLocale] = [[NSMutableArray alloc] init];
+					[chapters setObject:[NSMutableArray array] forKey:chapLocale];
 				}
-				[chapters[chapLocale] addObject:@(chapString.GetValueUTF8().c_str())];
+				[[chapters objectForKey:chapLocale] addObject:[NSString stringWithUTF8String:chapString.GetValueUTF8().c_str()]];
 			}
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}
@@ -489,10 +491,10 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 		chapterAtom = FindNextChild<KaxChapterAtom>(edition, *chapterAtom);
 	}
 	
-	if (chapters.count == 1 && [chapters.allKeys.firstObject isEqualToString:@"en"]) {
-		attributes[kChapterNames] = [chapters[chapters.allKeys.firstObject] copy];
+	if (chapters.count == 1 && [[[chapters allKeys] objectAtIndex:0] isEqualToString:@"en"]) {
+		[attributes setObject:[chapters objectForKey:[[chapters allKeys] objectAtIndex:0]] forKey:kChapterNames];
 	} else {
-		attributes[kChapterNames] = [chapters copy];
+		[attributes setObject:chapters forKey:kChapterNames];
 	}
 	seenChapters = true;
 
@@ -579,10 +581,11 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
     // Data external record file for a specific record instances
 
     Boolean ok = FALSE;
-    @autoreleasepool {
-		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
-		NSString *nsPath = (__bridge NSString*)pathToFile;
-		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
+	NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
+	{
+		NSMutableDictionary* nsAttribs = (NSMutableDictionary*)attributes;
+		NSString *nsPath = (NSString*)pathToFile;
+		NSString *nsUTI = (NSString*)contentTypeUTI;
 		try {
 			matroska_init();
 			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
@@ -591,6 +594,7 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 		}
 		matroska_done();
     }
+	[pool drain];
 	
     // Return the status
     return ok;
@@ -650,8 +654,8 @@ static NSString *getLanguageCode(const string & cppLang)
 	if (cppLang == "und") {
 		return nil;
 	}
-	NSString *threeCharLang = @(cppLang.c_str());
-	NSString *nsLang = [NSLocale canonicalLanguageIdentifierFromString:threeCharLang];
+	NSString *threeCharLang = [NSString stringWithUTF8String:cppLang.c_str()];
+	NSString *nsLang = [NSLocale canonicalLocaleIdentifierFromString:threeCharLang];
 	return nsLang;
 }
 

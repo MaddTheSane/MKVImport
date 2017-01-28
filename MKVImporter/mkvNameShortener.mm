@@ -177,36 +177,37 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 #define MKV_A_PCM_LIT "A_PCM/INT/LIT"
 #define MKV_A_PCM_FLOAT "A_PCM/FLOAT/IEEE"
 
-static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
+static NSDictionary *osTypeCodecMap;
 
 static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 {
-	static dispatch_once_t onceToken;
-	dispatch_once(&onceToken, ^{
-		NSMutableDictionary<NSNumber*, NSString*> *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
-		@autoreleasepool {
+	if (osTypeCodecMap == nil) {
+		do {
+		NSMutableDictionary *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
+		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
 		NSBundle *ourBundle = [NSBundle bundleForClass:[MKVOnlyClassForGettingBackToOurBundle class]];
-		NSURL *osTypeMapURL = [ourBundle URLForResource:@"OSTypeMap" withExtension:@"plist"];
+		NSURL *osTypeMapURL = [NSURL fileURLWithPath:[ourBundle pathForResource:@"OSTypeMap" ofType:@"plist"]];
 		if (!osTypeMapURL) {
 			//Just use the four-char code instead, I guess
-			return;
+			break;
 		}
-		NSDictionary<NSString*,NSArray<id>*> *mapDict = [[NSDictionary alloc] initWithContentsOfURL:osTypeMapURL];
+		NSDictionary *mapDict = [[NSDictionary alloc] initWithContentsOfURL:osTypeMapURL];
 		for (NSString *key in mapDict) {
-			NSArray<id>* ourArr = mapDict[key];
+			NSArray* ourArr = [mapDict objectForKey:key];
 			for (id entry in ourArr) {
 				if ([entry isKindOfClass:[NSNumber class]]) {
-					osTypeCodecMap2[(NSNumber*)entry] = key;
+					[osTypeCodecMap2 setObject:entry forKey:key];
 				} else /* NSString */ {
-					OSType properOSType = UTGetOSTypeFromString((__bridge CFStringRef)entry);
-					osTypeCodecMap2[@(properOSType)] = key;
+					OSType properOSType = UTGetOSTypeFromString((CFStringRef)entry);
+					[osTypeCodecMap2 setObject:[NSNumber numberWithUnsignedInt:properOSType] forKey:key];
 				}
 			}
 		}
-		}
+		[pool drain];
 		osTypeCodecMap = [osTypeCodecMap2 copy];
-	});
-	NSString *codecName = osTypeCodecMap[@(codec)];
+		} while (0);
+	}
+	NSString *codecName = [osTypeCodecMap objectForKey:[NSNumber numberWithUnsignedInt:codec]];
 	if (codecName) {
 		return codecName;
 	}
@@ -230,7 +231,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 		return nil;
 	
 	if (codecName && codecName->GetSize() != 0) {
-		return @(codecName->GetValueUTF8().c_str());
+		return [NSString stringWithUTF8String:codecName->GetValueUTF8().c_str()];
 	}
 	
 	string codecString(*tr_codec);
@@ -256,7 +257,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 		
 		for (int i = 0; kWavCodecIDs[i].cType; i++) {
 			if (kWavCodecIDs[i].twocc == twocc)
-				return @(kWavCodecIDs[i].cType);
+				return [NSString stringWithUTF8String:kWavCodecIDs[i].cType];
 		}
 		return osType2CodecName('ms\0\0' | twocc, false);
 		
@@ -273,7 +274,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 	} else {
 		for (int i = 0; i < sizeof(kMatroskaCodecIDs) / sizeof(MatroskaQT_Codec); i++) {
 			if (codecString == kMatroskaCodecIDs[i].mkvID)
-				return @(kMatroskaCodecIDs[i].cType);
+				return [NSString stringWithUTF8String:kMatroskaCodecIDs[i].cType];
 		}
 	}
 	return nil;
