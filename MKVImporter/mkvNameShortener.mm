@@ -181,7 +181,8 @@ static NSDictionary *osTypeCodecMap;
 
 static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 {
-	if (osTypeCodecMap == nil) {
+	static BOOL osTypeCodecSet = NO;
+	if (osTypeCodecSet == NO) {
 		do {
 		NSMutableDictionary *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
 		NSAutoreleasePool *pool = [[NSAutoreleasePool alloc] init];
@@ -203,9 +204,12 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 				}
 			}
 		}
+		[mapDict release];
 		[pool drain];
 		osTypeCodecMap = [osTypeCodecMap2 copy];
+		[osTypeCodecMap2 release];
 		} while (0);
+		osTypeCodecSet = YES;
 	}
 	NSString *codecName = [osTypeCodecMap objectForKey:[NSNumber numberWithUnsignedInt:codec]];
 	if (codecName) {
