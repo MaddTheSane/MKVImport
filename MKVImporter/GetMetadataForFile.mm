@@ -471,7 +471,6 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
-		//TODO: get locale from KaxChapterLanguage and KaxChapterCountry
 		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
 		while (chapDisplay && chapDisplay->GetSize() > 0) {
 			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
