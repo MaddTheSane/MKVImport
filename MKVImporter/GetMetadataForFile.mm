@@ -275,20 +275,22 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	}
 	
 	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
-		NSString *nsTitle = [NSString stringWithUTF8String:title.GetValueUTF8().c_str()];
+		NSString *nsTitle = [[NSString alloc] initWithUTF8String:title.GetValueUTF8().c_str()];
 		[attributes setObject:nsTitle forKey:(NSString*)kMDItemTitle];
+		[nsTitle release];
 	}
 	
 	{
 		NSString *creator = nil;
 		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
-			creator = [NSString stringWithUTF8String:writingApp.GetValueUTF8().c_str()];
+			creator = [[NSString alloc] initWithUTF8String:writingApp.GetValueUTF8().c_str()];
 		} else if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
-			creator = [NSString stringWithUTF8String:muxingApp.GetValueUTF8().c_str()];
+			creator = [[NSString alloc] initWithUTF8String:muxingApp.GetValueUTF8().c_str()];
 		}
 		
 		if (creator) {
 			[attributes setObject:creator forKey:(NSString*)kMDItemCreator];
+			[creator release];
 		}
 	}
 	
@@ -332,7 +334,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				[trackNames addObject:nsTrackName];
 			}
 		}
-		NSString *codec;
+		NSString *codec = nil;
 		switch (uint8(type)) {
 			case track_video:
 				addMediaType(@"Video");
@@ -349,9 +351,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				}
 			}
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_audio:
@@ -371,9 +370,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				}
 			}
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_subtitle:
@@ -381,9 +377,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				//TODO: parse SSA, get font list?
 				
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_complex:
@@ -409,7 +402,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 					KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(*audTrack);
 					//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
 					double curSampling = curKaxSampling.GetValue();
-					int curChannels = (int)curKaxChannels.GetValue();
+					int curChannels = uint32(curKaxChannels);
 					if (curSampling > sampleRate) {
 						sampleRate = curSampling;
 					}
@@ -420,9 +413,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 			}
 
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_logo:
@@ -439,6 +429,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				
 			default:
 				break;
+		}
+		if (codec) {
+			[codecSet addObject:codec];
 		}
 	}
 	
@@ -458,6 +451,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		[attributes setObject:[NSNumber numberWithDouble:sampleRate] forKey:(NSString*)kMDItemAudioSampleRate];
 	}
 	
+	[langSet release];
+	[codecSet release];
+	[trackNames release];
 	seenTracks = true;
 	return true;
 }
@@ -496,6 +492,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	} else {
 		[attributes setObject:chapters forKey:kChapterNames];
 	}
+	[chapters release];
 	seenChapters = true;
 
 	return true;
@@ -669,17 +666,17 @@ static NSString *getLanguageCode(KaxTrackEntry & track)
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country)
 {
 	string threeLang(language);
-	NSString *locale = getLanguageCode(threeLang);
-	if (!locale) {
+	NSString *alocale = getLanguageCode(threeLang);
+	if (!alocale) {
 		return nil;
 	}
 	if (country) {
 		string theCountry(*country);
 		if (theCountry.length() == 0) {
-			return locale;
+			return alocale;
 		}
-		locale = [locale stringByAppendingFormat:@"_%s", theCountry.c_str()];
+		alocale = [alocale stringByAppendingFormat:@"_%s", theCountry.c_str()];
 	}
-	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
-	return locale;
+	alocale = [NSLocale canonicalLocaleIdentifierFromString:alocale];
+	return alocale;
 }
