@@ -347,9 +347,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				}
 			}
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_audio:
@@ -369,9 +366,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				}
 			}
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_subtitle:
@@ -379,9 +373,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				//TODO: parse SSA, get font list?
 				
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_complex:
@@ -418,9 +409,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 			}
 
 				codec = mkvCodecShortener(&track);
-				if (codec) {
-					[codecSet addObject:codec];
-				}
 				break;
 				
 			case track_logo:
@@ -437,6 +425,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				
 			default:
 				break;
+		}
+		if (codec) {
+			[codecSet addObject:codec];
 		}
 	}
 	
