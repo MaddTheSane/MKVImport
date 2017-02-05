@@ -341,6 +341,16 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				///KaxVideoColourSpace
 				uint32 curWidth = uint32(curKaxWidth);
 				uint32 curHeight = uint32(curKaxHeight);
+#ifdef GET_DISPLAY_SIZE
+				KaxVideoDisplayWidth *dispWidth = FindChild<KaxVideoDisplayWidth>(vidTrack);
+				KaxVideoDisplayHeight *dispHeight = FindChild<KaxVideoDisplayHeight>(vidTrack);
+				if (dispWidth && dispWidth->GetValue() != 0) {
+					curWidth = uint32(*dispWidth);
+				}
+				if (dispHeight && dispHeight->GetValue() != 0) {
+					curHeight = uint32(*dispHeight);
+				}
+#endif
 				if (curWidth >= biggestWidth && curHeight >= biggestHeight) {
 					biggestWidth = curWidth;
 					biggestHeight = curHeight;
@@ -385,6 +395,16 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 					///KaxVideoColourSpace
 					uint32 curWidth = uint32(curKaxWidth);
 					uint32 curHeight = uint32(curKaxHeight);
+#ifdef GET_DISPLAY_SIZE
+					KaxVideoDisplayWidth *dispWidth = FindChild<KaxVideoDisplayWidth>(*vidTrack);
+					KaxVideoDisplayHeight *dispHeight = FindChild<KaxVideoDisplayHeight>(*vidTrack);
+					if (dispWidth && dispWidth->GetValue() != 0) {
+						curWidth = uint32(*dispWidth);
+					}
+					if (dispHeight && dispHeight->GetValue() != 0) {
+						curHeight = uint32(*dispHeight);
+					}
+#endif
 					if (curWidth >= biggestWidth && curHeight >= biggestHeight) {
 						biggestWidth = curWidth;
 						biggestHeight = curHeight;
@@ -467,7 +487,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
 			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
 			KaxChapterCountry * chapCountry = FindChild<KaxChapterCountry>(*chapDisplay);
-			NSString *chapLocale = getLocaleCode(chapLang, chapCountry);
+			NSString *chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"en";
 			if (chapString.GetValue().length() != 0) {
 				if (![chapters objectForKey:chapLocale]) {
 					chapters[chapLocale] = [[NSMutableArray alloc] init];
