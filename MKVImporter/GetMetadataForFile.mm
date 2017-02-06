@@ -341,7 +341,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				///KaxVideoColourSpace
 				uint32 curWidth = uint32(curKaxWidth);
 				uint32 curHeight = uint32(curKaxHeight);
-#ifdef GET_DISPLAY_SIZE
+#ifdef USE_DISPLAY_SIZE
 				KaxVideoDisplayWidth *dispWidth = FindChild<KaxVideoDisplayWidth>(vidTrack);
 				KaxVideoDisplayHeight *dispHeight = FindChild<KaxVideoDisplayHeight>(vidTrack);
 				if (dispWidth && dispWidth->GetValue() != 0) {
@@ -395,7 +395,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 					///KaxVideoColourSpace
 					uint32 curWidth = uint32(curKaxWidth);
 					uint32 curHeight = uint32(curKaxHeight);
-#ifdef GET_DISPLAY_SIZE
+#ifdef USE_DISPLAY_SIZE
 					KaxVideoDisplayWidth *dispWidth = FindChild<KaxVideoDisplayWidth>(*vidTrack);
 					KaxVideoDisplayHeight *dispHeight = FindChild<KaxVideoDisplayHeight>(*vidTrack);
 					if (dispWidth && dispWidth->GetValue() != 0) {
@@ -418,7 +418,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 					KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(*audTrack);
 					//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
 					double curSampling = curKaxSampling.GetValue();
-					int curChannels = (int)curKaxChannels.GetValue();
+					int curChannels = uint32(curKaxChannels.GetValue());
 					if (curSampling > sampleRate) {
 						sampleRate = curSampling;
 					}
