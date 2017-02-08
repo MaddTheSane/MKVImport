@@ -356,7 +356,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 					biggestHeight = curHeight;
 				}
 			}
-				codec = mkvCodecShortener(&track);
+				codec = mkvCodecShortener(track);
 				break;
 				
 			case track_audio:
@@ -375,14 +375,14 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 					maxChannels = curChannels;
 				}
 			}
-				codec = mkvCodecShortener(&track);
+				codec = mkvCodecShortener(track);
 				break;
 				
 			case track_subtitle:
 				addMediaType(@"Subtitles");
 				//TODO: parse SSA, get font list?
 				
-				codec = mkvCodecShortener(&track);
+				codec = mkvCodecShortener(track);
 				break;
 				
 			case track_complex:
@@ -428,7 +428,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				}
 			}
 
-				codec = mkvCodecShortener(&track);
+				codec = mkvCodecShortener(track);
 				break;
 				
 			case track_logo:

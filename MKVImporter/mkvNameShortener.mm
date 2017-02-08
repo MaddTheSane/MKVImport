@@ -243,10 +243,10 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 	}
 }
 
-NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
+NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 {
-	KaxCodecID *tr_codec = FindChild<KaxCodecID>(*tr_entry);
-	KaxCodecName *codecName = FindChild<KaxCodecName>(*tr_entry);
+	KaxCodecID *tr_codec = FindChild<KaxCodecID>(tr_entry);
+	KaxCodecName *codecName = FindChild<KaxCodecName>(tr_entry);
 	if (tr_codec == NULL)
 		return nil;
 	
@@ -258,7 +258,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 	
 	if (codecString == MKV_V_MS) {
 		// avi compatibility mode, 4cc is in private info
-		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(*tr_entry);
+		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
 		if (codecPrivate == NULL || codecPrivate->GetSize() <= (16+3))
 			return nil;
 		
@@ -268,7 +268,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 		
 	} else if (codecString == MKV_A_MS) {
 		// acm compatibility mode, twocc is in private info
-		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(*tr_entry);
+		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
 		if (codecPrivate == NULL || codecPrivate->GetSize() <= 2)
 			return 0;
 		
@@ -283,7 +283,7 @@ NSString *mkvCodecShortener(KaxTrackEntry *tr_entry)
 		
 	} else if (codecString == MKV_V_QT) {
 		// QT compatibility mode, private info is the ImageDescription structure, big endian
-		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(*tr_entry);
+		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
 		if (codecPrivate == NULL || codecPrivate->GetSize() <= 4)
 			return 0;
 		
