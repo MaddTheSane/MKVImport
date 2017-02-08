@@ -487,7 +487,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
 			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
 			KaxChapterCountry * chapCountry = FindChild<KaxChapterCountry>(*chapDisplay);
-			NSString *chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"en";
+			NSString *chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
 			if (chapString.GetValue().length() != 0) {
 				if (![chapters objectForKey:chapLocale]) {
 					chapters[chapLocale] = [[NSMutableArray alloc] init];
