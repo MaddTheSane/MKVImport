@@ -500,7 +500,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 		chapterAtom = FindNextChild<KaxChapterAtom>(edition, *chapterAtom);
 	}
 	
-	if (chapters.count == 1 && [chapters.allKeys.firstObject isEqualToString:@"en"]) {
+	if (chapters.count == 1 && ([chapters.allKeys.firstObject isEqualToString:@"en"] || [chapters.allKeys.firstObject isEqualToString:@""])) {
 		attributes[kChapterNames] = [chapters[chapters.allKeys.firstObject] copy];
 	} else {
 		attributes[kChapterNames] = [chapters copy];
