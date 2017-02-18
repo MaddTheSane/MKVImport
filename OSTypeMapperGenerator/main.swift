@@ -447,23 +447,22 @@ func mainFunc() {
 		return toRet
 	}()
 	
-	var codecDict2 = [String: Set<NSObject>]()
-	for obj in kOSTypeCodecIDs {
-		if codecDict2[obj.cType] == nil {
-			codecDict2[obj.cType] = []
-		}
-		let obj2: NSObject
-		switch obj.fourocc {
-		case .string(let aStr):
-			obj2 = aStr as NSString
-		case .osType(let aOSTy):
-			obj2 = NSNumber(value: aOSTy)
-		}
-		
-		codecDict2[obj.cType]!.insert(obj2)
-	}
-	
 	let codecDict: [String: [NSObject]] = {
+		var codecDict2 = [String: Set<NSObject>]()
+		for obj in kOSTypeCodecIDs {
+			if codecDict2[obj.cType] == nil {
+				codecDict2[obj.cType] = []
+			}
+			let obj2: NSObject
+			switch obj.fourocc {
+			case .string(let aStr):
+				obj2 = aStr as NSString
+			case .osType(let aOSTy):
+				obj2 = NSNumber(value: aOSTy)
+			}
+			
+			codecDict2[obj.cType]!.insert(obj2)
+		}
 		var tmpDict = [String: [NSObject]]()
 		for (key, aSet) in codecDict2 {
 			tmpDict[key] = Array(aSet)
@@ -471,10 +470,10 @@ func mainFunc() {
 		return tmpDict
 	}()
 	
-	let aDat = try! PropertyListSerialization.data(fromPropertyList: codecDict, format: .xml, options: 0)
-	
-	let dest = URL(fileURLWithPath: CommandLine.arguments[1])
 	do {
+		let aDat = try PropertyListSerialization.data(fromPropertyList: codecDict, format: .xml, options: 0)
+		
+		let dest = URL(fileURLWithPath: CommandLine.arguments[1])
 		try aDat.write(to: dest)
 	} catch let error as NSError {
 		print("Error: \(error.localizedDescription) (\(error))")
