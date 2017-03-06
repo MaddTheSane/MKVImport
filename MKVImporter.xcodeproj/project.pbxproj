@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		55239B6E1E301A1200B5B7D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55239B6D1E301A1200B5B7D0 /* main.swift */; };
+		5528F5CD1E6DF7AB0001D475 /* ParseSSA.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */; };
 		557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
 		55868DFC1E1C189B00CDDED1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFB1E1C189B00CDDED1 /* main.c */; };
 		55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */; };
@@ -152,6 +153,8 @@
 /* Begin PBXFileReference section */
 		55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OSTypeMapperGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		55239B6D1E301A1200B5B7D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
+		5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParseSSA.mm; sourceTree = "<group>"; };
+		5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseSSA.hpp; sourceTree = "<group>"; };
 		557B87F41E1DBA1800F2133E /* MKVImporter.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = MKVImporter.exp; sourceTree = "<group>"; };
 		557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mkvNameShortener.mm; sourceTree = "<group>"; };
 		557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mkvNameShortener.hpp; sourceTree = "<group>"; };
@@ -333,6 +336,8 @@
 				55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */,
 				557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */,
 				557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */,
+				5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */,
+				5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */,
 				55868E021E1C189B00CDDED1 /* Importer Read Me.txt */,
 				55868E031E1C189B00CDDED1 /* Info.plist */,
 				55868DFA1E1C189B00CDDED1 /* Supporting Files */,
@@ -771,6 +776,7 @@
 				557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */,
 				55868DFC1E1C189B00CDDED1 /* main.c in Sources */,
 				55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */,
+				5528F5CD1E6DF7AB0001D475 /* ParseSSA.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

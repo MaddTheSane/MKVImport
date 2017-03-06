@@ -34,6 +34,7 @@
 #include "matroska/KaxCuesData.h"
 
 #include "mkvNameShortener.hpp"
+#include "ParseSSA.hpp"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
@@ -48,6 +49,7 @@ class MatroskaImport {
 private:
 	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
 		mediaTypes = [[NSMutableSet alloc] initWithCapacity:6];
+		fonts = [[NSMutableSet alloc] initWithCapacity:2];
 		segmentOffset = 0;
 		el_l0 = NULL;
 		el_l1 = NULL;
@@ -75,6 +77,9 @@ private:
 	//! Copies over data to \c attributes that can't be done in one iteration.
 	void copyDataOver() {
 		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.allObjects;
+		if (fonts.count != 0) {
+			attributes[(NSString*)kMDItemFonts] = fonts.allObjects;
+		}
 	}
 	EbmlElement * NextLevel1Element();
 
@@ -126,6 +131,7 @@ private:
 	EbmlElement *el_l1;
 	NSMutableDictionary *attributes;
 	NSMutableSet<NSString*> *mediaTypes;
+	NSMutableSet<NSString*> *fonts;
 	
 	bool seenInfo;
 	bool seenTracks;
@@ -383,7 +389,13 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 			case track_subtitle:
 				addMediaType(@"Subtitles");
 				//TODO: parse SSA, get font list?
-				
+			if (isSSA1(track) || isSSA2(track)) {
+				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
+				bool success = getSubtitleFontList(track, tmpFonts);
+				if (success) {
+					
+				}
+			}
 				codec = mkvCodecShortener(track);
 				break;
 				
