@@ -91,7 +91,7 @@ static MDImporterInterfaceStruct testInterfaceFtbl = {
 //
 MDPlugType *AllocMetadataImporterPluginType(CFUUIDRef inFactoryID)
 {
-    MDPlugType *theNewInstance = (MDPlugType *)calloc(sizeof(MDPlugType), 1);
+    MDPlugType *theNewInstance = (MDPlugType *)calloc(1, sizeof(MDPlugType));
 
     /* Point to the function table */
     theNewInstance->conduitInterface = &testInterfaceFtbl;
@@ -143,7 +143,7 @@ HRESULT MetadataImporterQueryInterface(void *thisInstance, REFIID iid, LPVOID *p
         return S_OK;
     } else if (CFEqual(interfaceID, IUnknownUUID)) {
         /* If the IUnknown interface was requested, same as above. */
-        ((MDPlugType*)thisInstance )->conduitInterface->AddRef(thisInstance);
+        ((MDPlugType*)thisInstance)->conduitInterface->AddRef(thisInstance);
         *ppv = thisInstance;
         CFRelease(interfaceID);
         return S_OK;
@@ -164,7 +164,7 @@ HRESULT MetadataImporterQueryInterface(void *thisInstance, REFIID iid, LPVOID *p
 //
 ULONG MetadataImporterPluginAddRef(void *thisInstance)
 {
-    return ++((MDPlugType *)thisInstance )->refCount;
+    return ++((MDPlugType *)thisInstance)->refCount;
 }
 
 // -----------------------------------------------------------------------------
@@ -179,8 +179,8 @@ ULONG MetadataImporterPluginRelease(void *thisInstance)
     if (((MDPlugType*)thisInstance)->refCount == 0) {
         DeallocMetadataImporterPluginType((MDPlugType*)thisInstance);
         return 0;
-    }else{
-        return ((MDPlugType*) thisInstance )->refCount;
+    } else {
+        return ((MDPlugType*)thisInstance)->refCount;
     }
 }
 

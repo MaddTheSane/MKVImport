@@ -72,6 +72,7 @@ private:
 	bool ReadMetaSeek(KaxSeekHead &trackEntries);
 
 	bool isValidMatroska();
+	//! Copies over data to \c attributes that can't be done in one iteration.
 	void copyDataOver() {
 		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.allObjects;
 	}
@@ -248,6 +249,7 @@ bool MatroskaImport::ProcessLevel1Element()
 	return true;
 }
 
+// I have no idea where this even comes from...
 #define nvd "no_variable_data"
 
 bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
@@ -582,15 +584,8 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 
 Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
 {
-    // Pull any available metadata from the file at the specified path
-    // Return the attribute keys and attribute values in the dict
-    // Return TRUE if successful, FALSE if there was no data provided
-    // The path could point to either a Core Data store file in which
-    // case we import the store's metadata, or it could point to a Core
-    // Data external record file for a specific record instances
-
-    Boolean ok = FALSE;
-    @autoreleasepool {
+	Boolean ok = FALSE;
+	@autoreleasepool {
 		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
 		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
@@ -601,10 +596,10 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 			ok = FALSE;
 		}
 		matroska_done();
-    }
+	}
 	
-    // Return the status
-    return ok;
+	// Return the status
+	return ok;
 }
 
 #pragma mark - Element code
