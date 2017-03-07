@@ -393,7 +393,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
 				bool success = getSubtitleFontList(track, tmpFonts);
 				if (success) {
-					
+					[fonts unionSet:tmpFonts];
 				}
 			}
 				codec = mkvCodecShortener(track);
