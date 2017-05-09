@@ -60,6 +60,40 @@ private let kAudioFormatSpeex = "Speex"
 
 private let kSubtitleFormatText = "Raw Text"
 
+func convertToCocoaDict(_ kOSTypeCodecIDs: [FourCharCodec]) -> [String: [NSObject]] {
+	var codecDict2 = [String: Set<NSObject>]()
+	for obj in kOSTypeCodecIDs {
+		if codecDict2[obj.cType] == nil {
+			codecDict2[obj.cType] = []
+		}
+		let obj2: NSObject
+		switch obj.fourocc {
+		case .string(let aStr):
+			obj2 = aStr as NSString
+		case .osType(let aOSTy):
+			obj2 = NSNumber(value: aOSTy)
+		}
+		
+		codecDict2[obj.cType]!.insert(obj2)
+	}
+	var tmpDict = [String: [NSObject]]()
+	for (key, aSet) in codecDict2 {
+		tmpDict[key] = Array(aSet).sorted(by: { (aObj, bObj) -> Bool in
+			if let aStr = aObj as? NSString, let bStr = bObj as? String {
+				return aStr.caseInsensitiveCompare(bStr) == .orderedAscending
+			}
+			if let aNum = aObj as? NSNumber, let bNum = bObj as? NSNumber {
+				return aNum.compare(bNum) == .orderedAscending
+			}
+			if aObj is NSString, bObj is NSNumber {
+				return true
+			}
+			return false
+		})
+	}
+	return tmpDict
+}
+
 func mainFunc() {
 	//TODO: remove codecs used natively by Matroskas.
 	let kOSTypeCodecIDs: [FourCharCodec] = {
@@ -447,28 +481,7 @@ func mainFunc() {
 		return toRet
 	}()
 	
-	let codecDict: [String: [NSObject]] = {
-		var codecDict2 = [String: Set<NSObject>]()
-		for obj in kOSTypeCodecIDs {
-			if codecDict2[obj.cType] == nil {
-				codecDict2[obj.cType] = []
-			}
-			let obj2: NSObject
-			switch obj.fourocc {
-			case .string(let aStr):
-				obj2 = aStr as NSString
-			case .osType(let aOSTy):
-				obj2 = NSNumber(value: aOSTy)
-			}
-			
-			codecDict2[obj.cType]!.insert(obj2)
-		}
-		var tmpDict = [String: [NSObject]]()
-		for (key, aSet) in codecDict2 {
-			tmpDict[key] = Array(aSet)
-		}
-		return tmpDict
-	}()
+	let codecDict = convertToCocoaDict(kOSTypeCodecIDs)
 	
 	do {
 		let aDat = try PropertyListSerialization.data(fromPropertyList: codecDict, format: .xml, options: 0)
