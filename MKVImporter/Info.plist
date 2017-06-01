@@ -18,6 +18,7 @@
 				<string>org.videolan.mka</string>
 				<string>org.videolan.webm</string>
 				<string>org.perian.matroska</string>
+				<string>com.macblurayplayer.matroska</string>
 			</array>
 		</dict>
 	</array>
