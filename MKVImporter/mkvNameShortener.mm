@@ -107,10 +107,10 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kVideoFormatMSMPEG4v3, "V_MPEG4/MS/V3" },
 	{ kMPEG1VisualCodecType, "V_MPEG1" },
 	{ kMPEG2VisualCodecType, "V_MPEG2" },
-	{ "RealVideo", "V_REAL/RV10" },
-	{ "RealVideo", "V_REAL/RV20" },
-	{ "RealVideo", "V_REAL/RV30" },
-	{ "RealVideo", "V_REAL/RV40" },
+	{ "RealVideo 1.0", "V_REAL/RV10" },
+	{ "RealVideo G2", "V_REAL/RV20" },
+	{ "RealVideo 8", "V_REAL/RV30" },
+	{ "RealVideo 9", "V_REAL/RV40" },
 	{ "Theora", "V_THEORA" },
 	{ "Snow", "V_SNOW" },
 	//{ kVideoFormatVP8, "V_VP8" },
@@ -143,12 +143,12 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	//{ kAudioFormatDTS, "A_DTS" },
 	{ "DTS Lossless", "A_DTS/LOSSLESS" },
 	{ "DTS Express", "A_DTS/EXPRESS" },
-	{ "TrueType Audio", "A_TTA1" },
+	{ "The True Audio", "A_TTA1" },
 	{ "WavPack", "A_WAVPACK4" },
-	{ "RealAudio", "A_REAL/14_4" },
-	{ "RealAudio", "A_REAL/28_8" },
-	{ "RealAudio", "A_REAL/COOK" },
-	{ "RealAudio", "A_REAL/SIPR" },
+	{ "RealAudio 1", "A_REAL/14_4" },
+	{ "RealAudio 2", "A_REAL/28_8" },
+	{ "RealAudio Cook", "A_REAL/COOK" },
+	{ "Sipro Voice", "A_REAL/SIPR" },
 	{ "RealAudio Lossless", "A_REAL/RALF" },
 	{ "Atrac3", "A_REAL/ATRC" },
 	//{ "Opus", "A_OPUS" },
@@ -166,8 +166,11 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kSubFormatUTF8, "S_TEXT/UTF8" },
 	{ kSubFormatUTF8, "S_TEXT/ASCII" }, // Valid ASCII is valid UTF :D
 	//{ kSubFormatVobSub, "S_VOBSUB" },
-	{ "KATE", "S_KATE" },
+	{ "DVB Subtitles", "S_DVBSUB" },
+	{ "Karaoke And Text Encapsulation", "S_KATE" },
 	{ "WebVTT", "S_TEXT/WEBVTT" },
+	{ "HDMV PGS", "S_HDMV/PGS" },
+	{ "HDMV Text", "S_HDMV/TEXTST" },
 	
 #ifdef UNSUPPORTEDCODECS
 	// Currently unsupported codecs:
@@ -185,6 +188,11 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "CoreYuv", "V_COREYUV" }, // Video, CoreYuv, lossless; auch als VfW möglich
 	{ "Rududu Wavelet", "V_RUDUDU" }, // Nicola's Rududu Wavelet codec
 #endif
+	
+#ifndef NO_DEPRECATED_CODECS
+	{"QDesign Music", "A_QUICKTIME/QDMC"},
+	{"QDesign Music v2", "A_QUICKTIME/QDM2"},
+#endif
 };
 
 
@@ -192,6 +200,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 #define MKV_V_MS "V_MS/VFW/FOURCC"
 #define MKV_A_MS "A_MS/ACM"
 #define MKV_V_QT "V_QUICKTIME"
+#define MKV_A_QT "A_QUICKTIME"
 
 // these codecs have their profile as a part of the CodecID
 #define MKV_A_PCM_BIG "A_PCM/INT/BIG"
@@ -281,7 +290,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		}
 		return osType2CodecName('ms\0\0' | twocc, false);
 		
-	} else if (codecString == MKV_V_QT) {
+	} else if (codecString == MKV_V_QT || codecString == MKV_A_QT) {
 		// QT compatibility mode, private info is the ImageDescription structure, big endian
 		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
 		if (codecPrivate == NULL || codecPrivate->GetSize() <= 4)
