@@ -9,13 +9,12 @@
 #ifndef ParseSSA_hpp
 #define ParseSSA_hpp
 
+#import <Foundation/NSSet.h>
 #include "matroska/KaxTracks.h"
 
 #ifndef __private_extern
 #define __private_extern __attribute__((visibility("hidden")))
 #endif
-
-@class NSMutableSet<ObjectType>;
 
 __private_extern bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, NSMutableSet<NSString*> *__nonnull fontList);
 __private_extern bool isSSA1(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track);
