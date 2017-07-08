@@ -112,6 +112,8 @@
 		55868EEE1E1C1DA300CDDED1 /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
 		55868EF11E1C1EF100CDDED1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */; };
 		55868EF61E1C1F5700CDDED1 /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF81E1C1F5700CDDED1 /* schema.strings */; };
+		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
+		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -264,6 +266,9 @@
 		55868EED1E1C1DA300CDDED1 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
 		55868EF21E1C1EF100CDDED1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55868EF71E1C1F5700CDDED1 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
+		55CBF3521F11454900E60B0B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		55CBF3561F11458000E60B0B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -278,8 +283,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */,
 				55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */,
 				55868EEC1E1C1D6F00CDDED1 /* libmatroska.a in Frameworks */,
+				55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -314,6 +321,7 @@
 				55868E1A1E1C1C3B00CDDED1 /* Third-party */,
 				55868DF91E1C189B00CDDED1 /* MKVImporter */,
 				55239B6C1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
+				55CBF3511F11454800E60B0B /* Frameworks */,
 				55868DF81E1C189B00CDDED1 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -530,6 +538,16 @@
 			children = (
 			);
 			path = platform;
+			sourceTree = "<group>";
+		};
+		55CBF3511F11454800E60B0B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				55CBF3561F11458000E60B0B /* CoreServices.framework */,
+				55CBF3521F11454900E60B0B /* CoreFoundation.framework */,
+				55CBF3531F11454900E60B0B /* Foundation.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
