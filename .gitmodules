@@ -1,6 +1,6 @@
 [submodule "Vendor/libebml"]
 	path = Vendor/libebml
-	url = https://github.com/MaddTheSane/libebml.git
+	url = https://github.com/Matroska-Org/libebml.git
 [submodule "Vendor/libmatroska"]
 	path = Vendor/libmatroska
 	url = https://github.com/Matroska-Org/libmatroska.git
