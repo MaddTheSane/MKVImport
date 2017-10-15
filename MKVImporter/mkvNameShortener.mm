@@ -21,7 +21,7 @@ using std::string;
 
 #define kSubFormatSSA "SSA"
 #define kSubFormatASS "Advanced SSA"
-#define kSubFormatUTF8 "UTF-8"
+#define kSubFormatSubRip "SubRip"
 #define kSubFormatVobSub "VobSub"
 
 #define kVideoCodecIndeo3 "Indeo 3"
@@ -163,8 +163,8 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	//{ kSubFormatSSA, "S_SSA" },
 	//{ kSubFormatASS, "S_TEXT/ASS" },
 	//{ kSubFormatASS, "S_ASS" },
-	{ kSubFormatUTF8, "S_TEXT/UTF8" },
-	{ kSubFormatUTF8, "S_TEXT/ASCII" }, // Valid ASCII is valid UTF :D
+	{ kSubFormatSubRip, "S_TEXT/UTF8" },
+	{ kSubFormatSubRip, "S_TEXT/ASCII" },
 	//{ kSubFormatVobSub, "S_VOBSUB" },
 	{ "DVB Subtitles", "S_DVBSUB" },
 	{ "Karaoke And Text Encapsulation", "S_KATE" },
