@@ -248,7 +248,7 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 	if (macEncoding) {
 		return [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:NSMacOSRomanStringEncoding];
 	} else {
-		return [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:CFStringConvertEncodingToNSStringEncoding(kCFStringEncodingDOSLatinUS)];
+		return CFBridgingRelease(::CFStringCreateWithBytes(kCFAllocatorDefault, (const unsigned char*)ourCodec.cStr, 4, kCFStringEncodingDOSLatinUS, false));
 	}
 }
 
