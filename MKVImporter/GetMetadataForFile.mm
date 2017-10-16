@@ -41,6 +41,7 @@ using namespace LIBEBML_NAMESPACE;
 using namespace std;
 
 #define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
+#define kAttachedFiles @"com_GitHub_MaddTheSane_AttachedFiles"
 
 static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
@@ -527,7 +528,16 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 {
 	addMediaType(@"Attachments");
-	//TODO: implement? ignore?
+	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
+	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] init];
+	
+	while (attachedFile && attachedFile->GetSize() > 0) {
+		std::string fileName = UTFstring(GetChild<KaxFileName>(*attachedFile)).GetUTF8();
+		[attachmentFiles addObject:@(fileName.c_str())];
+		
+		attachedFile = FindNextChild<KaxAttached>(attachmentEntries, *attachedFile);
+	}
+	attributes[kAttachedFiles] = [attachmentFiles copy];
 	return true;
 }
 
