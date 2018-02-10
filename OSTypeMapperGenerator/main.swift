@@ -77,6 +77,7 @@ func convertToCocoaDict(_ kOSTypeCodecIDs: [FourCharCodec]) -> [String: [NSObjec
 		codecDict2[obj.cType]!.insert(obj2)
 	}
 	var tmpDict = [String: [NSObject]]()
+	tmpDict.reserveCapacity(codecDict2.count)
 	for (key, aSet) in codecDict2 {
 		tmpDict[key] = aSet.sorted(by: { (aObj, bObj) -> Bool in
 			if let aStr = aObj as? NSString, let bStr = bObj as? String {

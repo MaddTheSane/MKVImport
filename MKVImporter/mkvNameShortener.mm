@@ -279,7 +279,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		// acm compatibility mode, twocc is in private info
 		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
 		if (codecPrivate == NULL || codecPrivate->GetSize() <= 2)
-			return 0;
+			return nil;
 		
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer();
 		unsigned short twocc = p[0] | (p[1] << 8);
