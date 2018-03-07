@@ -503,11 +503,11 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
 			KaxChapterCountry * chapCountry = FindChild<KaxChapterCountry>(*chapDisplay);
 			NSString *chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
-			if (chapString.GetValue().length() != 0) {
-				if (![chapters objectForKey:chapLocale]) {
-					chapters[chapLocale] = [[NSMutableArray alloc] init];
-				}
-				[chapters[chapLocale] addObject:@(chapString.GetValueUTF8().c_str())];
+            if (chapString.GetValue().length() != 0) {
+                if (![chapters objectForKey:chapLocale]) {
+                    chapters[chapLocale] = [[NSMutableArray alloc] init];
+                }
+                [chapters[chapLocale] addObject:@(chapString.GetValueUTF8().c_str())];
 			}
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}
@@ -516,9 +516,9 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	}
 	
 	if (chapters.count == 1 && ([chapters.allKeys.firstObject isEqualToString:@"en"] || [chapters.allKeys.firstObject isEqualToString:@""])) {
-		attributes[kChapterNames] = [chapters[chapters.allKeys.firstObject] copy];
+		attributes[kChapterNames] = [[NSArray alloc] initWithArray:chapters[chapters.allKeys.firstObject] copyItems:YES];
 	} else {
-		attributes[kChapterNames] = [chapters copy];
+		attributes[kChapterNames] = [[NSDictionary alloc] initWithDictionary:chapters copyItems:YES];
 	}
 	seenChapters = true;
 
@@ -575,8 +575,9 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 			
 			MatroskaSeek::MatroskaSeekContext savedContext = SaveContext();
 			SetContext(newSeekEntry.GetSeekContext(segmentOffset));
-			if (NextLevel1Element())
+			if (NextLevel1Element()) @autoreleasepool {
 				okay = ProcessLevel1Element();
+			}
 			
 			SetContext(savedContext);
 			if (!okay)
