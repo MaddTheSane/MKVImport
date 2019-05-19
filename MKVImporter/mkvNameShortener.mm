@@ -10,7 +10,7 @@
 #include "mkvNameShortener.hpp"
 #include <string>
 
-using namespace libmatroska;
+using namespace LIBMATROSKA_NAMESPACE;
 using std::string;
 
 @interface MKVOnlyClassForGettingBackToOurBundle : NSObject
@@ -94,8 +94,6 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "Opus", "A_OPUS" },
 	{ kAudioFormatMPEGLayer3, "A_MPEG/L3" },
 	{ kAudioFormatAC3, "A_AC3" },
-	{ kAudioFormatAC3, "A_AC3/BSID9" },
-	{ kAudioFormatAC3, "A_AC3/BSID10" },
 	{ kAudioFormatEAC3, "A_EAC3" },
 	{ kAudioFormatMPEG4AAC, "A_AAC" },
 	{ kAudioFormatDTS, "A_DTS" },
@@ -122,7 +120,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "ProRes", "V_PRORES" },
 	
 	// uncommon audio codecs:
-	{ kAudioFormatMPEG4AAC, "A_AAC" },
+	//{ kAudioFormatMPEG4AAC, "A_AAC" },
 	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/LC" },
 	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/MAIN" },
 	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG4/LC/SBR" },
