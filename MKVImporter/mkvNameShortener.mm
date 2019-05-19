@@ -49,7 +49,8 @@ using std::string;
 #define kAudioCodecIndeo2 "Indeo Audio"
 #define kAudioFormatDTS "DTS"
 #define kAudioFormatMPEG4AAC "AAC"
-#define kAudioFormatAC3 "ac3"
+#define kAudioFormatAC3 "AC3"
+#define kAudioFormatEAC3 "Enhanced AC3"
 #define kAudioFormatXiphFLAC "FLAC"
 #define kAudioFormatXiphVorbis "Vorbis"
 #define kAudioFormatLinearPCM "Linear PCM"
@@ -93,6 +94,9 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ "Opus", "A_OPUS" },
 	{ kAudioFormatMPEGLayer3, "A_MPEG/L3" },
 	{ kAudioFormatAC3, "A_AC3" },
+	{ kAudioFormatAC3, "A_AC3/BSID9" },
+	{ kAudioFormatAC3, "A_AC3/BSID10" },
+	{ kAudioFormatEAC3, "A_EAC3" },
 	{ kAudioFormatMPEG4AAC, "A_AAC" },
 	{ kAudioFormatDTS, "A_DTS" },
 	{ kSubFormatVobSub, "S_VOBSUB" },
