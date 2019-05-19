@@ -52,13 +52,14 @@ private let kAudioFormatMPEGLayer3 = "mp3"
 private let kAudioFormatDTS = "DTS"
 private let kAudioFormatMPEG4AAC = "AAC"
 private let kAudioFormatDV = "DV Audio"
-private let kAudioFormatAC3 = "ac3"
+private let kAudioFormatAC3 = "AC-3"
+private let kAudioFormatEAC3 = "Enhanced AC-3"
 private let kAudioFormatXiphFLAC = "FLAC"
 private let kAudioFormatXiphVorbis = "Vorbis"
 private let kAudioFormatLinearPCM = "Linear PCM"
 private let kAudioFormatSpeex = "Speex"
 
-private let kSubtitleFormatText = "Raw Text"
+private let kSubtitleFormatText = "SubRip"
 
 func convertToCocoaDict(_ kOSTypeCodecIDs: [FourCharCodec]) -> [String: [NSObject]] {
 	var codecDict2 = [String: Set<NSObject>]()
@@ -286,7 +287,8 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: kVideoFormatDV, fourocc: .string("dvh3"))); /* DVCPRO HD 30p produced by FCP */
 		toRet.append(FourCharCodec(cType: kVideoFormatHEVC, fourocc: .string("hev1"))); /* HEVC/H.265 which indicates parameter sets may be in ES */
 		toRet.append(FourCharCodec(cType: kVideoFormatHEVC, fourocc: .string("hvc1"))); /* HEVC/H.265 which indicates parameter sets shall not be in ES */
-		
+		toRet.append(FourCharCodec(cType: kVideoFormatHEVC, fourocc: .string("dvhe"))) /* HEVC-based Dolby Vision derived from hev1 */
+
 		toRet.append(FourCharCodec(cType: kMPEG4VisualCodecType, fourocc: .string("mp4v")));
 		toRet.append(FourCharCodec(cType: kMPEG4VisualCodecType, fourocc: .string("DIVX"))); /* OpenDiVX *//* sample files at http://heroinewarrior.com/xmovie.php3 use this tag */
 		toRet.append(FourCharCodec(cType: kMPEG4VisualCodecType, fourocc: .string("XVID")));
@@ -396,7 +398,8 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: kAudioFormatMPEG4AAC, fourocc: .string("mp4a")));
 		toRet.append(FourCharCodec(cType: kAudioFormatAC3, fourocc: .string("ac-3"))); /* ETSI TS 102 366 Annex F */
 		toRet.append(FourCharCodec(cType: kAudioFormatAC3, fourocc: .string("sac3"))); /* Nero Recode */
-		
+		toRet.append(FourCharCodec(cType: kAudioFormatEAC3, fourocc: .string("ec-3"))) /* ETSI TS 102 366 Annex F (only valid in ISOBMFF) */
+
 		toRet.append(FourCharCodec(cType: "Apple Video", fourocc: .string("rpza"))); /* Apple Video (RPZA) */
 		toRet.append(FourCharCodec(cType: "Cinepak", fourocc: .string("cvid"))); /* Cinepak */
 		toRet.append(FourCharCodec(cType: "Planar RGB", fourocc: .string("8BPS"))); /* Planar RGB (8BPS) */
@@ -476,7 +479,7 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("mjp2"))) /* JPEG 2000 produced by FCP */
 		
 		toRet.append(FourCharCodec(cType: kSubtitleFormatText, fourocc: .string("text")))
-		toRet.append(FourCharCodec(cType: kSubtitleFormatText, fourocc: .string("tx3g")))
+		toRet.append(FourCharCodec(cType: "Timed Text", fourocc: .string("tx3g")))
 		toRet.append(FourCharCodec(cType: "CEA 608", fourocc: .string("c608")))
 		
 		return toRet
