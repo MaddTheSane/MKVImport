@@ -9,9 +9,9 @@
 /* Begin PBXAggregateTarget section */
 		1999842FC5C84D61A9AE22F0 /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 4EB349CF0F54483D8B1B3356 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = 3828936EF7B14A6EA693FEC8 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
-				89B108AB36714C70B29023F3 /* CMake Rules */,
+				B2B13D5F3FCB4A75AF86985D /* CMake Rules */,
 			);
 			dependencies = (
 			);
@@ -20,25 +20,25 @@
 		};
 		ADBDF86E6C834C0DB32F47D8 /* install */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 792BFD269573410C989290A9 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildConfigurationList = F6733AC85D3243E2AC9ED94D /* Build configuration list for PBXAggregateTarget "install" */;
 			buildPhases = (
-				2428CE65B6BB4014B6D20E25 /* CMake PostBuild Rules */,
+				6CC08CC425A34CB884F9F24F /* CMake PostBuild Rules */,
 			);
 			dependencies = (
-				4FC456ADD27D43DE92343B64 /* PBXTargetDependency */,
+				729D8611387E4DCAA4939A9D /* PBXTargetDependency */,
 			);
 			name = install;
 			productName = install;
 		};
 		B20F0A62E6EF4D2890F31153 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 25F27EBE20D14A60AB78867F /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = 43BAEFD1BB814F4689118244 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				28D4DA741D2C48B6B4F0B34D /* CMake Rules */,
+				035BAAE6C81A4C33A49AA910 /* CMake Rules */,
 			);
 			dependencies = (
-				333056AB223A4AD6852D9C75 /* PBXTargetDependency */,
-				B8A48AA56D0C44D390F67052 /* PBXTargetDependency */,
+				49CED3F0C04B42E98E795BC2 /* PBXTargetDependency */,
+				2D50B4255AE74C71AF44444E /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
@@ -46,115 +46,115 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		13880AF7C7F84743947719A2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */ = {isa = PBXBuildFile; fileRef = 10BE04C376254D65B577E335 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */; };
-		25D09C7FE9A84CE59D355B62 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */ = {isa = PBXBuildFile; fileRef = D0064DF5122242C9AE577F1E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */; };
-		28B1C7D49F2F41A7AB65EA7A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */ = {isa = PBXBuildFile; fileRef = 1095DA4429004D96A5B63269 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */; };
-		291882F9393547DDA1CC5EE5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */ = {isa = PBXBuildFile; fileRef = 72726E033F2A4354B983CF69 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */; };
-		2C0C55E31A524ED19F3973CC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */ = {isa = PBXBuildFile; fileRef = 5CCEACE7AFE94026876D85D8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */; };
-		2D800F0B47EF4D7EBC8B23DF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */ = {isa = PBXBuildFile; fileRef = 4D1A3212FEAD4015939366EA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */; };
-		35FF5195EF3545AC9B5AAF92 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */ = {isa = PBXBuildFile; fileRef = 1A370CC1EF1749988EEF8900 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */; };
-		38032CACF54D432599931E6A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */ = {isa = PBXBuildFile; fileRef = EB180AF996BD40059D59BF15 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */; };
-		39B5AC39FDD24EA98C3C05AA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */ = {isa = PBXBuildFile; fileRef = 3791B50E01BC4ACFBBF00470 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */; };
-		40BCDA12ED7346F5AD1FCE4B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */ = {isa = PBXBuildFile; fileRef = DFA29705056C436D94205824 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */; };
-		4155EA9201A84ABEA92806F2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */ = {isa = PBXBuildFile; fileRef = 507B15781D7F41519AF33D95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */; };
-		45A17049FACA4F5CA8A65D9C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */ = {isa = PBXBuildFile; fileRef = C392D87989C241D494F9941A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */; };
-		46DD599C7C3046148F5C8938 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */ = {isa = PBXBuildFile; fileRef = 533323D2AFD74E648F180C1C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */; };
-		479AFB98075C410E997E591B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */ = {isa = PBXBuildFile; fileRef = 3D7C63877BF941D9816644A6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */; };
-		48C7807EBC3942C1AFB65D00 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */ = {isa = PBXBuildFile; fileRef = AC49C44CD9304DED9CAA3050 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */; };
-		4C127EA0F0554977873A8661 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */ = {isa = PBXBuildFile; fileRef = 783694BF2178423C92EA5464 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */; };
-		4D356D63E63043E59113C50F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */ = {isa = PBXBuildFile; fileRef = 9CF7C0A3145A4A88A23818BC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */; };
-		54D319881BB04CD19A38314E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 50A558F7C7AD46B2B8993C61 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */; };
-		5520BC690F9748E28ED0B5F6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */ = {isa = PBXBuildFile; fileRef = 430903E2CEB24F85947215CD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */; };
-		59E9628BC00E4C9EBE98D8D8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */ = {isa = PBXBuildFile; fileRef = 10FCEE5C495049C4A85C8AAE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */; };
-		6312F85BDA6E4ACB83383FBF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */ = {isa = PBXBuildFile; fileRef = 7DBFC4BC97384B4F88677073 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */; };
-		69A09A6A72964E2A9CBE23CD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */ = {isa = PBXBuildFile; fileRef = 71DD19CBE5DF4309AF814FB7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */; };
-		6B1A506A65084D41AEDBB3C5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */ = {isa = PBXBuildFile; fileRef = 125261EC2E064DAC9E4391F9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */; };
-		6F079C73ED034937B290DABD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */ = {isa = PBXBuildFile; fileRef = CB958ED9A4C74A2AAF41AE93 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */; };
-		742C17A5BA2D4950BFA39661 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */ = {isa = PBXBuildFile; fileRef = CA6C869BE414434A8ACF376B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */; };
-		7737EB9241D149D69B232CCE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */ = {isa = PBXBuildFile; fileRef = FC07EA244A844BF58CC82F3B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */; };
-		7876521CCC1B42E3AE7654CA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */ = {isa = PBXBuildFile; fileRef = 155C56DF95CF442C9954FE17 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */; };
-		78B86B3CC0AB4EAAADA81466 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */ = {isa = PBXBuildFile; fileRef = 062CF746C08B4A43A4AD0761 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */; };
-		7AB7D4D448C14F9C9073D074 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */ = {isa = PBXBuildFile; fileRef = 1DB16C0473D8457A80FB2BB8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */; };
-		80B8CBF4B5B54FFC98C72CAD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = C505F095F790495CAC50FB92 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */; };
-		811CB101F1FC4A4B8238A4E4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */ = {isa = PBXBuildFile; fileRef = 83462A0BA8B4424989DD1C2E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */; };
-		82FEBA13BD3A404EB0564E61 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */ = {isa = PBXBuildFile; fileRef = 267B3EF3FE7940EA9A34BB1B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */; };
-		832B74FFFB7243098E458C9B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */ = {isa = PBXBuildFile; fileRef = EC2AE855B3384F6D9665E76B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */; };
-		89AC40537CDF4C539082D49C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */ = {isa = PBXBuildFile; fileRef = 923F17AEF17F4356BE9F6FC4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */; };
-		8EED64A150ED4BCDBFFFF350 /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */ = {isa = PBXBuildFile; fileRef = F94CC96D34CC4A0397BB9C6C /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */; };
-		976EBD254CF54A5F857ED273 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */ = {isa = PBXBuildFile; fileRef = EC2584FE5EB440DD836FA256 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */; };
-		9AABEAADEEF5494EAEF861FF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */ = {isa = PBXBuildFile; fileRef = 9060307585E94C788DCF8B92 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */; };
-		9E0267A87A334C02AC1F9D7A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */ = {isa = PBXBuildFile; fileRef = 43C54AF42C224A7EAF12858C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */; };
-		B33C501BC93E4E5FA89D0885 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = 7A37F1F71B954C9E8E98469A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */; };
-		C261F671865A4187A87498C4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */ = {isa = PBXBuildFile; fileRef = 5E230334911C4D78B6348CA9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */; };
-		C31A134218394F5BAEC0A08C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = 1C36F9341B0C46548852A8AE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */; };
-		C5EB9144CBA040A39F315A9E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */ = {isa = PBXBuildFile; fileRef = 943F84AAC0584AC594553B5F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */; };
-		CC4CC355EA514151BD6995A7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */ = {isa = PBXBuildFile; fileRef = 83A5097453F640DD84A5512A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */; };
-		D023ED277CF44D4C9D5A9EEB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */ = {isa = PBXBuildFile; fileRef = DD7339083A8E494FA73868A7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */; };
-		D052166B957C42789936B761 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */ = {isa = PBXBuildFile; fileRef = 3609FB51F71C438D8783D0D2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */; };
-		D55467FDE7D74CA7BF751398 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */ = {isa = PBXBuildFile; fileRef = 72D6B7DC21A84ABB849F080C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */; };
-		DB5F17C2374041F583E7161A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */ = {isa = PBXBuildFile; fileRef = 8A03EE9E61DB42A0AA214E78 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */; };
-		E7AF5AF85D28437698D93905 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */ = {isa = PBXBuildFile; fileRef = 2F3A710FB2254A1EA8720A36 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */; };
-		E8EB1A6A42204EDA9168E409 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */ = {isa = PBXBuildFile; fileRef = FE6AEBF8EC78434CAA4D5184 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */; };
-		ED11290D28B24272B0404E64 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */ = {isa = PBXBuildFile; fileRef = 7EB70BAB0CA5403EAAAE963B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */; };
-		ED360C33272947F9AE38706B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */ = {isa = PBXBuildFile; fileRef = 220DC5CA835647638AB7987E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */; };
-		F2BB161616424983BA605A9C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = 866EB881C1124C0B93035CB0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */; };
-		F91389B12EDC45B6A4AA6D06 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */ = {isa = PBXBuildFile; fileRef = F2DA58CF3EF640CBB049D12B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */; };
+		06BA9DE421864413A2BA115E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = 87B23DAE037841A484F9DFDF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */; };
+		0A2FA77620A949C39B16EAD6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */ = {isa = PBXBuildFile; fileRef = 50C08144FC604E908ED8D129 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */; };
+		12629FAF606A4D49B8B4466E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */ = {isa = PBXBuildFile; fileRef = EE006FA3759144F8B5A27792 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */; };
+		1810E3029DCB4159B10C0690 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */ = {isa = PBXBuildFile; fileRef = CCA0A24BCD454676894AB2BF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */; };
+		300C6C65D6B149AEB26C565A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */ = {isa = PBXBuildFile; fileRef = BC537CAB46D440E3AEFCBAAC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */; };
+		32C81F85A9754F448D54A115 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = 90EA965A43AD45E9AEB9B5B5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */; };
+		33D62F3A0F60493495FA2353 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */ = {isa = PBXBuildFile; fileRef = 783682EA654A4E30AB5630F1 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */; };
+		34BD22B082484AC092FEB382 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */ = {isa = PBXBuildFile; fileRef = 2D41527FAECF4E16AA3510FA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */; };
+		374E1B1D21424936842F66B5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */ = {isa = PBXBuildFile; fileRef = 12825508D2F24550A819467F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */; };
+		44531FE66AEA4F3C91A7C343 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */ = {isa = PBXBuildFile; fileRef = 9D62C8B1CA704D6F9CA99E05 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */; };
+		457FB42C82FE4818BD8A36E4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = D64F1835D3FC4C828BBD62CE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */; };
+		45917D4EF6644FC9801C5B06 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */ = {isa = PBXBuildFile; fileRef = 86D02DDD4C6B4980ADA164AC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */; };
+		46381F7BE4304304B88F3882 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */ = {isa = PBXBuildFile; fileRef = C51699C1C960485C8EAD6C76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */; };
+		478B962FB9174AC59019F8B6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */ = {isa = PBXBuildFile; fileRef = 7D2736027DE541B582173890 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */; };
+		491F814693BB4B2BA8D2FFE0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */ = {isa = PBXBuildFile; fileRef = A97D60C16DFE472091D39396 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */; };
+		494C87C399394DF3A8E17CB2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 4A745B3C995F41A9B84DC336 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */; };
+		553C73AD4E5741D3AE01FF08 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */ = {isa = PBXBuildFile; fileRef = AD448DA3520D4E10BF0611B6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */; };
+		594DF187994942FEA4A55850 /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */ = {isa = PBXBuildFile; fileRef = BEA7B5594343434CA6535C0F /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */; };
+		5A5D57F3DBC946A3A42908C9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */ = {isa = PBXBuildFile; fileRef = A4C676C2ADB2400A93CB78CA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */; };
+		5EC38455687F48138DD8146A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */ = {isa = PBXBuildFile; fileRef = 51E11C5B54694E8CA2DD693E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */; };
+		61F54FD9C6D043F0928A883F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */ = {isa = PBXBuildFile; fileRef = B6ACCF2A791F49798208CD84 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */; };
+		63C4D361F5574849A33D01DE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */ = {isa = PBXBuildFile; fileRef = C833F5B6CDB142838489E67F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */; };
+		63DFF0E4089F4981BAD80874 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */ = {isa = PBXBuildFile; fileRef = 89BBDFD5E77244C2B898147D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */; };
+		6440F03928584F9CA3EC28FD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */ = {isa = PBXBuildFile; fileRef = 565CD41DE5BD4173A9428C22 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */; };
+		68148D6A4F7E4CF88109E317 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */ = {isa = PBXBuildFile; fileRef = 9889A86D91D34252875F61A5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */; };
+		71A4E3FE6D0940DD9ADCB1BA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */ = {isa = PBXBuildFile; fileRef = DEB98353F2854227871B9D3B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */; };
+		7B42518D62D24613BF29041A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */ = {isa = PBXBuildFile; fileRef = D8BFE2661C7C4D668EF4AAFE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */; };
+		7B88CEBD894C4829A66D41FB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */ = {isa = PBXBuildFile; fileRef = B26FACEA66354C1B9DA036FE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */; };
+		7D36DAFF818A4AA5B282B9EF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */ = {isa = PBXBuildFile; fileRef = 492412A5ED9747CD9DA5780A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */; };
+		83744F145C144ECA875A1158 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */ = {isa = PBXBuildFile; fileRef = F0CD396E5F954168BDD2DED8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */; };
+		8742FBC3754044A2926A2ECF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */ = {isa = PBXBuildFile; fileRef = A820E8B385DD469D9B6FC038 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */; };
+		A29DAB63B5BE4F50B9A400D8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */ = {isa = PBXBuildFile; fileRef = AC090BD05DC44C74A3D2AB0F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */; };
+		A3A3568656C94CE19343AE38 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */ = {isa = PBXBuildFile; fileRef = 79F757B74F364ADCBC9D846E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */; };
+		A42F8A2020234FB09BB1AE6B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */ = {isa = PBXBuildFile; fileRef = 8DDC3BB1823748F9995FE13C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */; };
+		A67E23C824234BC3B2174D16 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */ = {isa = PBXBuildFile; fileRef = C2D6E4CADE1048BD986857E2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */; };
+		A90946A5739D410CB7A4DF0F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */ = {isa = PBXBuildFile; fileRef = E618A7B4E4F44E1DB69CC53C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */; };
+		AAFE60EAC00340338FF28F07 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */ = {isa = PBXBuildFile; fileRef = 34144E83454940EDAAB78CBE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */; };
+		B034109C359B4E438EEA60AE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */ = {isa = PBXBuildFile; fileRef = C9273141327F4A0C89749A94 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */; };
+		BC0B8D07B6A0449DA03F19E5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */ = {isa = PBXBuildFile; fileRef = D73E7036391648C7805054E3 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */; };
+		C6E7A163B01345F9BFFEC0FF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */ = {isa = PBXBuildFile; fileRef = 2A770322839A48BD87061286 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */; };
+		C915DBAD21214049BF5DBEC7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */ = {isa = PBXBuildFile; fileRef = 56CF9881384444A4946F2CF5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */; };
+		C9D0C5B752534441846C0915 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */ = {isa = PBXBuildFile; fileRef = 86B7A39964AD41E3BFCDABC5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */; };
+		D6E3DC72020C4B27B0515D95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */ = {isa = PBXBuildFile; fileRef = 4AE5FF3EB49F46FE8BB12713 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */; };
+		D8241546AFCC4DB8A6F73A76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */ = {isa = PBXBuildFile; fileRef = D7BA9DAB210146F0BF55E220 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */; };
+		D8D6A27C1E374FBEAACB8BCB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */ = {isa = PBXBuildFile; fileRef = 22E44C7FC5684133A1760F50 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */; };
+		D96BBD63EC504A048DC267F9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */ = {isa = PBXBuildFile; fileRef = 9B023BFAFF7F49A18791EDD0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */; };
+		DD15CA62C1EE4922994F1B60 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */ = {isa = PBXBuildFile; fileRef = 502FF7309C594DF99F3477F0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */; };
+		DDE955CC8608402B8FBD3AD7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */ = {isa = PBXBuildFile; fileRef = 3336B3A659964156A64FBA8F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */; };
+		E1CF83D1DD86408AAC8D2941 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */ = {isa = PBXBuildFile; fileRef = F33AF3EE3990425DBEBD4F33 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */; };
+		E57798CA45504ED8923D5872 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */ = {isa = PBXBuildFile; fileRef = 2F9A2012E4FA4AA282AC89A5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */; };
+		E7BF4E97E3844698A9841676 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */ = {isa = PBXBuildFile; fileRef = 333D6B6343754F5BACA444B2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */; };
+		EF7FD395377743368BCEE800 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */ = {isa = PBXBuildFile; fileRef = 2D0ED0BF6F26443C8D0AF92D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */; };
+		F619E7B7B4464BC096ECF3A1 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */ = {isa = PBXBuildFile; fileRef = 0BEA65978CCC47069CD0AB48 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-		1B263CDE7C9E4855A102E475 /* Debug */ = {
+		611436ADC5614428970EF7E1 /* Debug */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = Debug;
 		};
-		491A014BAA1F48328FAB0645 /* Release */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Release;
-		};
-		815656B92534418E9AE61C58 /* RelWithDebInfo */ = {
+		96310C160E3A41C2B18A0F09 /* RelWithDebInfo */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = RelWithDebInfo;
 		};
-		CA6637D017C8444A8E6F04EC /* MinSizeRel */ = {
+		BFBCE9B7BFD54AE4ADDD6656 /* MinSizeRel */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = MinSizeRel;
 		};
+		FF9EB788D3B74A9BBB8AB44B /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		0C673C1A6C9548C18F5DF8CF /* PBXContainerItemProxy */ = {
+		76730D17C97944C8A2113404 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 399D6BAA6D1E47C58FA7A668 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 1999842FC5C84D61A9AE22F0;
 			remoteInfo = ZERO_CHECK;
 		};
-		2972AA62C20A47EEA4737AAC /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 399D6BAA6D1E47C58FA7A668 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 6866F388A8194E39BBE3D1AA;
-			remoteInfo = ebml;
-		};
-		381035D2D18E40F5A805925B /* PBXContainerItemProxy */ = {
+		8D7F38B4499D465AA26CE749 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 399D6BAA6D1E47C58FA7A668 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = B20F0A62E6EF4D2890F31153;
 			remoteInfo = ALL_BUILD;
 		};
-		B0076EBEB3674619B3019DCD /* PBXContainerItemProxy */ = {
+		DD80C00E0E564CA685E2EAF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 399D6BAA6D1E47C58FA7A668 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 6866F388A8194E39BBE3D1AA;
+			remoteInfo = ebml;
+		};
+		E43FE1A8B33F40F2A6339304 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 399D6BAA6D1E47C58FA7A668 /* Project object */;
 			proxyType = 1;
@@ -164,171 +164,171 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		062CF746C08B4A43A4AD0761 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlSInteger.h; path = ebml/EbmlSInteger.h; sourceTree = SOURCE_ROOT; };
-		1095DA4429004D96A5B63269 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlDate.h; path = ebml/EbmlDate.h; sourceTree = SOURCE_ROOT; };
-		10BE04C376254D65B577E335 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlHead.cpp; path = src/EbmlHead.cpp; sourceTree = SOURCE_ROOT; };
-		10FCEE5C495049C4A85C8AAE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlBinary.h; path = ebml/EbmlBinary.h; sourceTree = SOURCE_ROOT; };
-		125261EC2E064DAC9E4391F9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlUInteger.cpp; path = src/EbmlUInteger.cpp; sourceTree = SOURCE_ROOT; };
-		155C56DF95CF442C9954FE17 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlSubHead.h; path = ebml/EbmlSubHead.h; sourceTree = SOURCE_ROOT; };
-		1A370CC1EF1749988EEF8900 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SafeReadIOCallback.h; path = ebml/SafeReadIOCallback.h; sourceTree = SOURCE_ROOT; };
-		1C36F9341B0C46548852A8AE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SafeReadIOCallback.cpp; path = src/SafeReadIOCallback.cpp; sourceTree = SOURCE_ROOT; };
-		1DB16C0473D8457A80FB2BB8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlMaster.h; path = ebml/EbmlMaster.h; sourceTree = SOURCE_ROOT; };
-		220DC5CA835647638AB7987E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlId.h; path = ebml/EbmlId.h; sourceTree = SOURCE_ROOT; };
-		267B3EF3FE7940EA9A34BB1B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlConfig.h; path = ebml/EbmlConfig.h; sourceTree = SOURCE_ROOT; };
-		2F3A710FB2254A1EA8720A36 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = MemIOCallback.h; path = ebml/MemIOCallback.h; sourceTree = SOURCE_ROOT; };
-		3609FB51F71C438D8783D0D2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlContexts.h; path = ebml/EbmlContexts.h; sourceTree = SOURCE_ROOT; };
-		3791B50E01BC4ACFBBF00470 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlUnicodeString.h; path = ebml/EbmlUnicodeString.h; sourceTree = SOURCE_ROOT; };
-		3D7C63877BF941D9816644A6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlUInteger.h; path = ebml/EbmlUInteger.h; sourceTree = SOURCE_ROOT; };
-		430903E2CEB24F85947215CD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlDummy.h; path = ebml/EbmlDummy.h; sourceTree = SOURCE_ROOT; };
-		43C54AF42C224A7EAF12858C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlContexts.cpp; path = src/EbmlContexts.cpp; sourceTree = SOURCE_ROOT; };
-		4D1A3212FEAD4015939366EA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlElement.cpp; path = src/EbmlElement.cpp; sourceTree = SOURCE_ROOT; };
-		507B15781D7F41519AF33D95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = libebml_t.h; path = ebml/c/libebml_t.h; sourceTree = SOURCE_ROOT; };
-		50A558F7C7AD46B2B8993C61 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		533323D2AFD74E648F180C1C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlStream.cpp; path = src/EbmlStream.cpp; sourceTree = SOURCE_ROOT; };
-		5CCEACE7AFE94026876D85D8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = StdIOCallback.h; path = ebml/StdIOCallback.h; sourceTree = SOURCE_ROOT; };
-		5E230334911C4D78B6348CA9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlDate.cpp; path = src/EbmlDate.cpp; sourceTree = SOURCE_ROOT; };
-		71DD19CBE5DF4309AF814FB7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlVersion.h; path = ebml/EbmlVersion.h; sourceTree = SOURCE_ROOT; };
-		72726E033F2A4354B983CF69 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlFloat.h; path = ebml/EbmlFloat.h; sourceTree = SOURCE_ROOT; };
-		72D6B7DC21A84ABB849F080C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlMaster.cpp; path = src/EbmlMaster.cpp; sourceTree = SOURCE_ROOT; };
-		783694BF2178423C92EA5464 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlSInteger.cpp; path = src/EbmlSInteger.cpp; sourceTree = SOURCE_ROOT; };
-		7A37F1F71B954C9E8E98469A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MemIOCallback.cpp; path = src/MemIOCallback.cpp; sourceTree = SOURCE_ROOT; };
-		7DBFC4BC97384B4F88677073 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlUnicodeString.cpp; path = src/EbmlUnicodeString.cpp; sourceTree = SOURCE_ROOT; };
-		7EB70BAB0CA5403EAAAE963B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlString.h; path = ebml/EbmlString.h; sourceTree = SOURCE_ROOT; };
-		83462A0BA8B4424989DD1C2E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Debug.cpp; path = src/Debug.cpp; sourceTree = SOURCE_ROOT; };
-		83A5097453F640DD84A5512A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = IOCallback.h; path = ebml/IOCallback.h; sourceTree = SOURCE_ROOT; };
-		866EB881C1124C0B93035CB0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MemReadIOCallback.cpp; path = src/MemReadIOCallback.cpp; sourceTree = SOURCE_ROOT; };
-		8A03EE9E61DB42A0AA214E78 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlDummy.cpp; path = src/EbmlDummy.cpp; sourceTree = SOURCE_ROOT; };
-		9060307585E94C788DCF8B92 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlVoid.h; path = ebml/EbmlVoid.h; sourceTree = SOURCE_ROOT; };
-		923F17AEF17F4356BE9F6FC4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = MemReadIOCallback.h; path = ebml/MemReadIOCallback.h; sourceTree = SOURCE_ROOT; };
-		943F84AAC0584AC594553B5F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Debug.h; path = ebml/Debug.h; sourceTree = SOURCE_ROOT; };
-		9CF7C0A3145A4A88A23818BC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlVoid.cpp; path = src/EbmlVoid.cpp; sourceTree = SOURCE_ROOT; };
-		9DAD7B66872640EBAEDF8373 /* ebml */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libebml.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC49C44CD9304DED9CAA3050 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlBinary.cpp; path = src/EbmlBinary.cpp; sourceTree = SOURCE_ROOT; };
-		C392D87989C241D494F9941A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlCrc32.h; path = ebml/EbmlCrc32.h; sourceTree = SOURCE_ROOT; };
-		C505F095F790495CAC50FB92 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = StdIOCallback.cpp; path = src/StdIOCallback.cpp; sourceTree = SOURCE_ROOT; };
-		CA6C869BE414434A8ACF376B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = IOCallback.cpp; path = src/IOCallback.cpp; sourceTree = SOURCE_ROOT; };
-		CB958ED9A4C74A2AAF41AE93 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlVersion.cpp; path = src/EbmlVersion.cpp; sourceTree = SOURCE_ROOT; };
-		CC07ADE874FF47DA8E7E8E6D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		D0064DF5122242C9AE577F1E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlStream.h; path = ebml/EbmlStream.h; sourceTree = SOURCE_ROOT; };
-		DD7339083A8E494FA73868A7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlHead.h; path = ebml/EbmlHead.h; sourceTree = SOURCE_ROOT; };
-		DFA29705056C436D94205824 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlCrc32.cpp; path = src/EbmlCrc32.cpp; sourceTree = SOURCE_ROOT; };
-		EB180AF996BD40059D59BF15 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlElement.h; path = ebml/EbmlElement.h; sourceTree = SOURCE_ROOT; };
-		EC2584FE5EB440DD836FA256 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlFloat.cpp; path = src/EbmlFloat.cpp; sourceTree = SOURCE_ROOT; };
-		EC2AE855B3384F6D9665E76B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlString.cpp; path = src/EbmlString.cpp; sourceTree = SOURCE_ROOT; };
-		F2DA58CF3EF640CBB049D12B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlTypes.h; path = ebml/EbmlTypes.h; sourceTree = SOURCE_ROOT; };
-		F94CC96D34CC4A0397BB9C6C /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ebml_export.h; path = ../../Xcodes/ebml/ebml_export.h; sourceTree = SOURCE_ROOT; };
-		FC07EA244A844BF58CC82F3B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlEndian.h; path = ebml/EbmlEndian.h; sourceTree = SOURCE_ROOT; };
-		FE6AEBF8EC78434CAA4D5184 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlSubHead.cpp; path = src/EbmlSubHead.cpp; sourceTree = SOURCE_ROOT; };
+		0BEA65978CCC47069CD0AB48 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlVersion.h; path = ebml/EbmlVersion.h; sourceTree = SOURCE_ROOT; };
+		12825508D2F24550A819467F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlContexts.h; path = ebml/EbmlContexts.h; sourceTree = SOURCE_ROOT; };
+		22E44C7FC5684133A1760F50 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlBinary.h; path = ebml/EbmlBinary.h; sourceTree = SOURCE_ROOT; };
+		2A770322839A48BD87061286 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = libebml_t.h; path = ebml/c/libebml_t.h; sourceTree = SOURCE_ROOT; };
+		2D0ED0BF6F26443C8D0AF92D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = MemReadIOCallback.h; path = ebml/MemReadIOCallback.h; sourceTree = SOURCE_ROOT; };
+		2D41527FAECF4E16AA3510FA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlFloat.h; path = ebml/EbmlFloat.h; sourceTree = SOURCE_ROOT; };
+		2F9A2012E4FA4AA282AC89A5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlSubHead.h; path = ebml/EbmlSubHead.h; sourceTree = SOURCE_ROOT; };
+		3336B3A659964156A64FBA8F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlHead.h; path = ebml/EbmlHead.h; sourceTree = SOURCE_ROOT; };
+		333D6B6343754F5BACA444B2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = MemIOCallback.h; path = ebml/MemIOCallback.h; sourceTree = SOURCE_ROOT; };
+		34144E83454940EDAAB78CBE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = SafeReadIOCallback.h; path = ebml/SafeReadIOCallback.h; sourceTree = SOURCE_ROOT; };
+		492412A5ED9747CD9DA5780A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlStream.h; path = ebml/EbmlStream.h; sourceTree = SOURCE_ROOT; };
+		4A745B3C995F41A9B84DC336 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		4AE5FF3EB49F46FE8BB12713 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlElement.cpp; path = src/EbmlElement.cpp; sourceTree = SOURCE_ROOT; };
+		502FF7309C594DF99F3477F0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = Debug.h; path = ebml/Debug.h; sourceTree = SOURCE_ROOT; };
+		50C08144FC604E908ED8D129 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlDate.cpp; path = src/EbmlDate.cpp; sourceTree = SOURCE_ROOT; };
+		51E11C5B54694E8CA2DD693E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlString.h; path = ebml/EbmlString.h; sourceTree = SOURCE_ROOT; };
+		565CD41DE5BD4173A9428C22 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = IOCallback.h; path = ebml/IOCallback.h; sourceTree = SOURCE_ROOT; };
+		56CF9881384444A4946F2CF5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlSInteger.cpp; path = src/EbmlSInteger.cpp; sourceTree = SOURCE_ROOT; };
+		66177460835B41A2A4ACDE79 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		783682EA654A4E30AB5630F1 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlDate.h; path = ebml/EbmlDate.h; sourceTree = SOURCE_ROOT; };
+		79F757B74F364ADCBC9D846E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlVoid.h; path = ebml/EbmlVoid.h; sourceTree = SOURCE_ROOT; };
+		7D2736027DE541B582173890 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = IOCallback.cpp; path = src/IOCallback.cpp; sourceTree = SOURCE_ROOT; };
+		86B7A39964AD41E3BFCDABC5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlContexts.cpp; path = src/EbmlContexts.cpp; sourceTree = SOURCE_ROOT; };
+		86D02DDD4C6B4980ADA164AC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MemReadIOCallback.cpp; path = src/MemReadIOCallback.cpp; sourceTree = SOURCE_ROOT; };
+		87B23DAE037841A484F9DFDF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = StdIOCallback.cpp; path = src/StdIOCallback.cpp; sourceTree = SOURCE_ROOT; };
+		89BBDFD5E77244C2B898147D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = Debug.cpp; path = src/Debug.cpp; sourceTree = SOURCE_ROOT; };
+		8DDC3BB1823748F9995FE13C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlId.h; path = ebml/EbmlId.h; sourceTree = SOURCE_ROOT; };
+		90EA965A43AD45E9AEB9B5B5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = MemIOCallback.cpp; path = src/MemIOCallback.cpp; sourceTree = SOURCE_ROOT; };
+		9889A86D91D34252875F61A5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlFloat.cpp; path = src/EbmlFloat.cpp; sourceTree = SOURCE_ROOT; };
+		9B023BFAFF7F49A18791EDD0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlCrc32.h; path = ebml/EbmlCrc32.h; sourceTree = SOURCE_ROOT; };
+		9D62C8B1CA704D6F9CA99E05 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlSubHead.cpp; path = src/EbmlSubHead.cpp; sourceTree = SOURCE_ROOT; };
+		A4C676C2ADB2400A93CB78CA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlTypes.h; path = ebml/EbmlTypes.h; sourceTree = SOURCE_ROOT; };
+		A820E8B385DD469D9B6FC038 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlBinary.cpp; path = src/EbmlBinary.cpp; sourceTree = SOURCE_ROOT; };
+		A97D60C16DFE472091D39396 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlMaster.cpp; path = src/EbmlMaster.cpp; sourceTree = SOURCE_ROOT; };
+		AC090BD05DC44C74A3D2AB0F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlStream.cpp; path = src/EbmlStream.cpp; sourceTree = SOURCE_ROOT; };
+		AD448DA3520D4E10BF0611B6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = StdIOCallback.h; path = ebml/StdIOCallback.h; sourceTree = SOURCE_ROOT; };
+		AEA64017CF21437A973C679E /* ebml */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libebml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		B26FACEA66354C1B9DA036FE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlCrc32.cpp; path = src/EbmlCrc32.cpp; sourceTree = SOURCE_ROOT; };
+		B6ACCF2A791F49798208CD84 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlUnicodeString.cpp; path = src/EbmlUnicodeString.cpp; sourceTree = SOURCE_ROOT; };
+		BC537CAB46D440E3AEFCBAAC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlSInteger.h; path = ebml/EbmlSInteger.h; sourceTree = SOURCE_ROOT; };
+		BEA7B5594343434CA6535C0F /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = ebml_export.h; path = ../../Xcodes/ebml/ebml_export.h; sourceTree = SOURCE_ROOT; };
+		C2D6E4CADE1048BD986857E2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlUInteger.cpp; path = src/EbmlUInteger.cpp; sourceTree = SOURCE_ROOT; };
+		C51699C1C960485C8EAD6C76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlString.cpp; path = src/EbmlString.cpp; sourceTree = SOURCE_ROOT; };
+		C833F5B6CDB142838489E67F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlConfig.h; path = ebml/EbmlConfig.h; sourceTree = SOURCE_ROOT; };
+		C9273141327F4A0C89749A94 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlUInteger.h; path = ebml/EbmlUInteger.h; sourceTree = SOURCE_ROOT; };
+		CCA0A24BCD454676894AB2BF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlDummy.cpp; path = src/EbmlDummy.cpp; sourceTree = SOURCE_ROOT; };
+		D64F1835D3FC4C828BBD62CE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = SafeReadIOCallback.cpp; path = src/SafeReadIOCallback.cpp; sourceTree = SOURCE_ROOT; };
+		D73E7036391648C7805054E3 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlEndian.h; path = ebml/EbmlEndian.h; sourceTree = SOURCE_ROOT; };
+		D7BA9DAB210146F0BF55E220 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlVersion.cpp; path = src/EbmlVersion.cpp; sourceTree = SOURCE_ROOT; };
+		D8BFE2661C7C4D668EF4AAFE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlVoid.cpp; path = src/EbmlVoid.cpp; sourceTree = SOURCE_ROOT; };
+		DEB98353F2854227871B9D3B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlElement.h; path = ebml/EbmlElement.h; sourceTree = SOURCE_ROOT; };
+		E618A7B4E4F44E1DB69CC53C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlMaster.h; path = ebml/EbmlMaster.h; sourceTree = SOURCE_ROOT; };
+		EE006FA3759144F8B5A27792 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlUnicodeString.h; path = ebml/EbmlUnicodeString.h; sourceTree = SOURCE_ROOT; };
+		F0CD396E5F954168BDD2DED8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = EbmlDummy.h; path = ebml/EbmlDummy.h; sourceTree = SOURCE_ROOT; };
+		F33AF3EE3990425DBEBD4F33 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = EbmlHead.cpp; path = src/EbmlHead.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		1CF7226AEF914154BFF8AE8E /* ALL_BUILD */ = {
+		14F3098BCB9B43E2A20EED96 /* ALL_BUILD */ = {
 			isa = PBXGroup;
 			children = (
-				F592BEAFBED04A66ACD47D32 /* CMake Rules */,
-				CC07ADE874FF47DA8E7E8E6D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */,
+				3A8B1C9B302B45189B04EC49 /* CMake Rules */,
+				66177460835B41A2A4ACDE79 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
 		};
-		54EF9CA925A84642962D8D17 = {
+		340771E447C74DEB8ECB68C2 /* ebml */ = {
 			isa = PBXGroup;
 			children = (
-				89FF28DB9B644E90B45E9132 /* ebml */,
-				1CF7226AEF914154BFF8AE8E /* ALL_BUILD */,
-				AA7DA9D1DC39460899B182FC /* Products */,
-			);
-			sourceTree = "<group>";
-		};
-		89FF28DB9B644E90B45E9132 /* ebml */ = {
-			isa = PBXGroup;
-			children = (
-				9D66ADC44BA04126AF7F6BA0 /* Source Files */,
-				EF26EE0B1D924539868427F1 /* Header Files */,
-				50A558F7C7AD46B2B8993C61 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */,
+				BBF8BF4541AA452BA2687A94 /* Source Files */,
+				787C8FA1BC854954A1BA32FC /* Header Files */,
+				4A745B3C995F41A9B84DC336 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/CMakeLists.txt */,
 			);
 			name = ebml;
 			sourceTree = "<group>";
 		};
-		9D66ADC44BA04126AF7F6BA0 /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				83462A0BA8B4424989DD1C2E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */,
-				AC49C44CD9304DED9CAA3050 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */,
-				43C54AF42C224A7EAF12858C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */,
-				DFA29705056C436D94205824 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */,
-				5E230334911C4D78B6348CA9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */,
-				8A03EE9E61DB42A0AA214E78 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */,
-				4D1A3212FEAD4015939366EA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */,
-				EC2584FE5EB440DD836FA256 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */,
-				10BE04C376254D65B577E335 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */,
-				72D6B7DC21A84ABB849F080C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */,
-				783694BF2178423C92EA5464 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */,
-				533323D2AFD74E648F180C1C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */,
-				EC2AE855B3384F6D9665E76B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */,
-				FE6AEBF8EC78434CAA4D5184 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */,
-				125261EC2E064DAC9E4391F9 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */,
-				7DBFC4BC97384B4F88677073 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */,
-				CB958ED9A4C74A2AAF41AE93 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */,
-				9CF7C0A3145A4A88A23818BC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */,
-				CA6C869BE414434A8ACF376B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */,
-				7A37F1F71B954C9E8E98469A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */,
-				866EB881C1124C0B93035CB0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */,
-				1C36F9341B0C46548852A8AE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */,
-				C505F095F790495CAC50FB92 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		AA7DA9D1DC39460899B182FC /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				9DAD7B66872640EBAEDF8373 /* ebml */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		EF26EE0B1D924539868427F1 /* Header Files */ = {
-			isa = PBXGroup;
-			children = (
-				943F84AAC0584AC594553B5F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */,
-				10FCEE5C495049C4A85C8AAE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */,
-				267B3EF3FE7940EA9A34BB1B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */,
-				3609FB51F71C438D8783D0D2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */,
-				C392D87989C241D494F9941A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */,
-				1095DA4429004D96A5B63269 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */,
-				430903E2CEB24F85947215CD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */,
-				EB180AF996BD40059D59BF15 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */,
-				FC07EA244A844BF58CC82F3B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */,
-				72726E033F2A4354B983CF69 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */,
-				DD7339083A8E494FA73868A7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */,
-				220DC5CA835647638AB7987E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */,
-				1DB16C0473D8457A80FB2BB8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */,
-				062CF746C08B4A43A4AD0761 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */,
-				D0064DF5122242C9AE577F1E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */,
-				7EB70BAB0CA5403EAAAE963B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */,
-				155C56DF95CF442C9954FE17 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */,
-				F2DA58CF3EF640CBB049D12B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */,
-				3D7C63877BF941D9816644A6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */,
-				3791B50E01BC4ACFBBF00470 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */,
-				71DD19CBE5DF4309AF814FB7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */,
-				9060307585E94C788DCF8B92 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */,
-				83A5097453F640DD84A5512A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */,
-				2F3A710FB2254A1EA8720A36 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */,
-				923F17AEF17F4356BE9F6FC4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */,
-				1A370CC1EF1749988EEF8900 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */,
-				5CCEACE7AFE94026876D85D8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */,
-				507B15781D7F41519AF33D95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */,
-				F94CC96D34CC4A0397BB9C6C /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */,
-			);
-			name = "Header Files";
-			sourceTree = "<group>";
-		};
-		F592BEAFBED04A66ACD47D32 /* CMake Rules */ = {
+		3A8B1C9B302B45189B04EC49 /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
+			sourceTree = "<group>";
+		};
+		579C4B5D93F44211B977BF14 = {
+			isa = PBXGroup;
+			children = (
+				340771E447C74DEB8ECB68C2 /* ebml */,
+				14F3098BCB9B43E2A20EED96 /* ALL_BUILD */,
+				F01F19DFD20E4CC4862BAB40 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		787C8FA1BC854954A1BA32FC /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				502FF7309C594DF99F3477F0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/Debug.h */,
+				22E44C7FC5684133A1760F50 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlBinary.h */,
+				C833F5B6CDB142838489E67F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlConfig.h */,
+				12825508D2F24550A819467F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlContexts.h */,
+				9B023BFAFF7F49A18791EDD0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlCrc32.h */,
+				783682EA654A4E30AB5630F1 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDate.h */,
+				F0CD396E5F954168BDD2DED8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlDummy.h */,
+				DEB98353F2854227871B9D3B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlElement.h */,
+				D73E7036391648C7805054E3 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlEndian.h */,
+				2D41527FAECF4E16AA3510FA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlFloat.h */,
+				3336B3A659964156A64FBA8F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlHead.h */,
+				8DDC3BB1823748F9995FE13C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlId.h */,
+				E618A7B4E4F44E1DB69CC53C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlMaster.h */,
+				BC537CAB46D440E3AEFCBAAC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSInteger.h */,
+				492412A5ED9747CD9DA5780A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlStream.h */,
+				51E11C5B54694E8CA2DD693E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlString.h */,
+				2F9A2012E4FA4AA282AC89A5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlSubHead.h */,
+				A4C676C2ADB2400A93CB78CA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlTypes.h */,
+				C9273141327F4A0C89749A94 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUInteger.h */,
+				EE006FA3759144F8B5A27792 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlUnicodeString.h */,
+				0BEA65978CCC47069CD0AB48 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVersion.h */,
+				79F757B74F364ADCBC9D846E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/EbmlVoid.h */,
+				565CD41DE5BD4173A9428C22 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/IOCallback.h */,
+				333D6B6343754F5BACA444B2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemIOCallback.h */,
+				2D0ED0BF6F26443C8D0AF92D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/MemReadIOCallback.h */,
+				34144E83454940EDAAB78CBE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/SafeReadIOCallback.h */,
+				AD448DA3520D4E10BF0611B6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/StdIOCallback.h */,
+				2A770322839A48BD87061286 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/ebml/c/libebml_t.h */,
+				BEA7B5594343434CA6535C0F /* /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/ebml_export.h */,
+			);
+			name = "Header Files";
+			sourceTree = "<group>";
+		};
+		BBF8BF4541AA452BA2687A94 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				89BBDFD5E77244C2B898147D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */,
+				A820E8B385DD469D9B6FC038 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */,
+				86B7A39964AD41E3BFCDABC5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */,
+				B26FACEA66354C1B9DA036FE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */,
+				50C08144FC604E908ED8D129 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */,
+				CCA0A24BCD454676894AB2BF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */,
+				4AE5FF3EB49F46FE8BB12713 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */,
+				9889A86D91D34252875F61A5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */,
+				F33AF3EE3990425DBEBD4F33 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */,
+				A97D60C16DFE472091D39396 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */,
+				56CF9881384444A4946F2CF5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */,
+				AC090BD05DC44C74A3D2AB0F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */,
+				C51699C1C960485C8EAD6C76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */,
+				9D62C8B1CA704D6F9CA99E05 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */,
+				C2D6E4CADE1048BD986857E2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */,
+				B6ACCF2A791F49798208CD84 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */,
+				D7BA9DAB210146F0BF55E220 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */,
+				D8BFE2661C7C4D668EF4AAFE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */,
+				7D2736027DE541B582173890 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */,
+				90EA965A43AD45E9AEB9B5B5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */,
+				86D02DDD4C6B4980ADA164AC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */,
+				D64F1835D3FC4C828BBD62CE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */,
+				87B23DAE037841A484F9DFDF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		F01F19DFD20E4CC4862BAB40 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				AEA64017CF21437A973C679E /* ebml */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -336,18 +336,18 @@
 /* Begin PBXNativeTarget section */
 		6866F388A8194E39BBE3D1AA /* ebml */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 73E8CFDF21164A40BF5A0EDF /* Build configuration list for PBXNativeTarget "ebml" */;
+			buildConfigurationList = BCF6532B2D4C4D5DB23F2160 /* Build configuration list for PBXNativeTarget "ebml" */;
 			buildPhases = (
-				25884C50A99947789817F237 /* Sources */,
+				2C884F43A5534BCB9C3EC5EC /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				9544DB332AC44F0BBF30FD50 /* PBXTargetDependency */,
+				D7C3C7E4CE744351BE198F9C /* PBXTargetDependency */,
 			);
 			name = ebml;
 			productName = ebml;
-			productReference = 9DAD7B66872640EBAEDF8373 /* ebml */;
+			productReference = AEA64017CF21437A973C679E /* ebml */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -359,18 +359,18 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1020;
 			};
-			buildConfigurationList = 1F3AF2AC43FE4204B9861AF3 /* Build configuration list for PBXProject "ebml" */;
+			buildConfigurationList = 34CA4A907CEE41D3AFD09159 /* Build configuration list for PBXProject "ebml" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				1B263CDE7C9E4855A102E475 /* Debug */,
-				491A014BAA1F48328FAB0645 /* Release */,
-				CA6637D017C8444A8E6F04EC /* MinSizeRel */,
-				815656B92534418E9AE61C58 /* RelWithDebInfo */,
+				611436ADC5614428970EF7E1 /* Debug */,
+				FF9EB788D3B74A9BBB8AB44B /* Release */,
+				BFBCE9B7BFD54AE4ADDD6656 /* MinSizeRel */,
+				96310C160E3A41C2B18A0F09 /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = 54EF9CA925A84642962D8D17;
+			mainGroup = 579C4B5D93F44211B977BF14;
 			projectDirPath = /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml;
 			projectRoot = "";
 			targets = (
@@ -383,18 +383,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		2428CE65B6BB4014B6D20E25 /* CMake PostBuild Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake PostBuild Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/CMakeScripts/install_postBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
-			showEnvVarsInLog = 0;
-		};
-		28D4DA741D2C48B6B4F0B34D /* CMake Rules */ = {
+		035BAAE6C81A4C33A49AA910 /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -405,7 +394,7 @@
 			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
-		57999CC1F37142A6979B994E = {
+		1AE77AD972404AA4882315F7 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -420,7 +409,33 @@
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		89B108AB36714C70B29023F3 /* CMake Rules */ = {
+		421508CB3F5346738FD47B90 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		6CC08CC425A34CB884F9F24F /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/CMakeScripts/install_postBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
+		B2B13D5F3FCB4A75AF86985D /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -431,22 +446,7 @@ exit 0";
 			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
-		B71B035BE1964A20BED65D93 = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# shell script goes here
-exit 0";
-			showEnvVarsInLog = 0;
-		};
-		EBFD433D06904295A152132D = {
+		C7B44D02AA904B9694197B95 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -464,63 +464,83 @@ exit 0";
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		25884C50A99947789817F237 /* Sources */ = {
+		2C884F43A5534BCB9C3EC5EC /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				811CB101F1FC4A4B8238A4E4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */,
-				48C7807EBC3942C1AFB65D00 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */,
-				9E0267A87A334C02AC1F9D7A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */,
-				40BCDA12ED7346F5AD1FCE4B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */,
-				C261F671865A4187A87498C4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */,
-				DB5F17C2374041F583E7161A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */,
-				2D800F0B47EF4D7EBC8B23DF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */,
-				976EBD254CF54A5F857ED273 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */,
-				13880AF7C7F84743947719A2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */,
-				D55467FDE7D74CA7BF751398 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */,
-				4C127EA0F0554977873A8661 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */,
-				46DD599C7C3046148F5C8938 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */,
-				832B74FFFB7243098E458C9B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */,
-				E8EB1A6A42204EDA9168E409 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */,
-				6B1A506A65084D41AEDBB3C5 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */,
-				6312F85BDA6E4ACB83383FBF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */,
-				6F079C73ED034937B290DABD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */,
-				4D356D63E63043E59113C50F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */,
-				742C17A5BA2D4950BFA39661 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */,
-				B33C501BC93E4E5FA89D0885 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */,
-				F2BB161616424983BA605A9C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */,
-				C31A134218394F5BAEC0A08C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */,
-				80B8CBF4B5B54FFC98C72CAD /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */,
+				63DFF0E4089F4981BAD80874 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/Debug.cpp */,
+				8742FBC3754044A2926A2ECF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlBinary.cpp */,
+				C9D0C5B752534441846C0915 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlContexts.cpp */,
+				7B88CEBD894C4829A66D41FB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlCrc32.cpp */,
+				0A2FA77620A949C39B16EAD6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDate.cpp */,
+				1810E3029DCB4159B10C0690 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlDummy.cpp */,
+				D6E3DC72020C4B27B0515D95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlElement.cpp */,
+				68148D6A4F7E4CF88109E317 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlFloat.cpp */,
+				E1CF83D1DD86408AAC8D2941 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlHead.cpp */,
+				491F814693BB4B2BA8D2FFE0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlMaster.cpp */,
+				C915DBAD21214049BF5DBEC7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSInteger.cpp */,
+				A29DAB63B5BE4F50B9A400D8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlStream.cpp */,
+				46381F7BE4304304B88F3882 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlString.cpp */,
+				44531FE66AEA4F3C91A7C343 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlSubHead.cpp */,
+				A67E23C824234BC3B2174D16 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUInteger.cpp */,
+				61F54FD9C6D043F0928A883F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlUnicodeString.cpp */,
+				D8241546AFCC4DB8A6F73A76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVersion.cpp */,
+				7B42518D62D24613BF29041A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/EbmlVoid.cpp */,
+				478B962FB9174AC59019F8B6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/IOCallback.cpp */,
+				32C81F85A9754F448D54A115 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemIOCallback.cpp */,
+				45917D4EF6644FC9801C5B06 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/MemReadIOCallback.cpp */,
+				457FB42C82FE4818BD8A36E4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/SafeReadIOCallback.cpp */,
+				06BA9DE421864413A2BA115E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libebml/src/StdIOCallback.cpp */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		333056AB223A4AD6852D9C75 /* PBXTargetDependency */ = {
+		2D50B4255AE74C71AF44444E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6866F388A8194E39BBE3D1AA /* ebml */;
-			targetProxy = 2972AA62C20A47EEA4737AAC /* PBXContainerItemProxy */;
+			targetProxy = DD80C00E0E564CA685E2EAF8 /* PBXContainerItemProxy */;
 		};
-		4FC456ADD27D43DE92343B64 /* PBXTargetDependency */ = {
+		49CED3F0C04B42E98E795BC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1999842FC5C84D61A9AE22F0 /* ZERO_CHECK */;
+			targetProxy = E43FE1A8B33F40F2A6339304 /* PBXContainerItemProxy */;
+		};
+		729D8611387E4DCAA4939A9D /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = B20F0A62E6EF4D2890F31153 /* ALL_BUILD */;
-			targetProxy = 381035D2D18E40F5A805925B /* PBXContainerItemProxy */;
+			targetProxy = 8D7F38B4499D465AA26CE749 /* PBXContainerItemProxy */;
 		};
-		9544DB332AC44F0BBF30FD50 /* PBXTargetDependency */ = {
+		D7C3C7E4CE744351BE198F9C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 1999842FC5C84D61A9AE22F0 /* ZERO_CHECK */;
-			targetProxy = 0C673C1A6C9548C18F5DF8CF /* PBXContainerItemProxy */;
-		};
-		B8A48AA56D0C44D390F67052 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 1999842FC5C84D61A9AE22F0 /* ZERO_CHECK */;
-			targetProxy = B0076EBEB3674619B3019DCD /* PBXContainerItemProxy */;
+			targetProxy = 76730D17C97944C8A2113404 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		0DD1D219F2B44CEC8CE86917 /* Release */ = {
+		27B3753EBE8542DEAF58C70F /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		29F8E66C7F974979825CD22A /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -538,239 +558,19 @@ exit 0";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
-			name = Release;
-		};
-		1895FE7A78564E95AE74D9D8 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Release;
-		};
-		2053FDC0F12D4AC2AAA3290A /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
-			};
-			name = RelWithDebInfo;
-		};
-		2C7627FE32D24217B24859D3 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Debug;
-		};
-		2C83CF50891B4247843F79D1 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		2D2511F0B53A468BA3E0205E /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
-			};
-			name = Release;
-		};
-		4AE44157EA6A4854B5492AC9 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
-			};
-			name = Debug;
-		};
-		5224F94BCAC3429493921908 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
-			};
 			name = MinSizeRel;
 		};
-		67641D70982B4E1FBA0D2772 /* Release */ = {
+		2DEF803B71B34A86A1C0ECAE /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 3;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml,/Users/cwbetts/makestuff/MKVImporter/Vendor/libebml);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ebml;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Release;
-		};
-		6F5B585A8E1B455FBF300AE6 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		7943433BF5764EAF8CE4FD6C /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
 			};
 			name = Debug;
 		};
-		9163EB4C0D1B4245AADF6244 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 2;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml,/Users/cwbetts/makestuff/MKVImporter/Vendor/libebml);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG  ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ebml;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		92B0951978C84CD8AEB680B4 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		97F8B095817B4E238CAA053B /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		9CF099BD128D4623A53C82CE /* MinSizeRel */ = {
+		408D0413662C431DB9A37947 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -795,47 +595,7 @@ exit 0";
 			};
 			name = MinSizeRel;
 		};
-		A3BC1948985C432398B0750E /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Debug;
-		};
-		C9AAEC3086B9468FB368D31D /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Release;
-		};
-		DA463E34C166499F87710FD1 /* MinSizeRel */ = {
+		45A634DC803F4833B707733C /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -853,9 +613,49 @@ exit 0";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
+			name = Release;
+		};
+		4C8B0C2AD3E54255B1A18A79 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		51A96EF858654A9BA7EB3B16 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
+			};
 			name = MinSizeRel;
 		};
-		E27B2A29AEBF4082A7ED1EAD /* Debug */ = {
+		52DF9D09BFC34ABE8967AA6F /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
+			};
+			name = RelWithDebInfo;
+		};
+		59B3A5FE56C249518300F1DB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -880,7 +680,47 @@ exit 0";
 			};
 			name = Debug;
 		};
-		EA2042EC0AB74C99854960EE /* MinSizeRel */ = {
+		5EEED8BF5A90435E840657E4 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		6FB4E33445C04122B5CFF3CD /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		7717EB6EE17846A7857CF25E /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -898,62 +738,222 @@ exit 0";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
-			name = MinSizeRel;
+			name = RelWithDebInfo;
+		};
+		95F1DF8AB0764E68B6C88D57 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml/build;
+			};
+			name = Release;
+		};
+		A0A51F3726C040FFBC7BEA17 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		A5D17E95E5F7440DAEB9C8F0 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 3;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml,/Users/cwbetts/makestuff/MKVImporter/Vendor/libebml);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ebml;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		BA19DA6F557142E68109F3C6 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 2;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml,/Users/cwbetts/makestuff/MKVImporter/Vendor/libebml);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "       -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ebml;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		BE22DFE41814463F9B32BA03 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		BF732B6FE30E4BC3985AB6D3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		D697179803EF4D99929AF5B8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		EFDBCBBE78574D0497C40E2A /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/ebml;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1F3AF2AC43FE4204B9861AF3 /* Build configuration list for PBXProject "ebml" */ = {
+		34CA4A907CEE41D3AFD09159 /* Build configuration list for PBXProject "ebml" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				4AE44157EA6A4854B5492AC9 /* Debug */,
-				2D2511F0B53A468BA3E0205E /* Release */,
-				5224F94BCAC3429493921908 /* MinSizeRel */,
-				2053FDC0F12D4AC2AAA3290A /* RelWithDebInfo */,
+				2DEF803B71B34A86A1C0ECAE /* Debug */,
+				95F1DF8AB0764E68B6C88D57 /* Release */,
+				51A96EF858654A9BA7EB3B16 /* MinSizeRel */,
+				52DF9D09BFC34ABE8967AA6F /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		25F27EBE20D14A60AB78867F /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		3828936EF7B14A6EA693FEC8 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				A3BC1948985C432398B0750E /* Debug */,
-				0DD1D219F2B44CEC8CE86917 /* Release */,
-				EA2042EC0AB74C99854960EE /* MinSizeRel */,
-				92B0951978C84CD8AEB680B4 /* RelWithDebInfo */,
+				4C8B0C2AD3E54255B1A18A79 /* Debug */,
+				A0A51F3726C040FFBC7BEA17 /* Release */,
+				6FB4E33445C04122B5CFF3CD /* MinSizeRel */,
+				27B3753EBE8542DEAF58C70F /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		4EB349CF0F54483D8B1B3356 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		43BAEFD1BB814F4689118244 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				7943433BF5764EAF8CE4FD6C /* Debug */,
-				C9AAEC3086B9468FB368D31D /* Release */,
-				6F5B585A8E1B455FBF300AE6 /* MinSizeRel */,
-				97F8B095817B4E238CAA053B /* RelWithDebInfo */,
+				D697179803EF4D99929AF5B8 /* Debug */,
+				BF732B6FE30E4BC3985AB6D3 /* Release */,
+				29F8E66C7F974979825CD22A /* MinSizeRel */,
+				7717EB6EE17846A7857CF25E /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		73E8CFDF21164A40BF5A0EDF /* Build configuration list for PBXNativeTarget "ebml" */ = {
+		BCF6532B2D4C4D5DB23F2160 /* Build configuration list for PBXNativeTarget "ebml" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				E27B2A29AEBF4082A7ED1EAD /* Debug */,
-				67641D70982B4E1FBA0D2772 /* Release */,
-				9CF099BD128D4623A53C82CE /* MinSizeRel */,
-				9163EB4C0D1B4245AADF6244 /* RelWithDebInfo */,
+				59B3A5FE56C249518300F1DB /* Debug */,
+				A5D17E95E5F7440DAEB9C8F0 /* Release */,
+				408D0413662C431DB9A37947 /* MinSizeRel */,
+				BA19DA6F557142E68109F3C6 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		792BFD269573410C989290A9 /* Build configuration list for PBXAggregateTarget "install" */ = {
+		F6733AC85D3243E2AC9ED94D /* Build configuration list for PBXAggregateTarget "install" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2C7627FE32D24217B24859D3 /* Debug */,
-				1895FE7A78564E95AE74D9D8 /* Release */,
-				DA463E34C166499F87710FD1 /* MinSizeRel */,
-				2C83CF50891B4247843F79D1 /* RelWithDebInfo */,
+				BE22DFE41814463F9B32BA03 /* Debug */,
+				45A634DC803F4833B707733C /* Release */,
+				5EEED8BF5A90435E840657E4 /* MinSizeRel */,
+				EFDBCBBE78574D0497C40E2A /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;

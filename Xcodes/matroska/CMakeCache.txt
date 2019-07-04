@@ -179,7 +179,7 @@ CMAKE_PROJECT_HOMEPAGE_URL:STATIC=
 CMAKE_PROJECT_NAME:STATIC=matroska
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION:STATIC=1.5.0
+CMAKE_PROJECT_VERSION:STATIC=1.5.2
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION_MAJOR:STATIC=1
@@ -188,7 +188,7 @@ CMAKE_PROJECT_VERSION_MAJOR:STATIC=1
 CMAKE_PROJECT_VERSION_MINOR:STATIC=5
 
 //Value Computed by CMake
-CMAKE_PROJECT_VERSION_PATCH:STATIC=0
+CMAKE_PROJECT_VERSION_PATCH:STATIC=2
 
 //Value Computed by CMake
 CMAKE_PROJECT_VERSION_TWEAK:STATIC=
@@ -259,7 +259,7 @@ DISABLE_CMAKE_CONFIG:BOOL=OFF
 DISABLE_PKGCONFIG:BOOL=ON
 
 //The directory containing a CMake configuration file for EBML.
-EBML_DIR:PATH=/Users/cwbetts/makestuff/MKVImporter/Xcodes/local/lib/cmake/EBML
+EBML_DIR:PATH=EBML_DIR-NOTFOUND
 
 //Value Computed by CMake
 matroska_BINARY_DIR:STATIC=/Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska
@@ -286,7 +286,7 @@ CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
 CMAKE_CACHE_MINOR_VERSION:INTERNAL=14
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=4
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=5
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/opt/local/bin/cmake
 //Path to cpack program executable.

@@ -9,34 +9,34 @@
 /* Begin PBXAggregateTarget section */
 		5110844A231542B5A252CA9D /* install */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = B6B05F0249244C74AB3D8F72 /* Build configuration list for PBXAggregateTarget "install" */;
+			buildConfigurationList = 696F45052A85437D869C04E2 /* Build configuration list for PBXAggregateTarget "install" */;
 			buildPhases = (
-				58E1B4F20C064F45829772D4 /* CMake PostBuild Rules */,
+				D9EE8A9EABB14577A3CFB58C /* CMake PostBuild Rules */,
 			);
 			dependencies = (
-				1F84F08386854BB4A3737570 /* PBXTargetDependency */,
+				D0D94E2DF6AD428D8E8A1478 /* PBXTargetDependency */,
 			);
 			name = install;
 			productName = install;
 		};
 		542607EE1F5442078FD9F3D8 /* ALL_BUILD */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = 8CFF900E63744E80B987AEC9 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+			buildConfigurationList = 8B9E512A7D0B4692A1075720 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
 			buildPhases = (
-				DA9B5DC5A8B9421E953F2508 /* CMake Rules */,
+				AE09A889F04048D29A6A95DB /* CMake Rules */,
 			);
 			dependencies = (
-				3C37168AA3864A7CB501437B /* PBXTargetDependency */,
-				CCAF3C0BCEC14E7BB13E4899 /* PBXTargetDependency */,
+				A210A866305D4732B577C836 /* PBXTargetDependency */,
+				D427128951C44D28B4B1C7CE /* PBXTargetDependency */,
 			);
 			name = ALL_BUILD;
 			productName = ALL_BUILD;
 		};
 		98ED19D5F672473B8B8ADD8E /* ZERO_CHECK */ = {
 			isa = PBXAggregateTarget;
-			buildConfigurationList = FD7EDED99C6D43E5BF6E6B78 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
+			buildConfigurationList = 4A693D8C8D324F3881E2BF22 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */;
 			buildPhases = (
-				A9E5D9F235B545B186A84111 /* CMake Rules */,
+				217155B4FDFD4E348E53266F /* CMake Rules */,
 			);
 			dependencies = (
 			);
@@ -46,80 +46,80 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		07C14FA4A4794A0798D2D84C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */ = {isa = PBXBuildFile; fileRef = 85BA1B6BBC72478F9F462CC6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */; };
-		2081157B86584ACA8CE02B56 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */ = {isa = PBXBuildFile; fileRef = E8B3002DFE254A6A807DA339 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */; };
-		44BC7A5F333E4A1EAA64E878 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */ = {isa = PBXBuildFile; fileRef = 927B70A8C7DC4B509BF7310B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */; };
-		480ECCA9FCCF4129B20B4691 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */ = {isa = PBXBuildFile; fileRef = 867348C3B2DD4D51A70BDB6E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */; };
-		56A320696450492DB83A4AEC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */ = {isa = PBXBuildFile; fileRef = 20A9CB10F96E4D7DBA543734 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */; };
-		64E6F88EA9614D9396BC32DE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */ = {isa = PBXBuildFile; fileRef = EC00DE7479254637A29AE863 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */; };
-		66085DB4B4D14CE9BC128E30 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */ = {isa = PBXBuildFile; fileRef = 59C9A5A31329463AAE996B95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */; };
-		8461B7C2C8B647969995C9EA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */ = {isa = PBXBuildFile; fileRef = E31906826C004A85BE46E38B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */; };
-		851B5248D4E741A6BA528F0E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */ = {isa = PBXBuildFile; fileRef = AC43CC0AE7CF476784A5BCBA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */; };
-		A36CD9A9495F4CB089239A76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = E6186B6823A649DB98367AD7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */; };
-		B2ABD53F251C40258B50A767 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */ = {isa = PBXBuildFile; fileRef = FB00BA1CF8B0426A86CA2F76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */; };
-		B9BD2562D522426CAF1B3F70 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */ = {isa = PBXBuildFile; fileRef = 333C6CD9406C447C920E8E49 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */; };
-		B9D917D250824A19B8FA6FEA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */ = {isa = PBXBuildFile; fileRef = 916BA32B422F439180BCFDA1 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */; };
-		C383893A57A846A5B41C61D0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */ = {isa = PBXBuildFile; fileRef = ED33E251303E46DDACD3B45C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */; };
-		C3FE352AD8144BE8A1423093 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */ = {isa = PBXBuildFile; fileRef = 333BFD2FC26B487F954522B2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */; };
-		D4D075D3008146A9BAFBF7AB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */ = {isa = PBXBuildFile; fileRef = 962A38DAC4064BACA459E684 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */; };
-		D95AC4A653374FDBAEB154D7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */ = {isa = PBXBuildFile; fileRef = E100308A538444898CD771F0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */; };
-		F61B1E20C7AE4B76B0B792E0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */ = {isa = PBXBuildFile; fileRef = 4503212E44D84A3887358019 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */; };
+		10A6E1914060414DB2136F4D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */ = {isa = PBXBuildFile; fileRef = F9EC25931C954DC7B9D7CF3C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */; };
+		1A2675277D9942C78C9C03DF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */ = {isa = PBXBuildFile; fileRef = E2BB927E60784D20AF3F7540 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */; };
+		276A6BD06221421E865C7B63 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */ = {isa = PBXBuildFile; fileRef = 3ADFC1D3600143BDB5C4797A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */; };
+		3D6EA4F0982546BFA38B0C75 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */ = {isa = PBXBuildFile; fileRef = 3264DB07BD774936AD5D9B48 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */; };
+		4608D727CC3042AE8F9F8F25 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */ = {isa = PBXBuildFile; fileRef = 3288F6FC62CA4B9590469BEE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */; };
+		4FB26D1A33A94511AF017029 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */ = {isa = PBXBuildFile; fileRef = 41D70AA184C3415C895B24ED /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */; };
+		507654DFEC374C639F475BC4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */ = {isa = PBXBuildFile; fileRef = ABE065B3995147E0B3149A37 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */; };
+		5177C63C070A46988CEC696E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */ = {isa = PBXBuildFile; fileRef = 06386F197CF444BB8A4E5A9C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */; };
+		5220EBB9E2AE46309037C023 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */ = {isa = PBXBuildFile; fileRef = 099811A750C548B697E2E184 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */; };
+		5D97A312332048E9A22D585F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */ = {isa = PBXBuildFile; fileRef = A2FC872125A24BD5ADACB7F8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */; };
+		73504ADBD7374B6AA3E29084 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */ = {isa = PBXBuildFile; fileRef = DDEACDF0C2CC41F9A2D8F192 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */; };
+		7E6AFF560F2E402481C0BAFF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */ = {isa = PBXBuildFile; fileRef = D1CD7440AAC14EE28CFED970 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */; };
+		B11A44A865C644159AECF834 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */ = {isa = PBXBuildFile; fileRef = 15D3FEABD8BD49399F5B464E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */; };
+		D4B3C52A6073434CA012B8A2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */ = {isa = PBXBuildFile; fileRef = FECAA02BFAB14A5FB77BE03A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */; };
+		D5ACE83F86A0405A88147964 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */ = {isa = PBXBuildFile; fileRef = 475FA9DAEE594B39967B9476 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */; };
+		E55EF8CAF81D4CA49A5090FB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */ = {isa = PBXBuildFile; fileRef = 6276E12A152341E58F67DF82 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */; };
+		FB48A816EBCE49E683DDF0A0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */ = {isa = PBXBuildFile; fileRef = 16E2D1ECA27240A2A51C3A9D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */; };
+		FEBDF4E08D034D8788156157 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = D4F4BD5AB3E8440B9B860197 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildStyle section */
-		1D679CC34B4D4394A5A600F4 /* RelWithDebInfo */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = RelWithDebInfo;
-		};
-		4C288586C6304E72942CFC95 /* Release */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Release;
-		};
-		940806C625EE4E5D91A36FB6 /* Debug */ = {
-			isa = PBXBuildStyle;
-			buildSettings = {
-				COPY_PHASE_STRIP = NO;
-			};
-			name = Debug;
-		};
-		EBA5412F446A440E8B12C40C /* MinSizeRel */ = {
+		16BD564C81E340E09BAC3287 /* MinSizeRel */ = {
 			isa = PBXBuildStyle;
 			buildSettings = {
 				COPY_PHASE_STRIP = NO;
 			};
 			name = MinSizeRel;
 		};
+		1F47F97797AC4699A492DE2A /* Debug */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Debug;
+		};
+		DF00093A647C4C50AB516620 /* RelWithDebInfo */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = RelWithDebInfo;
+		};
+		F519BA75A8774EC0A035E0BA /* Release */ = {
+			isa = PBXBuildStyle;
+			buildSettings = {
+				COPY_PHASE_STRIP = NO;
+			};
+			name = Release;
+		};
 /* End PBXBuildStyle section */
 
 /* Begin PBXContainerItemProxy section */
-		1C03504CD8FC41A88780676F /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = B6299C55A0B94E1CB0512313 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 542607EE1F5442078FD9F3D8;
-			remoteInfo = ALL_BUILD;
-		};
-		1C4C3EFA40F6490DA43EC223 /* PBXContainerItemProxy */ = {
+		723AF47399A043049DDF2637 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B6299C55A0B94E1CB0512313 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 6B139814BCB64FD983BC023E;
 			remoteInfo = matroska;
 		};
-		2B153205B2F94E1EAA8EE44B /* PBXContainerItemProxy */ = {
+		A8E713A2DDF2466BB27F190D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = B6299C55A0B94E1CB0512313 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 542607EE1F5442078FD9F3D8;
+			remoteInfo = ALL_BUILD;
+		};
+		D12A6B9E319743F7BD10D328 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B6299C55A0B94E1CB0512313 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 98ED19D5F672473B8B8ADD8E;
 			remoteInfo = ZERO_CHECK;
 		};
-		BEE4DC6CEB14435FA9CA85C7 /* PBXContainerItemProxy */ = {
+		EE336EE7C9C74304A2ACC8F0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = B6299C55A0B94E1CB0512313 /* Project object */;
 			proxyType = 1;
@@ -129,101 +129,101 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		20A9CB10F96E4D7DBA543734 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxBlockData.cpp; path = src/KaxBlockData.cpp; sourceTree = SOURCE_ROOT; };
-		258E795C68BB4FCEA17EC53E /* matroska */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmatroska.a; sourceTree = BUILT_PRODUCTS_DIR; };
-		333BFD2FC26B487F954522B2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxCues.cpp; path = src/KaxCues.cpp; sourceTree = SOURCE_ROOT; };
-		333C6CD9406C447C920E8E49 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = libmatroska.h; path = matroska/c/libmatroska.h; sourceTree = SOURCE_ROOT; };
-		4503212E44D84A3887358019 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxBlock.cpp; path = src/KaxBlock.cpp; sourceTree = SOURCE_ROOT; };
-		59C9A5A31329463AAE996B95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxAttached.cpp; path = src/KaxAttached.cpp; sourceTree = SOURCE_ROOT; };
-		85BA1B6BBC72478F9F462CC6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxContexts.cpp; path = src/KaxContexts.cpp; sourceTree = SOURCE_ROOT; };
-		867348C3B2DD4D51A70BDB6E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxCluster.cpp; path = src/KaxCluster.cpp; sourceTree = SOURCE_ROOT; };
-		916BA32B422F439180BCFDA1 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxAttachments.cpp; path = src/KaxAttachments.cpp; sourceTree = SOURCE_ROOT; };
-		927B70A8C7DC4B509BF7310B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxVersion.cpp; path = src/KaxVersion.cpp; sourceTree = SOURCE_ROOT; };
-		962A38DAC4064BACA459E684 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxSegment.cpp; path = src/KaxSegment.cpp; sourceTree = SOURCE_ROOT; };
-		AC43CC0AE7CF476784A5BCBA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxSemantic.cpp; path = src/KaxSemantic.cpp; sourceTree = SOURCE_ROOT; };
-		B2807D3B86754988BADA9278 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		E100308A538444898CD771F0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxInfoData.cpp; path = src/KaxInfoData.cpp; sourceTree = SOURCE_ROOT; };
-		E31906826C004A85BE46E38B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxCuesData.cpp; path = src/KaxCuesData.cpp; sourceTree = SOURCE_ROOT; };
-		E6186B6823A649DB98367AD7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
-		E8B3002DFE254A6A807DA339 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxTracks.cpp; path = src/KaxTracks.cpp; sourceTree = SOURCE_ROOT; };
-		EC00DE7479254637A29AE863 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxSeekHead.cpp; path = src/KaxSeekHead.cpp; sourceTree = SOURCE_ROOT; };
-		ED33E251303E46DDACD3B45C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = libmatroska_t.h; path = matroska/c/libmatroska_t.h; sourceTree = SOURCE_ROOT; };
-		FB00BA1CF8B0426A86CA2F76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = FileKax.cpp; path = src/FileKax.cpp; sourceTree = SOURCE_ROOT; };
+		06386F197CF444BB8A4E5A9C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = FileKax.cpp; path = src/FileKax.cpp; sourceTree = SOURCE_ROOT; };
+		099811A750C548B697E2E184 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxCues.cpp; path = src/KaxCues.cpp; sourceTree = SOURCE_ROOT; };
+		15D3FEABD8BD49399F5B464E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = libmatroska_t.h; path = matroska/c/libmatroska_t.h; sourceTree = SOURCE_ROOT; };
+		16E2D1ECA27240A2A51C3A9D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxContexts.cpp; path = src/KaxContexts.cpp; sourceTree = SOURCE_ROOT; };
+		3264DB07BD774936AD5D9B48 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxSeekHead.cpp; path = src/KaxSeekHead.cpp; sourceTree = SOURCE_ROOT; };
+		3288F6FC62CA4B9590469BEE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxCuesData.cpp; path = src/KaxCuesData.cpp; sourceTree = SOURCE_ROOT; };
+		3ADFC1D3600143BDB5C4797A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxAttachments.cpp; path = src/KaxAttachments.cpp; sourceTree = SOURCE_ROOT; };
+		3B3ACAE7CD5F49619A07E987 /* matroska */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = libmatroska.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		41D70AA184C3415C895B24ED /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; name = libmatroska.h; path = matroska/c/libmatroska.h; sourceTree = SOURCE_ROOT; };
+		475FA9DAEE594B39967B9476 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxCluster.cpp; path = src/KaxCluster.cpp; sourceTree = SOURCE_ROOT; };
+		6276E12A152341E58F67DF82 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxVersion.cpp; path = src/KaxVersion.cpp; sourceTree = SOURCE_ROOT; };
+		A2FC872125A24BD5ADACB7F8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxTracks.cpp; path = src/KaxTracks.cpp; sourceTree = SOURCE_ROOT; };
+		ABE065B3995147E0B3149A37 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxAttached.cpp; path = src/KaxAttached.cpp; sourceTree = SOURCE_ROOT; };
+		D1CD7440AAC14EE28CFED970 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxInfoData.cpp; path = src/KaxInfoData.cpp; sourceTree = SOURCE_ROOT; };
+		D4F4BD5AB3E8440B9B860197 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		DDEACDF0C2CC41F9A2D8F192 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxBlockData.cpp; path = src/KaxBlockData.cpp; sourceTree = SOURCE_ROOT; };
+		E2BB927E60784D20AF3F7540 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxSemantic.cpp; path = src/KaxSemantic.cpp; sourceTree = SOURCE_ROOT; };
+		ECDE0EC445014BC7ABBC2304 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */ = {isa = PBXFileReference; explicitFileType = sourcecode.text; fileEncoding = 4; name = CMakeLists.txt; path = CMakeLists.txt; sourceTree = SOURCE_ROOT; };
+		F9EC25931C954DC7B9D7CF3C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxBlock.cpp; path = src/KaxBlock.cpp; sourceTree = SOURCE_ROOT; };
+		FECAA02BFAB14A5FB77BE03A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 4; name = KaxSegment.cpp; path = src/KaxSegment.cpp; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
-		05D4D5BB81F94506A75A9ED6 /* Products */ = {
+		49BC4F57730E4925A70DB7AA /* matroska */ = {
 			isa = PBXGroup;
 			children = (
-				258E795C68BB4FCEA17EC53E /* matroska */,
-			);
-			name = Products;
-			sourceTree = "<group>";
-		};
-		40116E2A9ADB4C6881D6F990 /* matroska */ = {
-			isa = PBXGroup;
-			children = (
-				4E4146DB9B6940EA9E23390B /* Source Files */,
-				50D72D5A6C2942A1AA4CB690 /* Header Files */,
-				E6186B6823A649DB98367AD7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */,
+				E32615EB37D74E349E7636F5 /* Source Files */,
+				E77817C3932F4CC59C16BC3E /* Header Files */,
+				D4F4BD5AB3E8440B9B860197 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */,
 			);
 			name = matroska;
 			sourceTree = "<group>";
 		};
-		4E4146DB9B6940EA9E23390B /* Source Files */ = {
-			isa = PBXGroup;
-			children = (
-				FB00BA1CF8B0426A86CA2F76 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */,
-				59C9A5A31329463AAE996B95 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */,
-				916BA32B422F439180BCFDA1 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */,
-				4503212E44D84A3887358019 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */,
-				20A9CB10F96E4D7DBA543734 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */,
-				867348C3B2DD4D51A70BDB6E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */,
-				85BA1B6BBC72478F9F462CC6 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */,
-				333BFD2FC26B487F954522B2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */,
-				E31906826C004A85BE46E38B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */,
-				E100308A538444898CD771F0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */,
-				EC00DE7479254637A29AE863 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */,
-				962A38DAC4064BACA459E684 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */,
-				AC43CC0AE7CF476784A5BCBA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */,
-				E8B3002DFE254A6A807DA339 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */,
-				927B70A8C7DC4B509BF7310B /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */,
-			);
-			name = "Source Files";
-			sourceTree = "<group>";
-		};
-		50D72D5A6C2942A1AA4CB690 /* Header Files */ = {
-			isa = PBXGroup;
-			children = (
-				333C6CD9406C447C920E8E49 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */,
-				ED33E251303E46DDACD3B45C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */,
-			);
-			name = "Header Files";
-			sourceTree = "<group>";
-		};
-		5340AF6F39984003BF2DD477 /* CMake Rules */ = {
+		82385E18C39E4273B5485ECC /* CMake Rules */ = {
 			isa = PBXGroup;
 			children = (
 			);
 			name = "CMake Rules";
 			sourceTree = "<group>";
 		};
-		A3FA36F729F343018862BF9E /* ALL_BUILD */ = {
+		C1F51C134FBA4528B21ADF67 = {
 			isa = PBXGroup;
 			children = (
-				5340AF6F39984003BF2DD477 /* CMake Rules */,
-				B2807D3B86754988BADA9278 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */,
+				49BC4F57730E4925A70DB7AA /* matroska */,
+				D7CF2E9211FC4430A6610281 /* ALL_BUILD */,
+				E0C0FDB10667424CB18823F4 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		D7CF2E9211FC4430A6610281 /* ALL_BUILD */ = {
+			isa = PBXGroup;
+			children = (
+				82385E18C39E4273B5485ECC /* CMake Rules */,
+				ECDE0EC445014BC7ABBC2304 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/CMakeLists.txt */,
 			);
 			name = ALL_BUILD;
 			sourceTree = "<group>";
 		};
-		CAEE26C9ED0F44149199DEAD = {
+		E0C0FDB10667424CB18823F4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				40116E2A9ADB4C6881D6F990 /* matroska */,
-				A3FA36F729F343018862BF9E /* ALL_BUILD */,
-				05D4D5BB81F94506A75A9ED6 /* Products */,
+				3B3ACAE7CD5F49619A07E987 /* matroska */,
 			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		E32615EB37D74E349E7636F5 /* Source Files */ = {
+			isa = PBXGroup;
+			children = (
+				06386F197CF444BB8A4E5A9C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */,
+				ABE065B3995147E0B3149A37 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */,
+				3ADFC1D3600143BDB5C4797A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */,
+				F9EC25931C954DC7B9D7CF3C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */,
+				DDEACDF0C2CC41F9A2D8F192 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */,
+				475FA9DAEE594B39967B9476 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */,
+				16E2D1ECA27240A2A51C3A9D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */,
+				099811A750C548B697E2E184 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */,
+				3288F6FC62CA4B9590469BEE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */,
+				D1CD7440AAC14EE28CFED970 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */,
+				3264DB07BD774936AD5D9B48 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */,
+				FECAA02BFAB14A5FB77BE03A /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */,
+				E2BB927E60784D20AF3F7540 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */,
+				A2FC872125A24BD5ADACB7F8 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */,
+				6276E12A152341E58F67DF82 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */,
+			);
+			name = "Source Files";
+			sourceTree = "<group>";
+		};
+		E77817C3932F4CC59C16BC3E /* Header Files */ = {
+			isa = PBXGroup;
+			children = (
+				41D70AA184C3415C895B24ED /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska.h */,
+				15D3FEABD8BD49399F5B464E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/matroska/c/libmatroska_t.h */,
+			);
+			name = "Header Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -231,18 +231,18 @@
 /* Begin PBXNativeTarget section */
 		6B139814BCB64FD983BC023E /* matroska */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3E4CFC1A3F8A4F5D902A0665 /* Build configuration list for PBXNativeTarget "matroska" */;
+			buildConfigurationList = 1963DC2FE6ED4C13AE0FB681 /* Build configuration list for PBXNativeTarget "matroska" */;
 			buildPhases = (
-				B7911226BAD643A99D57C9DA /* Sources */,
+				8BDB63333E0F44D7AEC66F31 /* Sources */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				4E28FB22F4704982AE6D46CA /* PBXTargetDependency */,
+				705B8A1B12644EBF97C7648A /* PBXTargetDependency */,
 			);
 			name = matroska;
 			productName = matroska;
-			productReference = 258E795C68BB4FCEA17EC53E /* matroska */;
+			productReference = 3B3ACAE7CD5F49619A07E987 /* matroska */;
 			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
@@ -254,18 +254,18 @@
 				BuildIndependentTargetsInParallel = YES;
 				LastUpgradeCheck = 1020;
 			};
-			buildConfigurationList = 612FCC0C019E4156BDB9E9DB /* Build configuration list for PBXProject "matroska" */;
+			buildConfigurationList = AE98C79F0A91489598C9728F /* Build configuration list for PBXProject "matroska" */;
 			buildSettings = {
 			};
 			buildStyles = (
-				940806C625EE4E5D91A36FB6 /* Debug */,
-				4C288586C6304E72942CFC95 /* Release */,
-				EBA5412F446A440E8B12C40C /* MinSizeRel */,
-				1D679CC34B4D4394A5A600F4 /* RelWithDebInfo */,
+				1F47F97797AC4699A492DE2A /* Debug */,
+				F519BA75A8774EC0A035E0BA /* Release */,
+				16BD564C81E340E09BAC3287 /* MinSizeRel */,
+				DF00093A647C4C50AB516620 /* RelWithDebInfo */,
 			);
 			compatibilityVersion = "Xcode 3.2";
 			hasScannedForEncodings = 0;
-			mainGroup = CAEE26C9ED0F44149199DEAD;
+			mainGroup = C1F51C134FBA4528B21ADF67;
 			projectDirPath = /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska;
 			projectRoot = "";
 			targets = (
@@ -278,48 +278,7 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		049C7CA6A0A84566B58E4FCD = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# shell script goes here
-exit 0";
-			showEnvVarsInLog = 0;
-		};
-		2A153E0FF50844499ABBEAAF = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "# shell script goes here
-exit 0";
-			showEnvVarsInLog = 0;
-		};
-		58E1B4F20C064F45829772D4 /* CMake PostBuild Rules */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			name = "CMake PostBuild Rules";
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/CMakeScripts/install_postBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
-			showEnvVarsInLog = 0;
-		};
-		A9E5D9F235B545B186A84111 /* CMake Rules */ = {
+		217155B4FDFD4E348E53266F /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -330,7 +289,7 @@ exit 0";
 			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/CMakeScripts/ZERO_CHECK_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
-		AA9D45E15D074F77ADA6FF34 = {
+		6AE33CD55D5F42739C165B19 = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -345,7 +304,22 @@ exit 0";
 exit 0";
 			showEnvVarsInLog = 0;
 		};
-		DA9B5DC5A8B9421E953F2508 /* CMake Rules */ = {
+		92E4A802670F4A03A41CAD74 = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		AE09A889F04048D29A6A95DB /* CMake Rules */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -356,290 +330,84 @@ exit 0";
 			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
 			showEnvVarsInLog = 0;
 		};
+		C7629E89C91D410A9C34274A = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# shell script goes here
+exit 0";
+			showEnvVarsInLog = 0;
+		};
+		D9EE8A9EABB14577A3CFB58C /* CMake PostBuild Rules */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			name = "CMake PostBuild Rules";
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "make -C /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska -f /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/CMakeScripts/install_postBuildPhase.make$CONFIGURATION OBJDIR=$(basename \"$OBJECT_FILE_DIR_normal\") all";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		B7911226BAD643A99D57C9DA /* Sources */ = {
+		8BDB63333E0F44D7AEC66F31 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B2ABD53F251C40258B50A767 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */,
-				66085DB4B4D14CE9BC128E30 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */,
-				B9D917D250824A19B8FA6FEA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */,
-				F61B1E20C7AE4B76B0B792E0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */,
-				56A320696450492DB83A4AEC /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */,
-				480ECCA9FCCF4129B20B4691 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */,
-				07C14FA4A4794A0798D2D84C /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */,
-				C3FE352AD8144BE8A1423093 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */,
-				8461B7C2C8B647969995C9EA /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */,
-				D95AC4A653374FDBAEB154D7 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */,
-				64E6F88EA9614D9396BC32DE /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */,
-				D4D075D3008146A9BAFBF7AB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */,
-				851B5248D4E741A6BA528F0E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */,
-				2081157B86584ACA8CE02B56 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */,
-				44BC7A5F333E4A1EAA64E878 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */,
+				5177C63C070A46988CEC696E /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/FileKax.cpp */,
+				507654DFEC374C639F475BC4 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttached.cpp */,
+				276A6BD06221421E865C7B63 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxAttachments.cpp */,
+				10A6E1914060414DB2136F4D /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlock.cpp */,
+				73504ADBD7374B6AA3E29084 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxBlockData.cpp */,
+				D5ACE83F86A0405A88147964 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCluster.cpp */,
+				FB48A816EBCE49E683DDF0A0 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxContexts.cpp */,
+				5220EBB9E2AE46309037C023 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCues.cpp */,
+				4608D727CC3042AE8F9F8F25 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxCuesData.cpp */,
+				7E6AFF560F2E402481C0BAFF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxInfoData.cpp */,
+				3D6EA4F0982546BFA38B0C75 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSeekHead.cpp */,
+				D4B3C52A6073434CA012B8A2 /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSegment.cpp */,
+				1A2675277D9942C78C9C03DF /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxSemantic.cpp */,
+				5D97A312332048E9A22D585F /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxTracks.cpp */,
+				E55EF8CAF81D4CA49A5090FB /* /Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska/src/KaxVersion.cpp */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		1F84F08386854BB4A3737570 /* PBXTargetDependency */ = {
+		705B8A1B12644EBF97C7648A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 98ED19D5F672473B8B8ADD8E /* ZERO_CHECK */;
+			targetProxy = EE336EE7C9C74304A2ACC8F0 /* PBXContainerItemProxy */;
+		};
+		A210A866305D4732B577C836 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 98ED19D5F672473B8B8ADD8E /* ZERO_CHECK */;
+			targetProxy = D12A6B9E319743F7BD10D328 /* PBXContainerItemProxy */;
+		};
+		D0D94E2DF6AD428D8E8A1478 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 542607EE1F5442078FD9F3D8 /* ALL_BUILD */;
-			targetProxy = 1C03504CD8FC41A88780676F /* PBXContainerItemProxy */;
+			targetProxy = A8E713A2DDF2466BB27F190D /* PBXContainerItemProxy */;
 		};
-		3C37168AA3864A7CB501437B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 98ED19D5F672473B8B8ADD8E /* ZERO_CHECK */;
-			targetProxy = BEE4DC6CEB14435FA9CA85C7 /* PBXContainerItemProxy */;
-		};
-		4E28FB22F4704982AE6D46CA /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 98ED19D5F672473B8B8ADD8E /* ZERO_CHECK */;
-			targetProxy = 2B153205B2F94E1EAA8EE44B /* PBXContainerItemProxy */;
-		};
-		CCAF3C0BCEC14E7BB13E4899 /* PBXTargetDependency */ = {
+		D427128951C44D28B4B1C7CE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 6B139814BCB64FD983BC023E /* matroska */;
-			targetProxy = 1C4C3EFA40F6490DA43EC223 /* PBXContainerItemProxy */;
+			targetProxy = 723AF47399A043049DDF2637 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
-		04A12431415D43F9A515C3DB /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
-			};
-			name = RelWithDebInfo;
-		};
-		10CE5312AE7E4BCBBFB38637 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
-			};
-			name = MinSizeRel;
-		};
-		21740201441048F393F020D7 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
-			};
-			name = Debug;
-		};
-		2787BF3C1777444CB2B7BC84 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CPLUSPLUSFLAGS = "    ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = matroska;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				SYSTEM_HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/local/include);
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Debug;
-		};
-		29A667F650CB49C3959AFF08 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				EXECUTABLE_PREFIX = lib;
-				EXECUTABLE_SUFFIX = .a;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = s;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska);
-				INSTALL_PATH = "";
-				LIBRARY_STYLE = STATIC;
-				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
-				OTHER_LIBTOOLFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = matroska;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				SYSTEM_HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/local/include);
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		34633695A12D4650A5A40F84 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Release;
-		};
-		44E66EAD1FE543F7BC99351F /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		5727A2BCA31546C7BE53C1F1 /* RelWithDebInfo */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = RelWithDebInfo;
-		};
-		5B25C83012614C7FAB9FE65C /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				MACOSX_DEPLOYMENT_TARGET = 10.9;
-				ONLY_ACTIVE_ARCH = YES;
-				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
-			};
-			name = Release;
-		};
-		5B7D26B5BD7949689436B3F5 /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		7EB832DF3C924B42AF432E2A /* MinSizeRel */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = MinSizeRel;
-		};
-		80B5DD2B555F4940A07F60CA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ALL_BUILD;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Debug;
-		};
-		8E7597F5821640DEBBA3202B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
-				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
-				INSTALL_PATH = "";
-				OTHER_LDFLAGS = " ";
-				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = install;
-				SECTORDER_FLAGS = "";
-				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
-				USE_HEADERMAP = NO;
-				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
-			};
-			name = Debug;
-		};
-		90D3DCE97705411987CECF78 /* RelWithDebInfo */ = {
+		2439869CEC23425BA38D891F /* RelWithDebInfo */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -665,7 +433,17 @@ exit 0";
 			};
 			name = RelWithDebInfo;
 		};
-		AABB31847FE249BFBBCE3F18 /* Release */ = {
+		2514A568C83448A78416A386 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
+			};
+			name = Release;
+		};
+		38C58D1658EB4C53BC10D7F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -691,7 +469,27 @@ exit 0";
 			};
 			name = Release;
 		};
-		AEB1904247494C4CA256116F /* RelWithDebInfo */ = {
+		4E3B2A29344545E0A45000D2 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
+			};
+			name = MinSizeRel;
+		};
+		55641C62CA5F4216BED90D92 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
+			};
+			name = RelWithDebInfo;
+		};
+		5590BCADF47A4B49B00CA96E /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -709,9 +507,65 @@ exit 0";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
-			name = RelWithDebInfo;
+			name = Release;
 		};
-		CDDB04B0D5464B13A4599920 /* Debug */ = {
+		5F38905FC24D4B6A97554515 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = matroska;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/local/include);
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		700C20B003A641798D2E46CB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk;
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska/build;
+			};
+			name = Debug;
+		};
+		7481988C0ADA4F4E822ACC2D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Debug;
+		};
+		8757DCE9031C41C2ACD2D0FA /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -731,7 +585,7 @@ exit 0";
 			};
 			name = Debug;
 		};
-		D503568471B744509362F0B2 /* Release */ = {
+		9C9DDB9973D249179641D7A9 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -743,15 +597,41 @@ exit 0";
 				INSTALL_PATH = "";
 				OTHER_LDFLAGS = " ";
 				OTHER_REZFLAGS = "";
-				PRODUCT_NAME = ZERO_CHECK;
+				PRODUCT_NAME = ALL_BUILD;
 				SECTORDER_FLAGS = "";
 				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
-			name = Release;
+			name = Debug;
 		};
-		E94D85296002423E86546D7C /* Release */ = {
+		A18E7F5EC4B046C290ECFD7B /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				EXECUTABLE_PREFIX = lib;
+				EXECUTABLE_SUFFIX = .a;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = s;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'",EBML_STATIC_DEFINE);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Vendor/libmatroska);
+				INSTALL_PATH = "";
+				LIBRARY_STYLE = STATIC;
+				OTHER_CPLUSPLUSFLAGS = "    -DNDEBUG  ";
+				OTHER_LIBTOOLFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = matroska;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				SYSTEM_HEADER_SEARCH_PATHS = (/Users/cwbetts/makestuff/MKVImporter/Xcodes/local/include);
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		A30A996E5A0C4758A6E5B213 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -769,9 +649,29 @@ exit 0";
 				USE_HEADERMAP = NO;
 				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
 			};
-			name = Release;
+			name = MinSizeRel;
 		};
-		F068B2CED6024E84B9884735 /* MinSizeRel */ = {
+		ADD258AB673C49EB93513473 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = install;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		B77315FC9B334592AEBFF9C9 /* MinSizeRel */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				COMBINE_HIDPI_IMAGES = YES;
@@ -791,60 +691,160 @@ exit 0";
 			};
 			name = MinSizeRel;
 		};
+		CE95823B92804BC9A456695D /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		D1D157C876F3492F89C16869 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
+		D22ACDAB34594A4C83B43D03 /* RelWithDebInfo */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = RelWithDebInfo;
+		};
+		E340F2D29CC046689E1242C5 /* MinSizeRel */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ALL_BUILD;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = MinSizeRel;
+		};
+		E8BD7D4ABC9C4A2E8FED9547 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				COMBINE_HIDPI_IMAGES = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)\"'");
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				INSTALL_PATH = "";
+				OTHER_LDFLAGS = " ";
+				OTHER_REZFLAGS = "";
+				PRODUCT_NAME = ZERO_CHECK;
+				SECTORDER_FLAGS = "";
+				SYMROOT = /Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska;
+				USE_HEADERMAP = NO;
+				WARNING_CFLAGS = ("-Wmost","-Wno-four-char-constants","-Wno-unknown-pragmas","$(inherited)");
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3E4CFC1A3F8A4F5D902A0665 /* Build configuration list for PBXNativeTarget "matroska" */ = {
+		1963DC2FE6ED4C13AE0FB681 /* Build configuration list for PBXNativeTarget "matroska" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				2787BF3C1777444CB2B7BC84 /* Debug */,
-				AABB31847FE249BFBBCE3F18 /* Release */,
-				29A667F650CB49C3959AFF08 /* MinSizeRel */,
-				90D3DCE97705411987CECF78 /* RelWithDebInfo */,
+				5F38905FC24D4B6A97554515 /* Debug */,
+				38C58D1658EB4C53BC10D7F3 /* Release */,
+				A18E7F5EC4B046C290ECFD7B /* MinSizeRel */,
+				2439869CEC23425BA38D891F /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		612FCC0C019E4156BDB9E9DB /* Build configuration list for PBXProject "matroska" */ = {
+		4A693D8C8D324F3881E2BF22 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				21740201441048F393F020D7 /* Debug */,
-				5B25C83012614C7FAB9FE65C /* Release */,
-				10CE5312AE7E4BCBBFB38637 /* MinSizeRel */,
-				04A12431415D43F9A515C3DB /* RelWithDebInfo */,
+				8757DCE9031C41C2ACD2D0FA /* Debug */,
+				E8BD7D4ABC9C4A2E8FED9547 /* Release */,
+				B77315FC9B334592AEBFF9C9 /* MinSizeRel */,
+				CE95823B92804BC9A456695D /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		8CFF900E63744E80B987AEC9 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+		696F45052A85437D869C04E2 /* Build configuration list for PBXAggregateTarget "install" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				80B5DD2B555F4940A07F60CA /* Debug */,
-				34633695A12D4650A5A40F84 /* Release */,
-				5B7D26B5BD7949689436B3F5 /* MinSizeRel */,
-				5727A2BCA31546C7BE53C1F1 /* RelWithDebInfo */,
+				7481988C0ADA4F4E822ACC2D /* Debug */,
+				5590BCADF47A4B49B00CA96E /* Release */,
+				A30A996E5A0C4758A6E5B213 /* MinSizeRel */,
+				ADD258AB673C49EB93513473 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		B6B05F0249244C74AB3D8F72 /* Build configuration list for PBXAggregateTarget "install" */ = {
+		8B9E512A7D0B4692A1075720 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				8E7597F5821640DEBBA3202B /* Debug */,
-				E94D85296002423E86546D7C /* Release */,
-				7EB832DF3C924B42AF432E2A /* MinSizeRel */,
-				AEB1904247494C4CA256116F /* RelWithDebInfo */,
+				9C9DDB9973D249179641D7A9 /* Debug */,
+				D1D157C876F3492F89C16869 /* Release */,
+				E340F2D29CC046689E1242C5 /* MinSizeRel */,
+				D22ACDAB34594A4C83B43D03 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
 		};
-		FD7EDED99C6D43E5BF6E6B78 /* Build configuration list for PBXAggregateTarget "ZERO_CHECK" */ = {
+		AE98C79F0A91489598C9728F /* Build configuration list for PBXProject "matroska" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				CDDB04B0D5464B13A4599920 /* Debug */,
-				D503568471B744509362F0B2 /* Release */,
-				F068B2CED6024E84B9884735 /* MinSizeRel */,
-				44E66EAD1FE543F7BC99351F /* RelWithDebInfo */,
+				700C20B003A641798D2E46CB /* Debug */,
+				2514A568C83448A78416A386 /* Release */,
+				4E3B2A29344545E0A45000D2 /* MinSizeRel */,
+				55641C62CA5F4216BED90D92 /* RelWithDebInfo */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
