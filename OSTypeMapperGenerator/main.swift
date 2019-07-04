@@ -408,6 +408,7 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: "SGI RLE", fourocc: .string("rle1"))); /* SGI RLE 8-bit */
 		toRet.append(FourCharCodec(cType: "MS RLE", fourocc: .string("WRLE")));
 		toRet.append(FourCharCodec(cType: "QuickDraw", fourocc: .string("qdrw"))); /* QuickDraw */
+		toRet.append(FourCharCodec(cType: "HuffYUV", fourocc: .string("HFYU")))
 		
 
 		toRet.append(FourCharCodec(cType: kVideoFormatH263, fourocc: .string("H263")));
