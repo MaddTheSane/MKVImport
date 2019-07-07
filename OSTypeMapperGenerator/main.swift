@@ -492,7 +492,7 @@ func mainFunc() {
 	let codecDict = convertToCocoaDict(kOSTypeCodecIDs)
 	
 	do {
-		let aDat = try PropertyListSerialization.data(fromPropertyList: codecDict, format: .xml, options: 0)
+		let aDat = try PropertyListSerialization.data(fromPropertyList: codecDict, format: .binary, options: 0)
 		
 		let dest = URL(fileURLWithPath: CommandLine.arguments[1])
 		try aDat.write(to: dest)
