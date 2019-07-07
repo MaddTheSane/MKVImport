@@ -25,7 +25,7 @@ bool isSSA1(KaxTrackEntry & track)
 	if (tr_codec == NULL)
 		return false;
 
-	string codecString(*tr_codec);
+	const string &codecString(*tr_codec);
 	
 	if (codecString == "S_SSA" || codecString == "S_TEXT/SSA") {
 		return true;
@@ -40,7 +40,7 @@ bool isSSA2(KaxTrackEntry & track)
 	if (tr_codec == NULL)
 		return false;
 	
-	string codecString(*tr_codec);
+	const string &codecString(*tr_codec);
 	
 	if (codecString == "S_ASS" || codecString == "S_TEXT/ASS") {
 		return true;
