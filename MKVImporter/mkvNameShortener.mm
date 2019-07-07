@@ -62,7 +62,7 @@ typedef struct {
 
 typedef struct {
 	const char *cType;
-	const char *mkvID;
+	const string mkvID;
 } MatroskaQT_Codec;
 
 
@@ -265,7 +265,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		return @(codecName->GetValueUTF8().c_str());
 	}
 	
-	string codecString(*tr_codec);
+	const string &codecString(*tr_codec);
 	
 	if (codecString == MKV_V_MS) {
 		// avi compatibility mode, 4cc is in private info

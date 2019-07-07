@@ -406,7 +406,7 @@ func mainFunc() {
 		toRet.append(FourCharCodec(cType: "Apple Graphics", fourocc: .string("smc "))); /* Apple Graphics (SMC) */
 		toRet.append(FourCharCodec(cType: "Apple Animation", fourocc: .string("rle "))); /* Apple Animation (RLE) */
 		toRet.append(FourCharCodec(cType: "SGI RLE", fourocc: .string("rle1"))); /* SGI RLE 8-bit */
-		toRet.append(FourCharCodec(cType: "MS RLE", fourocc: .string("WRLE")));
+		toRet.append(FourCharCodec(cType: kVideoFormatMSRLE, fourocc: .string("WRLE")));
 		toRet.append(FourCharCodec(cType: "QuickDraw", fourocc: .string("qdrw"))); /* QuickDraw */
 		toRet.append(FourCharCodec(cType: "HuffYUV", fourocc: .string("HFYU")))
 		
