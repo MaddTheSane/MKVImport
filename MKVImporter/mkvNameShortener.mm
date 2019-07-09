@@ -204,11 +204,6 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 #define MKV_V_QT "V_QUICKTIME"
 #define MKV_A_QT "A_QUICKTIME"
 
-// these codecs have their profile as a part of the CodecID
-#define MKV_A_PCM_BIG "A_PCM/INT/BIG"
-#define MKV_A_PCM_LIT "A_PCM/INT/LIT"
-#define MKV_A_PCM_FLOAT "A_PCM/FLOAT/IEEE"
-
 static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
 
 static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
