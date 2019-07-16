@@ -123,14 +123,14 @@ private:
 	}
 	
 public:
-	static bool getMetadata(NSMutableDictionary *attribs, NSString *uti, NSString *path);
+	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSString *path);
 	
 private:
 	StdIOCallback _ebmlFile;
 	EbmlStream _aStream;
 	EbmlElement *el_l0;
 	EbmlElement *el_l1;
-	NSMutableDictionary *attributes;
+	NSMutableDictionary<NSString*,id> *attributes;
 	NSMutableSet<NSString*> *mediaTypes;
 	NSMutableSet<NSString*> *fonts;
 	
@@ -188,7 +188,7 @@ exit:
 	return valid;
 }
 
-bool MatroskaImport::getMetadata(NSMutableDictionary *attribs, NSString *uti, NSString *path)
+bool MatroskaImport::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSString *path)
 {
 	MatroskaImport *generatorClass = new MatroskaImport(path, attribs);
 	if (!generatorClass->isValidMatroska()) {
@@ -607,7 +607,7 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 {
 	Boolean ok = FALSE;
 	@autoreleasepool {
-		NSMutableDictionary* nsAttribs = (__bridge NSMutableDictionary*)attributes;
+		auto nsAttribs = (__bridge NSMutableDictionary<NSString*,id>*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
 		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
 		try {
