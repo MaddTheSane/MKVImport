@@ -118,6 +118,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	//{ kVideoFormatVP8, "V_VP8" },
 	//{ "VP9", "V_VP9" },
 	{ "ProRes", "V_PRORES" },
+	{ "Motion JPEG", "V_MJPEG" },
 	
 	// uncommon audio codecs:
 	//{ kAudioFormatMPEG4AAC, "A_AAC" },
