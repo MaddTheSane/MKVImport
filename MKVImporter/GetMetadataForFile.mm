@@ -287,15 +287,15 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	}
 	
 	{
-		NSString *creator = nil;
+		NSMutableArray *creator = [NSMutableArray arrayWithCapacity:2];
 		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
-			creator = @(writingApp.GetValueUTF8().c_str());
+			[creator addObject:@(writingApp.GetValueUTF8().c_str())];
 		} else if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
-			creator = @(muxingApp.GetValueUTF8().c_str());
+			[creator addObject:@(muxingApp.GetValueUTF8().c_str())];
 		}
 		
-		if (creator) {
-			attributes[(NSString*)kMDItemCreator] = creator;
+		if (creator.count != 0) {
+			attributes[(NSString*)kMDItemEncodingApplications] = [creator copy];
 		}
 	}
 	
