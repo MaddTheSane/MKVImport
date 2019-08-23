@@ -179,7 +179,6 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	// Currently unsupported codecs:
 	{ "WMV", "V_MSWMV" }, // Video, Microsoft Video
 	{ kVideoCodecIndeo5, "V_INDEO5" }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
-	{ "Motion JPEG", "V_MJPEG" }, // Video, MJpeg codec (lossy mode, general)
 	{ "Motion JPEG2000", "V_MJPEG2000" }, // Video, MJpeg 2000
 	{ "Motion JPEG2000 Lossless", "V_MJPEG2000LL" }, // Video, MJpeg Lossless
 	{ "DV Video", "V_DV" }, // Video, DV Video, type 1 (audio and video mixed)
