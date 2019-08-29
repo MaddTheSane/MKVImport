@@ -290,7 +290,8 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 		NSMutableArray *creator = [NSMutableArray arrayWithCapacity:2];
 		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
 			[creator addObject:@(writingApp.GetValueUTF8().c_str())];
-		} else if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
+		}
+		if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
 			[creator addObject:@(muxingApp.GetValueUTF8().c_str())];
 		}
 		

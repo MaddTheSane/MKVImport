@@ -62,7 +62,7 @@ typedef struct {
 
 typedef struct {
 	const char *cType;
-	const string mkvID;
+	const char *mkvID;
 } MatroskaQT_Codec;
 
 
