@@ -686,13 +686,13 @@ static NSString *getLanguageCode(const string & cppLang)
 static NSString *getLanguageCode(KaxTrackEntry & track)
 {
 	KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
-	string cppLang(trackLang);
+	const string &cppLang(trackLang);
 	return getLanguageCode(cppLang);
 }
 
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country)
 {
-	string threeLang(language);
+	const string &threeLang(language);
 	NSString *locale = getLanguageCode(threeLang);
 	if (!locale) {
 		return nil;
