@@ -73,6 +73,8 @@ private:
 	bool ReadChapters(KaxChapters &trackEntries);
 	bool ReadAttachments(KaxAttachments &trackEntries);
 	bool ReadMetaSeek(KaxSeekHead &trackEntries);
+	bool ReadTags(KaxTags &trackEntries);
+	bool ReadCues(KaxCues &trackEntries);
 
 	bool isValidMatroska();
 	//! Copies over data to \c attributes that can't be done in one iteration.
@@ -251,6 +253,14 @@ bool MatroskaImport::ProcessLevel1Element()
 	} else if (EbmlId(*el_l1) == KaxSeekHead::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxSeekHead::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadMetaSeek(*static_cast<KaxSeekHead *>(el_l1));
+		
+	} else if (EbmlId(*el_l1) == KaxTags::ClassInfos.GlobalId) {
+		el_l1->Read(_aStream, KaxTags::ClassInfos.Context, upperLevel, dummyElt, true);
+		return ReadTags(*static_cast<KaxTags *>(el_l1));
+		
+	} else if (EbmlId(*el_l1) == KaxCues::ClassInfos.GlobalId) {
+		el_l1->Read(_aStream, KaxCues::ClassInfos.Context, upperLevel, dummyElt, true);
+		return ReadCues(*static_cast<KaxCues *>(el_l1));
 		
 	}
 	return true;
@@ -570,7 +580,9 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 			elementID == KaxTracks::ClassInfos.GlobalId ||
 			elementID == KaxChapters::ClassInfos.GlobalId ||
 			elementID == KaxAttachments::ClassInfos.GlobalId ||
-			elementID == KaxSeekHead::ClassInfos.GlobalId) {
+			elementID == KaxSeekHead::ClassInfos.GlobalId ||
+			elementID == KaxTags::ClassInfos.GlobalId ||
+			elementID == KaxCues::ClassInfos.GlobalId) {
 			
 			MatroskaSeek::MatroskaSeekContext savedContext = SaveContext();
 			SetContext(newSeekEntry.GetSeekContext(segmentOffset));
@@ -581,6 +593,8 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 			SetContext(savedContext);
 			if (!okay)
 				return false;
+		} else {
+			printf("Unknown id %X\n", elementID.GetValue());
 		}
 		
 		levelOneElements.push_back(newSeekEntry);
@@ -591,6 +605,17 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 	
 	return true;
 }
+
+bool MatroskaImport::ReadTags(KaxTags &trackEntries)
+{
+	return true;
+}
+
+bool MatroskaImport::ReadCues(KaxCues &trackEntries)
+{
+	return true;
+}
+
 
 #pragma mark -
 
