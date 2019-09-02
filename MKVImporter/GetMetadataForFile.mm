@@ -164,15 +164,16 @@ bool MatroskaImport::isValidMatroska()
 		EbmlHead *head = static_cast<EbmlHead *>(el_l0);
 		
 		EDocType docType = GetChild<EDocType>(*head);
-		if (string(docType) != "matroska" && string(docType) != "webm") {
-			fprintf(stderr, "Unknown Matroska doctype\n");
+		const string & cppDocType = string(docType);
+		if (cppDocType != "matroska" && cppDocType != "webm") {
+			fprintf(stderr, "Unknown Matroska doctype \"%s\"\n", cppDocType.c_str());
 			valid = false;
 			goto exit;
 		}
 		
 		EDocTypeReadVersion readVersion = GetChild<EDocTypeReadVersion>(*head);
 		if (UInt64(readVersion) > 2) {
-			fprintf(stderr, "Matroska file too new to be read\n");
+			fprintf(stderr, "Matroska file too new to be read, version %lld\n", UInt64(readVersion));
 			valid = false;
 			goto exit;
 		}
@@ -345,7 +346,8 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
-				const char *cTrackName = trackName.GetValueUTF8().c_str();
+				string cppTrackName = trackName.GetValueUTF8();
+				const char *cTrackName = cppTrackName.c_str();
 				NSString *nsTrackName = @(cTrackName);
 				[trackNames addObject:nsTrackName];
 			}
@@ -541,7 +543,7 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] init];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
-		std::string fileName = UTFstring(GetChild<KaxFileName>(*attachedFile)).GetUTF8();
+		std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
 		[attachmentFiles addObject:@(fileName.c_str())];
 		
 		attachedFile = FindNextChild<KaxAttached>(attachmentEntries, *attachedFile);
