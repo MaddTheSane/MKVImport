@@ -594,8 +594,6 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 			SetContext(savedContext);
 			if (!okay)
 				return false;
-		} else {
-			printf("Unknown id %X\n", elementID.GetValue());
 		}
 		
 		levelOneElements.push_back(newSeekEntry);
