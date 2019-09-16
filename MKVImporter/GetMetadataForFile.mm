@@ -43,6 +43,7 @@ using namespace std;
 #define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
 #define kAttachedFiles @"com_GitHub_MaddTheSane_AttachedFiles"
 
+static NSString *getLanguageCode(const string & cppLang);
 static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 
@@ -605,8 +606,144 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 	return true;
 }
 
+template <typename T>
+T *
+FindChild(libebml::EbmlMaster const &m) {
+	return static_cast<T *>(m.FindFirstElt(EBML_INFO(T)));
+}
+
+template <typename T>
+T *
+FindChild(libebml::EbmlElement const &e) {
+	auto &m = dynamic_cast<libebml::EbmlMaster const &>(e);
+	return static_cast<T *>(m.FindFirstElt(EBML_INFO(T)));
+}
+
+template <typename A> A*
+FindChild(libebml::EbmlMaster const *m) {
+	return static_cast<A *>(m->FindFirstElt(EBML_INFO(A)));
+}
+
+template <typename A> A*
+FindChild(libebml::EbmlElement const *e) {
+	auto m = dynamic_cast<libebml::EbmlMaster const *>(e);
+	assert(m);
+	return static_cast<A *>(m->FindFirstElt(EBML_INFO(A)));
+}
+
+static std::string get_simple_name(const KaxTagSimple &tag)
+{
+	KaxTagName *tname = FindChild<KaxTagName>(tag);
+	return tname ? tname->GetValueUTF8() : "";
+}
+
+static std::string get_simple_value(const KaxTagSimple &tag)
+{
+	KaxTagString *tstring = FindChild<KaxTagString>(tag);
+	return tstring ? tstring->GetValueUTF8() : "";
+}
+//KaxTagLangue
+static std::string get_simple_language(const KaxTagSimple &tag)
+{
+	KaxTagLanguageIETF *tlanguage = FindChild<KaxTagLanguageIETF>(tag);
+	KaxTagLangue *tlang = FindChild<KaxTagLangue>(tag);
+	if (tlanguage) {
+		return tlanguage->GetValue();
+	}
+	if (tlang) {
+		return tlang->GetValue();
+	}
+	
+	return "";
+}
+
+static int64_t get_tuid(const KaxTag &tag)
+{
+	auto targets = FindChild<KaxTagTargets>(&tag);
+	if (!targets)
+		return -1;
+	
+	auto tuid = FindChild<KaxTagTrackUID>(targets);
+	if (!tuid)
+		return -1;
+	
+	return tuid->GetValue();
+}
+
+static int64_t get_cuid(const KaxTag &tag)
+{
+	auto targets = FindChild<KaxTagTargets>(&tag);
+	if (!targets)
+		return -1;
+	
+	auto cuid = FindChild<KaxTagChapterUID>(targets);
+	if (!cuid)
+		return -1;
+	
+	return cuid->GetValue();
+}
+
+static NSString *toSpotlightKey(NSString *matroskaKey)
+{
+	static NSDictionary *matroskaToSpotlightMapping
+	= @{
+		@"ARTIST": (NSString*)kMDItemAuthors,
+		@"ALBUM": (NSString*)kMDItemAlbum,
+		@"LYRICIST": (NSString*)kMDItemLyricist,
+		@"PUBLISHER": (NSString*)kMDItemPublishers,
+		@"COPYRIGHT": (NSString*)kMDItemCopyright,
+		@"DIRECTOR": (NSString*)kMDItemDirector
+		};
+	
+	return matroskaToSpotlightMapping[matroskaKey];
+}
+
 bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 {
+	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,NSString*>*>
+	*tagDict = [[NSMutableDictionary alloc] init];
+	//trackEntries
+	for (auto child : trackEntries) {
+		auto tag = dynamic_cast<KaxTag *>(child);
+		if (!tag)
+			continue;
+
+		int64_t tuid = get_tuid(*tag);
+		// exclude tags that refer to specific tracks...
+		if (tuid != -1) {
+			continue;
+		}
+		
+		int64_t cuid = get_cuid(*tag);
+		// ...or chapters
+		if (cuid != -1) {
+			continue;
+		}
+
+		for (auto const simple_tag_elt : *tag) {
+			auto simple_tag = dynamic_cast<KaxTagSimple *const>(simple_tag_elt);
+			if (!simple_tag) {
+				continue;
+			}
+			string lang = get_simple_language(*simple_tag);
+			NSString *nsLang = getLanguageCode(lang) ?: @"";
+			if (!tagDict[nsLang]) {
+				tagDict[nsLang] = [[NSMutableDictionary alloc] init];
+			}
+			string simpleName = get_simple_name(*simple_tag);
+			string simpleVal = get_simple_value(*simple_tag);
+			tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
+		}
+	}
+	
+	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,NSString*>*>
+	*toSet = [[NSMutableDictionary alloc] init];
+	
+	for (NSString *lang in tagDict) {
+		auto subLangDict = tagDict[lang];
+		
+	}
+
 	return true;
 }
 
