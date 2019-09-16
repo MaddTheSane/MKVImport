@@ -683,6 +683,15 @@ static int64_t get_cuid(const KaxTag &tag)
 	return cuid->GetValue();
 }
 
+static bool isMultiple(NSString *spotlightKey)
+{
+	static NSSet *multiTags = [NSSet setWithObjects:(NSString*)kMDItemAuthors, (NSString*)kMDItemPublishers, nil];
+	if ([multiTags containsObject:spotlightKey]) {
+		return true;
+	}
+	return false;
+}
+
 static NSString *toSpotlightKey(NSString *matroskaKey)
 {
 	static NSDictionary *matroskaToSpotlightMapping
@@ -692,7 +701,9 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 		@"LYRICIST": (NSString*)kMDItemLyricist,
 		@"PUBLISHER": (NSString*)kMDItemPublishers,
 		@"COPYRIGHT": (NSString*)kMDItemCopyright,
-		@"DIRECTOR": (NSString*)kMDItemDirector
+		@"DIRECTOR": (NSString*)kMDItemDirector,
+		@"PRODUCER": (NSString*)kMDItemProducer,
+		@"GENRE": (NSString*)kMDItemGenre
 		};
 	
 	return matroskaToSpotlightMapping[matroskaKey];
@@ -732,7 +743,12 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 			}
 			string simpleName = get_simple_name(*simple_tag);
 			string simpleVal = get_simple_value(*simple_tag);
-			tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
+			NSString *simpleNSName = toSpotlightKey(@(simpleName.c_str()));
+			if (simpleNSName && isMultiple(simpleNSName)) {
+				tagDict[nsLang][@(simpleName.c_str())] = @[@(simpleVal.c_str())];
+			} else {
+				tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
+			}
 		}
 	}
 	
