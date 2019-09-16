@@ -700,7 +700,7 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 
 bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 {
-	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,NSString*>*>
+	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,id>*>
 	*tagDict = [[NSMutableDictionary alloc] init];
 	//trackEntries
 	for (auto child : trackEntries) {
@@ -736,14 +736,26 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 		}
 	}
 	
-	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,NSString*>*>
+	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,id>*>
 	*toSet = [[NSMutableDictionary alloc] init];
 	
 	for (NSString *lang in tagDict) {
 		auto subLangDict = tagDict[lang];
+		for (NSString *key in subLangDict) {
+			id val = subLangDict[key];
+			NSString *MDVal = toSpotlightKey(key);
+			if (!MDVal) {
+				continue;
+			}
+			if (!toSet[MDVal]) {
+				toSet[MDVal] = [[NSMutableDictionary alloc] init];
+			}
+			toSet[MDVal][lang] = val;
+		}
 		
 	}
-
+	NSDictionary *copyDict = [[NSDictionary alloc] initWithDictionary:toSet copyItems:YES];
+	[attributes addEntriesFromDictionary:copyDict];
 	return true;
 }
 
