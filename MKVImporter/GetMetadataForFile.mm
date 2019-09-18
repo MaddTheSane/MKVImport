@@ -49,7 +49,11 @@ static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCo
 
 class MatroskaImport {
 private:
-	MatroskaImport(NSString* path, NSMutableDictionary*attribs): _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)), attributes(attribs), seenInfo(false), seenTracks(false), seenChapters(false) {
+	MatroskaImport(NSString* path, NSMutableDictionary*attribs):
+	_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
+	_aStream(EbmlStream(_ebmlFile)),
+	attributes(attribs),
+	seenInfo(false), seenTracks(false), seenChapters(false) {
 		mediaTypes = [[NSMutableSet alloc] initWithCapacity:6];
 		fonts = [[NSMutableSet alloc] initWithCapacity:2];
 		segmentOffset = 0;
@@ -330,10 +334,10 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	int maxChannels = 0;
 	double sampleRate = 0;
 	
-	for (int i = 0; i < trackEntries.ListSize(); i++) {
-		if (EbmlId(*trackEntries[i]) != KaxTrackEntry::ClassInfos.GlobalId)
+	for (auto trackEntry: trackEntries) {
+		if (EbmlId(*trackEntry) != KaxTrackEntry::ClassInfos.GlobalId)
 			continue;
-		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntries[i]);
+		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntry);
 		KaxTrackType & type = GetChild<KaxTrackType>(track);
 		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
 		
