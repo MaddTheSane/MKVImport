@@ -707,11 +707,14 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 		@"COPYRIGHT": (NSString*)kMDItemCopyright,
 		@"DIRECTOR": (NSString*)kMDItemDirector,
 		@"PRODUCER": (NSString*)kMDItemProducer,
-		@"GENRE": (NSString*)kMDItemGenre
+		@"GENRE": (NSString*)kMDItemGenre,
+		@"SHOW": (NSString*)kMDItemAlbum
 		};
 	
 	return matroskaToSpotlightMapping[matroskaKey];
 }
+
+static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>*);
 
 bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 {
@@ -723,15 +726,13 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 		if (!tag)
 			continue;
 
-		int64_t tuid = get_tuid(*tag);
 		// exclude tags that refer to specific tracks...
-		if (tuid != -1) {
+		if (get_tuid(*tag) != -1) {
 			continue;
 		}
 		
-		int64_t cuid = get_cuid(*tag);
 		// ...or chapters
-		if (cuid != -1) {
+		if (get_cuid(*tag) != -1) {
 			continue;
 		}
 
@@ -774,7 +775,7 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 		}
 		
 	}
-	NSDictionary *copyDict = [[NSDictionary alloc] initWithDictionary:toSet copyItems:YES];
+	NSDictionary *copyDict = trimLocales(toSet);
 	[attributes addEntriesFromDictionary:copyDict];
 	return true;
 }
@@ -784,6 +785,19 @@ bool MatroskaImport::ReadCues(KaxCues &trackEntries)
 	return true;
 }
 
+
+NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>* toSet) {
+	NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithCapacity:toSet.count];
+	for (NSString *mdKey in toSet) {
+		NSDictionary<NSString*,id> *langDict = toSet[mdKey];
+		if (langDict.count == 1) {
+			newDict[mdKey] = [langDict[langDict.allKeys.firstObject] copy];
+		} else {
+			newDict[mdKey] = [[NSDictionary alloc] initWithDictionary:langDict copyItems:YES];
+		}
+	}
+	return newDict;
+}
 
 #pragma mark -
 
