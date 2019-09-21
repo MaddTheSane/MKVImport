@@ -165,7 +165,7 @@ CMAKE_OSX_DEPLOYMENT_TARGET:STRING=10.9
 
 //The product will be built against the headers and libraries located
 // inside the indicated SDK.
-CMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.14.sdk
+CMAKE_OSX_SYSROOT:PATH=/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk
 
 CMAKE_PREFIX_PATH:PATH=../local/lib/cmake
 
@@ -259,7 +259,7 @@ DISABLE_CMAKE_CONFIG:BOOL=OFF
 DISABLE_PKGCONFIG:BOOL=ON
 
 //The directory containing a CMake configuration file for EBML.
-EBML_DIR:PATH=EBML_DIR-NOTFOUND
+EBML_DIR:PATH=/Users/cwbetts/makestuff/MKVImporter/Xcodes/local/lib/cmake/EBML
 
 //Value Computed by CMake
 matroska_BINARY_DIR:STATIC=/Users/cwbetts/makestuff/MKVImporter/Xcodes/matroska
@@ -284,9 +284,9 @@ CMAKE_CACHEFILE_DIR:INTERNAL=/Users/cwbetts/makestuff/MKVImporter/Xcodes/matrosk
 //Major version of cmake used to create the current loaded cache
 CMAKE_CACHE_MAJOR_VERSION:INTERNAL=3
 //Minor version of cmake used to create the current loaded cache
-CMAKE_CACHE_MINOR_VERSION:INTERNAL=14
+CMAKE_CACHE_MINOR_VERSION:INTERNAL=15
 //Patch version of cmake used to create the current loaded cache
-CMAKE_CACHE_PATCH_VERSION:INTERNAL=5
+CMAKE_CACHE_PATCH_VERSION:INTERNAL=3
 //Path to CMake executable.
 CMAKE_COMMAND:INTERNAL=/opt/local/bin/cmake
 //Path to cpack program executable.
@@ -395,7 +395,7 @@ CMAKE_PLATFORM_INFO_INITIALIZED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_RANLIB
 CMAKE_RANLIB-ADVANCED:INTERNAL=1
 //Path to CMake installation.
-CMAKE_ROOT:INTERNAL=/opt/local/share/cmake-3.14
+CMAKE_ROOT:INTERNAL=/opt/local/share/cmake-3.15
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS
 CMAKE_SHARED_LINKER_FLAGS-ADVANCED:INTERNAL=1
 //ADVANCED property for variable: CMAKE_SHARED_LINKER_FLAGS_DEBUG
