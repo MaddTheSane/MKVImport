@@ -53,7 +53,7 @@ private:
 	_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
 	_aStream(EbmlStream(_ebmlFile)),
 	attributes(attribs),
-	seenInfo(false), seenTracks(false), seenChapters(false) {
+	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false) {
 		mediaTypes = [[NSMutableSet alloc] initWithCapacity:6];
 		fonts = [[NSMutableSet alloc] initWithCapacity:2];
 		segmentOffset = 0;
@@ -141,9 +141,11 @@ private:
 	NSMutableSet<NSString*> *mediaTypes;
 	NSMutableSet<NSString*> *fonts;
 	
+	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
 	bool seenInfo;
 	bool seenTracks;
 	bool seenChapters;
+	bool seenTags;
 
 	vector<MatroskaSeek>	levelOneElements;
 	
@@ -718,6 +720,9 @@ static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictiona
 
 bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 {
+	if (seenTags) {
+		return true;
+	}
 	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,id>*>
 	*tagDict = [[NSMutableDictionary alloc] init];
 	//trackEntries
@@ -777,6 +782,7 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 	}
 	NSDictionary *copyDict = trimLocales(toSet);
 	[attributes addEntriesFromDictionary:copyDict];
+	seenTags = true;
 	return true;
 }
 
@@ -786,7 +792,7 @@ bool MatroskaImport::ReadCues(KaxCues &trackEntries)
 }
 
 
-NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>* toSet) {
+NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*, NSDictionary<NSString*, id>*>* toSet) {
 	NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithCapacity:toSet.count];
 	for (NSString *mdKey in toSet) {
 		NSDictionary<NSString*,id> *langDict = toSet[mdKey];
