@@ -852,7 +852,7 @@ EbmlElement * MatroskaImport::NextLevel1Element()
 		currElt.segmentPos = el_l1->GetElementPosition();
 		currElt.idLength = currElt.ebmlID = 0;
 		
-		nextElt = find_if(levelOneElements.begin(), levelOneElements.end(), bind(greater<MatroskaSeek>(), currElt));
+		nextElt = find_if(levelOneElements.begin(), levelOneElements.end(), bind(greater<MatroskaSeek>(), std::placeholders::_1, currElt));
 		if (nextElt != levelOneElements.end()) {
 			SetContext(nextElt->GetSeekContext(segmentOffset));
 			NextLevel1Element();
