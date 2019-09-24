@@ -19,6 +19,7 @@
 		5590042822920B3300614FFF /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5590041E22920A2300614FFF /* libmatroska.a */; };
 		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
+		55E76F69233A07FD00EAEE1F /* Debugging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -100,6 +101,8 @@
 		55CBF3521F11454900E60B0B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55CBF3561F11458000E60B0B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		55E76F67233A07FD00EAEE1F /* Debugging.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Debugging.cpp; sourceTree = "<group>"; };
+		55E76F68233A07FD00EAEE1F /* Debugging.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = Debugging.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -161,6 +164,8 @@
 				557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */,
 				5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */,
 				5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */,
+				55E76F68233A07FD00EAEE1F /* Debugging.hpp */,
+				55E76F67233A07FD00EAEE1F /* Debugging.cpp */,
 				55868E021E1C189B00CDDED1 /* Importer Read Me.txt */,
 				55868E031E1C189B00CDDED1 /* Info.plist */,
 				55868DFA1E1C189B00CDDED1 /* Supporting Files */,
@@ -371,6 +376,7 @@
 				557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */,
 				55868DFC1E1C189B00CDDED1 /* main.c in Sources */,
 				55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */,
+				55E76F69233A07FD00EAEE1F /* Debugging.cpp in Sources */,
 				5528F5CD1E6DF7AB0001D475 /* ParseSSA.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

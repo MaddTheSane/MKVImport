@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #include "mkvNameShortener.hpp"
 #include <string>
+#include "Debugging.hpp"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using std::string;
@@ -216,6 +217,7 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 		NSURL *osTypeMapURL = [ourBundle URLForResource:@"OSTypeMap" withExtension:@"plist"];
 		if (!osTypeMapURL) {
 			//Just use the four-char code instead, I guess
+			postError(mkvErrorLevelTrivial, CFSTR("Unable to load OSType mapping for AVI/QT codecs. They will appear as their raw four characters."));
 			return;
 		}
 		NSDictionary<NSString*,NSArray<id>*> *mapDict = [[NSDictionary alloc] initWithContentsOfURL:osTypeMapURL];
@@ -303,5 +305,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 				return @(kMatroskaCodecIDs[i].cType);
 		}
 	}
+	postError(mkvErrorLevelWarn, CFSTR("Unknown codec type %s"), codecString.c_str());
+
 	return nil;
 }

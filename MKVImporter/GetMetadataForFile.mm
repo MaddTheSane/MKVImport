@@ -35,6 +35,7 @@
 
 #include "mkvNameShortener.hpp"
 #include "ParseSSA.hpp"
+#include "Debugging.hpp"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
@@ -163,7 +164,7 @@ bool MatroskaImport::isValidMatroska()
 		el_l0->Read(_aStream, EbmlHead::ClassInfos.Context, upperLevel, dummyElt, true);
 		
 		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
-			fprintf(stderr, "Not a Matroska file\n");
+			postError(mkvErrorLevelWarn, CFSTR("Not a Matroska file"));
 			valid = false;
 			goto exit;
 		}
@@ -173,21 +174,21 @@ bool MatroskaImport::isValidMatroska()
 		EDocType docType = GetChild<EDocType>(*head);
 		const string & cppDocType = string(docType);
 		if (cppDocType != "matroska" && cppDocType != "webm") {
-			fprintf(stderr, "Unknown Matroska doctype \"%s\"\n", cppDocType.c_str());
+			postError(mkvErrorLevelWarn, CFSTR("Unknown Matroska doctype \"%s\""), cppDocType.c_str());
 			valid = false;
 			goto exit;
 		}
 		
 		EDocTypeReadVersion readVersion = GetChild<EDocTypeReadVersion>(*head);
 		if (UInt64(readVersion) > 2) {
-			fprintf(stderr, "Matroska file too new to be read, version %lld\n", UInt64(readVersion));
+			postError(mkvErrorLevelWarn, CFSTR("Matroska file too new to be read, version %lld"), UInt64(readVersion));
 			valid = false;
 			goto exit;
 		}
 		el_l0->SkipData(_aStream, EbmlHead_Context);
 
 	} else {
-		fprintf(stderr, "Matroska file missing EBML Head\n");
+		postError(mkvErrorLevelWarn, CFSTR("Matroska file missing EBML Head"));
 		valid = false;
 	}
 	
