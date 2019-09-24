@@ -13,7 +13,7 @@ void postError(mkvErrorLevel level, CFStringRef format, ...)
 {
 	va_list theList;
 	va_start(theList, format);
-	if (__builtin_available(macOS 10.13, *)) {
+	if (__builtin_available(macOS 10.12, *)) {
 		os_log_type_t logtypes;
 		switch (level) {
 			case mkvErrorLevelTrivial:
@@ -41,7 +41,7 @@ void postError(mkvErrorLevel level, CFStringRef format, ...)
 		CFRelease(formatted);
 	} else {
 		// TODO: use ACL?
-		char buffer[512];
+		char buffer[512] = {0};
 		CFStringRef formatted = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, NULL, format, theList);
 		CFStringGetCString(formatted, buffer, sizeof(buffer), kCFStringEncodingUTF8);
 		CFRelease(formatted);
