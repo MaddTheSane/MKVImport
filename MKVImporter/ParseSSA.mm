@@ -9,13 +9,24 @@
 #import <Foundation/Foundation.h>
 #include <string>
 #include "ParseSSA.hpp"
+#include "ebml/EbmlStream.h"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using std::string;
 
-bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, NSMutableSet<NSString*> *fontList)
+bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList)
 {
+	auto startLoc = mkvStream.I_O().getFilePointer();
+	
+	KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(track);
+	if (codecPrivate == NULL) {
+		//mkvStream.I_O().setFilePointer(startLoc);
+		return false;
+	}
+	//track.Read(<#EbmlStream &inDataStream#>, <#const EbmlSemanticContext &Context#>, <#int &UpperEltFound#>, <#EbmlElement *&FoundElt#>, <#bool AllowDummyElt#>)
+
+	mkvStream.I_O().setFilePointer(startLoc);
 	return false;
 }
 

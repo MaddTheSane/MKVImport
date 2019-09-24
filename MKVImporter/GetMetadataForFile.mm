@@ -411,7 +411,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				//TODO: parse SSA, get font list?
 			if (isSSA1(track) || isSSA2(track)) {
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
-				bool success = getSubtitleFontList(track, tmpFonts);
+				bool success = getSubtitleFontList(track, _aStream, tmpFonts);
 				if (success) {
 					[fonts unionSet:tmpFonts];
 				}
