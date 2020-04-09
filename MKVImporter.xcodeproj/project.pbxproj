@@ -12,11 +12,106 @@
 		557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
 		55868DFC1E1C189B00CDDED1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFB1E1C189B00CDDED1 /* main.c */; };
 		55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */; };
+		55868E4C1E1C1CA700CDDED1 /* libmatroska.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E1F1E1C1CA700CDDED1 /* libmatroska.h */; };
+		55868E4D1E1C1CA700CDDED1 /* libmatroska_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E201E1C1CA700CDDED1 /* libmatroska_t.h */; };
+		55868E4E1E1C1CA700CDDED1 /* FileKax.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E211E1C1CA700CDDED1 /* FileKax.h */; };
+		55868E4F1E1C1CA700CDDED1 /* KaxAttached.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E221E1C1CA700CDDED1 /* KaxAttached.h */; };
+		55868E501E1C1CA700CDDED1 /* KaxAttachments.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E231E1C1CA700CDDED1 /* KaxAttachments.h */; };
+		55868E511E1C1CA700CDDED1 /* KaxBlock.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E241E1C1CA700CDDED1 /* KaxBlock.h */; };
+		55868E521E1C1CA700CDDED1 /* KaxBlockData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E251E1C1CA700CDDED1 /* KaxBlockData.h */; };
+		55868E531E1C1CA700CDDED1 /* KaxChapters.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E261E1C1CA700CDDED1 /* KaxChapters.h */; };
+		55868E541E1C1CA700CDDED1 /* KaxCluster.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E271E1C1CA700CDDED1 /* KaxCluster.h */; };
+		55868E551E1C1CA700CDDED1 /* KaxClusterData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E281E1C1CA700CDDED1 /* KaxClusterData.h */; };
+		55868E561E1C1CA700CDDED1 /* KaxConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E291E1C1CA700CDDED1 /* KaxConfig.h */; };
+		55868E571E1C1CA700CDDED1 /* KaxContentEncoding.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E2A1E1C1CA700CDDED1 /* KaxContentEncoding.h */; };
+		55868E581E1C1CA700CDDED1 /* KaxContexts.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E2B1E1C1CA700CDDED1 /* KaxContexts.h */; };
+		55868E591E1C1CA700CDDED1 /* KaxCues.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E2C1E1C1CA700CDDED1 /* KaxCues.h */; };
+		55868E5A1E1C1CA700CDDED1 /* KaxCuesData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E2D1E1C1CA700CDDED1 /* KaxCuesData.h */; };
+		55868E5B1E1C1CA700CDDED1 /* KaxDefines.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E2E1E1C1CA700CDDED1 /* KaxDefines.h */; };
+		55868E5C1E1C1CA700CDDED1 /* KaxInfo.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E2F1E1C1CA700CDDED1 /* KaxInfo.h */; };
+		55868E5D1E1C1CA700CDDED1 /* KaxInfoData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E301E1C1CA700CDDED1 /* KaxInfoData.h */; };
+		55868E5E1E1C1CA700CDDED1 /* KaxSeekHead.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E311E1C1CA700CDDED1 /* KaxSeekHead.h */; };
+		55868E5F1E1C1CA700CDDED1 /* KaxSegment.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E321E1C1CA700CDDED1 /* KaxSegment.h */; };
+		55868E601E1C1CA700CDDED1 /* KaxSemantic.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E331E1C1CA700CDDED1 /* KaxSemantic.h */; };
+		55868E611E1C1CA700CDDED1 /* KaxTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E341E1C1CA700CDDED1 /* KaxTag.h */; };
+		55868E621E1C1CA700CDDED1 /* KaxTags.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E351E1C1CA700CDDED1 /* KaxTags.h */; };
+		55868E631E1C1CA700CDDED1 /* KaxTrackAudio.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E361E1C1CA700CDDED1 /* KaxTrackAudio.h */; };
+		55868E641E1C1CA700CDDED1 /* KaxTrackEntryData.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E371E1C1CA700CDDED1 /* KaxTrackEntryData.h */; };
+		55868E651E1C1CA700CDDED1 /* KaxTracks.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E381E1C1CA700CDDED1 /* KaxTracks.h */; };
+		55868E661E1C1CA700CDDED1 /* KaxTrackVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E391E1C1CA700CDDED1 /* KaxTrackVideo.h */; };
+		55868E671E1C1CA700CDDED1 /* KaxTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E3A1E1C1CA700CDDED1 /* KaxTypes.h */; };
+		55868E681E1C1CA700CDDED1 /* KaxVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E3B1E1C1CA700CDDED1 /* KaxVersion.h */; };
+		55868E691E1C1CA700CDDED1 /* FileKax.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E3D1E1C1CA700CDDED1 /* FileKax.cpp */; };
+		55868E6A1E1C1CA700CDDED1 /* KaxAttached.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E3E1E1C1CA700CDDED1 /* KaxAttached.cpp */; };
+		55868E6B1E1C1CA700CDDED1 /* KaxAttachments.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E3F1E1C1CA700CDDED1 /* KaxAttachments.cpp */; };
+		55868E6C1E1C1CA700CDDED1 /* KaxBlock.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E401E1C1CA700CDDED1 /* KaxBlock.cpp */; };
+		55868E6D1E1C1CA700CDDED1 /* KaxBlockData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E411E1C1CA700CDDED1 /* KaxBlockData.cpp */; };
+		55868E6E1E1C1CA700CDDED1 /* KaxCluster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E421E1C1CA700CDDED1 /* KaxCluster.cpp */; };
+		55868E6F1E1C1CA700CDDED1 /* KaxContexts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E431E1C1CA700CDDED1 /* KaxContexts.cpp */; };
+		55868E701E1C1CA700CDDED1 /* KaxCues.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E441E1C1CA700CDDED1 /* KaxCues.cpp */; };
+		55868E711E1C1CA700CDDED1 /* KaxCuesData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E451E1C1CA700CDDED1 /* KaxCuesData.cpp */; };
+		55868E721E1C1CA700CDDED1 /* KaxInfoData.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E461E1C1CA700CDDED1 /* KaxInfoData.cpp */; };
+		55868E731E1C1CA700CDDED1 /* KaxSeekHead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E471E1C1CA700CDDED1 /* KaxSeekHead.cpp */; };
+		55868E741E1C1CA700CDDED1 /* KaxSegment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E481E1C1CA700CDDED1 /* KaxSegment.cpp */; };
+		55868E751E1C1CA700CDDED1 /* KaxSemantic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E491E1C1CA700CDDED1 /* KaxSemantic.cpp */; };
+		55868E761E1C1CA800CDDED1 /* KaxTracks.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E4A1E1C1CA700CDDED1 /* KaxTracks.cpp */; };
+		55868E771E1C1CA800CDDED1 /* KaxVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E4B1E1C1CA700CDDED1 /* KaxVersion.cpp */; };
+		55868EB21E1C1CB600CDDED1 /* libebml_t.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E7A1E1C1CB600CDDED1 /* libebml_t.h */; };
+		55868EB31E1C1CB600CDDED1 /* Debug.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E7B1E1C1CB600CDDED1 /* Debug.h */; };
+		55868EB41E1C1CB600CDDED1 /* EbmlBinary.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E7C1E1C1CB600CDDED1 /* EbmlBinary.h */; };
+		55868EB51E1C1CB600CDDED1 /* EbmlConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E7D1E1C1CB600CDDED1 /* EbmlConfig.h */; };
+		55868EB61E1C1CB600CDDED1 /* EbmlContexts.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E7E1E1C1CB600CDDED1 /* EbmlContexts.h */; };
+		55868EB71E1C1CB600CDDED1 /* EbmlCrc32.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E7F1E1C1CB600CDDED1 /* EbmlCrc32.h */; };
+		55868EB81E1C1CB600CDDED1 /* EbmlDate.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E801E1C1CB600CDDED1 /* EbmlDate.h */; };
+		55868EB91E1C1CB600CDDED1 /* EbmlDummy.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E811E1C1CB600CDDED1 /* EbmlDummy.h */; };
+		55868EBA1E1C1CB600CDDED1 /* EbmlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E821E1C1CB600CDDED1 /* EbmlElement.h */; };
+		55868EBB1E1C1CB600CDDED1 /* EbmlEndian.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E831E1C1CB600CDDED1 /* EbmlEndian.h */; };
+		55868EBC1E1C1CB600CDDED1 /* EbmlFloat.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E841E1C1CB600CDDED1 /* EbmlFloat.h */; };
+		55868EBD1E1C1CB600CDDED1 /* EbmlHead.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E851E1C1CB600CDDED1 /* EbmlHead.h */; };
+		55868EBE1E1C1CB600CDDED1 /* EbmlId.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E861E1C1CB600CDDED1 /* EbmlId.h */; };
+		55868EBF1E1C1CB600CDDED1 /* EbmlMaster.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E871E1C1CB600CDDED1 /* EbmlMaster.h */; };
+		55868EC01E1C1CB600CDDED1 /* EbmlSInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E881E1C1CB600CDDED1 /* EbmlSInteger.h */; };
+		55868EC11E1C1CB600CDDED1 /* EbmlStream.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E891E1C1CB600CDDED1 /* EbmlStream.h */; };
+		55868EC21E1C1CB600CDDED1 /* EbmlString.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E8A1E1C1CB600CDDED1 /* EbmlString.h */; };
+		55868EC31E1C1CB600CDDED1 /* EbmlSubHead.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E8B1E1C1CB600CDDED1 /* EbmlSubHead.h */; };
+		55868EC41E1C1CB600CDDED1 /* EbmlTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E8C1E1C1CB600CDDED1 /* EbmlTypes.h */; };
+		55868EC51E1C1CB600CDDED1 /* EbmlUInteger.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E8D1E1C1CB600CDDED1 /* EbmlUInteger.h */; };
+		55868EC61E1C1CB600CDDED1 /* EbmlUnicodeString.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E8E1E1C1CB600CDDED1 /* EbmlUnicodeString.h */; };
+		55868EC71E1C1CB600CDDED1 /* EbmlVersion.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E8F1E1C1CB600CDDED1 /* EbmlVersion.h */; };
+		55868EC81E1C1CB600CDDED1 /* EbmlVoid.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E901E1C1CB600CDDED1 /* EbmlVoid.h */; };
+		55868EC91E1C1CB600CDDED1 /* IOCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E911E1C1CB600CDDED1 /* IOCallback.h */; };
+		55868ECA1E1C1CB600CDDED1 /* MemIOCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E921E1C1CB600CDDED1 /* MemIOCallback.h */; };
+		55868ECB1E1C1CB600CDDED1 /* MemReadIOCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E931E1C1CB600CDDED1 /* MemReadIOCallback.h */; };
+		55868ECC1E1C1CB600CDDED1 /* SafeReadIOCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E941E1C1CB600CDDED1 /* SafeReadIOCallback.h */; };
+		55868ECD1E1C1CB600CDDED1 /* StdIOCallback.h in Headers */ = {isa = PBXBuildFile; fileRef = 55868E951E1C1CB600CDDED1 /* StdIOCallback.h */; };
+		55868ECE1E1C1CB600CDDED1 /* Debug.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E971E1C1CB600CDDED1 /* Debug.cpp */; };
+		55868ECF1E1C1CB600CDDED1 /* EbmlBinary.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E981E1C1CB600CDDED1 /* EbmlBinary.cpp */; };
+		55868ED01E1C1CB600CDDED1 /* EbmlContexts.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E991E1C1CB600CDDED1 /* EbmlContexts.cpp */; };
+		55868ED11E1C1CB600CDDED1 /* EbmlCrc32.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E9A1E1C1CB600CDDED1 /* EbmlCrc32.cpp */; };
+		55868ED21E1C1CB600CDDED1 /* EbmlDate.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E9B1E1C1CB600CDDED1 /* EbmlDate.cpp */; };
+		55868ED31E1C1CB600CDDED1 /* EbmlDummy.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E9C1E1C1CB600CDDED1 /* EbmlDummy.cpp */; };
+		55868ED41E1C1CB600CDDED1 /* EbmlElement.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E9D1E1C1CB600CDDED1 /* EbmlElement.cpp */; };
+		55868ED51E1C1CB600CDDED1 /* EbmlFloat.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E9E1E1C1CB600CDDED1 /* EbmlFloat.cpp */; };
+		55868ED61E1C1CB600CDDED1 /* EbmlHead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868E9F1E1C1CB600CDDED1 /* EbmlHead.cpp */; };
+		55868ED71E1C1CB600CDDED1 /* EbmlMaster.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA01E1C1CB600CDDED1 /* EbmlMaster.cpp */; };
+		55868ED81E1C1CB600CDDED1 /* EbmlSInteger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA11E1C1CB600CDDED1 /* EbmlSInteger.cpp */; };
+		55868ED91E1C1CB600CDDED1 /* EbmlStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA21E1C1CB600CDDED1 /* EbmlStream.cpp */; };
+		55868EDA1E1C1CB600CDDED1 /* EbmlString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA31E1C1CB600CDDED1 /* EbmlString.cpp */; };
+		55868EDB1E1C1CB600CDDED1 /* EbmlSubHead.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA41E1C1CB600CDDED1 /* EbmlSubHead.cpp */; };
+		55868EDC1E1C1CB600CDDED1 /* EbmlUInteger.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA51E1C1CB600CDDED1 /* EbmlUInteger.cpp */; };
+		55868EDD1E1C1CB600CDDED1 /* EbmlUnicodeString.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA61E1C1CB600CDDED1 /* EbmlUnicodeString.cpp */; };
+		55868EDE1E1C1CB600CDDED1 /* EbmlVersion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA71E1C1CB600CDDED1 /* EbmlVersion.cpp */; };
+		55868EDF1E1C1CB600CDDED1 /* EbmlVoid.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA81E1C1CB600CDDED1 /* EbmlVoid.cpp */; };
+		55868EE01E1C1CB600CDDED1 /* IOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EA91E1C1CB600CDDED1 /* IOCallback.cpp */; };
+		55868EE11E1C1CB600CDDED1 /* MemIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EAA1E1C1CB600CDDED1 /* MemIOCallback.cpp */; };
+		55868EE21E1C1CB600CDDED1 /* MemReadIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EAB1E1C1CB600CDDED1 /* MemReadIOCallback.cpp */; };
+		55868EE51E1C1CB600CDDED1 /* SafeReadIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EB01E1C1CB600CDDED1 /* SafeReadIOCallback.cpp */; };
+		55868EE61E1C1CB600CDDED1 /* StdIOCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55868EB11E1C1CB600CDDED1 /* StdIOCallback.cpp */; };
+		55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E161E1C1C3700CDDED1 /* libebml.a */; };
+		55868EEC1E1C1D6F00CDDED1 /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E0E1E1C1C2500CDDED1 /* libmatroska.a */; };
 		55868EEE1E1C1DA300CDDED1 /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
 		55868EF11E1C1EF100CDDED1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */; };
 		55868EF61E1C1F5700CDDED1 /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF81E1C1F5700CDDED1 /* schema.strings */; };
-		5590042722920B3300614FFF /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5590041522920A1D00614FFF /* libebml.a */; };
-		5590042822920B3300614FFF /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5590041E22920A2300614FFF /* libmatroska.a */; };
 		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
 		55E76F69233A07FD00EAEE1F /* Debugging.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.cpp */; };
@@ -30,40 +125,19 @@
 			remoteGlobalIDString = 55239B6A1E301A1200B5B7D0;
 			remoteInfo = OSTypeMapperGenerator;
 		};
-		5590041422920A1D00614FFF /* PBXContainerItemProxy */ = {
+		55868EE71E1C1D6800CDDED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5590040D22920A1D00614FFF /* ebml.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 938613D4ADEB45EAA009A669;
-			remoteInfo = ebml;
-		};
-		5590041D22920A2300614FFF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5590041622920A2300614FFF /* matroska.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 8504267806814193A18B097F;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868E0D1E1C1C2500CDDED1;
 			remoteInfo = matroska;
 		};
-		5590042122920A4700614FFF /* PBXContainerItemProxy */ = {
+		55868EE91E1C1D6800CDDED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
-			containerPortal = 5590041622920A2300614FFF /* matroska.xcodeproj */;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = 6B139814BCB64FD983BC023E;
-			remoteInfo = matroska;
-		};
-		5590042322920B2A00614FFF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5590040D22920A1D00614FFF /* ebml.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 6866F388A8194E39BBE3D1AA;
+			remoteGlobalIDString = 55868E151E1C1C3700CDDED1;
 			remoteInfo = ebml;
-		};
-		5590042522920B2A00614FFF /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 5590040D22920A1D00614FFF /* ebml.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = ADBDF86E6C834C0DB32F47D8;
-			remoteInfo = install;
 		};
 /* End PBXContainerItemProxy section */
 
@@ -84,6 +158,7 @@
 		55239B6D1E301A1200B5B7D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParseSSA.mm; sourceTree = "<group>"; };
 		5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = ParseSSA.hpp; sourceTree = "<group>"; };
+		556E4E7A243EFF490073A252 /* ebml_export.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ebml_export.h; sourceTree = "<group>"; };
 		557B87F41E1DBA1800F2133E /* MKVImporter.exp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.exports; path = MKVImporter.exp; sourceTree = "<group>"; };
 		557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = mkvNameShortener.mm; sourceTree = "<group>"; };
 		557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = mkvNameShortener.hpp; sourceTree = "<group>"; };
@@ -93,11 +168,106 @@
 		55868E021E1C189B00CDDED1 /* Importer Read Me.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "Importer Read Me.txt"; sourceTree = "<group>"; };
 		55868E031E1C189B00CDDED1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GetMetadataForFile.h; sourceTree = "<group>"; };
+		55868E0E1E1C1C2500CDDED1 /* libmatroska.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libmatroska.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		55868E161E1C1C3700CDDED1 /* libebml.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libebml.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		55868E1F1E1C1CA700CDDED1 /* libmatroska.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libmatroska.h; sourceTree = "<group>"; };
+		55868E201E1C1CA700CDDED1 /* libmatroska_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libmatroska_t.h; sourceTree = "<group>"; };
+		55868E211E1C1CA700CDDED1 /* FileKax.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FileKax.h; sourceTree = "<group>"; };
+		55868E221E1C1CA700CDDED1 /* KaxAttached.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxAttached.h; sourceTree = "<group>"; };
+		55868E231E1C1CA700CDDED1 /* KaxAttachments.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxAttachments.h; sourceTree = "<group>"; };
+		55868E241E1C1CA700CDDED1 /* KaxBlock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxBlock.h; sourceTree = "<group>"; };
+		55868E251E1C1CA700CDDED1 /* KaxBlockData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxBlockData.h; sourceTree = "<group>"; };
+		55868E261E1C1CA700CDDED1 /* KaxChapters.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxChapters.h; sourceTree = "<group>"; };
+		55868E271E1C1CA700CDDED1 /* KaxCluster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxCluster.h; sourceTree = "<group>"; };
+		55868E281E1C1CA700CDDED1 /* KaxClusterData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxClusterData.h; sourceTree = "<group>"; };
+		55868E291E1C1CA700CDDED1 /* KaxConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxConfig.h; sourceTree = "<group>"; };
+		55868E2A1E1C1CA700CDDED1 /* KaxContentEncoding.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxContentEncoding.h; sourceTree = "<group>"; };
+		55868E2B1E1C1CA700CDDED1 /* KaxContexts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxContexts.h; sourceTree = "<group>"; };
+		55868E2C1E1C1CA700CDDED1 /* KaxCues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxCues.h; sourceTree = "<group>"; };
+		55868E2D1E1C1CA700CDDED1 /* KaxCuesData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxCuesData.h; sourceTree = "<group>"; };
+		55868E2E1E1C1CA700CDDED1 /* KaxDefines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxDefines.h; sourceTree = "<group>"; };
+		55868E2F1E1C1CA700CDDED1 /* KaxInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxInfo.h; sourceTree = "<group>"; };
+		55868E301E1C1CA700CDDED1 /* KaxInfoData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxInfoData.h; sourceTree = "<group>"; };
+		55868E311E1C1CA700CDDED1 /* KaxSeekHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxSeekHead.h; sourceTree = "<group>"; };
+		55868E321E1C1CA700CDDED1 /* KaxSegment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxSegment.h; sourceTree = "<group>"; };
+		55868E331E1C1CA700CDDED1 /* KaxSemantic.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxSemantic.h; sourceTree = "<group>"; };
+		55868E341E1C1CA700CDDED1 /* KaxTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxTag.h; sourceTree = "<group>"; };
+		55868E351E1C1CA700CDDED1 /* KaxTags.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxTags.h; sourceTree = "<group>"; };
+		55868E361E1C1CA700CDDED1 /* KaxTrackAudio.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxTrackAudio.h; sourceTree = "<group>"; };
+		55868E371E1C1CA700CDDED1 /* KaxTrackEntryData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxTrackEntryData.h; sourceTree = "<group>"; };
+		55868E381E1C1CA700CDDED1 /* KaxTracks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxTracks.h; sourceTree = "<group>"; };
+		55868E391E1C1CA700CDDED1 /* KaxTrackVideo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxTrackVideo.h; sourceTree = "<group>"; };
+		55868E3A1E1C1CA700CDDED1 /* KaxTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxTypes.h; sourceTree = "<group>"; };
+		55868E3B1E1C1CA700CDDED1 /* KaxVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = KaxVersion.h; sourceTree = "<group>"; };
+		55868E3D1E1C1CA700CDDED1 /* FileKax.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = FileKax.cpp; sourceTree = "<group>"; };
+		55868E3E1E1C1CA700CDDED1 /* KaxAttached.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxAttached.cpp; sourceTree = "<group>"; };
+		55868E3F1E1C1CA700CDDED1 /* KaxAttachments.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxAttachments.cpp; sourceTree = "<group>"; };
+		55868E401E1C1CA700CDDED1 /* KaxBlock.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxBlock.cpp; sourceTree = "<group>"; };
+		55868E411E1C1CA700CDDED1 /* KaxBlockData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxBlockData.cpp; sourceTree = "<group>"; };
+		55868E421E1C1CA700CDDED1 /* KaxCluster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxCluster.cpp; sourceTree = "<group>"; };
+		55868E431E1C1CA700CDDED1 /* KaxContexts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxContexts.cpp; sourceTree = "<group>"; };
+		55868E441E1C1CA700CDDED1 /* KaxCues.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxCues.cpp; sourceTree = "<group>"; };
+		55868E451E1C1CA700CDDED1 /* KaxCuesData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxCuesData.cpp; sourceTree = "<group>"; };
+		55868E461E1C1CA700CDDED1 /* KaxInfoData.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxInfoData.cpp; sourceTree = "<group>"; };
+		55868E471E1C1CA700CDDED1 /* KaxSeekHead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxSeekHead.cpp; sourceTree = "<group>"; };
+		55868E481E1C1CA700CDDED1 /* KaxSegment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxSegment.cpp; sourceTree = "<group>"; };
+		55868E491E1C1CA700CDDED1 /* KaxSemantic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxSemantic.cpp; sourceTree = "<group>"; };
+		55868E4A1E1C1CA700CDDED1 /* KaxTracks.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxTracks.cpp; sourceTree = "<group>"; };
+		55868E4B1E1C1CA700CDDED1 /* KaxVersion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = KaxVersion.cpp; sourceTree = "<group>"; };
+		55868E7A1E1C1CB600CDDED1 /* libebml_t.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = libebml_t.h; sourceTree = "<group>"; };
+		55868E7B1E1C1CB600CDDED1 /* Debug.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debug.h; sourceTree = "<group>"; };
+		55868E7C1E1C1CB600CDDED1 /* EbmlBinary.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlBinary.h; sourceTree = "<group>"; };
+		55868E7D1E1C1CB600CDDED1 /* EbmlConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlConfig.h; sourceTree = "<group>"; };
+		55868E7E1E1C1CB600CDDED1 /* EbmlContexts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlContexts.h; sourceTree = "<group>"; };
+		55868E7F1E1C1CB600CDDED1 /* EbmlCrc32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlCrc32.h; sourceTree = "<group>"; };
+		55868E801E1C1CB600CDDED1 /* EbmlDate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlDate.h; sourceTree = "<group>"; };
+		55868E811E1C1CB600CDDED1 /* EbmlDummy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlDummy.h; sourceTree = "<group>"; };
+		55868E821E1C1CB600CDDED1 /* EbmlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlElement.h; sourceTree = "<group>"; };
+		55868E831E1C1CB600CDDED1 /* EbmlEndian.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlEndian.h; sourceTree = "<group>"; };
+		55868E841E1C1CB600CDDED1 /* EbmlFloat.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlFloat.h; sourceTree = "<group>"; };
+		55868E851E1C1CB600CDDED1 /* EbmlHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlHead.h; sourceTree = "<group>"; };
+		55868E861E1C1CB600CDDED1 /* EbmlId.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlId.h; sourceTree = "<group>"; };
+		55868E871E1C1CB600CDDED1 /* EbmlMaster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlMaster.h; sourceTree = "<group>"; };
+		55868E881E1C1CB600CDDED1 /* EbmlSInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlSInteger.h; sourceTree = "<group>"; };
+		55868E891E1C1CB600CDDED1 /* EbmlStream.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlStream.h; sourceTree = "<group>"; };
+		55868E8A1E1C1CB600CDDED1 /* EbmlString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlString.h; sourceTree = "<group>"; };
+		55868E8B1E1C1CB600CDDED1 /* EbmlSubHead.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlSubHead.h; sourceTree = "<group>"; };
+		55868E8C1E1C1CB600CDDED1 /* EbmlTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlTypes.h; sourceTree = "<group>"; };
+		55868E8D1E1C1CB600CDDED1 /* EbmlUInteger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlUInteger.h; sourceTree = "<group>"; };
+		55868E8E1E1C1CB600CDDED1 /* EbmlUnicodeString.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlUnicodeString.h; sourceTree = "<group>"; };
+		55868E8F1E1C1CB600CDDED1 /* EbmlVersion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlVersion.h; sourceTree = "<group>"; };
+		55868E901E1C1CB600CDDED1 /* EbmlVoid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EbmlVoid.h; sourceTree = "<group>"; };
+		55868E911E1C1CB600CDDED1 /* IOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IOCallback.h; sourceTree = "<group>"; };
+		55868E921E1C1CB600CDDED1 /* MemIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemIOCallback.h; sourceTree = "<group>"; };
+		55868E931E1C1CB600CDDED1 /* MemReadIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemReadIOCallback.h; sourceTree = "<group>"; };
+		55868E941E1C1CB600CDDED1 /* SafeReadIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SafeReadIOCallback.h; sourceTree = "<group>"; };
+		55868E951E1C1CB600CDDED1 /* StdIOCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = StdIOCallback.h; sourceTree = "<group>"; };
+		55868E971E1C1CB600CDDED1 /* Debug.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Debug.cpp; sourceTree = "<group>"; };
+		55868E981E1C1CB600CDDED1 /* EbmlBinary.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlBinary.cpp; sourceTree = "<group>"; };
+		55868E991E1C1CB600CDDED1 /* EbmlContexts.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlContexts.cpp; sourceTree = "<group>"; };
+		55868E9A1E1C1CB600CDDED1 /* EbmlCrc32.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlCrc32.cpp; sourceTree = "<group>"; };
+		55868E9B1E1C1CB600CDDED1 /* EbmlDate.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlDate.cpp; sourceTree = "<group>"; };
+		55868E9C1E1C1CB600CDDED1 /* EbmlDummy.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlDummy.cpp; sourceTree = "<group>"; };
+		55868E9D1E1C1CB600CDDED1 /* EbmlElement.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlElement.cpp; sourceTree = "<group>"; };
+		55868E9E1E1C1CB600CDDED1 /* EbmlFloat.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlFloat.cpp; sourceTree = "<group>"; };
+		55868E9F1E1C1CB600CDDED1 /* EbmlHead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlHead.cpp; sourceTree = "<group>"; };
+		55868EA01E1C1CB600CDDED1 /* EbmlMaster.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlMaster.cpp; sourceTree = "<group>"; };
+		55868EA11E1C1CB600CDDED1 /* EbmlSInteger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlSInteger.cpp; sourceTree = "<group>"; };
+		55868EA21E1C1CB600CDDED1 /* EbmlStream.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlStream.cpp; sourceTree = "<group>"; };
+		55868EA31E1C1CB600CDDED1 /* EbmlString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlString.cpp; sourceTree = "<group>"; };
+		55868EA41E1C1CB600CDDED1 /* EbmlSubHead.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlSubHead.cpp; sourceTree = "<group>"; };
+		55868EA51E1C1CB600CDDED1 /* EbmlUInteger.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlUInteger.cpp; sourceTree = "<group>"; };
+		55868EA61E1C1CB600CDDED1 /* EbmlUnicodeString.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlUnicodeString.cpp; sourceTree = "<group>"; };
+		55868EA71E1C1CB600CDDED1 /* EbmlVersion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlVersion.cpp; sourceTree = "<group>"; };
+		55868EA81E1C1CB600CDDED1 /* EbmlVoid.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = EbmlVoid.cpp; sourceTree = "<group>"; };
+		55868EA91E1C1CB600CDDED1 /* IOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = IOCallback.cpp; sourceTree = "<group>"; };
+		55868EAA1E1C1CB600CDDED1 /* MemIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemIOCallback.cpp; sourceTree = "<group>"; };
+		55868EAB1E1C1CB600CDDED1 /* MemReadIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MemReadIOCallback.cpp; sourceTree = "<group>"; };
+		55868EB01E1C1CB600CDDED1 /* SafeReadIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SafeReadIOCallback.cpp; sourceTree = "<group>"; };
+		55868EB11E1C1CB600CDDED1 /* StdIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StdIOCallback.cpp; sourceTree = "<group>"; };
 		55868EED1E1C1DA300CDDED1 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
 		55868EF21E1C1EF100CDDED1 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55868EF71E1C1F5700CDDED1 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
-		5590040D22920A1D00614FFF /* ebml.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = ebml.xcodeproj; path = Xcodes/ebml/ebml.xcodeproj; sourceTree = SOURCE_ROOT; };
-		5590041622920A2300614FFF /* matroska.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = matroska.xcodeproj; path = Xcodes/matroska/matroska.xcodeproj; sourceTree = SOURCE_ROOT; };
 		55CBF3521F11454900E60B0B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55CBF3561F11458000E60B0B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
@@ -117,10 +287,24 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5590042722920B3300614FFF /* libebml.a in Frameworks */,
-				5590042822920B3300614FFF /* libmatroska.a in Frameworks */,
 				55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */,
+				55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */,
+				55868EEC1E1C1D6F00CDDED1 /* libmatroska.a in Frameworks */,
 				55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55868E0B1E1C1C2500CDDED1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55868E131E1C1C3700CDDED1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,6 +318,14 @@
 			);
 			path = OSTypeMapperGenerator;
 			sourceTree = "<group>";
+		};
+		556E4E79243EFF490073A252 /* includes */ = {
+			isa = PBXGroup;
+			children = (
+				556E4E7A243EFF490073A252 /* ebml_export.h */,
+			);
+			path = includes;
+			sourceTree = SOURCE_ROOT;
 		};
 		55868DEE1E1C189B00CDDED1 = {
 			isa = PBXGroup;
@@ -150,6 +342,8 @@
 			isa = PBXGroup;
 			children = (
 				55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */,
+				55868E0E1E1C1C2500CDDED1 /* libmatroska.a */,
+				55868E161E1C1C3700CDDED1 /* libebml.a */,
 				55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
 			);
 			name = Products;
@@ -188,27 +382,177 @@
 		55868E1A1E1C1C3B00CDDED1 /* Third-party */ = {
 			isa = PBXGroup;
 			children = (
-				5590040D22920A1D00614FFF /* ebml.xcodeproj */,
-				5590041622920A2300614FFF /* matroska.xcodeproj */,
+				556E4E79243EFF490073A252 /* includes */,
+				55868E1C1E1C1C8100CDDED1 /* libmatroska */,
+				55868E1B1E1C1C5800CDDED1 /* libebml */,
 			);
 			name = "Third-party";
 			path = Vendor;
 			sourceTree = "<group>";
 		};
-		5590040E22920A1D00614FFF /* Products */ = {
+		55868E1B1E1C1C5800CDDED1 /* libebml */ = {
 			isa = PBXGroup;
 			children = (
-				5590041522920A1D00614FFF /* libebml.a */,
+				55868E781E1C1CB600CDDED1 /* ebml */,
+				55868E961E1C1CB600CDDED1 /* src */,
 			);
-			name = Products;
+			path = libebml;
 			sourceTree = "<group>";
 		};
-		5590041722920A2300614FFF /* Products */ = {
+		55868E1C1E1C1C8100CDDED1 /* libmatroska */ = {
 			isa = PBXGroup;
 			children = (
-				5590041E22920A2300614FFF /* libmatroska.a */,
+				55868E1D1E1C1CA700CDDED1 /* matroska */,
+				55868E3C1E1C1CA700CDDED1 /* src */,
 			);
-			name = Products;
+			path = libmatroska;
+			sourceTree = "<group>";
+		};
+		55868E1D1E1C1CA700CDDED1 /* matroska */ = {
+			isa = PBXGroup;
+			children = (
+				55868E1E1E1C1CA700CDDED1 /* c */,
+				55868E211E1C1CA700CDDED1 /* FileKax.h */,
+				55868E221E1C1CA700CDDED1 /* KaxAttached.h */,
+				55868E231E1C1CA700CDDED1 /* KaxAttachments.h */,
+				55868E241E1C1CA700CDDED1 /* KaxBlock.h */,
+				55868E251E1C1CA700CDDED1 /* KaxBlockData.h */,
+				55868E261E1C1CA700CDDED1 /* KaxChapters.h */,
+				55868E271E1C1CA700CDDED1 /* KaxCluster.h */,
+				55868E281E1C1CA700CDDED1 /* KaxClusterData.h */,
+				55868E291E1C1CA700CDDED1 /* KaxConfig.h */,
+				55868E2A1E1C1CA700CDDED1 /* KaxContentEncoding.h */,
+				55868E2B1E1C1CA700CDDED1 /* KaxContexts.h */,
+				55868E2C1E1C1CA700CDDED1 /* KaxCues.h */,
+				55868E2D1E1C1CA700CDDED1 /* KaxCuesData.h */,
+				55868E2E1E1C1CA700CDDED1 /* KaxDefines.h */,
+				55868E2F1E1C1CA700CDDED1 /* KaxInfo.h */,
+				55868E301E1C1CA700CDDED1 /* KaxInfoData.h */,
+				55868E311E1C1CA700CDDED1 /* KaxSeekHead.h */,
+				55868E321E1C1CA700CDDED1 /* KaxSegment.h */,
+				55868E331E1C1CA700CDDED1 /* KaxSemantic.h */,
+				55868E341E1C1CA700CDDED1 /* KaxTag.h */,
+				55868E351E1C1CA700CDDED1 /* KaxTags.h */,
+				55868E361E1C1CA700CDDED1 /* KaxTrackAudio.h */,
+				55868E371E1C1CA700CDDED1 /* KaxTrackEntryData.h */,
+				55868E381E1C1CA700CDDED1 /* KaxTracks.h */,
+				55868E391E1C1CA700CDDED1 /* KaxTrackVideo.h */,
+				55868E3A1E1C1CA700CDDED1 /* KaxTypes.h */,
+				55868E3B1E1C1CA700CDDED1 /* KaxVersion.h */,
+			);
+			path = matroska;
+			sourceTree = "<group>";
+		};
+		55868E1E1E1C1CA700CDDED1 /* c */ = {
+			isa = PBXGroup;
+			children = (
+				55868E1F1E1C1CA700CDDED1 /* libmatroska.h */,
+				55868E201E1C1CA700CDDED1 /* libmatroska_t.h */,
+			);
+			path = c;
+			sourceTree = "<group>";
+		};
+		55868E3C1E1C1CA700CDDED1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				55868E3D1E1C1CA700CDDED1 /* FileKax.cpp */,
+				55868E3E1E1C1CA700CDDED1 /* KaxAttached.cpp */,
+				55868E3F1E1C1CA700CDDED1 /* KaxAttachments.cpp */,
+				55868E401E1C1CA700CDDED1 /* KaxBlock.cpp */,
+				55868E411E1C1CA700CDDED1 /* KaxBlockData.cpp */,
+				55868E421E1C1CA700CDDED1 /* KaxCluster.cpp */,
+				55868E431E1C1CA700CDDED1 /* KaxContexts.cpp */,
+				55868E441E1C1CA700CDDED1 /* KaxCues.cpp */,
+				55868E451E1C1CA700CDDED1 /* KaxCuesData.cpp */,
+				55868E461E1C1CA700CDDED1 /* KaxInfoData.cpp */,
+				55868E471E1C1CA700CDDED1 /* KaxSeekHead.cpp */,
+				55868E481E1C1CA700CDDED1 /* KaxSegment.cpp */,
+				55868E491E1C1CA700CDDED1 /* KaxSemantic.cpp */,
+				55868E4A1E1C1CA700CDDED1 /* KaxTracks.cpp */,
+				55868E4B1E1C1CA700CDDED1 /* KaxVersion.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		55868E781E1C1CB600CDDED1 /* ebml */ = {
+			isa = PBXGroup;
+			children = (
+				55868E791E1C1CB600CDDED1 /* c */,
+				55868E7B1E1C1CB600CDDED1 /* Debug.h */,
+				55868E7C1E1C1CB600CDDED1 /* EbmlBinary.h */,
+				55868E7D1E1C1CB600CDDED1 /* EbmlConfig.h */,
+				55868E7E1E1C1CB600CDDED1 /* EbmlContexts.h */,
+				55868E7F1E1C1CB600CDDED1 /* EbmlCrc32.h */,
+				55868E801E1C1CB600CDDED1 /* EbmlDate.h */,
+				55868E811E1C1CB600CDDED1 /* EbmlDummy.h */,
+				55868E821E1C1CB600CDDED1 /* EbmlElement.h */,
+				55868E831E1C1CB600CDDED1 /* EbmlEndian.h */,
+				55868E841E1C1CB600CDDED1 /* EbmlFloat.h */,
+				55868E851E1C1CB600CDDED1 /* EbmlHead.h */,
+				55868E861E1C1CB600CDDED1 /* EbmlId.h */,
+				55868E871E1C1CB600CDDED1 /* EbmlMaster.h */,
+				55868E881E1C1CB600CDDED1 /* EbmlSInteger.h */,
+				55868E891E1C1CB600CDDED1 /* EbmlStream.h */,
+				55868E8A1E1C1CB600CDDED1 /* EbmlString.h */,
+				55868E8B1E1C1CB600CDDED1 /* EbmlSubHead.h */,
+				55868E8C1E1C1CB600CDDED1 /* EbmlTypes.h */,
+				55868E8D1E1C1CB600CDDED1 /* EbmlUInteger.h */,
+				55868E8E1E1C1CB600CDDED1 /* EbmlUnicodeString.h */,
+				55868E8F1E1C1CB600CDDED1 /* EbmlVersion.h */,
+				55868E901E1C1CB600CDDED1 /* EbmlVoid.h */,
+				55868E911E1C1CB600CDDED1 /* IOCallback.h */,
+				55868E921E1C1CB600CDDED1 /* MemIOCallback.h */,
+				55868E931E1C1CB600CDDED1 /* MemReadIOCallback.h */,
+				55868E941E1C1CB600CDDED1 /* SafeReadIOCallback.h */,
+				55868E951E1C1CB600CDDED1 /* StdIOCallback.h */,
+			);
+			path = ebml;
+			sourceTree = "<group>";
+		};
+		55868E791E1C1CB600CDDED1 /* c */ = {
+			isa = PBXGroup;
+			children = (
+				55868E7A1E1C1CB600CDDED1 /* libebml_t.h */,
+			);
+			path = c;
+			sourceTree = "<group>";
+		};
+		55868E961E1C1CB600CDDED1 /* src */ = {
+			isa = PBXGroup;
+			children = (
+				55868E971E1C1CB600CDDED1 /* Debug.cpp */,
+				55868E981E1C1CB600CDDED1 /* EbmlBinary.cpp */,
+				55868E991E1C1CB600CDDED1 /* EbmlContexts.cpp */,
+				55868E9A1E1C1CB600CDDED1 /* EbmlCrc32.cpp */,
+				55868E9B1E1C1CB600CDDED1 /* EbmlDate.cpp */,
+				55868E9C1E1C1CB600CDDED1 /* EbmlDummy.cpp */,
+				55868E9D1E1C1CB600CDDED1 /* EbmlElement.cpp */,
+				55868E9E1E1C1CB600CDDED1 /* EbmlFloat.cpp */,
+				55868E9F1E1C1CB600CDDED1 /* EbmlHead.cpp */,
+				55868EA01E1C1CB600CDDED1 /* EbmlMaster.cpp */,
+				55868EA11E1C1CB600CDDED1 /* EbmlSInteger.cpp */,
+				55868EA21E1C1CB600CDDED1 /* EbmlStream.cpp */,
+				55868EA31E1C1CB600CDDED1 /* EbmlString.cpp */,
+				55868EA41E1C1CB600CDDED1 /* EbmlSubHead.cpp */,
+				55868EA51E1C1CB600CDDED1 /* EbmlUInteger.cpp */,
+				55868EA61E1C1CB600CDDED1 /* EbmlUnicodeString.cpp */,
+				55868EA71E1C1CB600CDDED1 /* EbmlVersion.cpp */,
+				55868EA81E1C1CB600CDDED1 /* EbmlVoid.cpp */,
+				55868EA91E1C1CB600CDDED1 /* IOCallback.cpp */,
+				55868EAA1E1C1CB600CDDED1 /* MemIOCallback.cpp */,
+				55868EAB1E1C1CB600CDDED1 /* MemReadIOCallback.cpp */,
+				55868EAC1E1C1CB600CDDED1 /* platform */,
+				55868EB01E1C1CB600CDDED1 /* SafeReadIOCallback.cpp */,
+				55868EB11E1C1CB600CDDED1 /* StdIOCallback.cpp */,
+			);
+			path = src;
+			sourceTree = "<group>";
+		};
+		55868EAC1E1C1CB600CDDED1 /* platform */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = platform;
 			sourceTree = "<group>";
 		};
 		55CBF3511F11454800E60B0B /* Frameworks */ = {
@@ -222,6 +566,80 @@
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		55868E0C1E1C1C2500CDDED1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868E611E1C1CA700CDDED1 /* KaxTag.h in Headers */,
+				55868E5E1E1C1CA700CDDED1 /* KaxSeekHead.h in Headers */,
+				55868E571E1C1CA700CDDED1 /* KaxContentEncoding.h in Headers */,
+				55868E601E1C1CA700CDDED1 /* KaxSemantic.h in Headers */,
+				55868E4C1E1C1CA700CDDED1 /* libmatroska.h in Headers */,
+				55868E531E1C1CA700CDDED1 /* KaxChapters.h in Headers */,
+				55868E621E1C1CA700CDDED1 /* KaxTags.h in Headers */,
+				55868E561E1C1CA700CDDED1 /* KaxConfig.h in Headers */,
+				55868E5B1E1C1CA700CDDED1 /* KaxDefines.h in Headers */,
+				55868E661E1C1CA700CDDED1 /* KaxTrackVideo.h in Headers */,
+				55868E551E1C1CA700CDDED1 /* KaxClusterData.h in Headers */,
+				55868E5C1E1C1CA700CDDED1 /* KaxInfo.h in Headers */,
+				55868E5D1E1C1CA700CDDED1 /* KaxInfoData.h in Headers */,
+				55868E4F1E1C1CA700CDDED1 /* KaxAttached.h in Headers */,
+				55868E581E1C1CA700CDDED1 /* KaxContexts.h in Headers */,
+				55868E4E1E1C1CA700CDDED1 /* FileKax.h in Headers */,
+				55868E521E1C1CA700CDDED1 /* KaxBlockData.h in Headers */,
+				55868E631E1C1CA700CDDED1 /* KaxTrackAudio.h in Headers */,
+				55868E591E1C1CA700CDDED1 /* KaxCues.h in Headers */,
+				55868E5A1E1C1CA700CDDED1 /* KaxCuesData.h in Headers */,
+				55868E651E1C1CA700CDDED1 /* KaxTracks.h in Headers */,
+				55868E671E1C1CA700CDDED1 /* KaxTypes.h in Headers */,
+				55868E511E1C1CA700CDDED1 /* KaxBlock.h in Headers */,
+				55868E4D1E1C1CA700CDDED1 /* libmatroska_t.h in Headers */,
+				55868E5F1E1C1CA700CDDED1 /* KaxSegment.h in Headers */,
+				55868E501E1C1CA700CDDED1 /* KaxAttachments.h in Headers */,
+				55868E681E1C1CA700CDDED1 /* KaxVersion.h in Headers */,
+				55868E641E1C1CA700CDDED1 /* KaxTrackEntryData.h in Headers */,
+				55868E541E1C1CA700CDDED1 /* KaxCluster.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55868E141E1C1C3700CDDED1 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868EBF1E1C1CB600CDDED1 /* EbmlMaster.h in Headers */,
+				55868EC31E1C1CB600CDDED1 /* EbmlSubHead.h in Headers */,
+				55868EB51E1C1CB600CDDED1 /* EbmlConfig.h in Headers */,
+				55868EBC1E1C1CB600CDDED1 /* EbmlFloat.h in Headers */,
+				55868EBA1E1C1CB600CDDED1 /* EbmlElement.h in Headers */,
+				55868EC71E1C1CB600CDDED1 /* EbmlVersion.h in Headers */,
+				55868EC81E1C1CB600CDDED1 /* EbmlVoid.h in Headers */,
+				55868EB81E1C1CB600CDDED1 /* EbmlDate.h in Headers */,
+				55868EC41E1C1CB600CDDED1 /* EbmlTypes.h in Headers */,
+				55868EC01E1C1CB600CDDED1 /* EbmlSInteger.h in Headers */,
+				55868EB31E1C1CB600CDDED1 /* Debug.h in Headers */,
+				55868EB71E1C1CB600CDDED1 /* EbmlCrc32.h in Headers */,
+				55868EB21E1C1CB600CDDED1 /* libebml_t.h in Headers */,
+				55868EB91E1C1CB600CDDED1 /* EbmlDummy.h in Headers */,
+				55868EC21E1C1CB600CDDED1 /* EbmlString.h in Headers */,
+				55868ECC1E1C1CB600CDDED1 /* SafeReadIOCallback.h in Headers */,
+				55868EC91E1C1CB600CDDED1 /* IOCallback.h in Headers */,
+				55868ECD1E1C1CB600CDDED1 /* StdIOCallback.h in Headers */,
+				55868EB41E1C1CB600CDDED1 /* EbmlBinary.h in Headers */,
+				55868EC61E1C1CB600CDDED1 /* EbmlUnicodeString.h in Headers */,
+				55868EB61E1C1CB600CDDED1 /* EbmlContexts.h in Headers */,
+				55868ECB1E1C1CB600CDDED1 /* MemReadIOCallback.h in Headers */,
+				55868EBE1E1C1CB600CDDED1 /* EbmlId.h in Headers */,
+				55868EBD1E1C1CB600CDDED1 /* EbmlHead.h in Headers */,
+				55868EC11E1C1CB600CDDED1 /* EbmlStream.h in Headers */,
+				55868ECA1E1C1CB600CDDED1 /* MemIOCallback.h in Headers */,
+				55868EBB1E1C1CB600CDDED1 /* EbmlEndian.h in Headers */,
+				55868EC51E1C1CB600CDDED1 /* EbmlUInteger.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
 		55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {
@@ -253,15 +671,48 @@
 			buildRules = (
 			);
 			dependencies = (
-				5590042422920B2A00614FFF /* PBXTargetDependency */,
-				5590042622920B2A00614FFF /* PBXTargetDependency */,
-				5590042222920A4700614FFF /* PBXTargetDependency */,
 				55239B731E301A1E00B5B7D0 /* PBXTargetDependency */,
+				55868EE81E1C1D6800CDDED1 /* PBXTargetDependency */,
+				55868EEA1E1C1D6800CDDED1 /* PBXTargetDependency */,
 			);
 			name = MKVImporter;
 			productName = MKVImporter;
 			productReference = 55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */;
 			productType = "com.apple.product-type.spotlight-importer";
+		};
+		55868E0D1E1C1C2500CDDED1 /* matroska */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55868E0F1E1C1C2500CDDED1 /* Build configuration list for PBXNativeTarget "matroska" */;
+			buildPhases = (
+				55868E0A1E1C1C2500CDDED1 /* Sources */,
+				55868E0B1E1C1C2500CDDED1 /* Frameworks */,
+				55868E0C1E1C1C2500CDDED1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = matroska;
+			productName = matroska;
+			productReference = 55868E0E1E1C1C2500CDDED1 /* libmatroska.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+		55868E151E1C1C3700CDDED1 /* ebml */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 55868E171E1C1C3700CDDED1 /* Build configuration list for PBXNativeTarget "ebml" */;
+			buildPhases = (
+				55868E121E1C1C3700CDDED1 /* Sources */,
+				55868E131E1C1C3700CDDED1 /* Frameworks */,
+				55868E141E1C1C3700CDDED1 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ebml;
+			productName = ebml;
+			productReference = 55868E161E1C1C3700CDDED1 /* libebml.a */;
+			productType = "com.apple.product-type.library.static";
 		};
 /* End PBXNativeTarget section */
 
@@ -282,6 +733,14 @@
 						CreatedOnToolsVersion = 8.2.1;
 						ProvisioningStyle = Automatic;
 					};
+					55868E0D1E1C1C2500CDDED1 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
+					55868E151E1C1C3700CDDED1 = {
+						CreatedOnToolsVersion = 8.2.1;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 55868DF21E1C189B00CDDED1 /* Build configuration list for PBXProject "MKVImporter" */;
@@ -294,40 +753,15 @@
 			mainGroup = 55868DEE1E1C189B00CDDED1;
 			productRefGroup = 55868DF81E1C189B00CDDED1 /* Products */;
 			projectDirPath = "";
-			projectReferences = (
-				{
-					ProductGroup = 5590040E22920A1D00614FFF /* Products */;
-					ProjectRef = 5590040D22920A1D00614FFF /* ebml.xcodeproj */;
-				},
-				{
-					ProductGroup = 5590041722920A2300614FFF /* Products */;
-					ProjectRef = 5590041622920A2300614FFF /* matroska.xcodeproj */;
-				},
-			);
 			projectRoot = "";
 			targets = (
 				55868DF61E1C189B00CDDED1 /* MKVImporter */,
+				55868E0D1E1C1C2500CDDED1 /* matroska */,
+				55868E151E1C1C3700CDDED1 /* ebml */,
 				55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
 			);
 		};
 /* End PBXProject section */
-
-/* Begin PBXReferenceProxy section */
-		5590041522920A1D00614FFF /* libebml.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libebml.a;
-			remoteRef = 5590041422920A1D00614FFF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		5590041E22920A2300614FFF /* libmatroska.a */ = {
-			isa = PBXReferenceProxy;
-			fileType = archive.ar;
-			path = libmatroska.a;
-			remoteRef = 5590041D22920A2300614FFF /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		55868DF51E1C189B00CDDED1 /* Resources */ = {
@@ -381,6 +815,58 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		55868E0A1E1C1C2500CDDED1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868E761E1C1CA800CDDED1 /* KaxTracks.cpp in Sources */,
+				55868E771E1C1CA800CDDED1 /* KaxVersion.cpp in Sources */,
+				55868E701E1C1CA700CDDED1 /* KaxCues.cpp in Sources */,
+				55868E711E1C1CA700CDDED1 /* KaxCuesData.cpp in Sources */,
+				55868E741E1C1CA700CDDED1 /* KaxSegment.cpp in Sources */,
+				55868E721E1C1CA700CDDED1 /* KaxInfoData.cpp in Sources */,
+				55868E751E1C1CA700CDDED1 /* KaxSemantic.cpp in Sources */,
+				55868E6C1E1C1CA700CDDED1 /* KaxBlock.cpp in Sources */,
+				55868E6A1E1C1CA700CDDED1 /* KaxAttached.cpp in Sources */,
+				55868E6B1E1C1CA700CDDED1 /* KaxAttachments.cpp in Sources */,
+				55868E6E1E1C1CA700CDDED1 /* KaxCluster.cpp in Sources */,
+				55868E691E1C1CA700CDDED1 /* FileKax.cpp in Sources */,
+				55868E731E1C1CA700CDDED1 /* KaxSeekHead.cpp in Sources */,
+				55868E6D1E1C1CA700CDDED1 /* KaxBlockData.cpp in Sources */,
+				55868E6F1E1C1CA700CDDED1 /* KaxContexts.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		55868E121E1C1C3700CDDED1 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				55868ECF1E1C1CB600CDDED1 /* EbmlBinary.cpp in Sources */,
+				55868ED21E1C1CB600CDDED1 /* EbmlDate.cpp in Sources */,
+				55868EE61E1C1CB600CDDED1 /* StdIOCallback.cpp in Sources */,
+				55868ED01E1C1CB600CDDED1 /* EbmlContexts.cpp in Sources */,
+				55868EDF1E1C1CB600CDDED1 /* EbmlVoid.cpp in Sources */,
+				55868ED71E1C1CB600CDDED1 /* EbmlMaster.cpp in Sources */,
+				55868EDD1E1C1CB600CDDED1 /* EbmlUnicodeString.cpp in Sources */,
+				55868ECE1E1C1CB600CDDED1 /* Debug.cpp in Sources */,
+				55868ED61E1C1CB600CDDED1 /* EbmlHead.cpp in Sources */,
+				55868ED51E1C1CB600CDDED1 /* EbmlFloat.cpp in Sources */,
+				55868EE01E1C1CB600CDDED1 /* IOCallback.cpp in Sources */,
+				55868EE21E1C1CB600CDDED1 /* MemReadIOCallback.cpp in Sources */,
+				55868EDC1E1C1CB600CDDED1 /* EbmlUInteger.cpp in Sources */,
+				55868EDA1E1C1CB600CDDED1 /* EbmlString.cpp in Sources */,
+				55868EDB1E1C1CB600CDDED1 /* EbmlSubHead.cpp in Sources */,
+				55868ED41E1C1CB600CDDED1 /* EbmlElement.cpp in Sources */,
+				55868EE11E1C1CB600CDDED1 /* MemIOCallback.cpp in Sources */,
+				55868ED81E1C1CB600CDDED1 /* EbmlSInteger.cpp in Sources */,
+				55868ED31E1C1CB600CDDED1 /* EbmlDummy.cpp in Sources */,
+				55868ED11E1C1CB600CDDED1 /* EbmlCrc32.cpp in Sources */,
+				55868EE51E1C1CB600CDDED1 /* SafeReadIOCallback.cpp in Sources */,
+				55868ED91E1C1CB600CDDED1 /* EbmlStream.cpp in Sources */,
+				55868EDE1E1C1CB600CDDED1 /* EbmlVersion.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -389,20 +875,15 @@
 			target = 55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */;
 			targetProxy = 55239B721E301A1E00B5B7D0 /* PBXContainerItemProxy */;
 		};
-		5590042222920A4700614FFF /* PBXTargetDependency */ = {
+		55868EE81E1C1D6800CDDED1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = matroska;
-			targetProxy = 5590042122920A4700614FFF /* PBXContainerItemProxy */;
+			target = 55868E0D1E1C1C2500CDDED1 /* matroska */;
+			targetProxy = 55868EE71E1C1D6800CDDED1 /* PBXContainerItemProxy */;
 		};
-		5590042422920B2A00614FFF /* PBXTargetDependency */ = {
+		55868EEA1E1C1D6800CDDED1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			name = ebml;
-			targetProxy = 5590042322920B2A00614FFF /* PBXContainerItemProxy */;
-		};
-		5590042622920B2A00614FFF /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = install;
-			targetProxy = 5590042522920B2A00614FFF /* PBXContainerItemProxy */;
+			target = 55868E151E1C1C3700CDDED1 /* ebml */;
+			targetProxy = 55868EE91E1C1D6800CDDED1 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -558,11 +1039,11 @@
 		55868E071E1C189B00CDDED1 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				EXPORTED_SYMBOLS_FILE = MKVImporter/MKVImporter.exp;
 				HEADER_SEARCH_PATHS = (
-					Xcodes/local/include,
+					includes,
+					Vendor/libebml/,
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
@@ -579,12 +1060,12 @@
 		55868E081E1C189B00CDDED1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = YES;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEAD_CODE_STRIPPING = YES;
 				EXPORTED_SYMBOLS_FILE = MKVImporter/MKVImporter.exp;
 				HEADER_SEARCH_PATHS = (
-					Xcodes/local/include,
+					includes,
+					Vendor/libebml/,
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
@@ -595,6 +1076,82 @@
 				SKIP_INSTALL = NO;
 				STRIP_STYLE = all;
 				WRAPPER_EXTENSION = mdimporter;
+			};
+			name = Release;
+		};
+		55868E101E1C1C2500CDDED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EXECUTABLE_PREFIX = lib;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					Vendor/libmatroska,
+					includes,
+				);
+				KEEP_PRIVATE_EXTERNS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		55868E111E1C1C2500CDDED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EXECUTABLE_PREFIX = lib;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					Vendor/libmatroska,
+					includes,
+				);
+				KEEP_PRIVATE_EXTERNS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Release;
+		};
+		55868E181E1C1C3700CDDED1 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EXECUTABLE_PREFIX = lib;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					includes,
+				);
+				KEEP_PRIVATE_EXTERNS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
+			};
+			name = Debug;
+		};
+		55868E191E1C1C3700CDDED1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				EXECUTABLE_PREFIX = lib;
+				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
+				HEADER_SEARCH_PATHS = (
+					Vendor/libebml/,
+					includes,
+				);
+				KEEP_PRIVATE_EXTERNS = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 			};
 			name = Release;
 		};
@@ -624,6 +1181,24 @@
 			buildConfigurations = (
 				55868E071E1C189B00CDDED1 /* Debug */,
 				55868E081E1C189B00CDDED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55868E0F1E1C1C2500CDDED1 /* Build configuration list for PBXNativeTarget "matroska" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55868E101E1C1C2500CDDED1 /* Debug */,
+				55868E111E1C1C2500CDDED1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		55868E171E1C1C3700CDDED1 /* Build configuration list for PBXNativeTarget "ebml" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				55868E181E1C1C3700CDDED1 /* Debug */,
+				55868E191E1C1C3700CDDED1 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
