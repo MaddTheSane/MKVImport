@@ -640,13 +640,13 @@ FindChild(libebml::EbmlElement const *e) {
 
 static std::string get_simple_name(const KaxTagSimple &tag)
 {
-	KaxTagName *tname = FindChild<KaxTagName>(tag);
+	const KaxTagName *tname = FindChild<KaxTagName>(tag);
 	return tname ? tname->GetValueUTF8() : "";
 }
 
 static std::string get_simple_value(const KaxTagSimple &tag)
 {
-	KaxTagString *tstring = FindChild<KaxTagString>(tag);
+	const KaxTagString *tstring = FindChild<KaxTagString>(tag);
 	return tstring ? tstring->GetValueUTF8() : "";
 }
 //KaxTagLangue
@@ -899,7 +899,7 @@ static NSString *getLanguageCode(const string & cppLang)
 
 static NSString *getLanguageCode(KaxTrackEntry & track)
 {
-	KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
+	const KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
 	const string &cppLang(trackLang);
 	return getLanguageCode(cppLang);
 }

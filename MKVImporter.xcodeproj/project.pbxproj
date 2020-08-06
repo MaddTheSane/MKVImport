@@ -1074,7 +1074,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
-				STRIP_STYLE = all;
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Release;
