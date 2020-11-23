@@ -19,6 +19,8 @@
 				<string>org.videolan.webm</string>
 				<string>org.perian.matroska</string>
 				<string>com.macblurayplayer.matroska</string>
+				<string>io.iina.mkv</string>
+				<string>io.iina.mka</string>
 			</array>
 		</dict>
 	</array>
@@ -55,7 +57,7 @@
 	<key>LSMinimumSystemVersion</key>
 	<string>$(MACOSX_DEPLOYMENT_TARGET)</string>
 	<key>NSHumanReadableCopyright</key>
-	<string>Copyright © 2017-2019 C.W. Betts. All rights reserved.</string>
+	<string>Copyright © 2017-2020 C.W. Betts. All rights reserved.</string>
 	<key>UTExportedTypeDeclarations</key>
 	<array>
 		<dict>
