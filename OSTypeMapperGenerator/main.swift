@@ -61,7 +61,7 @@ private let kAudioFormatSpeex = "Speex"
 
 private let kSubtitleFormatText = "SubRip"
 
-func convertToCocoaDict(_ kOSTypeCodecIDs: [FourCharCodec]) -> [String: [NSObject]] {
+private func convertToCocoaDict(_ kOSTypeCodecIDs: [FourCharCodec]) -> [String: [NSObject]] {
 	var codecDict2 = [String: Set<NSObject>]()
 	for obj in kOSTypeCodecIDs {
 		if codecDict2[obj.cType] == nil {
@@ -96,7 +96,7 @@ func convertToCocoaDict(_ kOSTypeCodecIDs: [FourCharCodec]) -> [String: [NSObjec
 	return tmpDict
 }
 
-func mainFunc() {
+private func mainFunc() {
 	//TODO: remove codecs used natively by Matroskas.
 	let kOSTypeCodecIDs: [FourCharCodec] = {
 		var toRet = [FourCharCodec]()
