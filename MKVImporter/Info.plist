@@ -21,6 +21,7 @@
 				<string>com.macblurayplayer.matroska</string>
 				<string>io.iina.mkv</string>
 				<string>io.iina.mka</string>
+				<string>org.webmproject.webm</string>
 			</array>
 		</dict>
 	</array>
@@ -128,7 +129,7 @@
 			<key>UTTypeDescription</key>
 			<string>WebM Media</string>
 			<key>UTTypeIdentifier</key>
-			<string>com.google.webm</string>
+			<string>org.webmproject.webm</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>com.apple.ostype</key>

@@ -8,4 +8,4 @@
 
 "org.matroska.mkv" = "Matroska Video";
 "org.matroska.mka" = "Matroska Audio";
-"com.google.webm" = "Google WebM";
+"org.webmproject.webm" = "Google WebM";
