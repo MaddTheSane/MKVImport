@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #include "mkvNameShortener.hpp"
 #include <string>
-#include "Debugging.hpp"
+#include "Debugging.h"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using std::string;

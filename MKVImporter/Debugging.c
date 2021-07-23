@@ -6,7 +6,7 @@
 //  Copyright © 2019 C.W. Betts. All rights reserved.
 //
 
-#include "Debugging.hpp"
+#include "Debugging.h"
 #include <os/log.h>
 
 void postError(mkvErrorLevel level, CFStringRef format, ...)

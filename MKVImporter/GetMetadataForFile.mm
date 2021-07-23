@@ -35,7 +35,7 @@
 
 #include "mkvNameShortener.hpp"
 #include "ParseSSA.hpp"
-#include "Debugging.hpp"
+#include "Debugging.h"
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
