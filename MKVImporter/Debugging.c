@@ -37,7 +37,7 @@ void postError(mkvErrorLevel level, CFStringRef format, ...)
 				break;
 		}
 		CFStringRef formatted = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, NULL, format, theList);
-		os_log_with_type(OS_LOG_DEFAULT, logtypes, "%@", formatted);
+		os_log_with_type(OS_LOG_DEFAULT, logtypes, "%{public}@", formatted);
 		CFRelease(formatted);
 	} else {
 		// TODO: use ACL?

@@ -205,10 +205,9 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 #define MKV_V_QT "V_QUICKTIME"
 #define MKV_A_QT "A_QUICKTIME"
 
-static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
-
 static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 {
+	static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		NSMutableDictionary<NSNumber*, NSString*> *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
