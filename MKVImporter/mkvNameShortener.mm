@@ -99,6 +99,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kAudioFormatMPEG4AAC, "A_AAC" },
 	{ kAudioFormatDTS, "A_DTS" },
 	{ kSubFormatVobSub, "S_VOBSUB" },
+    { "AV1", "V_AV1" },
 
 	// uncommon video codecs:
 	{ "Raw Video", "V_UNCOMPRESSED" },
