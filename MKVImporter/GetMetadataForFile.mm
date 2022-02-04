@@ -46,7 +46,9 @@ using namespace std;
 
 static NSString *getLanguageCode(const string & cppLang);
 static NSString *getLanguageCode(KaxTrackEntry & track);
+static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
+static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country=NULL);
 
 class MatroskaImport {
 private:
@@ -348,7 +350,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		{
 			NSString *nsLang = getLanguageCode(track);
 			if (nsLang) {
-				[langSet addObject:nsLang];
+				[langSet addObject:[NSLocale canonicalLocaleIdentifierFromString:nsLang]];
 			}
 		}
 		{
@@ -522,7 +524,14 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
 			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
 			KaxChapterCountry * chapCountry = FindChild<KaxChapterCountry>(*chapDisplay);
-			NSString *chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
+			KaxChapLanguageIETF * chapIETF = FindChild<KaxChapLanguageIETF>(*chapDisplay);
+			NSString *chapLocale;
+			if (chapIETF) {
+				chapLocale = getLocaleCode(chapIETF, chapCountry);
+			}
+			if (!chapLocale) {
+				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
+			}
 			if (![chapters objectForKey:chapLocale]) {
 				chapters[chapLocale] = [[NSMutableArray alloc] init];
 			}
@@ -729,8 +738,9 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 	//trackEntries
 	for (auto child : trackEntries) {
 		auto tag = dynamic_cast<KaxTag *>(child);
-		if (!tag)
+		if (!tag) {
 			continue;
+		}
 
 		// exclude tags that refer to specific tracks...
 		if (get_tuid(*tag) != -1) {
@@ -743,12 +753,15 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 		}
 
 		for (auto const simple_tag_elt : *tag) {
-			auto simple_tag = dynamic_cast<KaxTagSimple *const>(simple_tag_elt);
+			const auto simple_tag = dynamic_cast<KaxTagSimple *const>(simple_tag_elt);
 			if (!simple_tag) {
 				continue;
 			}
 			string lang = get_simple_language(*simple_tag);
 			NSString *nsLang = getLanguageCode(lang) ?: @"";
+			if ([nsLang length] != 0) {
+				nsLang = [NSLocale canonicalLocaleIdentifierFromString:nsLang];
+			}
 			if (!tagDict[nsLang]) {
 				tagDict[nsLang] = [[NSMutableDictionary alloc] init];
 			}
@@ -893,20 +906,54 @@ static NSString *getLanguageCode(const string & cppLang)
 		return nil;
 	}
 	NSString *threeCharLang = @(cppLang.c_str());
-	NSString *nsLang = [NSLocale canonicalLanguageIdentifierFromString:threeCharLang];
-	return nsLang;
+	return threeCharLang;
 }
 
 static NSString *getLanguageCode(KaxTrackEntry & track)
 {
+	const KaxLanguageIETF * ietfLang = FindChild<KaxLanguageIETF>(track);
+	if (ietfLang) {
+		NSString *toRet = getLanguageCode(*ietfLang);
+		if (toRet) {
+			return [NSLocale canonicalLocaleIdentifierFromString:toRet];
+		}
+	}
 	const KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
 	const string &cppLang(trackLang);
 	return getLanguageCode(cppLang);
 }
 
+static NSString *getLanguageCode(const KaxLanguageIETF & language)
+{
+	const string &threeLang(language);
+	NSString *locale = getLanguageCode(threeLang);
+	if (!locale) {
+		return nil;
+	}
+	return locale;
+}
+
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country)
 {
 	const string &threeLang(language);
+	NSString *locale = getLanguageCode(threeLang);
+	if (!locale) {
+		return nil;
+	}
+	if (country) {
+		string theCountry(*country);
+		if (theCountry.length() == 0) {
+			return locale;
+		}
+		locale = [locale stringByAppendingFormat:@"_%s", theCountry.c_str()];
+	}
+	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
+	return locale;
+}
+
+static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country)
+{
+	const string &threeLang(*language);
 	NSString *locale = getLanguageCode(threeLang);
 	if (!locale) {
 		return nil;
