@@ -99,7 +99,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kAudioFormatMPEG4AAC, "A_AAC" },
 	{ kAudioFormatDTS, "A_DTS" },
 	{ kSubFormatVobSub, "S_VOBSUB" },
-    { "AV1", "V_AV1" },
+	{ "AV1", "V_AV1" },
 
 	// uncommon video codecs:
 	{ "Raw Video", "V_UNCOMPRESSED" },
@@ -135,7 +135,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs[] = {
 	{ kAudioFormatMPEG4AAC, "A_AAC/MPEG2/SSR" },
 	{ kAudioFormatMPEGLayer1, "A_MPEG/L1" },
 	{ kAudioFormatMPEGLayer2, "A_MPEG/L2" },
-    { "TrueHD", "A_TRUEHD"},
+	{ "TrueHD", "A_TRUEHD"},
 	//{ kAudioFormatMPEGLayer3, "A_MPEG/L3" },
 	//{ kAudioFormatAC3, "A_AC3" },
 	// anything special for these two?

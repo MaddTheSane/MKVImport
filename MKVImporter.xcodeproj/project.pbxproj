@@ -368,6 +368,7 @@
 			);
 			path = MKVImporter;
 			sourceTree = "<group>";
+			usesTabs = 1;
 		};
 		55868DFA1E1C189B00CDDED1 /* Supporting Files */ = {
 			isa = PBXGroup;
