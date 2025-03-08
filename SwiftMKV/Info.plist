@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CSExtensionLabel</key>
+	<string>SwiftMKVImporter</string>
+	<key>NSExtension</key>
+	<dict>
+		<key>NSExtensionAttributes</key>
+		<dict>
+			<key>CSSupportedContentTypes</key>
+			<array>
+				<string>org.matroska.mkv</string>
+				<string>org.matroska.mka</string>
+				<string>com.google.webm</string>
+				<string>org.videolan.mkv</string>
+				<string>org.videolan.mka</string>
+				<string>org.videolan.webm</string>
+				<string>org.perian.matroska</string>
+				<string>com.macblurayplayer.matroska</string>
+				<string>io.iina.mkv</string>
+				<string>io.iina.mka</string>
+				<string>org.webmproject.webm</string>
+			</array>
+		</dict>
+		<key>NSExtensionPointIdentifier</key>
+		<string>com.apple.spotlight.import</string>
+		<key>NSExtensionPrincipalClass</key>
+		<string>$(PRODUCT_MODULE_NAME).ImportExtension</string>
+	</dict>
+</dict>
+</plist>

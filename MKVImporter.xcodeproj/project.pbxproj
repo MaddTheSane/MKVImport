@@ -3,10 +3,12 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 70;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		550CB8062D7C424D005455BB /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
+		550CB8072D7C4253005455BB /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF81E1C1F5700CDDED1 /* schema.strings */; };
 		55239B6E1E301A1200B5B7D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55239B6D1E301A1200B5B7D0 /* main.swift */; };
 		5528F5CD1E6DF7AB0001D475 /* ParseSSA.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */; };
 		557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
@@ -118,6 +120,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		550CB7FF2D7C41D4005455BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55239B6A1E301A1200B5B7D0;
+			remoteInfo = OSTypeMapperGenerator;
+		};
+		550CB8012D7C41D4005455BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868E151E1C1C3700CDDED1;
+			remoteInfo = ebml;
+		};
+		550CB8032D7C41D4005455BB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868E0D1E1C1C2500CDDED1;
+			remoteInfo = matroska;
+		};
 		55239B721E301A1E00B5B7D0 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
@@ -154,6 +177,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		550CB7F52D7C41A9005455BB /* SwiftMKV.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = SwiftMKV.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OSTypeMapperGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		55239B6D1E301A1200B5B7D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParseSSA.mm; sourceTree = "<group>"; };
@@ -276,7 +300,28 @@
 		55E76F68233A07FD00EAEE1F /* Debugging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debugging.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		550CB7FB2D7C41A9005455BB /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 550CB7F42D7C41A9005455BB /* SwiftMKV */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		550CB7F62D7C41A9005455BB /* SwiftMKV */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (550CB7FB2D7C41A9005455BB /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = SwiftMKV; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
+
 /* Begin PBXFrameworksBuildPhase section */
+		550CB7F22D7C41A9005455BB /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55239B681E301A1200B5B7D0 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -335,6 +380,7 @@
 				55868E1A1E1C1C3B00CDDED1 /* Third-party */,
 				55868DF91E1C189B00CDDED1 /* MKVImporter */,
 				55239B6C1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
+				550CB7F62D7C41A9005455BB /* SwiftMKV */,
 				55CBF3511F11454800E60B0B /* Frameworks */,
 				55868DF81E1C189B00CDDED1 /* Products */,
 			);
@@ -347,6 +393,7 @@
 				55868E0E1E1C1C2500CDDED1 /* libmatroska.a */,
 				55868E161E1C1C3700CDDED1 /* libebml.a */,
 				55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
+				550CB7F52D7C41A9005455BB /* SwiftMKV.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -645,6 +692,32 @@
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
+		550CB7F42D7C41A9005455BB /* SwiftMKV */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 550CB7FC2D7C41A9005455BB /* Build configuration list for PBXNativeTarget "SwiftMKV" */;
+			buildPhases = (
+				550CB7F12D7C41A9005455BB /* Sources */,
+				550CB7F22D7C41A9005455BB /* Frameworks */,
+				550CB8052D7C41F1005455BB /* ShellScript */,
+				550CB7F32D7C41A9005455BB /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				550CB8002D7C41D4005455BB /* PBXTargetDependency */,
+				550CB8022D7C41D4005455BB /* PBXTargetDependency */,
+				550CB8042D7C41D4005455BB /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				550CB7F62D7C41A9005455BB /* SwiftMKV */,
+			);
+			name = SwiftMKV;
+			packageProductDependencies = (
+			);
+			productName = SwiftMKV;
+			productReference = 550CB7F52D7C41A9005455BB /* SwiftMKV.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 55239B6F1E301A1200B5B7D0 /* Build configuration list for PBXNativeTarget "OSTypeMapperGenerator" */;
@@ -723,10 +796,14 @@
 		55868DEF1E1C189B00CDDED1 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0820;
+				LastSwiftUpdateCheck = 1620;
 				LastUpgradeCheck = 1250;
 				ORGANIZATIONNAME = "C.W. Betts";
 				TargetAttributes = {
+					550CB7F42D7C41A9005455BB = {
+						CreatedOnToolsVersion = 16.2;
+						LastSwiftMigration = 1620;
+					};
 					55239B6A1E301A1200B5B7D0 = {
 						CreatedOnToolsVersion = 8.2.1;
 						LastSwiftMigration = 1020;
@@ -762,11 +839,21 @@
 				55868E0D1E1C1C2500CDDED1 /* matroska */,
 				55868E151E1C1C3700CDDED1 /* ebml */,
 				55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
+				550CB7F42D7C41A9005455BB /* SwiftMKV */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		550CB7F32D7C41A9005455BB /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				550CB8062D7C424D005455BB /* schema.xml in Resources */,
+				550CB8072D7C4253005455BB /* schema.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55868DF51E1C189B00CDDED1 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -780,6 +867,25 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		550CB8052D7C41F1005455BB /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/OSTypeMapperGenerator/main.swift",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${PRODUCT_NAME}.${WRAPPER_EXTENSION}/Contents/Resources/OSTypeMap.plist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "cd \"${BUILT_PRODUCTS_DIR}\"/\"${PRODUCT_NAME}\".${WRAPPER_EXTENSION}/Contents/Resources\npwd\n\"${BUILT_PRODUCTS_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist\n";
+		};
 		55239B741E30606C00B5B7D0 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -798,6 +904,13 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		550CB7F12D7C41A9005455BB /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		55239B671E301A1200B5B7D0 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -873,6 +986,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		550CB8002D7C41D4005455BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */;
+			targetProxy = 550CB7FF2D7C41D4005455BB /* PBXContainerItemProxy */;
+		};
+		550CB8022D7C41D4005455BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55868E151E1C1C3700CDDED1 /* ebml */;
+			targetProxy = 550CB8012D7C41D4005455BB /* PBXContainerItemProxy */;
+		};
+		550CB8042D7C41D4005455BB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55868E0D1E1C1C2500CDDED1 /* matroska */;
+			targetProxy = 550CB8032D7C41D4005455BB /* PBXContainerItemProxy */;
+		};
 		55239B731E301A1E00B5B7D0 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */;
@@ -910,6 +1038,93 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		550CB7FD2D7C41A9005455BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SwiftMKV/SwiftMKV.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					includes,
+					Vendor/libebml/,
+					Vendor/libmatroska,
+				);
+				INFOPLIST_FILE = SwiftMKV/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SwiftMKV;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 C.W. Betts. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.SwiftMKV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftMKV/SwiftMKV-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		550CB7FE2D7C41A9005455BB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = SwiftMKV/SwiftMKV.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GENERATE_INFOPLIST_FILE = YES;
+				HEADER_SEARCH_PATHS = (
+					includes,
+					Vendor/libebml/,
+					Vendor/libmatroska,
+				);
+				INFOPLIST_FILE = SwiftMKV/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = SwiftMKV;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 C.W. Betts. All rights reserved.";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@executable_path/../../../../Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.2;
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.SwiftMKV;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "SwiftMKV/SwiftMKV-Bridging-Header.h";
+				SWIFT_OBJC_INTEROP_MODE = objcxx;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
 		55239B701E301A1200B5B7D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -1035,7 +1250,8 @@
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 			};
 			name = Release;
 		};
@@ -1160,6 +1376,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		550CB7FC2D7C41A9005455BB /* Build configuration list for PBXNativeTarget "SwiftMKV" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				550CB7FD2D7C41A9005455BB /* Debug */,
+				550CB7FE2D7C41A9005455BB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		55239B6F1E301A1200B5B7D0 /* Build configuration list for PBXNativeTarget "OSTypeMapperGenerator" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
