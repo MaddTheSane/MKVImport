@@ -1,0 +1,50 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "com_GitHub_MaddTheSane_AttachedFiles" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Attachments"
+          }
+        }
+      }
+    },
+    "com_GitHub_MaddTheSane_AttachedFiles.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Additional files that are embedded in the file."
+          }
+        }
+      }
+    },
+    "com_GitHub_MaddTheSane_ChapterNames" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Chapter Names"
+          }
+        }
+      }
+    },
+    "com_GitHub_MaddTheSane_ChapterNames.description" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Titles of the chapters in the file."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

@@ -1,0 +1,39 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "org.matroska.mka" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska Audio"
+          }
+        }
+      }
+    },
+    "org.matroska.mkv" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska Video"
+          }
+        }
+      }
+    },
+    "org.webmproject.webm" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google WebM"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.0"
+}

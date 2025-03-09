@@ -110,9 +110,9 @@
 		55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E161E1C1C3700CDDED1 /* libebml.a */; };
 		55868EEC1E1C1D6F00CDDED1 /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E0E1E1C1C2500CDDED1 /* libmatroska.a */; };
 		55868EEE1E1C1DA300CDDED1 /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
-		55868EF11E1C1EF100CDDED1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */; };
-		55868EF61E1C1F5700CDDED1 /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF81E1C1F5700CDDED1 /* schema.strings */; };
 		559778BB2D7D8B360018AA56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559778BA2D7D8B360018AA56 /* CoreGraphics.framework */; };
+		559778BD2D7D9DB80018AA56 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 559778BC2D7D9DB80018AA56 /* InfoPlist.xcstrings */; };
+		559778BF2D7D9DB90018AA56 /* schema.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 559778BE2D7D9DB90018AA56 /* schema.xcstrings */; };
 		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
 		55E76F69233A07FD00EAEE1F /* Debugging.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.c */; };
@@ -267,9 +267,9 @@
 		55868EB01E1C1CB600CDDED1 /* SafeReadIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SafeReadIOCallback.cpp; sourceTree = "<group>"; };
 		55868EB11E1C1CB600CDDED1 /* StdIOCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = StdIOCallback.cpp; sourceTree = "<group>"; };
 		55868EED1E1C1DA300CDDED1 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
-		55868EF21E1C1EF100CDDED1 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		55868EF71E1C1F5700CDDED1 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
 		559778BA2D7D8B360018AA56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		559778BC2D7D9DB80018AA56 /* InfoPlist.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = InfoPlist.xcstrings; sourceTree = "<group>"; };
+		559778BE2D7D9DB90018AA56 /* schema.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = schema.xcstrings; sourceTree = "<group>"; };
 		55998D5925F84C4100581095 /* matroska_export.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matroska_export.h; sourceTree = "<group>"; };
 		55CBF3521F11454900E60B0B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -378,8 +378,8 @@
 			children = (
 				55868EED1E1C1DA300CDDED1 /* schema.xml */,
 				55868DFB1E1C189B00CDDED1 /* main.c */,
-				55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */,
-				55868EF81E1C1F5700CDDED1 /* schema.strings */,
+				559778BC2D7D9DB80018AA56 /* InfoPlist.xcstrings */,
+				559778BE2D7D9DB90018AA56 /* schema.xcstrings */,
 				557B87F41E1DBA1800F2133E /* MKVImporter.exp */,
 			);
 			name = "Supporting Files";
@@ -776,8 +776,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				55868EEE1E1C1DA300CDDED1 /* schema.xml in Resources */,
-				55868EF61E1C1F5700CDDED1 /* schema.strings in Resources */,
-				55868EF11E1C1EF100CDDED1 /* InfoPlist.strings in Resources */,
+				559778BD2D7D9DB80018AA56 /* InfoPlist.xcstrings in Resources */,
+				559778BF2D7D9DB90018AA56 /* schema.xcstrings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -894,25 +894,6 @@
 		};
 /* End PBXTargetDependency section */
 
-/* Begin PBXVariantGroup section */
-		55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				55868EF21E1C1EF100CDDED1 /* en */,
-			);
-			name = InfoPlist.strings;
-			sourceTree = "<group>";
-		};
-		55868EF81E1C1F5700CDDED1 /* schema.strings */ = {
-			isa = PBXVariantGroup;
-			children = (
-				55868EF71E1C1F5700CDDED1 /* en */,
-			);
-			name = schema.strings;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
-
 /* Begin XCBuildConfiguration section */
 		55239B701E301A1200B5B7D0 /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -985,10 +966,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -1036,9 +1019,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.13;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 			};
 			name = Release;
@@ -1059,6 +1044,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
+				STRINGS_FILE_OUTPUT_ENCODING = binary;
 				STRIP_INSTALLED_PRODUCT = NO;
 				WRAPPER_EXTENSION = mdimporter;
 			};
@@ -1081,6 +1067,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = NO;
+				STRINGS_FILE_OUTPUT_ENCODING = binary;
 				WRAPPER_EXTENSION = mdimporter;
 			};
 			name = Release;
