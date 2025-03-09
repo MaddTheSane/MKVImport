@@ -212,29 +212,29 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 	static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
-		NSMutableDictionary<NSNumber*, NSString*> *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
 		@autoreleasepool {
-		NSBundle *ourBundle = [NSBundle bundleForClass:[MKVOnlyClassForGettingBackToOurBundle class]];
-		NSURL *osTypeMapURL = [ourBundle URLForResource:@"OSTypeMap" withExtension:@"plist"];
-		if (!osTypeMapURL) {
-			//Just use the four-char code instead, I guess
-			postError(mkvErrorLevelTrivial, CFSTR("Unable to load OSType mapping for AVI/QT codecs. They will appear as their raw four characters."));
-			return;
-		}
-		NSDictionary<NSString*,NSArray<id>*> *mapDict = [[NSDictionary alloc] initWithContentsOfURL:osTypeMapURL];
-		for (NSString *key in mapDict) {
-			NSArray<id>* ourArr = mapDict[key];
-			for (id entry in ourArr) {
-				if ([entry isKindOfClass:[NSNumber class]]) {
-					osTypeCodecMap2[(NSNumber*)entry] = key;
-				} else /* NSString */ {
-					OSType properOSType = UTGetOSTypeFromString((__bridge CFStringRef)entry);
-					osTypeCodecMap2[@(properOSType)] = key;
+			NSMutableDictionary<NSNumber*, NSString*> *osTypeCodecMap2 = [[NSMutableDictionary alloc] init];
+			NSBundle *ourBundle = [NSBundle bundleForClass:[MKVOnlyClassForGettingBackToOurBundle class]];
+			NSURL *osTypeMapURL = [ourBundle URLForResource:@"OSTypeMap" withExtension:@"plist"];
+			if (!osTypeMapURL) {
+				//Just use the four-char code instead, I guess
+				postError(mkvErrorLevelTrivial, CFSTR("Unable to load OSType mapping for AVI/QT codecs. They will appear as their raw four characters."));
+				return;
+			}
+			NSDictionary<NSString*,NSArray<id>*> *mapDict = [[NSDictionary alloc] initWithContentsOfURL:osTypeMapURL];
+			for (NSString *key in mapDict) {
+				NSArray<id>* ourArr = mapDict[key];
+				for (id entry in ourArr) {
+					if ([entry isKindOfClass:[NSNumber class]]) {
+						osTypeCodecMap2[(NSNumber*)entry] = key;
+					} else /* NSString */ {
+						OSType properOSType = UTGetOSTypeFromString((__bridge CFStringRef)entry);
+						osTypeCodecMap2[@(properOSType)] = key;
+					}
 				}
 			}
+			osTypeCodecMap = [osTypeCodecMap2 copy];
 		}
-		}
-		osTypeCodecMap = [osTypeCodecMap2 copy];
 	});
 	NSString *codecName = osTypeCodecMap[@(codec)];
 	if (codecName) {
@@ -256,8 +256,9 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 {
 	KaxCodecID *tr_codec = FindChild<KaxCodecID>(tr_entry);
 	KaxCodecName *codecName = FindChild<KaxCodecName>(tr_entry);
-	if (tr_codec == NULL)
+	if (tr_codec == NULL) {
 		return nil;
+	}
 	
 	if (codecName && codecName->GetSize() != 0) {
 		return @(codecName->GetValueUTF8().c_str());
@@ -268,8 +269,9 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 	if (codecString == MKV_V_MS) {
 		// avi compatibility mode, 4cc is in private info
 		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
-		if (codecPrivate == NULL || codecPrivate->GetSize() <= (16+3))
+		if (codecPrivate == NULL || codecPrivate->GetSize() <= (16+3)) {
 			return nil;
+		}
 		
 		// offset to biCompression in BITMAPINFO
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer() + 16;
@@ -278,23 +280,26 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 	} else if (codecString == MKV_A_MS) {
 		// acm compatibility mode, twocc is in private info
 		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
-		if (codecPrivate == NULL || codecPrivate->GetSize() <= 2)
+		if (codecPrivate == NULL || codecPrivate->GetSize() <= 2) {
 			return nil;
+		}
 		
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer();
 		unsigned short twocc = p[0] | (p[1] << 8);
 		
 		for (int i = 0; kWavCodecIDs[i].cType; i++) {
-			if (kWavCodecIDs[i].twocc == twocc)
+			if (kWavCodecIDs[i].twocc == twocc) {
 				return @(kWavCodecIDs[i].cType);
+			}
 		}
 		return osType2CodecName('ms\0\0' | twocc, false);
 		
 	} else if (codecString == MKV_V_QT || codecString == MKV_A_QT) {
 		// QT compatibility mode, private info is the ImageDescription structure, big endian
 		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
-		if (codecPrivate == NULL || codecPrivate->GetSize() <= 4)
+		if (codecPrivate == NULL || codecPrivate->GetSize() <= 4) {
 			return 0;
+		}
 		
 		// starts at the 4CC
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer();
@@ -302,8 +307,9 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		
 	} else {
 		for (int i = 0; i < sizeof(kMatroskaCodecIDs) / sizeof(MatroskaQT_Codec); i++) {
-			if (codecString == kMatroskaCodecIDs[i].mkvID)
+			if (codecString == kMatroskaCodecIDs[i].mkvID) {
 				return @(kMatroskaCodecIDs[i].cType);
+			}
 		}
 	}
 	postError(mkvErrorLevelWarn, CFSTR("Unknown codec type %s"), codecString.c_str());

@@ -25,9 +25,9 @@ typedef CF_ENUM(int, mkvErrorLevel) {
 	mkvErrorLevelTrivial = 0,
 	//! Debug info.
 	mkvErrorLevelWarn = 1,
-	//! \e Might crash the importer.
+	//! *Might* crash the importer.
 	mkvErrorLevelSerious = 2,
-	//! \b Will crash the metadata importer.
+	//! **Will** crash the metadata importer.
 	mkvErrorLevelFatal = 3
 };
 

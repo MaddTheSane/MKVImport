@@ -112,6 +112,7 @@
 		55868EEE1E1C1DA300CDDED1 /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
 		55868EF11E1C1EF100CDDED1 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF31E1C1EF100CDDED1 /* InfoPlist.strings */; };
 		55868EF61E1C1F5700CDDED1 /* schema.strings in Resources */ = {isa = PBXBuildFile; fileRef = 55868EF81E1C1F5700CDDED1 /* schema.strings */; };
+		559778BB2D7D8B360018AA56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559778BA2D7D8B360018AA56 /* CoreGraphics.framework */; };
 		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
 		55E76F69233A07FD00EAEE1F /* Debugging.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.c */; };
@@ -268,6 +269,7 @@
 		55868EED1E1C1DA300CDDED1 /* schema.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = schema.xml; sourceTree = "<group>"; };
 		55868EF21E1C1EF100CDDED1 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		55868EF71E1C1F5700CDDED1 /* en */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/schema.strings; sourceTree = "<group>"; };
+		559778BA2D7D8B360018AA56 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		55998D5925F84C4100581095 /* matroska_export.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = matroska_export.h; sourceTree = "<group>"; };
 		55CBF3521F11454900E60B0B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -289,6 +291,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */,
+				559778BB2D7D8B360018AA56 /* CoreGraphics.framework in Frameworks */,
 				55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */,
 				55868EEC1E1C1D6F00CDDED1 /* libmatroska.a in Frameworks */,
 				55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */,
@@ -561,6 +564,7 @@
 		55CBF3511F11454800E60B0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				559778BA2D7D8B360018AA56 /* CoreGraphics.framework */,
 				55CBF3561F11458000E60B0B /* CoreServices.framework */,
 				55CBF3521F11454900E60B0B /* CoreFoundation.framework */,
 				55CBF3531F11454900E60B0B /* Foundation.framework */,

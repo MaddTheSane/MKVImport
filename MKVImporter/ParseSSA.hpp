@@ -19,5 +19,6 @@
 __private_extern bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList);
 __private_extern bool isSSA1(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track);
 __private_extern bool isSSA2(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track);
+__private_extern NSArray<NSString*> * _Nullable fontNamesFromFontData(NSData* _Nonnull rawFont);
 
 #endif /* ParseSSA_hpp */

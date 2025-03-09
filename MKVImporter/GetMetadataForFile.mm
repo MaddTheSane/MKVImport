@@ -221,8 +221,9 @@ bool MatroskaImport::iterateData()
 	bool done = false;
 	bool good = true;
 	el_l0 = _aStream.FindNextID(KaxSegment::ClassInfos, ~0);
-	if (!el_l0)
+	if (!el_l0) {
 		return false;		// nothing in the file
+	}
 	
 	segmentOffset = static_cast<KaxSegment *>(el_l0)->GetDataStart();
 
@@ -230,11 +231,13 @@ bool MatroskaImport::iterateData()
 		if (EbmlId(*el_l1) == KaxCluster::ClassInfos.GlobalId) {
 			// all header elements are before clusters in sane files
 			done = true;
-		} else
+		} else {
 			good = ProcessLevel1Element();
+		}
 		
-		if (!good)
+		if (!good) {
 			return false;
+		}
 	}
 	
 	return true;
@@ -282,8 +285,9 @@ bool MatroskaImport::ProcessLevel1Element()
 
 bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 {
-	if (seenInfo)
+	if (seenInfo) {
 		return true;
+	}
 	
 	KaxDuration & duration = GetChild<KaxDuration>(segmentInfo);
 	KaxTimecodeScale & timecodeScale = GetChild<KaxTimecodeScale>(segmentInfo);
@@ -327,8 +331,9 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 
 bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 {
-	if (seenTracks)
+	if (seenTracks) {
 		return true;
+	}
 	
 	NSMutableSet<NSString*> *langSet = [[NSMutableSet alloc] init];
 	NSMutableSet<NSString*> *codecSet = [[NSMutableSet alloc] init];
@@ -340,8 +345,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	double sampleRate = 0;
 	
 	for (auto trackEntry: trackEntries) {
-		if (EbmlId(*trackEntry) != KaxTrackEntry::ClassInfos.GlobalId)
+		if (EbmlId(*trackEntry) != KaxTrackEntry::ClassInfos.GlobalId) {
 			continue;
+		}
 		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntry);
 		KaxTrackType & type = GetChild<KaxTrackType>(track);
 		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
@@ -552,17 +558,36 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	return true;
 }
 
+static bool MIMEIsFont(NSString *mimeName) {
+	static NSArray<NSString*> * const fontTypes = @[@"application/x-font-truetype", @"application/x-font-opentype", @"font/opentype", @"font/truetype", @"application/font-sfnt", @"application/vnd.ms-opentype", @"application/x-font-ttf"];
+	
+	return [fontTypes containsObject:mimeName.lowercaseString];
+}
+
 bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 {
 	addMediaType(@"Attachments");
 	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
 	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] init];
+	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
 		std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
+		auto mime = GetChild<KaxMimeType>(*attachedFile);
+		if (MIMEIsFont(@(mime.GetValue().c_str()))) {
+			auto hi = FindChild<KaxFileData>(*attachedFile);
+			NSData *data = [NSData dataWithBytes:hi->GetBuffer() length:hi->GetSizeLength()];
+			NSArray *fontArray = fontNamesFromFontData(data);
+			if (fontArray) {
+				[fonts addObjectsFromArray:fontArray];
+			}
+		}
 		[attachmentFiles addObject:@(fileName.c_str())];
 		
 		attachedFile = FindNextChild<KaxAttached>(attachmentEntries, *attachedFile);
+	}
+	if ([fonts count] > 0) {
+		[this->fonts addObjectsFromArray:fonts];
 	}
 	attributes[kAttachedFiles] = [attachmentFiles copy];
 	return true;
@@ -710,7 +735,7 @@ static bool isMultiple(NSString *spotlightKey)
 
 static NSString *toSpotlightKey(NSString *matroskaKey)
 {
-	static NSDictionary *matroskaToSpotlightMapping
+	static NSDictionary *const matroskaToSpotlightMapping
 	= @{
 		@"ARTIST": (NSString*)kMDItemAuthors,
 		@"ALBUM": (NSString*)kMDItemAlbum,
@@ -891,8 +916,9 @@ MatroskaImport::MatroskaSeek::MatroskaSeekContext MatroskaImport::SaveContext()
 
 void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
 {
-	if (el_l1)
+	if (el_l1) {
 		delete el_l1;
+	}
 	
 	el_l1 = context.el_l1;
 	_ebmlFile.setFilePointer(context.position);
