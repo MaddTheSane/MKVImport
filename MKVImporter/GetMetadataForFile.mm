@@ -559,7 +559,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 }
 
 static bool MIMEIsFont(NSString *mimeName) {
-	static NSArray<NSString*> * const fontTypes = @[@"application/x-font-truetype", @"application/x-font-opentype", @"font/opentype", @"font/truetype", @"application/font-sfnt", @"application/vnd.ms-opentype", @"application/x-font-ttf"];
+	static NSArray<NSString*> * const fontTypes = @[@"application/x-font-truetype", @"application/x-font-opentype", @"font/opentype", @"font/truetype", @"application/font-sfnt", @"application/vnd.ms-opentype", @"application/x-font-ttf", @"application/x-truetype-font"];
 	
 	return [fontTypes containsObject:mimeName.lowercaseString];
 }
@@ -572,11 +572,11 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
-		std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
+		const std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
 		auto mime = GetChild<KaxMimeType>(*attachedFile);
 		if (MIMEIsFont(@(mime.GetValue().c_str()))) {
 			auto hi = FindChild<KaxFileData>(*attachedFile);
-			NSData *data = [NSData dataWithBytes:hi->GetBuffer() length:hi->GetSizeLength()];
+			NSData *data = [NSData dataWithBytes:hi->GetBuffer() length:hi->GetSize()];
 			NSArray *fontArray = fontNamesFromFontData(data);
 			if (fontArray) {
 				[fonts addObjectsFromArray:fontArray];

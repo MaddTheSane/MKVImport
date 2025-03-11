@@ -70,7 +70,7 @@ NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 	if (!theFont) {
 		return nil;
 	}
-	NSString *hi = (NSString*)CFBridgingRelease(CGFontCopyPostScriptName(theFont));
+	NSString *hi = (NSString*)CFBridgingRelease(CGFontCopyFullName(theFont));
 	CGFontRelease(theFont);
 	
 	return @[hi];
