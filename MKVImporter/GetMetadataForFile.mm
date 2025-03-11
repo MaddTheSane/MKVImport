@@ -572,11 +572,11 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
-		const std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
-		auto mime = GetChild<KaxMimeType>(*attachedFile);
+		const auto &fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
+		const auto &mime = GetChild<KaxMimeType>(*attachedFile);
 		if (MIMEIsFont(@(mime.GetValue().c_str()))) {
-			auto hi = FindChild<KaxFileData>(*attachedFile);
-			NSData *data = [NSData dataWithBytes:hi->GetBuffer() length:hi->GetSize()];
+			const auto &rawData = FindChild<KaxFileData>(*attachedFile);
+			NSData *data = [NSData dataWithBytes:rawData->GetBuffer() length:rawData->GetSize()];
 			NSArray *fontArray = fontNamesFromFontData(data);
 			if (fontArray) {
 				[fonts addObjectsFromArray:fontArray];
