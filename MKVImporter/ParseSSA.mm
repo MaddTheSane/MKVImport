@@ -68,8 +68,7 @@ NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 	if (arr.count > 1) {
 		NSMutableArray *fontNames = [[NSMutableArray alloc] initWithCapacity:arr.count];
 		for (id des in arr) {
-			CTFontDescriptorRef des2 = (__bridge CTFontDescriptorRef)des;
-			NSString *fontName = CFBridgingRelease(CTFontDescriptorCopyAttribute(des2, kCTFontNameAttribute));
+			NSString *fontName = CFBridgingRelease(CTFontDescriptorCopyAttribute((__bridge CTFontDescriptorRef)des, kCTFontDisplayNameAttribute));
 			[fontNames addObject:fontName];
 		}
 		
