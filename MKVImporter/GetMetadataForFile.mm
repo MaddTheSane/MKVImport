@@ -89,7 +89,7 @@ private:
 	void copyDataOver() {
 		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.allObjects;
 		if (fonts.count != 0) {
-			attributes[(NSString*)kMDItemFonts] = fonts.allObjects;
+			attributes[(NSString*)kMDItemFonts] = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 		}
 	}
 	EbmlElement * NextLevel1Element();
@@ -117,11 +117,11 @@ private:
 
 	
 	/// we need to save a bit of context when seeking if we're going to seek back
-	/// This function saves el_l1 and the current file position to the returned context
-	/// and clears el_l1 to null in preparation for a seek.
+	/// This function saves `el_l1` and the current file position to the returned context
+	/// and clears `el_l1` to null in preparation for a seek.
 	MatroskaSeek::MatroskaSeekContext SaveContext();
 	
-	/// This function restores el_l1 to what is saved in the context, deleting the current
+	/// This function restores `el_l1` to what is saved in the context, deleting the current
 	/// value if not null, and seeks to the specified point in the file.
 	void SetContext(MatroskaSeek::MatroskaSeekContext context);
 
@@ -559,7 +559,10 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 }
 
 static bool MIMEIsFont(NSString *mimeName) {
-	static NSArray<NSString*> * const fontTypes = @[@"application/x-font-truetype", @"application/x-font-opentype", @"font/opentype", @"font/truetype", @"application/font-sfnt", @"application/vnd.ms-opentype", @"application/x-font-ttf", @"application/x-truetype-font"];
+	static const NSArray<NSString*> * const fontTypes =
+	@[@"application/x-font-truetype", @"application/x-font-opentype", @"font/opentype",
+	  @"font/truetype", @"application/font-sfnt", @"application/vnd.ms-opentype",
+	  @"application/x-font-ttf", @"application/x-truetype-font"];
 	
 	return [fontTypes containsObject:mimeName.lowercaseString];
 }
@@ -572,11 +575,11 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
-		const auto &fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
-		const auto &mime = GetChild<KaxMimeType>(*attachedFile);
-		if (MIMEIsFont(@(mime.GetValue().c_str()))) {
-			const auto &rawData = FindChild<KaxFileData>(*attachedFile);
-			NSData *data = [NSData dataWithBytes:rawData->GetBuffer() length:rawData->GetSize()];
+		const std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
+		const std::string mime = GetChild<KaxMimeType>(*attachedFile).GetValue();
+		if (MIMEIsFont(@(mime.c_str()))) {
+			const auto &rawData = GetChild<KaxFileData>(*attachedFile);
+			NSData *data = [NSData dataWithBytesNoCopy:rawData.GetBuffer() length:rawData.GetSize() freeWhenDone:NO];
 			NSArray *fontArray = fontNamesFromFontData(data);
 			if (fontArray) {
 				[fonts addObjectsFromArray:fontArray];

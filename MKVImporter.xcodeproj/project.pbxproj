@@ -115,6 +115,7 @@
 		559778BF2D7D9DB90018AA56 /* schema.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 559778BE2D7D9DB90018AA56 /* schema.xcstrings */; };
 		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
+		55D8AE272D8A22AC00EF2765 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8AE262D8A22AC00EF2765 /* CoreText.framework */; };
 		55E76F69233A07FD00EAEE1F /* Debugging.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.c */; };
 /* End PBXBuildFile section */
 
@@ -274,6 +275,7 @@
 		55CBF3521F11454900E60B0B /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55CBF3561F11458000E60B0B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
+		55D8AE262D8A22AC00EF2765 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		55E76F67233A07FD00EAEE1F /* Debugging.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Debugging.c; sourceTree = "<group>"; };
 		55E76F68233A07FD00EAEE1F /* Debugging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debugging.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -290,6 +292,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55D8AE272D8A22AC00EF2765 /* CoreText.framework in Frameworks */,
 				55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */,
 				559778BB2D7D8B360018AA56 /* CoreGraphics.framework in Frameworks */,
 				55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */,
@@ -564,6 +567,7 @@
 		55CBF3511F11454800E60B0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				55D8AE262D8A22AC00EF2765 /* CoreText.framework */,
 				559778BA2D7D8B360018AA56 /* CoreGraphics.framework */,
 				55CBF3561F11458000E60B0B /* CoreServices.framework */,
 				55CBF3521F11454900E60B0B /* CoreFoundation.framework */,
@@ -1077,6 +1081,7 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EXECUTABLE_PREFIX = lib;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (
@@ -1096,6 +1101,7 @@
 			buildSettings = {
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EXECUTABLE_PREFIX = lib;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (
@@ -1116,6 +1122,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EXECUTABLE_PREFIX = lib;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (
@@ -1135,6 +1142,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				EXECUTABLE_PREFIX = lib;
+				GCC_INLINES_ARE_PRIVATE_EXTERN = YES;
 				GCC_SYMBOLS_PRIVATE_EXTERN = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = NO;
 				HEADER_SEARCH_PATHS = (

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #include <CoreGraphics/CoreGraphics.h>
-//#include <CoreText/CoreText.h>
+#include <CoreText/CoreText.h>
 #include <string>
 #include "ParseSSA.hpp"
 #include "ebml/EbmlStream.h"
@@ -64,6 +64,17 @@ bool isSSA2(KaxTrackEntry & track)
 
 NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 {
+	NSArray *arr = (NSArray*)CFBridgingRelease(CTFontManagerCreateFontDescriptorsFromData((CFDataRef)rawFont));
+	if (arr.count > 1) {
+		NSMutableArray *fontNames = [[NSMutableArray alloc] initWithCapacity:arr.count];
+		for (id des in arr) {
+			CTFontDescriptorRef des2 = (__bridge CTFontDescriptorRef)des;
+			NSString *fontName = CFBridgingRelease(CTFontDescriptorCopyAttribute(des2, kCTFontNameAttribute));
+			[fontNames addObject:fontName];
+		}
+		
+		return fontNames;
+	}
 	CGDataProviderRef dataProv = CGDataProviderCreateWithCFData((CFDataRef)rawFont);
 	CGFontRef theFont = CGFontCreateWithDataProvider(dataProv);
 	CGDataProviderRelease(dataProv);
