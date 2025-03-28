@@ -65,23 +65,11 @@ bool isSSA2(KaxTrackEntry & track)
 NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 {
 	NSArray *arr = (NSArray*)CFBridgingRelease(CTFontManagerCreateFontDescriptorsFromData((CFDataRef)rawFont));
-	if (arr.count > 1) {
-		NSMutableArray *fontNames = [[NSMutableArray alloc] initWithCapacity:arr.count];
-		for (id des in arr) {
-			NSString *fontName = CFBridgingRelease(CTFontDescriptorCopyAttribute((__bridge CTFontDescriptorRef)des, kCTFontDisplayNameAttribute));
-			[fontNames addObject:fontName];
-		}
-		
-		return fontNames;
+	NSMutableArray *fontNames = [[NSMutableArray alloc] initWithCapacity:arr.count];
+	for (id des in arr) {
+		NSString *fontName = CFBridgingRelease(CTFontDescriptorCopyAttribute((__bridge CTFontDescriptorRef)des, kCTFontDisplayNameAttribute));
+		[fontNames addObject:fontName];
 	}
-	CGDataProviderRef dataProv = CGDataProviderCreateWithCFData((CFDataRef)rawFont);
-	CGFontRef theFont = CGFontCreateWithDataProvider(dataProv);
-	CGDataProviderRelease(dataProv);
-	if (!theFont) {
-		return nil;
-	}
-	NSString *hi = (NSString*)CFBridgingRelease(CGFontCopyFullName(theFont));
-	CGFontRelease(theFont);
 	
-	return @[hi];
+	return fontNames;
 }
