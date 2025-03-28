@@ -50,7 +50,7 @@ static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country=NULL);
 
-class MatroskaImport {
+class MatroskaImport final {
 private:
 	MatroskaImport(NSString* path, NSMutableDictionary*attribs):
 	_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
@@ -95,7 +95,7 @@ private:
 	EbmlElement * NextLevel1Element();
 
 	//! a list of level one elements and their offsets in the segment
-	class MatroskaSeek {
+	class MatroskaSeek final {
 	public:
 		struct MatroskaSeekContext {
 			EbmlElement		*el_l1;
