@@ -798,9 +798,7 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 			string simpleVal = get_simple_value(*simple_tag);
 			NSString *simpleNSName = toSpotlightKey(@(simpleName.c_str()));
 			if (simpleNSName && isMultiple(simpleNSName)) {
-				tagDict[nsLang][simpleNSName] = @[@(simpleVal.c_str())];
-			} else if (simpleNSName) {
-				tagDict[nsLang][simpleNSName] = @(simpleVal.c_str());
+				tagDict[nsLang][@(simpleName.c_str())] = @[@(simpleVal.c_str())];
 			} else {
 				tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
 			}
