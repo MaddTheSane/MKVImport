@@ -1,6 +1,52 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "CFBundleName" : {
+      "comment" : "Bundle name",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "MKVImporter"
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
+    "Matroska Audio File" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska Audio"
+          }
+        }
+      }
+    },
+    "Matroska Video File" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska Video"
+          }
+        }
+      }
+    },
+    "NSHumanReadableCopyright" : {
+      "comment" : "Copyright (human-readable)",
+      "extractionState" : "extracted_with_value",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "new",
+            "value" : "Copyright © 2017-2020 C.W. Betts. All rights reserved."
+          }
+        }
+      },
+      "shouldTranslate" : false
+    },
     "org.matroska.mka" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -25,6 +71,16 @@
     },
     "org.webmproject.webm" : {
       "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google WebM"
+          }
+        }
+      }
+    },
+    "WebM Media" : {
       "localizations" : {
         "en" : {
           "stringUnit" : {

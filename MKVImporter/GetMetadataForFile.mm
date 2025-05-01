@@ -173,7 +173,7 @@ bool MatroskaImport::isValidMatroska()
 		
 		EbmlHead *head = static_cast<EbmlHead *>(el_l0);
 		
-		EDocType docType = GetChild<EDocType>(*head);
+		EDocType & docType = GetChild<EDocType>(*head);
 		const string & cppDocType = string(docType);
 		if (cppDocType != "matroska" && cppDocType != "webm") {
 			postError(mkvErrorLevelWarn, CFSTR("Unknown Matroska doctype \"%s\""), cppDocType.c_str());
@@ -181,7 +181,7 @@ bool MatroskaImport::isValidMatroska()
 			goto exit;
 		}
 		
-		EDocTypeReadVersion readVersion = GetChild<EDocTypeReadVersion>(*head);
+		EDocTypeReadVersion & readVersion = GetChild<EDocTypeReadVersion>(*head);
 		if (UInt64(readVersion) > 2) {
 			postError(mkvErrorLevelWarn, CFSTR("Matroska file too new to be read, version %lld"), UInt64(readVersion));
 			valid = false;
@@ -748,6 +748,7 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 		@"DIRECTOR": (NSString*)kMDItemDirector,
 		@"PRODUCER": (NSString*)kMDItemProducer,
 		@"GENRE": (NSString*)kMDItemGenre,
+		@"COMMENT": (NSString*)kMDItemComment,
 		@"SHOW": (NSString*)kMDItemAlbum
 		};
 	
@@ -946,7 +947,7 @@ static NSString *getLanguageCode(KaxTrackEntry & track)
 	if (ietfLang) {
 		NSString *toRet = getLanguageCode(*ietfLang);
 		if (toRet) {
-			return [NSLocale canonicalLocaleIdentifierFromString:toRet];
+			return toRet;
 		}
 	}
 	const KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
