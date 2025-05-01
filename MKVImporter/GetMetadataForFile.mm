@@ -210,7 +210,7 @@ bool MatroskaImport::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSS
 	}
 	
 	bool isSuccessful = generatorClass->iterateData();
-	generatorClass->copyDataOver();
+	if (isSuccessful) generatorClass->copyDataOver();
 	
 	delete generatorClass;
 	return isSuccessful;
