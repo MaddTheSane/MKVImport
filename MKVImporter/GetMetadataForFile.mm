@@ -17,6 +17,7 @@
 #include <iostream>
 #include <functional>
 #include <algorithm>
+#include <unordered_set>
 #include "ebml/EbmlHead.h"
 #include "ebml/EbmlSubHead.h"
 #include "ebml/EbmlStream.h"
@@ -39,7 +40,7 @@
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
-using namespace std;
+using std::string;
 
 #define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
 #define kAttachedFiles @"com_GitHub_MaddTheSane_AttachedFiles"
@@ -150,9 +151,9 @@ private:
 	bool seenChapters;
 	bool seenTags;
 
-	vector<MatroskaSeek>	levelOneElements;
+	std::vector<MatroskaSeek>	levelOneElements;
 	
-	uint64_t				segmentOffset;
+	uint64_t					segmentOffset;
 };
 
 bool MatroskaImport::isValidMatroska()
@@ -603,7 +604,7 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 	
 	// don't re-read a seek head that's already been read
 	uint64_t currPos = seekHead.GetElementPosition();
-	vector<MatroskaSeek>::iterator itr = levelOneElements.begin();
+	std::vector<MatroskaSeek>::iterator itr = levelOneElements.begin();
 	for (; itr != levelOneElements.end(); itr++) {
 		if (itr->GetID() == KaxSeekHead::ClassInfos.GlobalId &&
 			itr->segmentPos + segmentOffset == currPos)
@@ -704,12 +705,14 @@ static std::string get_simple_language(const KaxTagSimple &tag)
 static int64_t get_tuid(const KaxTag &tag)
 {
 	auto targets = FindChild<KaxTagTargets>(&tag);
-	if (!targets)
+	if (!targets) {
 		return -1;
+	}
 	
 	auto tuid = FindChild<KaxTagTrackUID>(targets);
-	if (!tuid)
+	if (!tuid) {
 		return -1;
+	}
 	
 	return tuid->GetValue();
 }
@@ -717,20 +720,23 @@ static int64_t get_tuid(const KaxTag &tag)
 static int64_t get_cuid(const KaxTag &tag)
 {
 	auto targets = FindChild<KaxTagTargets>(&tag);
-	if (!targets)
+	if (!targets) {
 		return -1;
+	}
 	
 	auto cuid = FindChild<KaxTagChapterUID>(targets);
-	if (!cuid)
+	if (!cuid) {
 		return -1;
+	}
 	
 	return cuid->GetValue();
 }
 
-static bool isMultiple(NSString *spotlightKey)
+static bool isMultiple(const std::string& spotlightKey)
 {
-	static NSSet *multiTags = [NSSet setWithObjects:(NSString*)kMDItemAuthors, (NSString*)kMDItemPublishers, nil];
-	if ([multiTags containsObject:spotlightKey]) {
+	// ARTIST maps to kMDItemAuthors, while PUBLISHER maps to kMDItemPublishers.
+	static const std::unordered_set<std::string> multiTags2 = {"ARTIST", "PUBLISHER"};
+	if (multiTags2.find(spotlightKey) != multiTags2.end()) {
 		return true;
 	}
 	return false;
@@ -796,8 +802,7 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 			}
 			string simpleName = get_simple_name(*simple_tag);
 			string simpleVal = get_simple_value(*simple_tag);
-			NSString *simpleNSName = toSpotlightKey(@(simpleName.c_str()));
-			if (simpleNSName && isMultiple(simpleNSName)) {
+			if (isMultiple(simpleName)) {
 				tagDict[nsLang][@(simpleName.c_str())] = @[@(simpleVal.c_str())];
 			} else {
 				tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
@@ -896,12 +901,12 @@ EbmlElement * MatroskaImport::NextLevel1Element()
 	
 	// dummy element -> probably corrupt file, search for next element in meta seek and continue from there
 	if (el_l1 && el_l1->IsDummy()) {
-		vector<MatroskaSeek>::iterator nextElt;
+		std::vector<MatroskaSeek>::iterator nextElt;
 		MatroskaSeek currElt;
 		currElt.segmentPos = el_l1->GetElementPosition();
 		currElt.idLength = currElt.ebmlID = 0;
 		
-		nextElt = find_if(levelOneElements.begin(), levelOneElements.end(), bind(greater<MatroskaSeek>(), std::placeholders::_1, currElt));
+		nextElt = find_if(levelOneElements.begin(), levelOneElements.end(), bind(std::greater<MatroskaSeek>(), std::placeholders::_1, currElt));
 		if (nextElt != levelOneElements.end()) {
 			SetContext(nextElt->GetSeekContext(segmentOffset));
 			NextLevel1Element();
