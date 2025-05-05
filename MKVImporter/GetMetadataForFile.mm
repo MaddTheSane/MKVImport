@@ -607,8 +607,9 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 	std::vector<MatroskaSeek>::iterator itr = levelOneElements.begin();
 	for (; itr != levelOneElements.end(); itr++) {
 		if (itr->GetID() == KaxSeekHead::ClassInfos.GlobalId &&
-			itr->segmentPos + segmentOffset == currPos)
+			itr->segmentPos + segmentOffset == currPos) {
 			return true;
+		}
 	}
 	
 	while (seekEntry && seekEntry->GetSize() > 0) {
