@@ -376,18 +376,12 @@ private func mainFunc() {
 		toRet.append(FourCharCodec(cType: kAudioFormatDV, fourocc: .string("dvca")));
 		
 		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("fl32")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("fl32")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("fl64")));
 		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("fl64")));
 		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("twos")));
 		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("sowt")));
 		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("lpcm")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("lpcm")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("in24")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("in24")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("in32")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("in32")));
-		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("sowt")));
+		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("in24")))
+		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("in32")))
 		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("raw ")));
 		toRet.append(FourCharCodec(cType: kAudioFormatLinearPCM, fourocc: .string("NONE")));
 		toRet.append(FourCharCodec(cType: kAudioFormatSpeex, fourocc: .string("spex"))); /* Flash Media Server */
