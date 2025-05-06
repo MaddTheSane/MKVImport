@@ -296,6 +296,11 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	KaxDateUTC * date = FindChild<KaxDateUTC>(segmentInfo);
 	KaxWritingApp & writingApp = GetChild<KaxWritingApp>(segmentInfo);
 	KaxMuxingApp & muxingApp = GetChild<KaxMuxingApp>(segmentInfo);
+	KaxSegmentUID * kaxUID = FindChild<KaxSegmentUID>(segmentInfo);
+	if (kaxUID && kaxUID->GetSize() == 16) {
+		NSUUID *theUUID = [[NSUUID alloc] initWithUUIDBytes:kaxUID->GetBuffer()];
+		attributes[(NSString*)kMDItemIdentifier] = theUUID.UUIDString;
+	}
 
 	Float64 movieDuration = Float64(duration);
 	UInt64 timecodeScale1 = UInt64(timecodeScale);
