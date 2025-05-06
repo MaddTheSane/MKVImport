@@ -83,7 +83,6 @@ private:
 	bool ReadAttachments(KaxAttachments &trackEntries);
 	bool ReadMetaSeek(KaxSeekHead &trackEntries);
 	bool ReadTags(KaxTags &trackEntries);
-	bool ReadCues(KaxCues &trackEntries);
 
 	bool isValidMatroska();
 	//! Copies over data to \c attributes that can't be done in one iteration.
@@ -275,7 +274,7 @@ bool MatroskaImport::ProcessLevel1Element()
 		
 	} else if (EbmlId(*el_l1) == KaxCues::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxCues::ClassInfos.Context, upperLevel, dummyElt, true);
-		return ReadCues(*static_cast<KaxCues *>(el_l1));
+		return true;
 		
 	}
 	return true;
@@ -837,11 +836,6 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 	NSDictionary *copyDict = trimLocales(toSet);
 	[attributes addEntriesFromDictionary:copyDict];
 	seenTags = true;
-	return true;
-}
-
-bool MatroskaImport::ReadCues(KaxCues &trackEntries)
-{
 	return true;
 }
 
