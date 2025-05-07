@@ -17,6 +17,9 @@ using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using std::string;
 
+/// Separates string by comma, as well as remove any trailing spaces.
+static NSArray<NSString*> *commaSeperation(NSString *sep);
+
 bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList)
 {
 	auto startLoc = mkvStream.I_O().getFilePointer();
@@ -26,10 +29,69 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 		//mkvStream.I_O().setFilePointer(startLoc);
 		return false;
 	}
-	//track.Read(<#EbmlStream &inDataStream#>, <#const EbmlSemanticContext &Context#>, <#int &UpperEltFound#>, <#EbmlElement *&FoundElt#>, <#bool AllowDummyElt#>)
+	NSData *preString = [NSData dataWithBytesNoCopy:codecPrivate->GetBuffer() length:codecPrivate->GetSize() freeWhenDone:NO];
+	NSString *theString = [[NSString alloc] initWithData:preString encoding:NSUTF8StringEncoding];
+	// Because a lot of subtitle files are written on Windows
+	theString = [theString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
+	//TODO: better parsing? How does libass do this?
+	NSArray<NSString*> *lines = [theString componentsSeparatedByString:@"\n"];
+	NSInteger styleLines = [lines indexOfObject:@"[V4+ Styles]"];
+	if (styleLines == NSNotFound) {
+		styleLines = [lines indexOfObject:@"[V4 Styles]"];
+	}
+	if (styleLines == NSNotFound) {
+		// Bad ssa file?
+		mkvStream.I_O().setFilePointer(startLoc);
+		return false;
+	}
+	NSInteger eventsLine = [lines indexOfObject:@"[Events]"];
+	if (eventsLine == NSNotFound) {
+		// so just use the remainder
+		eventsLine = lines.count;
+	}
+	NSString *formatLine = lines[styleLines + 1];
+	if (![formatLine hasPrefix:@"Format:"]) {
+		// Bad ssa file?
+		mkvStream.I_O().setFilePointer(startLoc);
+		return false;
+	}
+	formatLine = [formatLine substringFromIndex:7];
+	NSArray<NSString*> *formatArray = commaSeperation(formatLine);
+	NSArray<NSString*> *styles = [lines subarrayWithRange:NSMakeRange(styleLines + 2, eventsLine - (styleLines + 2))];
+	//TODO: bold/underline styles? How do I figure out actual names without looking at actual font files?
+	NSInteger fontIndex = [formatArray indexOfObject:@"Fontname"];
+	if (fontIndex == NSNotFound) {
+		// Bad ssa file?
+		mkvStream.I_O().setFilePointer(startLoc);
+		return false;
+	}
+	for (NSString *style in styles) {
+		if ([style length] == 0) {
+			continue;
+		}
+		NSArray<NSString*> *styleArray = commaSeperation(style);
+		if (styleArray.count <= fontIndex) {
+			continue;
+		}
+		NSString *fontName = styleArray[fontIndex];
+		if (fontIndex == 0) {
+			if ([fontName hasPrefix:@"Style:"]) {
+				fontName = [fontName substringFromIndex:6];
+				if ([fontName hasPrefix:@" "]) {
+					fontName = [fontName substringFromIndex:1];
+				}
+			}
+		}
+		// Some fonts start with an '@'. Can't remember why...
+		if ([fontName hasPrefix:@"@"]) {
+			fontName = [fontName substringFromIndex:1];
+		}
+		[fontList addObject:fontName];
+	}
 
+	//TODO: parse rest of track, look for specific font requests?
 	mkvStream.I_O().setFilePointer(startLoc);
-	return false;
+	return true;
 }
 
 bool isSSA1(KaxTrackEntry & track)
@@ -72,4 +134,15 @@ NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 	}
 	
 	return fontNames;
+}
+
+static NSArray<NSString*> *commaSeperation(NSString *sep)
+{
+	NSMutableArray *mutArr = [[sep componentsSeparatedByString:@","] mutableCopy];
+	for (NSInteger i = 0; i < mutArr.count; i++) {
+		NSString *aStr = mutArr[i];
+		mutArr[i] = [aStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
+	}
+	
+	return mutArr;
 }
