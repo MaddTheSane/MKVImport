@@ -28,7 +28,7 @@ using std::string;
 
 #define kVideoCodecIndeo3 "Indeo 3"
 #define kVideoCodecIndeo4 "Indeo 4"
-#define kVideoCodecIndeo5 "Indeo 5"
+#define kVideoCodecIndeo5 @"Indeo 5"
 #define kH264CodecType @"H.264"
 #define kMPEG4VisualCodecType @"MPEG 4"
 //#define kMPEG4VisualCodecType "MPEG 4"
@@ -155,7 +155,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 #ifdef UNSUPPORTEDCODECS
 	// Currently unsupported codecs:
 	{ "V_MSWMV", @"WMV" }, // Video, Microsoft Video
-	{ "V_INDEO5", @kVideoCodecIndeo5 }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
+	{ "V_INDEO5", kVideoCodecIndeo5 }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
 	{ "V_MJPEG2000", @"Motion JPEG2000" }, // Video, MJpeg 2000
 	{ "V_MJPEG2000LL", @"Motion JPEG2000 Lossless" }, // Video, MJpeg Lossless
 	{ "V_DV", @"DV Video" }, // Video, DV Video, type 1 (audio and video mixed)
