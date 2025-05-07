@@ -24,6 +24,16 @@
         }
       }
     },
+    "Matroska Subtitles File" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska Subtitles"
+          }
+        }
+      }
+    },
     "Matroska Video File" : {
       "localizations" : {
         "en" : {
@@ -41,11 +51,10 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copyright © 2017-2020 C.W. Betts. All rights reserved."
+            "value" : "Copyright © 2017-2025 C.W. Betts. All rights reserved."
           }
         }
-      },
-      "shouldTranslate" : false
+      }
     },
     "org.matroska.mka" : {
       "extractionState" : "manual",
@@ -54,6 +63,17 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Matroska Audio"
+          }
+        }
+      }
+    },
+    "org.matroska.mks" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska Subtitles"
           }
         }
       }

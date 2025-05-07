@@ -34,6 +34,7 @@
             <!-- 'allattrs' is a whitespace separated list of all of the attributes that this UTI type normally has.
                  It does not have to be exhaustive. -->
             <allattrs>
+				kMDItemTitle
 				kMDItemCodecs
 				kMDItemHasAlphaChannel
 				kMDItemLayerNames
@@ -45,6 +46,7 @@
             </allattrs>
             <!-- 'displayattrs' is a whitespace separated list of the attributes that should normally be displayed when previewing files of this UTI type. -->
             <displayattrs>
+				kMDItemTitle
 				kMDItemCodecs
 				kMDItemHasAlphaChannel
 				kMDItemLayerNames
@@ -57,23 +59,34 @@
 		
 		<type name="org.matroska.mka">
 		<allattrs>
+			kMDItemTitle
 			kMDItemCodecs
-			kMDItemHasAlphaChannel
 			kMDItemLayerNames
-			kMDItemPixelHeight
-			kMDItemPixelWidth
-			kMDItemColorSpace
+			kMDItemAudioChannelCount
 			com_GitHub_MaddTheSane_ChapterNames
 		</allattrs>
 		<displayattrs>
+			kMDItemTitle
 			kMDItemCodecs
-			kMDItemHasAlphaChannel
 			kMDItemLayerNames
-			kMDItemPixelHeight
-			kMDItemPixelWidth
-			kMDItemColorSpace
+			kMDItemAudioChannelCount
 		</displayattrs>
 		
+		</type>
+		
+		<type name="org.matroska.mks">
+			<allattrs>
+				kMDItemTitle
+				kMDItemCodecs
+				kMDItemLayerNames
+				com_GitHub_MaddTheSane_ChapterNames
+			</allattrs>
+			<displayattrs>
+				kMDItemTitle
+				kMDItemCodecs
+				kMDItemLayerNames
+			</displayattrs>
+
 		</type>
 
     </types>
