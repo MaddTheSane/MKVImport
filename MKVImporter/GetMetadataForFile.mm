@@ -563,13 +563,22 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	return true;
 }
 
-static bool MIMEIsFont(NSString *mimeName) {
-	static const NSArray<NSString*> * const fontTypes =
-	@[@"application/x-font-truetype", @"application/x-font-opentype", @"font/opentype",
-	  @"font/truetype", @"application/font-sfnt", @"application/vnd.ms-opentype",
-	  @"application/x-font-ttf", @"application/x-truetype-font"];
+static bool MIMEIsFont(const string &mimeName) {
+	static const std::unordered_set<std::string> fontTypes =
+	{"application/x-font-truetype", "application/x-font-opentype", "font/opentype",
+		"font/truetype", "application/font-sfnt", "application/vnd.ms-opentype",
+		"application/x-font-ttf", "application/x-truetype-font"};
 	
-	return [fontTypes containsObject:mimeName.lowercaseString];
+#ifdef USE_STRICT_CASING
+	NSString *preName = @(mimeName.c_str());
+	preName = [preName lowercaseString];
+	string postString = string(preName.UTF8String);
+	auto idx = fontTypes.find(postString);
+#else
+	auto idx = fontTypes.find(mimeName);
+#endif
+	bool success = (idx != fontTypes.end());
+	return success;
 }
 
 bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
@@ -582,7 +591,7 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	while (attachedFile && attachedFile->GetSize() > 0) {
 		const std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
 		const std::string mime = GetChild<KaxMimeType>(*attachedFile).GetValue();
-		if (MIMEIsFont(@(mime.c_str()))) {
+		if (MIMEIsFont(mime)) {
 			const auto &rawData = GetChild<KaxFileData>(*attachedFile);
 			NSData *data = [NSData dataWithBytesNoCopy:rawData.GetBuffer() length:rawData.GetSize() freeWhenDone:NO];
 			NSArray *fontArray = fontNamesFromFontData(data);
@@ -643,8 +652,9 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 			}
 			
 			SetContext(savedContext);
-			if (!okay)
+			if (!okay) {
 				return false;
+			}
 		}
 		
 		levelOneElements.push_back(newSeekEntry);

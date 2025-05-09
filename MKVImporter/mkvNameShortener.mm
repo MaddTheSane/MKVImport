@@ -134,7 +134,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "A_OPUS", @"Opus" },
 	{ "A_ALAC", @"Apple Lossless" },
 	
-	// uncommon subtitles:
+	// subtitles:
 #if 0
 	{ "S_IMAGE/BMP", @kBMPCodecType },
 #endif
