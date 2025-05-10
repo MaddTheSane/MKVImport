@@ -422,7 +422,6 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				
 			case track_subtitle:
 				addMediaType(@"Subtitles");
-				//TODO: parse SSA, get font list?
 			if (isSSA1(track) || isSSA2(track)) {
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
 				bool success = getSubtitleFontList(track, _aStream, tmpFonts);
