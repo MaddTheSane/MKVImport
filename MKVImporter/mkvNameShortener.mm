@@ -30,7 +30,7 @@ using std::string;
 #define kVideoCodecIndeo4 "Indeo 4"
 #define kVideoCodecIndeo5 @"Indeo 5"
 #define kH264CodecType @"H.264"
-#define kMPEG4VisualCodecType @"MPEG 4"
+#define kMPEG4VisualCodecType @"MPEG 4 Video"
 //#define kMPEG4VisualCodecType "MPEG 4"
 #define kVideoFormatMSMPEG4v1 "MS-MPEG4v1"
 #define kVideoFormatMSMPEG4v2 "MS-MPEG4v2"
