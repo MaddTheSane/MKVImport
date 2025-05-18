@@ -884,7 +884,11 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 		try {
 			matroska_init();
 			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
+		} catch (CRTError anErr) {
+			postError(mkvErrorLevelSerious, CFSTR("Exception caught! %s"), anErr.what());
+			ok = FALSE;
 		} catch (...) {
+			postError(mkvErrorLevelSerious, CFSTR("Unknown exception!"));
 			ok = FALSE;
 		}
 		matroska_done();
