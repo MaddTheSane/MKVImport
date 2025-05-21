@@ -182,7 +182,6 @@ private func mainFunc() {
 		toRet.append(FourCharCodec(cType: kVideoFormatDV, fourocc: .string("SLDV")))
 		
 		toRet.append(FourCharCodec(cType: kMPEG1VisualCodecType, fourocc: .string("mpg1")))
-		toRet.append(FourCharCodec(cType: kMPEG1VisualCodecType, fourocc: .string("mpg2")))
 		toRet.append(FourCharCodec(cType: kMPEG2VisualCodecType, fourocc: .string("mpg2")))
 		toRet.append(FourCharCodec(cType: kMPEG2VisualCodecType, fourocc: .string("MPEG")))
 		toRet.append(FourCharCodec(cType: kMPEG1VisualCodecType, fourocc: .string("PIM1")))
