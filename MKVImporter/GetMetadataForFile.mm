@@ -877,13 +877,19 @@ NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*, NSDictionary<NSS
 
 Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
 {
+	static dispatch_once_t onceToken;
 	Boolean ok = FALSE;
+	dispatch_once(&onceToken, ^{
+		matroska_init();
+		atexit_b(^{
+			matroska_done();
+		});
+	});
 	@autoreleasepool {
 		auto nsAttribs = (__bridge NSMutableDictionary<NSString*,id>*)attributes;
 		NSString *nsPath = (__bridge NSString*)pathToFile;
 		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
 		try {
-			matroska_init();
 			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
 		} catch (CRTError anErr) {
 			postError(mkvErrorLevelSerious, CFSTR("Exception caught! %s"), anErr.what());
@@ -892,7 +898,6 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 			postError(mkvErrorLevelSerious, CFSTR("Unknown exception!"));
 			ok = FALSE;
 		}
-		matroska_done();
 	}
 	
 	// Return the status
