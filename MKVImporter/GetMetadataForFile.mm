@@ -82,10 +82,11 @@ private:
 	bool ReadChapters(KaxChapters &trackEntries);
 	bool ReadAttachments(KaxAttachments &trackEntries);
 	bool ReadMetaSeek(KaxSeekHead &trackEntries);
-	bool ReadTags(KaxTags &trackEntries);
+	bool ReadTags(const KaxTags &trackEntries);
 
 	bool isValidMatroska();
-	//! Copies over data to \c attributes that can't be done in one iteration.
+	
+	//! Copies over data to `attributes` that can't be done in one iteration.
 	void copyDataOver() {
 		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.allObjects;
 		if (fonts.count != 0) {
@@ -777,7 +778,7 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 
 static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>*);
 
-bool MatroskaImport::ReadTags(KaxTags &trackEntries)
+bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 {
 	if (seenTags) {
 		return true;
@@ -785,8 +786,8 @@ bool MatroskaImport::ReadTags(KaxTags &trackEntries)
 	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,id>*>
 	*tagDict = [[NSMutableDictionary alloc] init];
 	//trackEntries
-	for (auto child : trackEntries) {
-		auto tag = dynamic_cast<KaxTag *>(child);
+	for (const auto child : trackEntries) {
+		auto tag = dynamic_cast<const KaxTag *>(child);
 		if (!tag) {
 			continue;
 		}
