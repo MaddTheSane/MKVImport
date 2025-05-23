@@ -31,24 +31,16 @@ using std::string;
 #define kVideoCodecIndeo5 @"Indeo 5"
 #define kH264CodecType @"H.264"
 #define kMPEG4VisualCodecType @"MPEG 4 Video"
-//#define kMPEG4VisualCodecType "MPEG 4"
-#define kVideoFormatMSMPEG4v1 "MS-MPEG4v1"
-#define kVideoFormatMSMPEG4v2 "MS-MPEG4v2"
 #define kVideoFormatMSMPEG4v3 @"MS-MPEG4v3"
-#define kVideoFormatDV "DV"
+#define kVideoFormatDV @"DV"
 #define kMPEG1VisualCodecType @"MPEG 1 Video"
 #define kMPEG2VisualCodecType @"MPEG 2 Video"
-#define kVideoFormatVP3 "VP3"
-#define kVideoFormatVP5 "VP5"
-#define kVideoFormatVP6 "VP6"
+#define kVideoFormatVP5 @"VP5"
 #define kVideoFormatVP8 @"VP8"
-#define kVideoFormatMSVideo "MS Video 1"
-#define kVideoFormatMSRLE "MS RLE"
 
 #define kAudioFormatMPEGLayer1 @"mp1 Audio"
 #define kAudioFormatMPEGLayer2 @"mp2 Audio"
 #define kAudioFormatMPEGLayer3 @"mp3 Audio"
-#define kAudioCodecIndeo2 "Indeo Audio"
 #define kAudioFormatDTS @"DTS"
 #define kAudioFormatMPEG4AAC @"AAC"
 #define kAudioFormatAC3 @"AC-3"
@@ -161,7 +153,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "V_DV", @"DV Video" }, // Video, DV Video, type 1 (audio and video mixed)
 	{ "V_TARKIN", @"Ogg Tarkin" }, // Video, Ogg Tarkin
 	{ "V_ON2VP4", @"VP4" }, // Video, ON2, VP4
-	{ "V_ON2VP5", @"VP5" }, // Video, ON2, VP5
+	{ "V_ON2VP5", kVideoFormatVP5 }, // Video, ON2, VP5
 	{ "V_3IVX", @"3ivx" }, // Video, 3ivX (is D4 decoder downwards compatible?)
 	{ "V_HUFFYUV", @"HuffYuv" }, // Video, HuffYuv, lossless; auch als VfW möglich
 	{ "V_COREYUV", @"CoreYuv" }, // Video, CoreYuv, lossless; auch als VfW möglich
