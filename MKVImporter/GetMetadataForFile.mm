@@ -494,7 +494,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 			default:
 				break;
 		}
-		if (codec) {
+		if (codec && codec.length != 0) {
 			[codecSet addObject:codec];
 		}
 	}

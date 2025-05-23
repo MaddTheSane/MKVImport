@@ -58,7 +58,7 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	formatLine = [formatLine substringFromIndex:7];
 	NSArray<NSString*> *formatArray = commaSeperation(formatLine);
 	NSArray<NSString*> *styles = [lines subarrayWithRange:NSMakeRange(styleLines + 2, eventsLine - (styleLines + 2))];
-	//TODO: bold/underline styles? How do I figure out actual names without looking at actual font files?
+	//TODO: bold/italic styles? How do I figure out actual names without looking at actual font files?
 	NSInteger fontIndex = [formatArray indexOfObject:@"Fontname"];
 	if (fontIndex == NSNotFound) {
 		// Bad ssa file?

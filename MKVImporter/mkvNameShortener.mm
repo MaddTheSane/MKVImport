@@ -86,6 +86,9 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "V_VP9", @"VP9" },
 	{ "V_PRORES", @"ProRes" },
 	{ "V_MJPEG", @"Motion JPEG" },
+	{ "V_FFV1", @"FF Video Codec 1" },
+	{ "V_AVS2", @"AVS2-P2" },
+	{ "V_AVS3", @"AVS3-P2" },
 	
 	// audio codecs:
 	{ "A_EAC3", kAudioFormatEAC3 },
@@ -122,9 +125,10 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "A_REAL/COOK", @"RealAudio Cook" },
 	{ "A_REAL/SIPR", @"Sipro Voice" },
 	{ "A_REAL/RALF", @"RealAudio Lossless" },
-	{ "A_REAL/ATRC", @"Atrac3" },
+	{ "A_REAL/ATRC", @"ATRAC3" },
 	{ "A_OPUS", @"Opus" },
 	{ "A_ALAC", @"Apple Lossless" },
+	{ "A_ATRAC/AT1", @"ATRAC1" },
 	
 	// subtitles:
 #if 0
@@ -158,6 +162,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "V_HUFFYUV", @"HuffYuv" }, // Video, HuffYuv, lossless; auch als VfW möglich
 	{ "V_COREYUV", @"CoreYuv" }, // Video, CoreYuv, lossless; auch als VfW möglich
 	{ "V_RUDUDU", @"Rududu Wavelet" }, // Nicola's Rududu Wavelet codec
+	{ "A_MPC", @"musepack SV8" },
 #endif
 	
 #ifndef NO_DEPRECATED_CODECS
@@ -263,13 +268,13 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 	} else if (codecString == MKV_V_QT || codecString == MKV_A_QT) {
 		// QT compatibility mode, private info is the ImageDescription structure, big endian
 		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
-		if (codecPrivate == NULL || codecPrivate->GetSize() <= 4) {
+		if (codecPrivate == NULL || codecPrivate->GetSize() <= 8) {
 			return 0;
 		}
 		
 		// starts at the 4CC
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer();
-		return osType2CodecName((p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3]);
+		return osType2CodecName((p[4] << 24) | (p[5] << 16) | (p[6] << 8) | p[7]);
 		
 	} else {
 		auto location = kMatroskaCodecIDs.find(codecString);
