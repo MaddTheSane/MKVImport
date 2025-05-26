@@ -216,11 +216,22 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 		OSType type;
 	} ourCodec;
 	ourCodec.type = CFSwapInt32BigToHost(codec);
+	NSString *outName;
 	if (macEncoding) {
-		return [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:NSMacOSRomanStringEncoding];
+		outName = [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:NSMacOSRomanStringEncoding];
 	} else {
-		return CFBridgingRelease(::CFStringCreateWithBytes(kCFAllocatorDefault, (const unsigned char*)ourCodec.cStr, 4, kCFStringEncodingDOSLatinUS, false));
+		outName = CFBridgingRelease(::CFStringCreateWithBytes(kCFAllocatorDefault, (const unsigned char*)ourCodec.cStr, 4, kCFStringEncodingDOSLatinUS, false));
 	}
+	if ([outName length] != 0) {
+		//TODO: expand string to be four characters.
+//		if ([outName length] != 4) {
+//			while ([outName length] != 4) {
+//				outName = [outName stringByAppendingString:@" "];
+//			}
+//		}
+		outName = [NSString stringWithFormat:@"“%@”", outName];
+	}
+	return outName;
 }
 
 NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
