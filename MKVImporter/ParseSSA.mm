@@ -10,6 +10,7 @@
 #include <CoreGraphics/CoreGraphics.h>
 #include <CoreText/CoreText.h>
 #include <string>
+#include "Debugging.h"
 #include "ParseSSA.hpp"
 #include "ebml/EbmlStream.h"
 
@@ -22,17 +23,14 @@ static NSArray<NSString*> *commaSeperation(NSString *sep);
 
 bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList)
 {
-	uint64_t startLoc = mkvStream.I_O().getFilePointer();
-	
 	KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(track);
 	if (codecPrivate == NULL) {
-		//mkvStream.I_O().setFilePointer(startLoc);
 		return false;
 	}
 	NSData *preString = [NSData dataWithBytesNoCopy:codecPrivate->GetBuffer() length:codecPrivate->GetSize() freeWhenDone:NO];
 	NSString *theString = [[NSString alloc] initWithData:preString encoding:NSUTF8StringEncoding];
 	if (!theString) {
-		mkvStream.I_O().setFilePointer(startLoc);
+		postError(mkvErrorLevelSerious, CFSTR("Decoding of SSA header to UTF-8 failed."));
 		return false;
 	}
 	// Because a lot of subtitle files are written on Windows
@@ -45,7 +43,6 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	}
 	if (styleLines == NSNotFound) {
 		// Bad ssa file?
-		mkvStream.I_O().setFilePointer(startLoc);
 		return false;
 	}
 	NSInteger eventsLine = [lines indexOfObject:@"[Events]"];
@@ -56,7 +53,6 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	NSString *formatLine = lines[styleLines + 1];
 	if (![formatLine hasPrefix:@"Format:"]) {
 		// Bad ssa file?
-		mkvStream.I_O().setFilePointer(startLoc);
 		return false;
 	}
 	formatLine = [formatLine substringFromIndex:7];
@@ -66,7 +62,6 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	NSInteger fontIndex = [formatArray indexOfObject:@"Fontname"];
 	if (fontIndex == NSNotFound) {
 		// Bad ssa file?
-		mkvStream.I_O().setFilePointer(startLoc);
 		return false;
 	}
 	for (NSString *style in styles) {
@@ -94,7 +89,6 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	}
 
 	//TODO: parse rest of track, look for specific font requests?
-	mkvStream.I_O().setFilePointer(startLoc);
 	return true;
 }
 
