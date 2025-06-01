@@ -22,7 +22,7 @@ static NSArray<NSString*> *commaSeperation(NSString *sep);
 
 bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList)
 {
-	auto startLoc = mkvStream.I_O().getFilePointer();
+	uint64_t startLoc = mkvStream.I_O().getFilePointer();
 	
 	KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(track);
 	if (codecPrivate == NULL) {
@@ -31,6 +31,10 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	}
 	NSData *preString = [NSData dataWithBytesNoCopy:codecPrivate->GetBuffer() length:codecPrivate->GetSize() freeWhenDone:NO];
 	NSString *theString = [[NSString alloc] initWithData:preString encoding:NSUTF8StringEncoding];
+	if (!theString) {
+		mkvStream.I_O().setFilePointer(startLoc);
+		return false;
+	}
 	// Because a lot of subtitle files are written on Windows
 	theString = [theString stringByReplacingOccurrencesOfString:@"\r\n" withString:@"\n"];
 	//TODO: better parsing? How does libass do this?
