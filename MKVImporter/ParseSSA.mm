@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#include <CoreGraphics/CoreGraphics.h>
-#include <CoreText/CoreText.h>
+#include <CoreText/CTFontManager.h>
 #include <string>
 #include "Debugging.h"
 #include "ParseSSA.hpp"

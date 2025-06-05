@@ -368,7 +368,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
-				string cppTrackName = trackName.GetValueUTF8();
+				const string cppTrackName = trackName.GetValueUTF8();
 				NSString *nsTrackName = @(cppTrackName.c_str());
 				[trackNames addObject:nsTrackName];
 			}
