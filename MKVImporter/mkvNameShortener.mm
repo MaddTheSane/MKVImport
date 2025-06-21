@@ -193,6 +193,11 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 				return;
 			}
 			NSDictionary<NSString*,NSArray<id>*> *mapDict = [[NSDictionary alloc] initWithContentsOfURL:osTypeMapURL];
+			if (!mapDict) {
+				//Just use the four-char code instead, I guess
+				postError(mkvErrorLevelTrivial, CFSTR("Unable to load OSType mapping for AVI/QT codecs. They will appear as their raw four characters."));
+				return;
+			}
 			for (NSString *key in mapDict) {
 				NSArray<id>* ourArr = mapDict[key];
 				for (id entry in ourArr) {
