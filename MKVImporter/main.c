@@ -117,7 +117,7 @@ void DeallocMetadataImporterPluginType(MDPlugType *thisInstance)
 {
     CFUUIDRef theFactoryID = thisInstance->factoryID;
     free(thisInstance);
-    if (theFactoryID){
+    if (theFactoryID) {
         CFPlugInRemoveInstanceForFactory(theFactoryID);
         CFRelease(theFactoryID);
     }

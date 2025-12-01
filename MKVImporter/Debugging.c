@@ -45,7 +45,7 @@ void postError(mkvErrorLevel level, CFStringRef format, ...)
 		CFStringRef formatted = CFStringCreateWithFormatAndArguments(kCFAllocatorDefault, NULL, format, theList);
 		CFStringGetCString(formatted, buffer, sizeof(buffer), kCFStringEncodingUTF8);
 		CFRelease(formatted);
-		printf("%s\n", buffer);
+		fprintf(stderr, "%s\n", buffer);
 	}
 	va_end(theList);
 }
