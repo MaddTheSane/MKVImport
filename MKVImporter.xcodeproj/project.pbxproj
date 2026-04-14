@@ -550,18 +550,10 @@
 				55868EA91E1C1CB600CDDED1 /* IOCallback.cpp */,
 				55868EAA1E1C1CB600CDDED1 /* MemIOCallback.cpp */,
 				55868EAB1E1C1CB600CDDED1 /* MemReadIOCallback.cpp */,
-				55868EAC1E1C1CB600CDDED1 /* platform */,
 				55868EB01E1C1CB600CDDED1 /* SafeReadIOCallback.cpp */,
 				55868EB11E1C1CB600CDDED1 /* StdIOCallback.cpp */,
 			);
 			path = src;
-			sourceTree = "<group>";
-		};
-		55868EAC1E1C1CB600CDDED1 /* platform */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = platform;
 			sourceTree = "<group>";
 		};
 		55CBF3511F11454800E60B0B /* Frameworks */ = {

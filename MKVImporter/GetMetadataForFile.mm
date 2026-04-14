@@ -891,7 +891,7 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
 		try {
 			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
-		} catch (CRTError anErr) {
+		} catch (CRTError &anErr) {
 			postError(mkvErrorLevelSerious, CFSTR("Exception caught! %s"), anErr.what());
 			ok = FALSE;
 		} catch (...) {
