@@ -1,5 +1,5 @@
 
-#define MATROSKA_DLL_API
+#define MATROSKA_DLL_API __attribute__((visibility("hidden")))
 #define MATROSKA_NO_EXPORT
 
 #ifndef MATROSKA_DEPRECATED
