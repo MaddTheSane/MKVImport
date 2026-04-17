@@ -62,6 +62,7 @@ static const WavCodec kWavCodecIDs = {
 	{ 0xf1ac, kAudioFormatXiphFLAC },
 	{ 0x0160, @"WMA 1" },
 	{ 0x0161, @"WMA 2" },
+	{ 0x0162, @"WMA Pro" },
 };
 
 static const MatroskaQT_Codec kMatroskaCodecIDs = {
