@@ -386,7 +386,10 @@ private func mainFunc() {
 		toRet.append(FourCharCodec(cType: kAudioFormatSpeex, fourocc: .string("spex"))) /* Flash Media Server */
 		toRet.append(FourCharCodec(cType: kAudioFormatSpeex, fourocc: .string("SPXN"))) /* ZygoAudio (quality 10 mode) */
 		
+		toRet.append(FourCharCodec(cType: "WMA 1", fourocc: .osType(0x6D730160)))   // 'ms\0\0' + 0x160
+		toRet.append(FourCharCodec(cType: "WMA 2", fourocc: .osType(0x6D730161)))   // 'ms\0\0' + 0x161
 		toRet.append(FourCharCodec(cType: "WMA 2", fourocc: .string("WMA2")))
+		toRet.append(FourCharCodec(cType: "WMA Pro", fourocc: .osType(0x6D730162))) // 'ms\0\0' + 0x162
 		
 		toRet.append(FourCharCodec(cType: kAudioFormatMPEG4AAC, fourocc: .string("mp4a")))
 		toRet.append(FourCharCodec(cType: kAudioFormatAC3, fourocc: .string("ac-3"))) /* ETSI TS 102 366 Annex F */
@@ -466,10 +469,10 @@ private func mainFunc() {
 		toRet.append(FourCharCodec(cType: kVideoFormatSorenson, fourocc: .string("svqi"))) /* Sorenson Video v1 (from QT specs)*/
 		toRet.append(FourCharCodec(cType: kVideoFormatSorenson, fourocc: .string("SVQ3"))) /* Sorenson Video v3 */
 		
-		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("WMV1")))
-		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("WMV2")))
-		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("GXVE"))) //WMV 2
-		toRet.append(FourCharCodec(cType: kVideoFormatWMV, fourocc: .string("WMV3")))
+		toRet.append(FourCharCodec(cType: kVideoFormatWMV + " 1", fourocc: .string("WMV1")))
+		toRet.append(FourCharCodec(cType: kVideoFormatWMV + " 2", fourocc: .string("WMV2")))
+		toRet.append(FourCharCodec(cType: kVideoFormatWMV + " 2", fourocc: .string("GXVE"))) //WMV 2
+		toRet.append(FourCharCodec(cType: kVideoFormatWMV + " 3", fourocc: .string("WMV3")))
 		toRet.append(FourCharCodec(cType: kVideoFormatJPEG2000, fourocc: .string("mjp2"))) /* JPEG 2000 produced by FCP */
 		
 		toRet.append(FourCharCodec(cType: kSubtitleFormatText, fourocc: .string("text")))
