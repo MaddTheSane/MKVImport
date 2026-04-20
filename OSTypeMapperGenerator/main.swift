@@ -268,7 +268,7 @@ private func mainFunc() {
 		toRet.append(FourCharCodec(cType: kAudioFormatMPEGLayer1, fourocc: .string(".mp1")))
 		toRet.append(FourCharCodec(cType: kAudioFormatMPEGLayer2, fourocc: .string(".mp2")))
 		toRet.append(FourCharCodec(cType: kAudioFormatMPEGLayer3, fourocc: .string(".mp3")))
-		toRet.append(FourCharCodec(cType: kAudioFormatMPEGLayer3, fourocc: .osType(0x6D730055)))
+		toRet.append(FourCharCodec(cType: kAudioFormatMPEGLayer3, fourocc: .osType(0x6D730055))) // 'ms\0\0' + 0x055
 		toRet.append(FourCharCodec(cType: kVideoFormatDV, fourocc: .string("dvcp"))) /* DV PAL */
 		toRet.append(FourCharCodec(cType: kVideoFormatDV, fourocc: .string("dvc "))) /* DV NTSC */
 		toRet.append(FourCharCodec(cType: kVideoFormatDV, fourocc: .string("dvpp"))) /* DVCPRO PAL produced by FCP */
