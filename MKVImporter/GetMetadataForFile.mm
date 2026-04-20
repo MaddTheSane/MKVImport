@@ -309,7 +309,7 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	
 	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
 		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetValue()];
-		attributes[(NSString*)kMDItemRecordingDate] = createDate;
+		attributes[(NSString*)kMDItemContentCreationDate] = createDate;
 	}
 	
 	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
