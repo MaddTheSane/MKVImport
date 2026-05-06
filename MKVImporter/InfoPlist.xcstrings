@@ -21,6 +21,12 @@
             "state" : "translated",
             "value" : "Matroska Audio"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Audio de Matroska"
+          }
         }
       }
     },
@@ -30,6 +36,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Matroska Subtitles"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Subtítulos de Matroska"
           }
         }
       }
@@ -41,6 +53,12 @@
             "state" : "translated",
             "value" : "Matroska Video"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vídeo de Matroska"
+          }
         }
       }
     },
@@ -51,7 +69,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "new",
-            "value" : "Copyright © 2017-2025 C.W. Betts. All rights reserved."
+            "value" : "Copyright © 2017-2026 C.W. Betts. All rights reserved."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Derechos de autor © 2017-2026 C.W. Betts. Todos los derechos reservados."
           }
         }
       }
@@ -64,6 +88,12 @@
             "state" : "translated",
             "value" : "Matroska Audio"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Audio de Matroska"
+          }
         }
       }
     },
@@ -74,6 +104,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Matroska Subtitles"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Subtítulos de Matroska"
           }
         }
       }
@@ -86,6 +122,12 @@
             "state" : "translated",
             "value" : "Matroska Video"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Vídeo de Matroska"
+          }
         }
       }
     },
@@ -97,12 +139,24 @@
             "state" : "translated",
             "value" : "Google WebM"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google WebM"
+          }
         }
       }
     },
     "WebM Media" : {
       "localizations" : {
         "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Google WebM"
+          }
+        },
+        "es" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Google WebM"

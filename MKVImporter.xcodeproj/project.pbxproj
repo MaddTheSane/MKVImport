@@ -753,6 +753,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				es,
 			);
 			mainGroup = 55868DEE1E1C189B00CDDED1;
 			productRefGroup = 55868DF81E1C189B00CDDED1 /* Products */;
@@ -1046,7 +1047,7 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017-2025 C.W. Betts. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017-2026 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_STYLE = BUNDLE;
 				MARKETING_VERSION = 1.2.0;
@@ -1073,7 +1074,7 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
-				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017-2025 C.W. Betts. All rights reserved.";
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017-2026 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_STYLE = BUNDLE;
 				MARKETING_VERSION = 1.2.0;

@@ -9,6 +9,12 @@
             "state" : "translated",
             "value" : "Attachments"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Adjuntos"
+          }
         }
       }
     },
@@ -19,6 +25,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Additional files that are embedded in the file."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Archivos adicionales que están incrustados en el archivo."
           }
         }
       }
@@ -31,6 +43,12 @@
             "state" : "translated",
             "value" : "Chapter Names"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nombres de capítulos"
+          }
         }
       }
     },
@@ -41,6 +59,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Titles of the chapters in the file."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Títulos de los capítulos del archivo."
           }
         }
       }
