@@ -39,10 +39,10 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	NSInteger styleLines = [lines indexOfObject:@"[V4+ Styles]"];
 	if (styleLines == NSNotFound) {
 		styleLines = [lines indexOfObject:@"[V4 Styles]"];
-	}
-	if (styleLines == NSNotFound) {
-		// Bad ssa file?
-		return false;
+		if (styleLines == NSNotFound) {
+			// Bad ssa file?
+			return false;
+		}
 	}
 	NSInteger eventsLine = [lines indexOfObject:@"[Events]"];
 	if (eventsLine == NSNotFound) {

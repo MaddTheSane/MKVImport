@@ -10,6 +10,7 @@
 #define Debugging_hpp
 
 #include <stdio.h>
+#include <stdarg.h>
 #include <CoreFoundation/CoreFoundation.h>
 
 #ifdef __cplusplus
@@ -33,6 +34,9 @@ typedef CF_ENUM(int, mkvErrorLevel) {
 
 __private_extern
 void postError(mkvErrorLevel level, CFStringRef format, ...) CF_FORMAT_FUNCTION(2,3);
+
+__private_extern
+void postErrorVA(mkvErrorLevel level, CFStringRef format, va_list list) CF_FORMAT_FUNCTION(2,0);
 
 #ifdef __cplusplus
 }

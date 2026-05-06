@@ -13,6 +13,12 @@ void postError(mkvErrorLevel level, CFStringRef format, ...)
 {
 	va_list theList;
 	va_start(theList, format);
+	postErrorVA(level, format, theList);
+	va_end(theList);
+}
+
+void postErrorVA(mkvErrorLevel level, CFStringRef format, va_list theList)
+{
 	if (__builtin_available(macOS 10.12, *)) {
 		os_log_type_t logtypes;
 		switch (level) {
@@ -47,5 +53,4 @@ void postError(mkvErrorLevel level, CFStringRef format, ...)
 		CFRelease(formatted);
 		fprintf(stderr, "%s\n", buffer);
 	}
-	va_end(theList);
 }
