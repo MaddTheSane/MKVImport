@@ -50,6 +50,7 @@ static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country=NULL);
+static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>*);
 
 class MatroskaImport final {
 private:
@@ -661,7 +662,7 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 		seekEntry = FindNextChild<KaxSeek>(seekHead, *seekEntry);
 	}
 	
-	sort(levelOneElements.begin(), levelOneElements.end());
+//	sort(levelOneElements.begin(), levelOneElements.end());
 	
 	return true;
 }
@@ -776,8 +777,6 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 	return matroskaToSpotlightMapping[matroskaKey];
 }
 
-static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>*);
-
 bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 {
 	if (seenTags) {
@@ -841,7 +840,6 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 			}
 			toSet[MDVal][lang] = val;
 		}
-		
 	}
 	NSDictionary *copyDict = trimLocales(toSet);
 	[attributes addEntriesFromDictionary:copyDict];
@@ -849,8 +847,8 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 	return true;
 }
 
-
-NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*, NSDictionary<NSString*, id>*>* toSet) {
+NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*, NSDictionary<NSString*, id>*>* toSet)
+{
 	NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithCapacity:toSet.count];
 	for (NSString *mdKey in toSet) {
 		NSDictionary<NSString*,id> *langDict = toSet[mdKey];
@@ -959,8 +957,7 @@ static NSString *getLanguageCode(const string & cppLang)
 	if (cppLang == "und") {
 		return nil;
 	}
-	NSString *threeCharLang = @(cppLang.c_str());
-	return threeCharLang;
+	return @(cppLang.c_str());
 }
 
 static NSString *getLanguageCode(KaxTrackEntry & track)
@@ -980,11 +977,7 @@ static NSString *getLanguageCode(KaxTrackEntry & track)
 static NSString *getLanguageCode(const KaxLanguageIETF & language)
 {
 	const string &threeLang(language);
-	NSString *locale = getLanguageCode(threeLang);
-	if (!locale) {
-		return nil;
-	}
-	return locale;
+	return getLanguageCode(threeLang);
 }
 
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country)
