@@ -50,9 +50,10 @@
 // The layout for an instance of MetaDataImporterPlugIn 
 typedef struct __MetadataImporterPluginType
 {
-    MDImporterInterfaceStruct *conduitInterface;
-    CFUUIDRef                 factoryID;
-    UInt32                    refCount;
+    MDImporterInterfaceStruct       *conduitInterface;
+    MDImporterURLInterfaceStruct    *extraInterface;
+    CFUUIDRef                       factoryID;
+    UInt32                          refCount;
 } MDPlugType;
 
 // -----------------------------------------------------------------------------
@@ -82,6 +83,15 @@ static MDImporterInterfaceStruct testInterfaceFtbl = {
 };
 
 
+static MDImporterURLInterfaceStruct testInterfaceURLFtbl = {
+    NULL,
+    MetadataImporterQueryInterface,
+    MetadataImporterPluginAddRef,
+    MetadataImporterPluginRelease,
+    GetMetadataForURL
+};
+
+
 // -----------------------------------------------------------------------------
 //  AllocMetadataImporterPluginType
 // -----------------------------------------------------------------------------
@@ -95,6 +105,7 @@ MDPlugType *AllocMetadataImporterPluginType(CFUUIDRef inFactoryID)
 
     /* Point to the function table */
     theNewInstance->conduitInterface = &testInterfaceFtbl;
+    theNewInstance->extraInterface = &testInterfaceURLFtbl;
 
     /*  Retain and keep an open instance refcount for each factory. */
     theNewInstance->factoryID = CFRetain(inFactoryID);
@@ -132,6 +143,12 @@ HRESULT MetadataImporterQueryInterface(void *thisInstance, REFIID iid, LPVOID *p
 {
     CFUUIDRef interfaceID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, iid);
     
+    // First, make sure we get the proper pointer.
+    // Overkill maybe, but just to be safe...
+    if (((MDPlugType*)thisInstance)->conduitInterface->ImporterImportData != GetMetadataForFile) {
+        thisInstance = ((char *)thisInstance - offsetof(MDPlugType, extraInterface));
+    }
+    
     if (CFEqual(interfaceID, kMDImporterInterfaceID)) {
         /* If the Right interface was requested, bump the ref count,
          * set the ppv parameter equal to the instance, and
@@ -139,6 +156,15 @@ HRESULT MetadataImporterQueryInterface(void *thisInstance, REFIID iid, LPVOID *p
          */
         ((MDPlugType*)thisInstance)->conduitInterface->AddRef(thisInstance);
         *ppv = thisInstance;
+        CFRelease(interfaceID);
+        return S_OK;
+    } else if (CFEqual(interfaceID, kMDImporterURLInterfaceID)) {
+        /* If the Right interface was requested, bump the ref count,
+         * set the ppv parameter equal to the instance, and
+         * return good status.
+         */
+        ((MDPlugType*)thisInstance)->conduitInterface->AddRef(thisInstance);
+        *ppv = &((MDPlugType*)thisInstance)->extraInterface;
         CFRelease(interfaceID);
         return S_OK;
     } else if (CFEqual(interfaceID, IUnknownUUID)) {
@@ -164,6 +190,11 @@ HRESULT MetadataImporterQueryInterface(void *thisInstance, REFIID iid, LPVOID *p
 //
 ULONG MetadataImporterPluginAddRef(void *thisInstance)
 {
+    // First, make sure we get the proper pointer.
+    // Overkill maybe, but just to be safe...
+    if (((MDPlugType*)thisInstance)->conduitInterface->ImporterImportData != GetMetadataForFile) {
+        thisInstance = ((char *)thisInstance - offsetof(MDPlugType, extraInterface));
+    }
     return ++((MDPlugType *)thisInstance)->refCount;
 }
 
@@ -175,6 +206,11 @@ ULONG MetadataImporterPluginAddRef(void *thisInstance)
 //
 ULONG MetadataImporterPluginRelease(void *thisInstance)
 {
+    // First, make sure we get the proper pointer.
+    // Overkill maybe, but just to be safe...
+    if (((MDPlugType*)thisInstance)->conduitInterface->ImporterImportData != GetMetadataForFile) {
+        thisInstance = ((char *)thisInstance - offsetof(MDPlugType, extraInterface));
+    }
     ((MDPlugType*)thisInstance)->refCount -= 1;
     if (((MDPlugType*)thisInstance)->refCount == 0) {
         DeallocMetadataImporterPluginType((MDPlugType*)thisInstance);

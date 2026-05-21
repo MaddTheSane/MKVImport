@@ -89,6 +89,31 @@
 
 		</type>
 
+		<type name="org.webmproject.webm">
+		 
+			<!-- 'allattrs' is a whitespace separated list of all of the attributes that this UTI type normally has.
+				 It does not have to be exhaustive. -->
+			<allattrs>
+				kMDItemTitle
+				kMDItemCodecs
+				kMDItemLayerNames
+				kMDItemPixelHeight
+				kMDItemPixelWidth
+				kMDItemColorSpace
+				com_GitHub_MaddTheSane_ChapterNames
+			</allattrs>
+			<!-- 'displayattrs' is a whitespace separated list of the attributes that should normally be displayed when previewing files of this UTI type. -->
+			<displayattrs>
+				kMDItemTitle
+				kMDItemCodecs
+				kMDItemLayerNames
+				kMDItemPixelHeight
+				kMDItemPixelWidth
+				kMDItemColorSpace
+			</displayattrs>
+			
+		</type>
+
     </types>
 </schema>
 

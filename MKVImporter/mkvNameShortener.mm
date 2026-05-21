@@ -26,8 +26,8 @@ using std::string;
 #define kSubFormatSubRip @"SubRip"
 #define kSubFormatVobSub @"VobSub"
 
-#define kVideoCodecIndeo3 "Indeo 3"
-#define kVideoCodecIndeo4 "Indeo 4"
+#define kVideoCodecIndeo3 @"Indeo 3"
+#define kVideoCodecIndeo4 @"Indeo 4"
 #define kVideoCodecIndeo5 @"Indeo 5"
 #define kH264CodecType @"H.264"
 #define kMPEG4VisualCodecType @"MPEG 4 Video"

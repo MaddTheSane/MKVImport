@@ -138,7 +138,7 @@ NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 
 static NSArray<NSString*> *commaSeperation(NSString *sep)
 {
-	NSMutableArray *mutArr = [[sep componentsSeparatedByString:@","] mutableCopy];
+	NSMutableArray<NSString*> *mutArr = [[sep componentsSeparatedByString:@","] mutableCopy];
 	for (NSInteger i = 0; i < mutArr.count; i++) {
 		NSString *aStr = mutArr[i];
 		mutArr[i] = [aStr stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];

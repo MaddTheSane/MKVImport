@@ -54,8 +54,8 @@ static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictiona
 
 class MatroskaImport final {
 private:
-	MatroskaImport(NSString* path, NSMutableDictionary*attribs):
-	_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
+	MatroskaImport(const char* path, NSMutableDictionary*attribs):
+	_ebmlFile(StdIOCallback(path, MODE_READ)),
 	_aStream(EbmlStream(_ebmlFile)),
 	attributes(attribs),
 	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false) {
@@ -135,7 +135,7 @@ private:
 	}
 	
 public:
-	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSString *path);
+	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path);
 	
 private:
 	StdIOCallback _ebmlFile;
@@ -203,9 +203,9 @@ exit:
 	return valid;
 }
 
-bool MatroskaImport::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSString *path)
+bool MatroskaImport::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path)
 {
-	MatroskaImport *generatorClass = new MatroskaImport(path, attribs);
+	MatroskaImport *generatorClass = new MatroskaImport(path.fileSystemRepresentation, attribs);
 	if (!generatorClass->isValidMatroska()) {
 		delete generatorClass;
 		return false;
@@ -369,7 +369,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
-				const string cppTrackName = trackName.GetValueUTF8();
+				const string &cppTrackName = trackName.GetValue().GetUTF8();
 				NSString *nsTrackName = @(cppTrackName.c_str());
 				[trackNames addObject:nsTrackName];
 			}
@@ -503,7 +503,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	if (langSet.count > 0) {
 		attributes[(NSString*)kMDItemLanguages] = langSet.allObjects;
 	}
-	attributes[(NSString*)kMDItemCodecs] = codecSet.allObjects;
+	attributes[(NSString*)kMDItemCodecs] = [codecSet.allObjects sortedArrayUsingSelector:@selector(compare:)];
 	if (trackNames.count > 0) {
 		attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
 	}
@@ -873,7 +873,7 @@ NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*, NSDictionary<NSS
 //
 //==============================================================================
 
-Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
+Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFURLRef pathToFile)
 {
 	static dispatch_once_t onceToken;
 	Boolean ok = FALSE;
@@ -885,7 +885,7 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 	});
 	@autoreleasepool {
 		auto nsAttribs = (__bridge NSMutableDictionary<NSString*,id>*)attributes;
-		NSString *nsPath = (__bridge NSString*)pathToFile;
+		NSURL *nsPath = (__bridge NSURL*)pathToFile;
 		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
 		try {
 			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
@@ -900,6 +900,18 @@ Boolean GetMetadataForFile(void *thisInterface, CFMutableDictionaryRef attribute
 	
 	// Return the status
 	return ok;
+}
+
+//! Simple function that converts a POSIX path to a CFURL and call `GetMetadataForURL`.
+Boolean GetMetadataForFile(void* thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
+{
+	Boolean isGood = FALSE;
+	CFURLRef theURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, pathToFile, kCFURLPOSIXPathStyle, false);
+	if (theURL) {
+		isGood = GetMetadataForURL(thisInterface, attributes, contentTypeUTI, theURL);
+		CFRelease(theURL);
+	}
+	return isGood;
 }
 
 #pragma mark - Element code
