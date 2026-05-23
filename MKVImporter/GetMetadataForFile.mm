@@ -59,7 +59,7 @@ private:
 	_aStream(EbmlStream(_ebmlFile)),
 	attributes(attribs),
 	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false) {
-		mediaTypes = [[NSMutableSet alloc] initWithCapacity:6];
+		mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
 		fonts = [[NSMutableSet alloc] initWithCapacity:2];
 		segmentOffset = 0;
 		el_l0 = NULL;
@@ -89,7 +89,7 @@ private:
 	
 	//! Copies over data to `attributes` that can't be done in one iteration.
 	void copyDataOver() {
-		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.allObjects;
+		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.array;
 		if (fonts.count != 0) {
 			attributes[(NSString*)kMDItemFonts] = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
 		}
@@ -143,7 +143,7 @@ private:
 	EbmlElement *el_l0;
 	EbmlElement *el_l1;
 	NSMutableDictionary<NSString*,id> *attributes;
-	NSMutableSet<NSString*> *mediaTypes;
+	NSMutableOrderedSet<NSString*> *mediaTypes;
 	NSMutableSet<NSString*> *fonts;
 	
 	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
@@ -303,7 +303,7 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 		attributes[(NSString*)kMDItemIdentifier] = theUUID.UUIDString;
 	}
 
-	Float64 movieDuration = Float64(duration);
+	double movieDuration = double(duration);
 	UInt64 timecodeScale1 = UInt64(timecodeScale);
 
 	attributes[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
@@ -342,8 +342,8 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		return true;
 	}
 	
-	NSMutableSet<NSString*> *langSet = [[NSMutableSet alloc] init];
-	NSMutableSet<NSString*> *codecSet = [[NSMutableSet alloc] init];
+	NSMutableOrderedSet<NSString*> *langSet = [[NSMutableOrderedSet alloc] init];
+	NSMutableOrderedSet<NSString*> *codecSet = [[NSMutableOrderedSet alloc] init];
 	NSMutableArray<NSString*> *trackNames = [[NSMutableArray alloc] init];
 	//Because there may be more than one video track
 	uint32 biggestWidth = 0;
@@ -369,7 +369,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
-				const string &cppTrackName = trackName.GetValue().GetUTF8();
+				const string cppTrackName = trackName.GetValueUTF8();
 				NSString *nsTrackName = @(cppTrackName.c_str());
 				[trackNames addObject:nsTrackName];
 			}
@@ -467,7 +467,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 					KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(*audTrack);
 					//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
 					double curSampling = curKaxSampling.GetValue();
-					int curChannels = uint32(curKaxChannels.GetValue());
+					int curChannels = uint32(curKaxChannels);
 					if (curSampling > sampleRate) {
 						sampleRate = curSampling;
 					}
@@ -501,9 +501,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	}
 	
 	if (langSet.count > 0) {
-		attributes[(NSString*)kMDItemLanguages] = langSet.allObjects;
+		attributes[(NSString*)kMDItemLanguages] = langSet.array;
 	}
-	attributes[(NSString*)kMDItemCodecs] = [codecSet.allObjects sortedArrayUsingSelector:@selector(compare:)];
+	attributes[(NSString*)kMDItemCodecs] = codecSet.array;
 	if (trackNames.count > 0) {
 		attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
 	}
@@ -547,7 +547,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			if (![chapters objectForKey:chapLocale]) {
 				chapters[chapLocale] = [[NSMutableArray alloc] init];
 			}
-			[chapters[chapLocale] addObject:chapString.GetValue().length() ? @(chapString.GetValueUTF8().c_str()) : @""];
+			[chapters[chapLocale] addObject:chapString.GetValue().length() != 0 ? @(chapString.GetValueUTF8().c_str()) : @""];
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}
 
@@ -900,18 +900,6 @@ Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes
 	
 	// Return the status
 	return ok;
-}
-
-//! Simple function that converts a POSIX path to a CFURL and call `GetMetadataForURL`.
-Boolean GetMetadataForFile(void* thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
-{
-	Boolean isGood = FALSE;
-	CFURLRef theURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, pathToFile, kCFURLPOSIXPathStyle, false);
-	if (theURL) {
-		isGood = GetMetadataForURL(thisInterface, attributes, contentTypeUTI, theURL);
-		CFRelease(theURL);
-	}
-	return isGood;
 }
 
 #pragma mark - Element code

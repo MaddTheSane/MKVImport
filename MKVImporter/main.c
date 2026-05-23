@@ -68,6 +68,7 @@ static HRESULT      MetadataImporterQueryInterface(void *thisInstance, REFIID ii
 extern void        *MetadataImporterPluginFactory(CFAllocatorRef allocator, CFUUIDRef typeID);
 static ULONG        MetadataImporterPluginAddRef(void *thisInstance);
 static ULONG        MetadataImporterPluginRelease(void *thisInstance);
+static Boolean      GetMetadataForFile(void* thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile);
 // -----------------------------------------------------------------------------
 //  testInterfaceFtbl    definition
 // -----------------------------------------------------------------------------
@@ -238,4 +239,16 @@ void *MetadataImporterPluginFactory(CFAllocatorRef allocator, CFUUIDRef typeID)
     }
     /* If the requested type is incorrect, return NULL. */
     return NULL;
+}
+
+//! Simple function that converts a POSIX path to a CFURL and call `GetMetadataForURL`.
+Boolean GetMetadataForFile(void* thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
+{
+    Boolean isGood = FALSE;
+    CFURLRef theURL = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, pathToFile, kCFURLPOSIXPathStyle, false);
+    if (theURL) {
+        isGood = GetMetadataForURL(thisInterface, attributes, contentTypeUTI, theURL);
+        CFRelease(theURL);
+    }
+    return isGood;
 }
