@@ -11,6 +11,7 @@
 #include "GetMetadataForFile.h"
 #include "matroska/FileKax.h"
 #include "ebml/StdIOCallback.h"
+#include "NSURLCallback.hpp"
 
 #include <string>
 #include <vector>
@@ -54,9 +55,9 @@ static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictiona
 
 class MatroskaImport final {
 private:
-	MatroskaImport(const char* path, NSMutableDictionary*attribs):
-	_ebmlFile(StdIOCallback(path, MODE_READ)),
-	_aStream(EbmlStream(_ebmlFile)),
+	MatroskaImport(NSURL* path, NSMutableDictionary*attribs):
+	_ebmlFile(createCallbackForURL(path)),
+	_aStream(EbmlStream(*_ebmlFile)),
 	attributes(attribs),
 	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false) {
 		mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
@@ -77,6 +78,8 @@ private:
 			delete el_l0;
 			el_l0 = NULL;
 		}
+		delete _ebmlFile;
+		_ebmlFile = NULL;
 	}
 	bool ReadSegmentInfo(KaxInfo &segmentInfo);
 	bool ReadTracks(KaxTracks &trackEntries);
@@ -138,7 +141,7 @@ public:
 	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path);
 	
 private:
-	StdIOCallback _ebmlFile;
+	IOCallback *_ebmlFile;
 	EbmlStream _aStream;
 	EbmlElement *el_l0;
 	EbmlElement *el_l1;
@@ -147,14 +150,14 @@ private:
 	NSMutableSet<NSString*> *fonts;
 	
 	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
-	bool seenInfo;
-	bool seenTracks;
-	bool seenChapters;
-	bool seenTags;
+	bool seenInfo = false;
+	bool seenTracks = false;
+	bool seenChapters = false;
+	bool seenTags = false;
 
 	std::vector<MatroskaSeek>	levelOneElements;
 	
-	uint64_t					segmentOffset;
+	uint64_t					segmentOffset = 0;
 };
 
 bool MatroskaImport::isValidMatroska()
@@ -205,7 +208,7 @@ exit:
 
 bool MatroskaImport::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path)
 {
-	MatroskaImport *generatorClass = new MatroskaImport(path.fileSystemRepresentation, attribs);
+	MatroskaImport *generatorClass = new MatroskaImport(path, attribs);
 	if (!generatorClass->isValidMatroska()) {
 		delete generatorClass;
 		return false;
@@ -751,7 +754,7 @@ static int64_t get_cuid(const KaxTag &tag)
 static bool isMultiple(const std::string& spotlightKey)
 {
 	// ARTIST maps to kMDItemAuthors, while PUBLISHER maps to kMDItemPublishers.
-	static const std::unordered_set<std::string> multiTags2 = {"ARTIST", "PUBLISHER"};
+	static const std::unordered_set<std::string> multiTags2 = {"ARTIST", "PUBLISHER", "MOOD"};
 	if (multiTags2.find(spotlightKey) != multiTags2.end()) {
 		return true;
 	}
@@ -771,7 +774,11 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 		@"PRODUCER": (NSString*)kMDItemProducer,
 		@"GENRE": (NSString*)kMDItemGenre,
 		@"COMMENT": (NSString*)kMDItemComment,
-		@"SHOW": (NSString*)kMDItemAlbum
+		@"SHOW": (NSString*)kMDItemAlbum,
+		@"SYNOPSIS": (NSString*)kMDItemHeadline,
+		@"LYRICS": (NSString*)kMDItemTextContent,
+		@"MOOD": (NSString*)kMDItemAudiences,
+		@"KEYWORDS": (NSString*)kMDItemKeywords,
 		};
 	
 	return matroskaToSpotlightMapping[matroskaKey];
@@ -816,10 +823,15 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 			}
 			string simpleName = get_simple_name(*simple_tag);
 			string simpleVal = get_simple_value(*simple_tag);
-			if (isMultiple(simpleName)) {
-				tagDict[nsLang][@(simpleName.c_str())] = @[@(simpleVal.c_str())];
+			// FIXME: HACK: work around "KEYWORDS"
+			if (simpleName == "KEYWORDS") {
+				tagDict[nsLang][@(simpleName.c_str())] = [@(simpleVal.c_str()) componentsSeparatedByString:@","];
 			} else {
-				tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
+				if (isMultiple(simpleName)) {
+					tagDict[nsLang][@(simpleName.c_str())] = @[@(simpleVal.c_str())];
+				} else {
+					tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
+				}
 			}
 		}
 	}
@@ -935,7 +947,7 @@ EbmlElement * MatroskaImport::NextLevel1Element()
 
 MatroskaImport::MatroskaSeek::MatroskaSeekContext MatroskaImport::SaveContext()
 {
-	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile.getFilePointer() };
+	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile->getFilePointer() };
 	el_l1 = NULL;
 	return ret;
 }
@@ -947,7 +959,7 @@ void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
 	}
 	
 	el_l1 = context.el_l1;
-	_ebmlFile.setFilePointer(context.position);
+	_ebmlFile->setFilePointer(context.position);
 }
 
 #pragma mark -
