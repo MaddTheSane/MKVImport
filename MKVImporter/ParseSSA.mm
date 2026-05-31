@@ -26,8 +26,7 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	if (codecPrivate == NULL) {
 		return false;
 	}
-	NSData *preString = [NSData dataWithBytesNoCopy:codecPrivate->GetBuffer() length:codecPrivate->GetSize() freeWhenDone:NO];
-	NSString *theString = [[NSString alloc] initWithData:preString encoding:NSUTF8StringEncoding];
+	NSString *theString = [[NSString alloc] initWithBytes:codecPrivate->GetBuffer() length:codecPrivate->GetSize() encoding:NSUTF8StringEncoding];
 	if (!theString) {
 		postError(mkvErrorLevelSerious, CFSTR("Decoding of SSA header to UTF-8 failed."));
 		return false;

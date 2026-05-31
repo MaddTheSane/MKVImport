@@ -157,7 +157,7 @@ private:
 
 	std::vector<MatroskaSeek>	levelOneElements;
 	
-	uint64_t					segmentOffset = 0;
+	uint64_t					segmentOffset;
 };
 
 bool MatroskaImport::isValidMatroska()

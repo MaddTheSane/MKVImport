@@ -9,6 +9,7 @@
 #include "NSURLCallback.hpp"
 #include <ebml/StdIOCallback.h>
 #include <string>
+#include "Debugging.h"
 
 using namespace LIBEBML_NAMESPACE;
 using std::string;
@@ -34,15 +35,15 @@ protected:
 	// file, the buffer and the size and the function returns the bytes read.
 	// If an error occurs or the file pointer points to the end of the file 0 is returned.
 	// Users are encouraged to throw a descriptive exception, when an error occurs.
-	virtual uint32 read(void*Buffer,size_t Size) override;
+	virtual uint32 read(void *buffer, size_t size) override;
 
 	// Seek to the specified position. The mode can have either SEEK_SET, SEEK_CUR
 	// or SEEK_END. The callback should return true(1) if the seek operation succeeded
 	// or false (0), when the seek fails.
-	virtual void setFilePointer(int64 Offset,seek_mode Mode=seek_beginning) override;
+	virtual void setFilePointer(int64 offset, seek_mode mode=seek_beginning) override;
 
 	// This callback just works like its read pendant. It returns the number of bytes written.
-	virtual size_t write(const void*Buffer,size_t Size) override {
+	virtual size_t write(const void *buffer, size_t size) override {
 		throw CRTError(EROFS, "NSURLCallback can only read");
 		return 0;
 	}
@@ -63,19 +64,19 @@ protected:
 	friend libebml::IOCallback *createCallbackForURL(NSURL *ourURL);
 };
 
-uint32 NSURLCallback::read(void *Buffer, size_t Size) {
-	NSError *anErr;
+uint32 NSURLCallback::read(void *buffer, size_t size) {
 	NSData *dataRead;
 	if (@available(macOS 10.15, *)) {
-		dataRead = [file readDataUpToLength:Size error:&anErr];
+		NSError *anErr=nil;
+		dataRead = [file readDataUpToLength:size error:&anErr];
 		if (!dataRead) {
 			throw CRTError(EIO, string(anErr.localizedDescription.UTF8String));
 		}
 	} else {
 		// Fallback on earlier versions
-		dataRead = [file readDataOfLength:Size];
+		dataRead = [file readDataOfLength:size];
 	}
-	[dataRead getBytes:Buffer length:Size];
+	[dataRead getBytes:buffer length:size];
 	return dataRead.length;
 }
 
@@ -97,31 +98,29 @@ uint64 NSURLCallback::getFilePointer() {
 	}
 }
 
-void NSURLCallback::setFilePointer(int64 offset,seek_mode mode) {
+void NSURLCallback::setFilePointer(int64 offset, seek_mode mode) {
 	unsigned long long currentPosition = 0;
 	if (@available(macOS 10.15, *)) {
 		BOOL success = NO;
 		NSError *theErr = nil;
 		switch (mode) {
-			case SEEK_CUR:
-			{
+			case seek_current:
 				success = [file getOffset:&currentPosition error:&theErr];
 				if (!success) {
 					throw CRTError(EIO, theErr.localizedDescription.UTF8String);
 				}
 				currentPosition += offset;
-			}
 				break;
-			case SEEK_END:
-			{
+				
+			case seek_end:
 				success = [file seekToEndReturningOffset:&currentPosition error:&theErr];
 				if (!success) {
 					throw CRTError(EIO, theErr.localizedDescription.UTF8String);
 				}
 				currentPosition += offset;
-			}
 				break;
-			case SEEK_SET:
+				
+			case seek_beginning:
 				currentPosition = offset;
 				break;
 		}
@@ -133,13 +132,15 @@ void NSURLCallback::setFilePointer(int64 offset,seek_mode mode) {
 	} else {
 		// Fallback on earlier versions
 		switch (mode) {
-			case SEEK_CUR:
+			case seek_current:
 				currentPosition = [file offsetInFile] + offset;
 				break;
-			case SEEK_END:
+				
+			case seek_end:
 				currentPosition = [file seekToEndOfFile] + offset;
 				break;
-			case SEEK_SET:
+				
+			case seek_beginning:
 				currentPosition = offset;
 				break;
 		}
@@ -176,8 +177,10 @@ libebml::IOCallback *createCallbackForURL(NSURL *ourURL) {
 		}
 	} catch (CRTError &anErr) {
 		// CRTError exceptions
+		postError(mkvErrorLevelWarn, CFSTR("Encountered CRTError exception creating NSFileHandle for %@: %s"), ourURL, anErr.what());
 	} catch (...) {
 		// Any other exception
+		postError(mkvErrorLevelSerious, CFSTR("Encountered UNKNOWN exception creating NSFileHandle for %@"), ourURL);
 	}
 	
 	return new libebml::StdIOCallback(ourURL.fileSystemRepresentation, MODE_READ);
