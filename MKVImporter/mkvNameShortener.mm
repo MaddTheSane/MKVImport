@@ -300,7 +300,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 			return location->second;
 		}
 	}
-	postError(mkvErrorLevelWarn, CFSTR("Unknown codec type %s"), codecString.c_str());
+	postError(mkvErrorLevelWarn, CFSTR("Unknown codec type %@"), @(codecString.c_str()));
 
 	return nil;
 }

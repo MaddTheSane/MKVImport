@@ -177,7 +177,7 @@ libebml::IOCallback *createCallbackForURL(NSURL *ourURL) {
 		}
 	} catch (CRTError &anErr) {
 		// CRTError exceptions
-		postError(mkvErrorLevelWarn, CFSTR("Encountered CRTError exception creating NSFileHandle for %@: %s"), ourURL, anErr.what());
+		postError(mkvErrorLevelWarn, CFSTR("Encountered CRTError exception creating NSFileHandle for %@: %@"), ourURL, @(anErr.what()));
 	} catch (...) {
 		// Any other exception
 		postError(mkvErrorLevelSerious, CFSTR("Encountered UNKNOWN exception creating NSFileHandle for %@"), ourURL);

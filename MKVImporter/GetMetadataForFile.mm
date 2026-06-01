@@ -181,7 +181,7 @@ bool MatroskaImport::isValidMatroska()
 		EDocType & docType = GetChild<EDocType>(*head);
 		const string & cppDocType = string(docType);
 		if (cppDocType != "matroska" && cppDocType != "webm") {
-			postError(mkvErrorLevelWarn, CFSTR("Unknown Matroska doctype \"%s\""), cppDocType.c_str());
+			postError(mkvErrorLevelWarn, CFSTR("Unknown Matroska doctype \"%@\""), @(cppDocType.c_str()));
 			valid = false;
 			goto exit;
 		}
@@ -902,7 +902,7 @@ Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes
 		try {
 			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
 		} catch (CRTError &anErr) {
-			postError(mkvErrorLevelSerious, CFSTR("Exception caught! %s"), anErr.what());
+			postError(mkvErrorLevelSerious, CFSTR("Exception caught! %@"), @(anErr.what()));
 			ok = FALSE;
 		} catch (...) {
 			postError(mkvErrorLevelSerious, CFSTR("Unknown exception!"));
