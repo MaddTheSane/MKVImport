@@ -108,7 +108,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "A_TRUEHD", @"TrueHD" },
 	{ "A_MPEG/L3", kAudioFormatMPEGLayer3 },
 	{ "A_AC3", kAudioFormatAC3 },
-	// anything special for these two?
+	// FIXME: anything special for these two?
 	{ "A_AC3/BSID9", kAudioFormatAC3 },
 	{ "A_AC3/BSID10", kAudioFormatAC3 },
 	{ "A_VORBIS", kAudioFormatXiphVorbis },
@@ -286,7 +286,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		// QT compatibility mode, private info is the ImageDescription structure, big endian
 		KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
 		if (codecPrivate == NULL || codecPrivate->GetSize() <= 8) {
-			return 0;
+			return nil;
 		}
 		
 		// starts at the 4CC

@@ -61,7 +61,7 @@ private:
 	attributes(attribs),
 	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false) {
 		mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
-		fonts = [[NSMutableSet alloc] initWithCapacity:2];
+		fonts = [[NSMutableSet alloc] initWithCapacity:50];
 		segmentOffset = 0;
 		el_l0 = NULL;
 		el_l1 = NULL;
@@ -150,10 +150,10 @@ private:
 	NSMutableSet<NSString*> *fonts;
 	
 	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
-	bool seenInfo = false;
-	bool seenTracks = false;
-	bool seenChapters = false;
-	bool seenTags = false;
+	bool seenInfo;
+	bool seenTracks;
+	bool seenChapters;
+	bool seenTags;
 
 	std::vector<MatroskaSeek>	levelOneElements;
 	
