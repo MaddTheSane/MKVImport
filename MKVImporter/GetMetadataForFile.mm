@@ -133,7 +133,7 @@ private:
 	bool ProcessLevel1Element();
 	
 	bool iterateData();
-	void addMediaType(NSString *theType) {
+	inline void addMediaType(NSString *theType) {
 		[mediaTypes addObject:theType];
 	}
 	
@@ -252,32 +252,33 @@ bool MatroskaImport::ProcessLevel1Element()
 {
 	int upperLevel = 0;
 	EbmlElement *dummyElt = NULL;
+	const EbmlId theID(*el_l1);
 	
-	if (EbmlId(*el_l1) == KaxInfo::ClassInfos.GlobalId) {
+	if (theID == KaxInfo::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxInfo::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadSegmentInfo(*static_cast<KaxInfo *>(el_l1));
 		
-	} else if (EbmlId(*el_l1) == KaxTracks::ClassInfos.GlobalId) {
+	} else if (theID == KaxTracks::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxTracks::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadTracks(*static_cast<KaxTracks *>(el_l1));
 		
-	} else if (EbmlId(*el_l1) == KaxChapters::ClassInfos.GlobalId) {
+	} else if (theID == KaxChapters::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxChapters::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadChapters(*static_cast<KaxChapters *>(el_l1));
 		
-	} else if (EbmlId(*el_l1) == KaxAttachments::ClassInfos.GlobalId) {
+	} else if (theID == KaxAttachments::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxAttachments::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadAttachments(*static_cast<KaxAttachments *>(el_l1));
 		
-	} else if (EbmlId(*el_l1) == KaxSeekHead::ClassInfos.GlobalId) {
+	} else if (theID == KaxSeekHead::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxSeekHead::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadMetaSeek(*static_cast<KaxSeekHead *>(el_l1));
 		
-	} else if (EbmlId(*el_l1) == KaxTags::ClassInfos.GlobalId) {
+	} else if (theID == KaxTags::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxTags::ClassInfos.Context, upperLevel, dummyElt, true);
 		return ReadTags(*static_cast<KaxTags *>(el_l1));
 		
-	} else if (EbmlId(*el_l1) == KaxCues::ClassInfos.GlobalId) {
+	} else if (theID == KaxCues::ClassInfos.GlobalId) {
 		el_l1->Read(_aStream, KaxCues::ClassInfos.Context, upperLevel, dummyElt, true);
 		return true;
 		
