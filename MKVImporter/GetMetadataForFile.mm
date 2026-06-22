@@ -65,6 +65,8 @@ private:
 		segmentOffset = 0;
 		el_l0 = NULL;
 		el_l1 = NULL;
+		bpsStorage = [[NSMutableDictionary alloc] init];
+		trackIDAndTypes = [[NSMutableDictionary alloc] init];
 	}
 	virtual ~MatroskaImport() {
 		attributes = nil;
@@ -95,6 +97,60 @@ private:
 		attributes[(NSString*)kMDItemMediaTypes] = mediaTypes.array;
 		if (fonts.count != 0) {
 			attributes[(NSString*)kMDItemFonts] = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+		}
+		
+		if (bpsStorage.count != 0) {
+			// How we're doing this:
+			// * `kMDItemTotalBitRate` is the bitrate of all the tracks.
+			// * `kMDItemVideoBitRate` and `kMDItemAudioBitRate` will be the track with the largest number.
+			long long biggestVid = 0;
+			long long biggestAud = 0;
+			uint64_t all = 0;
+			
+			//combine the two.
+			NSMutableDictionary<NSNumber*, NSArray*> *combinedDict = [[NSMutableDictionary alloc] initWithCapacity: [trackIDAndTypes count]];
+			for (NSNumber *value in trackIDAndTypes) {
+				NSString *bps = bpsStorage[value];
+				if (!bps) {
+					continue;
+				}
+				combinedDict[value] = @[trackIDAndTypes[value], bps];
+			}
+			
+			for (NSNumber *value in combinedDict) {
+				NSArray *ourArray = combinedDict[value];
+				NSNumber *trackType = ourArray[0];
+				NSString *bpsStr = ourArray[1];
+				//Convert bps to a numerical value.
+				long long bps = bpsStr.longLongValue;
+				all += bps;
+				
+				// We only care about `track_video`, `track_audio`
+				switch (trackType.unsignedCharValue) {
+					case track_video:
+						biggestVid = std::max(biggestVid, bps);
+						break;
+						
+					case track_audio:
+						biggestAud = std::max(biggestAud, bps);
+						break;
+						
+					case track_complex:
+						//Not dealing with this.
+						break;
+						
+					case track_subtitle:
+						// There's no key for subtitle BPS.
+						break;
+						
+					default:
+						break;
+				}
+			}
+			
+			attributes[(NSString*)kMDItemTotalBitRate] = @(all);
+			attributes[(NSString*)kMDItemVideoBitRate] = @(biggestVid);
+			attributes[(NSString*)kMDItemAudioBitRate] = @(biggestAud);
 		}
 	}
 	EbmlElement * NextLevel1Element();
@@ -148,6 +204,8 @@ private:
 	NSMutableDictionary<NSString*,id> *attributes;
 	NSMutableOrderedSet<NSString*> *mediaTypes;
 	NSMutableSet<NSString*> *fonts;
+	NSMutableDictionary<NSNumber*,NSString*> *bpsStorage;
+	NSMutableDictionary<NSNumber*,NSNumber*> *trackIDAndTypes;
 	
 	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
 	bool seenInfo;
@@ -361,9 +419,11 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		}
 		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntry);
 		KaxTrackType & type = GetChild<KaxTrackType>(track);
+		KaxTrackUID & tuid = GetChild<KaxTrackUID>(track);
 		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
 		
 		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
+		trackIDAndTypes[@(tuid.GetValue())] = @(uint8(type));
 		{
 			NSString *nsLang = getLanguageCode(track);
 			if (nsLang) {
@@ -722,31 +782,31 @@ static std::string get_simple_language(const KaxTagSimple &tag)
 	return "";
 }
 
-static int64_t get_tuid(const KaxTag &tag)
+static std::optional<uint64_t> get_tuid(const KaxTag &tag)
 {
 	auto targets = FindChild<KaxTagTargets>(&tag);
 	if (!targets) {
-		return -1;
+		return std::nullopt;
 	}
 	
 	auto tuid = FindChild<KaxTagTrackUID>(targets);
 	if (!tuid) {
-		return -1;
+		return std::nullopt;
 	}
 	
 	return tuid->GetValue();
 }
 
-static int64_t get_cuid(const KaxTag &tag)
+static std::optional<uint64_t> get_cuid(const KaxTag &tag)
 {
 	auto targets = FindChild<KaxTagTargets>(&tag);
 	if (!targets) {
-		return -1;
+		return std::nullopt;
 	}
 	
 	auto cuid = FindChild<KaxTagChapterUID>(targets);
 	if (!cuid) {
-		return -1;
+		return std::nullopt;
 	}
 	
 	return cuid->GetValue();
@@ -799,13 +859,27 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 			continue;
 		}
 
-		// exclude tags that refer to specific tracks...
-		if (get_tuid(*tag) != -1) {
+		// only get the BPS tag from track tags.
+		auto trackID = get_tuid(*tag);
+		if (trackID.has_value()) {
+			for (auto const simple_tag_elt : *tag) {
+				const auto simple_tag = dynamic_cast<KaxTagSimple *const>(simple_tag_elt);
+				if (!simple_tag) {
+					continue;
+				}
+				string simpleName = get_simple_name(*simple_tag);
+				string simpleVal = get_simple_value(*simple_tag);
+				if (simpleName == "BPS") {
+					bpsStorage[@(trackID.value())] = @(simpleVal.c_str());
+					break;
+				}
+			}
+			// otherwise exclude tags that refer to specific tracks...
 			continue;
 		}
 		
-		// ...or chapters
-		if (get_cuid(*tag) != -1) {
+		// exclude tags that refer to specific chapters
+		if (get_cuid(*tag).has_value()) {
 			continue;
 		}
 
