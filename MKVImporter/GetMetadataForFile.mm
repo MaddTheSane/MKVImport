@@ -148,9 +148,15 @@ private:
 				}
 			}
 			
-			attributes[(NSString*)kMDItemTotalBitRate] = @(all);
-			attributes[(NSString*)kMDItemVideoBitRate] = @(biggestVid);
-			attributes[(NSString*)kMDItemAudioBitRate] = @(biggestAud);
+			if (all != 0) {
+				attributes[(NSString*)kMDItemTotalBitRate] = @(all);
+				if (biggestVid != 0) {
+					attributes[(NSString*)kMDItemVideoBitRate] = @(biggestVid);
+				}
+				if (biggestAud != 0) {
+					attributes[(NSString*)kMDItemAudioBitRate] = @(biggestAud);
+				}
+			}
 		}
 	}
 	EbmlElement * NextLevel1Element();
