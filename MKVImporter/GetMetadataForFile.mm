@@ -644,11 +644,10 @@ static bool MIMEIsFont(const string &mimeName) {
 	NSString *preName = @(mimeName.c_str());
 	preName = [preName lowercaseString];
 	string postString = string(preName.UTF8String);
-	auto idx = fontTypes.find(postString);
+	bool success = fontTypes.contains(postString);
 #else
-	auto idx = fontTypes.find(mimeName);
+	bool success = fontTypes.contains(mimeName);
 #endif
-	bool success = (idx != fontTypes.end());
 	return success;
 }
 
@@ -822,10 +821,7 @@ static bool isMultiple(const std::string& spotlightKey)
 {
 	// ARTIST maps to kMDItemAuthors, while PUBLISHER maps to kMDItemPublishers.
 	static const std::unordered_set<std::string> multiTags2 = {"ARTIST", "PUBLISHER", "MOOD"};
-	if (multiTags2.find(spotlightKey) != multiTags2.end()) {
-		return true;
-	}
-	return false;
+	return multiTags2.contains(spotlightKey);
 }
 
 static NSString *toSpotlightKey(NSString *matroskaKey)
