@@ -614,7 +614,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			if (!chapLocale) {
 				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
 			}
-			if (![chapters objectForKey:chapLocale]) {
+			if (chapters[chapLocale] == nil) {
 				chapters[chapLocale] = [[NSMutableArray alloc] init];
 			}
 			[chapters[chapLocale] addObject:chapString.GetValue().length() != 0 ? @(chapString.GetValueUTF8().c_str()) : @""];
@@ -772,7 +772,7 @@ static std::string get_simple_value(const KaxTagSimple &tag)
 	const KaxTagString *tstring = FindChild<KaxTagString>(tag);
 	return tstring ? tstring->GetValueUTF8() : "";
 }
-//KaxTagLangue
+
 static std::string get_simple_language(const KaxTagSimple &tag)
 {
 	KaxTagLanguageIETF *tlanguage = FindChild<KaxTagLanguageIETF>(tag);

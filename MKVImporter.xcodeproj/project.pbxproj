@@ -111,7 +111,6 @@
 		55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E161E1C1C3700CDDED1 /* libebml.a */; };
 		55868EEC1E1C1D6F00CDDED1 /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E0E1E1C1C2500CDDED1 /* libmatroska.a */; };
 		55868EEE1E1C1DA300CDDED1 /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
-		559778BB2D7D8B360018AA56 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 559778BA2D7D8B360018AA56 /* CoreGraphics.framework */; };
 		559778BD2D7D9DB80018AA56 /* InfoPlist.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 559778BC2D7D9DB80018AA56 /* InfoPlist.xcstrings */; };
 		559778BF2D7D9DB90018AA56 /* schema.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 559778BE2D7D9DB90018AA56 /* schema.xcstrings */; };
 		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
@@ -297,7 +296,6 @@
 			files = (
 				55D8AE272D8A22AC00EF2765 /* CoreText.framework in Frameworks */,
 				55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */,
-				559778BB2D7D8B360018AA56 /* CoreGraphics.framework in Frameworks */,
 				55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */,
 				55868EEC1E1C1D6F00CDDED1 /* libmatroska.a in Frameworks */,
 				55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */,
