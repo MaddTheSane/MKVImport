@@ -731,7 +731,7 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 		seekEntry = FindNextChild<KaxSeek>(seekHead, *seekEntry);
 	}
 	
-//	sort(levelOneElements.begin(), levelOneElements.end());
+	sort(levelOneElements.begin(), levelOneElements.end());
 	
 	return true;
 }
