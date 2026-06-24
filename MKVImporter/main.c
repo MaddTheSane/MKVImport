@@ -241,7 +241,7 @@ void *MetadataImporterPluginFactory(CFAllocatorRef allocator, CFUUIDRef typeID)
     return NULL;
 }
 
-//! Simple function that converts a POSIX path to a CFURL and call `GetMetadataForURL`.
+//! Simple function that converts a POSIX path to a CFURL and call ``GetMetadataForURL``.
 Boolean GetMetadataForFile(void* thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFStringRef pathToFile)
 {
     Boolean isGood = FALSE;

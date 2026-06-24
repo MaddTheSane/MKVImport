@@ -18,7 +18,7 @@ extern "C" {
 #endif
 
 #ifndef __private_extern
-#define __private_extern __attribute__((visibility("hidden")))
+#define __private_extern __attribute__((visibility("hidden"))) extern
 #endif
 
 typedef CF_ENUM(int, mkvErrorLevel) {

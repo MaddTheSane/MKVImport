@@ -655,7 +655,7 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 {
 	addMediaType(@"Attachments");
 	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
-	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] init];
+	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
 	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {

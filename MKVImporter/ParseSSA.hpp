@@ -13,7 +13,7 @@
 #include "matroska/KaxTracks.h"
 
 #ifndef __private_extern
-#define __private_extern __attribute__((visibility("hidden")))
+#define __private_extern __attribute__((visibility("hidden"))) extern
 #endif
 
 __private_extern bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList);

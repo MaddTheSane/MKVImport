@@ -14,12 +14,11 @@
 #import <Foundation/Foundation.h>
 
 #ifndef __private_extern
-#define __private_extern __attribute__((visibility("hidden")))
+#define __private_extern __attribute__((visibility("hidden"))) extern
 #endif
 
 
-__private_extern extern
-LIBEBML_NAMESPACE::IOCallback *createCallbackForURL(NSURL *ourURL);
+__private_extern LIBEBML_NAMESPACE::IOCallback *createCallbackForURL(NSURL *ourURL);
 
 
 #endif /* NSURLCallback_hpp */
