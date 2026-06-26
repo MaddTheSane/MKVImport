@@ -22,11 +22,10 @@ extern "C" {
 #endif
 
 /// The import function to be implemented in GetMetadataForFile.c
-__private_extern
-Boolean GetMetadataForURL(void *thisInterface,
-						  CFMutableDictionaryRef attributes,
-						  CFStringRef contentTypeUTI,
-						  CFURLRef pathToFile);
+__private_extern Boolean GetMetadataForURL(void *thisInterface,
+										   CFMutableDictionaryRef attributes,
+										   CFStringRef contentTypeUTI,
+										   CFURLRef pathToFile);
 
 #ifdef __cplusplus
 }

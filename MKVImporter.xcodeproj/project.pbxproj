@@ -158,6 +158,14 @@
 /* Begin PBXFileReference section */
 		550E47942FC2D55F000C5747 /* NSURLCallback.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = NSURLCallback.hpp; sourceTree = "<group>"; };
 		550E47952FC2D55F000C5747 /* NSURLCallback.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = NSURLCallback.mm; sourceTree = "<group>"; };
+		552284572FEBC56D006EBD7C /* checked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = checked.h; sourceTree = "<group>"; };
+		552284582FEBC56D006EBD7C /* core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = core.h; sourceTree = "<group>"; };
+		552284592FEBC56D006EBD7C /* cpp11.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpp11.h; sourceTree = "<group>"; };
+		5522845A2FEBC56D006EBD7C /* cpp17.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cpp17.h; sourceTree = "<group>"; };
+		5522845B2FEBC56D006EBD7C /* unchecked.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = unchecked.h; sourceTree = "<group>"; };
+		5522845D2FEBC56D006EBD7C /* utf8.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = utf8.h; sourceTree = "<group>"; };
+		5522845F2FEBC56D006EBD7C /* git-info.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = "git-info.txt"; sourceTree = "<group>"; };
+		552284602FEBC56D006EBD7C /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		55239B6B1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = OSTypeMapperGenerator; sourceTree = BUILT_PRODUCTS_DIR; };
 		55239B6D1E301A1200B5B7D0 /* main.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
 		5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = ParseSSA.mm; sourceTree = "<group>"; };
@@ -319,6 +327,45 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5522845C2FEBC56D006EBD7C /* utf8 */ = {
+			isa = PBXGroup;
+			children = (
+				552284572FEBC56D006EBD7C /* checked.h */,
+				552284582FEBC56D006EBD7C /* core.h */,
+				552284592FEBC56D006EBD7C /* cpp11.h */,
+				5522845A2FEBC56D006EBD7C /* cpp17.h */,
+				5522845B2FEBC56D006EBD7C /* unchecked.h */,
+			);
+			path = utf8;
+			sourceTree = "<group>";
+		};
+		5522845E2FEBC56D006EBD7C /* source */ = {
+			isa = PBXGroup;
+			children = (
+				5522845D2FEBC56D006EBD7C /* utf8.h */,
+				5522845C2FEBC56D006EBD7C /* utf8 */,
+			);
+			path = source;
+			sourceTree = "<group>";
+		};
+		552284612FEBC56D006EBD7C /* utf8-cpp */ = {
+			isa = PBXGroup;
+			children = (
+				5522845E2FEBC56D006EBD7C /* source */,
+				5522845F2FEBC56D006EBD7C /* git-info.txt */,
+				552284602FEBC56D006EBD7C /* README.md */,
+			);
+			path = "utf8-cpp";
+			sourceTree = "<group>";
+		};
+		552284622FEBC56D006EBD7C /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				552284612FEBC56D006EBD7C /* utf8-cpp */,
+			);
+			path = lib;
+			sourceTree = "<group>";
+		};
 		55239B6C1E301A1200B5B7D0 /* OSTypeMapperGenerator */ = {
 			isa = PBXGroup;
 			children = (
@@ -532,6 +579,7 @@
 		55868E961E1C1CB600CDDED1 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				552284622FEBC56D006EBD7C /* lib */,
 				55868E971E1C1CB600CDDED1 /* Debug.cpp */,
 				55868E981E1C1CB600CDDED1 /* EbmlBinary.cpp */,
 				55868E991E1C1CB600CDDED1 /* EbmlContexts.cpp */,

@@ -46,7 +46,7 @@ using std::string;
 #define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
 #define kAttachedFiles @"com_GitHub_MaddTheSane_AttachedFiles"
 
-static NSString *getLanguageCode(const string & cppLang);
+static inline NSString *getLanguageCode(const string & cppLang);
 static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
@@ -1041,7 +1041,7 @@ void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
 
 #pragma mark -
 
-static NSString *getLanguageCode(const string & cppLang)
+static inline NSString *getLanguageCode(const string & cppLang)
 {
 	if (cppLang == "und") {
 		return nil;
