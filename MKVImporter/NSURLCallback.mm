@@ -77,7 +77,7 @@ uint32 NSURLCallback::read(void *buffer, size_t size) {
 		// Fallback on earlier versions
 		dataRead = [file readDataOfLength:size];
 	}
-	[dataRead getBytes:buffer length:size];
+	[dataRead getBytes:buffer length:dataRead.length];
 	return dataRead.length;
 }
 
