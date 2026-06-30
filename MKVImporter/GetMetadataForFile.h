@@ -13,19 +13,15 @@
 #include <CoreFoundation/CFPlugInCOM.h>
 #include <CoreServices/CoreServices.h>
 
-#ifndef __private_extern
-#define __private_extern __attribute__((visibility("hidden"))) extern
-#endif
-
 #ifdef __cplusplus
 extern "C" {
 #endif
 
 /// The import function to be implemented in GetMetadataForFile.c
-__private_extern Boolean GetMetadataForURL(void *thisInterface,
-										   CFMutableDictionaryRef attributes,
-										   CFStringRef contentTypeUTI,
-										   CFURLRef pathToFile);
+extern Boolean GetMetadataForURL(void *thisInterface,
+								 CFMutableDictionaryRef attributes,
+								 CFStringRef contentTypeUTI,
+								 CFURLRef pathToFile);
 
 #ifdef __cplusplus
 }

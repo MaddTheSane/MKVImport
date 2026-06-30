@@ -17,10 +17,6 @@
 extern "C" {
 #endif
 
-#ifndef __private_extern
-#define __private_extern __attribute__((visibility("hidden"))) extern
-#endif
-
 typedef CF_ENUM(int, mkvErrorLevel) {
 	//! Annoying, but won't crash.
 	mkvErrorLevelTrivial = 0,
@@ -32,9 +28,9 @@ typedef CF_ENUM(int, mkvErrorLevel) {
 	mkvErrorLevelFatal = 3
 };
 
-__private_extern void postError(mkvErrorLevel level, CFStringRef format, ...) CF_FORMAT_FUNCTION(2,3);
+extern void postError(mkvErrorLevel level, CFStringRef format, ...) CF_FORMAT_FUNCTION(2,3);
 
-__private_extern void postErrorVA(mkvErrorLevel level, CFStringRef format, va_list list) CF_FORMAT_FUNCTION(2,0);
+extern void postErrorVA(mkvErrorLevel level, CFStringRef format, va_list list) CF_FORMAT_FUNCTION(2,0);
 
 #ifdef __cplusplus
 }

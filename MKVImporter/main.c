@@ -47,7 +47,7 @@
 //  typedefs
 // -----------------------------------------------------------------------------
                
-// The layout for an instance of MetaDataImporterPlugIn 
+/// The layout for an instance of MetaDataImporterPlugIn
 typedef struct __MetadataImporterPluginType
 {
     MDImporterInterfaceStruct       *conduitInterface;
@@ -65,6 +65,7 @@ typedef struct __MetadataImporterPluginType
 static MDPlugType  *AllocMetadataImporterPluginType(CFUUIDRef inFactoryID);
 static void         DeallocMetadataImporterPluginType(MDPlugType *thisInstance);
 static HRESULT      MetadataImporterQueryInterface(void *thisInstance, REFIID iid, LPVOID *ppv);
+__attribute__((visibility("default")))
 extern void        *MetadataImporterPluginFactory(CFAllocatorRef allocator, CFUUIDRef typeID);
 static ULONG        MetadataImporterPluginAddRef(void *thisInstance);
 static ULONG        MetadataImporterPluginRelease(void *thisInstance);

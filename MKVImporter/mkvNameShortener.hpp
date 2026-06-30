@@ -12,12 +12,8 @@
 #include <stdio.h>
 #include "matroska/KaxTracks.h"
 
-#ifndef __private_extern
-#define __private_extern __attribute__((visibility("hidden"))) extern
-#endif
-
 @class NSString;
 
-__private_extern NSString *__nullable mkvCodecShortener(LIBMATROSKA_NAMESPACE::KaxTrackEntry & tr_entry);
+extern NSString *__nullable mkvCodecShortener(LIBMATROSKA_NAMESPACE::KaxTrackEntry & tr_entry);
 
 #endif /* mkvNameShortener_hpp */
