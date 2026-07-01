@@ -117,8 +117,7 @@ private:
 				combinedDict[value] = @[trackIDAndTypes[value], bps];
 			}
 			
-			for (NSNumber *value in combinedDict) {
-				NSArray *ourArray = combinedDict[value];
+			for (NSArray *ourArray in [combinedDict allValues]) {
 				NSNumber *trackType = ourArray[0];
 				NSString *bpsStr = ourArray[1];
 				//Convert bps to a numerical value.
@@ -571,9 +570,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	}
 	
 	if (langSet.count > 0) {
-		attributes[(NSString*)kMDItemLanguages] = langSet.array;
+		attributes[(NSString*)kMDItemLanguages] = [langSet.array copy];
 	}
-	attributes[(NSString*)kMDItemCodecs] = codecSet.array;
+	attributes[(NSString*)kMDItemCodecs] = [codecSet.array copy];
 	if (trackNames.count > 0) {
 		attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
 	}
