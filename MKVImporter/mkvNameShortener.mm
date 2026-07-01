@@ -42,7 +42,7 @@ using std::string;
 #define kAudioFormatMPEGLayer2 @"mp2 Audio"
 #define kAudioFormatMPEGLayer3 @"mp3 Audio"
 #define kAudioFormatDTS @"DTS"
-#define kAudioFormatMPEG4AAC @"AAC"
+#define kAudioFormatMPEG4AAC @"MPEG-4 AAC"
 #define kAudioFormatAC3 @"AC-3"
 #define kAudioFormatEAC3 @"Enhanced AC-3"
 #define kAudioFormatXiphFLAC @"FLAC"
