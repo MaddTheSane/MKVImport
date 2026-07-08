@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 #include <CoreText/CTFontManager.h>
 #include <string>
+#include <unordered_set>
 #include "Debugging.h"
 #include "ParseSSA.hpp"
 #include "ebml/EbmlStream.h"
@@ -20,7 +21,7 @@ using std::string;
 /// Separates string by comma, as well as remove any trailing spaces.
 static NSArray<NSString*> *commaSeperation(NSString *sep);
 
-bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList)
+bool getSSASubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList)
 {
 	KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(track);
 	if (codecPrivate == NULL) {
@@ -90,7 +91,11 @@ bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_N
 	return true;
 }
 
-bool isSSA1(KaxTrackEntry & track)
+
+static const std::unordered_set<string> SSAMatches({"S_SSA", "S_TEXT/SSA",
+	"S_ASS", "S_TEXT/ASS"});
+
+bool isSSA(KaxTrackEntry & track)
 {
 	KaxCodecID *tr_codec = FindChild<KaxCodecID>(track);
 	if (tr_codec == NULL)
@@ -98,11 +103,7 @@ bool isSSA1(KaxTrackEntry & track)
 
 	const string &codecString(*tr_codec);
 	
-	if (codecString == "S_SSA" || codecString == "S_TEXT/SSA") {
-		return true;
-	}
-
-	return false;
+	return SSAMatches.contains(codecString);
 }
 
 bool isSSA2(KaxTrackEntry & track)

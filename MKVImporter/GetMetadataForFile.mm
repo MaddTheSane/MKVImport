@@ -493,9 +493,9 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				
 			case track_subtitle:
 				addMediaType(@"Subtitles");
-			if (isSSA1(track) || isSSA2(track)) {
+			if (isSSA(track)) {
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
-				bool success = getSubtitleFontList(track, _aStream, tmpFonts);
+				bool success = getSSASubtitleFontList(track, _aStream, tmpFonts);
 				if (success) {
 					[fonts unionSet:tmpFonts];
 				}
@@ -716,7 +716,7 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 			
 			MatroskaSeek::MatroskaSeekContext savedContext = SaveContext();
 			SetContext(newSeekEntry.GetSeekContext(segmentOffset));
-			if (NextLevel1Element()) @autoreleasepool {
+			if (NextLevel1Element()) {
 				okay = ProcessLevel1Element();
 			}
 			

@@ -12,9 +12,8 @@
 #import <Foundation/NSSet.h>
 #include "matroska/KaxTracks.h"
 
-extern bool getSubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList);
-extern bool isSSA1(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track);
-extern bool isSSA2(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track);
+extern bool getSSASubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList);
+extern bool isSSA(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track);
 extern NSArray<NSString*> * _Nullable fontNamesFromFontData(NSData* _Nonnull rawFont);
 
 #endif /* ParseSSA_hpp */
