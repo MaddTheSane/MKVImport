@@ -227,11 +227,11 @@ bool MatroskaImport::isValidMatroska()
 {
 	bool valid = true;
 	int upperLevel;
-	el_l0 = _aStream.FindNextID(EbmlHead::ClassInfos, ~0);
+	el_l0 = _aStream.FindNextID(EBML_INFO(EbmlHead), ~0);
 	if (el_l0 != NULL) {
 		EbmlElement *dummyElt = NULL;
 		
-		el_l0->Read(_aStream, EbmlHead::ClassInfos.Context, upperLevel, dummyElt, true);
+		el_l0->Read(_aStream, EBML_CLASS_CONTEXT(EbmlHead), upperLevel, dummyElt, true);
 		
 		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
 			postError(mkvErrorLevelWarn, CFSTR("Not a Matroska file"));
@@ -255,7 +255,7 @@ bool MatroskaImport::isValidMatroska()
 			valid = false;
 			goto exit;
 		}
-		el_l0->SkipData(_aStream, EbmlHead_Context);
+		el_l0->SkipData(_aStream, EBML_CLASS_SEMCONTEXT(EbmlHead));
 
 	} else {
 		postError(mkvErrorLevelWarn, CFSTR("Matroska file missing EBML Head"));
@@ -288,7 +288,7 @@ bool MatroskaImport::iterateData()
 {
 	bool done = false;
 	bool good = true;
-	el_l0 = _aStream.FindNextID(KaxSegment::ClassInfos, ~0);
+	el_l0 = _aStream.FindNextID(EBML_INFO(KaxSegment), ~0);
 	if (!el_l0) {
 		return false;		// nothing in the file
 	}
@@ -296,7 +296,7 @@ bool MatroskaImport::iterateData()
 	segmentOffset = static_cast<KaxSegment *>(el_l0)->GetDataStart();
 
 	while (!done && NextLevel1Element()) {
-		if (EbmlId(*el_l1) == KaxCluster::ClassInfos.GlobalId) {
+		if (EbmlId(*el_l1) == EBML_ID(KaxCluster)) {
 			// all header elements are before clusters in sane files
 			done = true;
 		} else {
@@ -317,32 +317,32 @@ bool MatroskaImport::ProcessLevel1Element()
 	EbmlElement *dummyElt = NULL;
 	const EbmlId theID(*el_l1);
 	
-	if (theID == KaxInfo::ClassInfos.GlobalId) {
-		el_l1->Read(_aStream, KaxInfo::ClassInfos.Context, upperLevel, dummyElt, true);
+	if (theID == EBML_ID(KaxInfo)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxInfo), upperLevel, dummyElt, true);
 		return ReadSegmentInfo(*static_cast<KaxInfo *>(el_l1));
 		
-	} else if (theID == KaxTracks::ClassInfos.GlobalId) {
-		el_l1->Read(_aStream, KaxTracks::ClassInfos.Context, upperLevel, dummyElt, true);
+	} else if (theID == EBML_ID(KaxTracks)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxTracks), upperLevel, dummyElt, true);
 		return ReadTracks(*static_cast<KaxTracks *>(el_l1));
 		
-	} else if (theID == KaxChapters::ClassInfos.GlobalId) {
-		el_l1->Read(_aStream, KaxChapters::ClassInfos.Context, upperLevel, dummyElt, true);
+	} else if (theID == EBML_ID(KaxChapters)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxChapters), upperLevel, dummyElt, true);
 		return ReadChapters(*static_cast<KaxChapters *>(el_l1));
 		
-	} else if (theID == KaxAttachments::ClassInfos.GlobalId) {
-		el_l1->Read(_aStream, KaxAttachments::ClassInfos.Context, upperLevel, dummyElt, true);
+	} else if (theID == EBML_ID(KaxAttachments)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxAttachments), upperLevel, dummyElt, true);
 		return ReadAttachments(*static_cast<KaxAttachments *>(el_l1));
 		
-	} else if (theID == KaxSeekHead::ClassInfos.GlobalId) {
-		el_l1->Read(_aStream, KaxSeekHead::ClassInfos.Context, upperLevel, dummyElt, true);
+	} else if (theID == EBML_ID(KaxSeekHead)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxSeekHead), upperLevel, dummyElt, true);
 		return ReadMetaSeek(*static_cast<KaxSeekHead *>(el_l1));
 		
-	} else if (theID == KaxTags::ClassInfos.GlobalId) {
-		el_l1->Read(_aStream, KaxTags::ClassInfos.Context, upperLevel, dummyElt, true);
+	} else if (theID == EBML_ID(KaxTags)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxTags), upperLevel, dummyElt, true);
 		return ReadTags(*static_cast<KaxTags *>(el_l1));
 		
-	} else if (theID == KaxCues::ClassInfos.GlobalId) {
-		el_l1->Read(_aStream, KaxCues::ClassInfos.Context, upperLevel, dummyElt, true);
+	} else if (theID == EBML_ID(KaxCues)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxCues), upperLevel, dummyElt, true);
 		return true;
 		
 	}
@@ -419,7 +419,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 	double sampleRate = 0;
 	
 	for (auto trackEntry: trackEntries) {
-		if (EbmlId(*trackEntry) != KaxTrackEntry::ClassInfos.GlobalId) {
+		if (EbmlId(*trackEntry) != EBML_ID(KaxTrackEntry)) {
 			continue;
 		}
 		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntry);
@@ -688,7 +688,7 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 	uint64_t currPos = seekHead.GetElementPosition();
 	std::vector<MatroskaSeek>::iterator itr = levelOneElements.begin();
 	for (; itr != levelOneElements.end(); itr++) {
-		if (itr->GetID() == KaxSeekHead::ClassInfos.GlobalId &&
+		if (itr->GetID() == EBML_ID(KaxSeekHead) &&
 			itr->segmentPos + segmentOffset == currPos) {
 			return true;
 		}
@@ -706,13 +706,13 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 		
 		// recursively read seek heads that are pointed to by the current one
 		// as well as the level one elements we care about
-		if (elementID == KaxInfo::ClassInfos.GlobalId ||
-			elementID == KaxTracks::ClassInfos.GlobalId ||
-			elementID == KaxChapters::ClassInfos.GlobalId ||
-			elementID == KaxAttachments::ClassInfos.GlobalId ||
-			elementID == KaxSeekHead::ClassInfos.GlobalId ||
-			elementID == KaxTags::ClassInfos.GlobalId ||
-			elementID == KaxCues::ClassInfos.GlobalId) {
+		if (elementID == EBML_ID(KaxInfo) ||
+			elementID == EBML_ID(KaxTracks) ||
+			elementID == EBML_ID(KaxChapters) ||
+			elementID == EBML_ID(KaxAttachments) ||
+			elementID == EBML_ID(KaxSeekHead) ||
+			elementID == EBML_ID(KaxTags) ||
+			elementID == EBML_ID(KaxCues)) {
 			
 			MatroskaSeek::MatroskaSeekContext savedContext = SaveContext();
 			SetContext(newSeekEntry.GetSeekContext(segmentOffset));
