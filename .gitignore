@@ -4,3 +4,4 @@ project.xcworkspace/
 *.pbxuser
 *.mode?v?
 build/
+MKVNewImporter/OSTypeMap.plist
