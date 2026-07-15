@@ -2,7 +2,15 @@
   "sourceLanguage" : "en",
   "strings" : {
     "Matroska file is empty" : {
-      "comment" : "Matroska file is empty"
+      "comment" : "Matroska file is empty",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska file is empty."
+          }
+        }
+      }
     },
     "Matroska file missing EBML Head" : {
       "comment" : "Matroska file missing EBML Head",
@@ -10,7 +18,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Matroska file missing EBML Head"
+            "value" : "The Matroska file is missing the EBML Head"
           }
         }
       }
@@ -32,7 +40,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Not a Matroska file"
+            "value" : "The file is not a Matroska file."
           }
         }
       }

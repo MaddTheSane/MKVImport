@@ -50,12 +50,13 @@ NS_ASSUME_NONNULL_BEGIN
 		return MatroskaMetadataImport::getMetadata(attributes, contentURL, error);
 	} catch (CRTError &anErr) {
 		if (error) {
-			*error = [NSError errorWithDomain:NSPOSIXErrorDomain code:anErr.getError() userInfo:@{NSLocalizedFailureErrorKey: @(anErr.what()), NSURLErrorKey: contentURL}];
+			NSString *what = @(anErr.what());
+			*error = [NSError errorWithDomain:NSPOSIXErrorDomain code:anErr.getError() userInfo:@{NSLocalizedDescriptionKey: what, NSURLErrorKey: contentURL, NSLocalizedFailureErrorKey: NSLocalizedString(@"CRTError exception caught", @"CRTError exception caught"), NSDebugDescriptionErrorKey: what}];
 		}
 		return NO;
 	} catch (...) {
 		if (error) {
-			*error = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSURLErrorKey: contentURL, NSLocalizedFailureErrorKey: NSLocalizedString(@"Unknown C++ exception caught", @"Unknown C++ exception caught")}];
+			*error = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSURLErrorKey: contentURL, NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown C++ exception caught", @"Unknown C++ exception caught"), NSDebugDescriptionErrorKey: @"Unknown C++ exception caught"}];
 		}
 		return NO;
 	}

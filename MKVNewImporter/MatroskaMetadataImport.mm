@@ -28,7 +28,7 @@ static inline NSString *getLanguageCode(const string & cppLang);
 static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
-static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country=NULL);
+static NSString *getLocaleCode(const KaxChapLanguageIETF * language);
 static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>*);
 
 
@@ -125,7 +125,7 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		
 		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
 			if (!outErr) {
-				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedFailureErrorKey: NSLocalizedString(@"Not a Matroska file", @"Not a Matroska file"), NSURLErrorKey: fileURL}];
+				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Not a Matroska file", @"Not a Matroska file"), NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: @"Not a Matroska file"}];
 			}
 			
 			valid = false;
@@ -138,7 +138,8 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		const std::string & cppDocType = std::string(docType);
 		if (cppDocType != "matroska" && cppDocType != "webm") {
 			if (!outErr) {
-				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedFailureErrorKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Unknown Matroska doctype \"%@\"", @"Unknown Matroska doctype"), @(cppDocType.c_str())], NSURLErrorKey: fileURL}];
+				NSString *theDocType = @(cppDocType.c_str());
+				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Unknown Matroska doctype \"%@\"", @"Unknown Matroska doctype"), theDocType], NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: [NSString stringWithFormat:@"Unknown Matroska doctype \"%@\"", theDocType]}];
 			}
 			
 			valid = false;
@@ -148,7 +149,7 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		EDocTypeReadVersion & readVersion = GetChild<EDocTypeReadVersion>(*head);
 		if (UInt64(readVersion) > 2) {
 			if (!outErr) {
-				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedFailureErrorKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Matroska file too new to be read, version %lld", @"Matroska file too new to be read, version number"), UInt64(readVersion)], NSURLErrorKey: fileURL}];
+				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Matroska file too new to be read, version %lld", @"Matroska file too new to be read, version number"), UInt64(readVersion)], NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: [NSString stringWithFormat:@"Matroska file too new to be read, version %lld", UInt64(readVersion)]}];
 			}
 			
 			valid = false;
@@ -158,7 +159,7 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 
 	} else {
 		if (!outErr) {
-			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedFailureErrorKey: NSLocalizedString(@"Matroska file missing EBML Head", @"Matroska file missing EBML Head"), NSURLErrorKey: fileURL}];
+			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Matroska file missing EBML Head", @"Matroska file missing EBML Head"), NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: @"Matroska file missing EBML Head"}];
 		}
 		valid = false;
 	}
@@ -192,7 +193,7 @@ bool MatroskaMetadataImport::iterateData(NSError * _Nullable * _Nonnull outErr)
 	el_l0 = _aStream.FindNextID(EBML_INFO(KaxSegment), ~0);
 	if (!el_l0) {
 		if (outErr) {
-			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: fileURL, NSLocalizedFailureErrorKey: NSLocalizedString(@"Matroska file is empty", @"Matroska file is empty")}];
+			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSURLErrorKey: fileURL, NSLocalizedDescriptionKey: NSLocalizedString(@"Matroska file is empty", @"Matroska file is empty"), NSDebugDescriptionErrorKey: @"Matroska file is empty"}];
 		}
 		return false;		// nothing in the file
 	}
@@ -512,7 +513,7 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 			KaxChapLanguageIETF * chapIETF = FindChild<KaxChapLanguageIETF>(*chapDisplay);
 			NSString *chapLocale;
 			if (chapIETF) {
-				chapLocale = getLocaleCode(chapIETF, chapCountry);
+				chapLocale = getLocaleCode(chapIETF);
 			}
 			if (!chapLocale) {
 				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
@@ -998,19 +999,12 @@ static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCo
 	return locale;
 }
 
-static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country)
+static NSString *getLocaleCode(const KaxChapLanguageIETF * language)
 {
 	const string &threeLang(*language);
 	NSString *locale = getLanguageCode(threeLang);
 	if (!locale) {
 		return nil;
-	}
-	if (country) {
-		string theCountry(*country);
-		if (theCountry.length() == 0) {
-			return locale;
-		}
-		locale = [locale stringByAppendingFormat:@"_%s", theCountry.c_str()];
 	}
 	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
 	return locale;
