@@ -1,6 +1,17 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "CRTError exception caught" : {
+      "comment" : "CRTError exception caught",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "CRTError exception caught"
+          }
+        }
+      }
+    },
     "Matroska file is empty" : {
       "comment" : "Matroska file is empty",
       "localizations" : {
@@ -18,7 +29,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "The Matroska file is missing the EBML Head"
+            "value" : "The Matroska file is missing the EBML Head."
           }
         }
       }
@@ -29,7 +40,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Matroska file too new to be read, version %lld"
+            "value" : "Can only read Matroska version 1 and 2 files. This file is version %lld."
           }
         }
       }
@@ -51,7 +62,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown C++ exception caught"
+            "value" : "Unknown C++ exception caught!"
           }
         }
       }
@@ -62,7 +73,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown Matroska doctype “%@“ was encountered."
+            "value" : "Unknown Matroska doctype “matroska” or “webm”, got “%@“."
           }
         }
       }
