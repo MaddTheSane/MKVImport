@@ -717,44 +717,19 @@ static bool isMultiple(const std::string& spotlightKey)
 	return multiTags2.contains(spotlightKey);
 }
 
-static NSString * const MDItemAuthors = @"MDItemAuthors";
-static NSString * const MDItemAlbum = @"MDItemAlbum";
-static NSString * const MDItemLyricist = @"MDItemLyricist";
-static NSString * const MDItemPublishers = @"MDItemPublishers";
-static NSString * const MDItemCopyright = @"MDItemCopyright";
-static NSString * const MDItemDirector = @"MDItemDirector";
-static NSString * const MDItemProducer = @"MDItemProducer";
-static NSString * const MDItemGenre = @"MDItemGenre";
-static NSString * const MDItemComment = @"MDItemComment";
-static NSString * const MDItemHeadline = @"MDItemHeadline";
-static NSString * const MDItemTextContent = @"MDItemTextContent";
-static NSString * const MDItemAudiences = @"MDItemAudiences";
-static NSString * const MDItemKeywords = @"MDItemKeywords";
-
-
-static NSString * _Nullable toSpotlightKey(NSString * _Nonnull matroskaKey);
-static NSString *toSpotlightKey(NSString *matroskaKey)
-{
-	static NSDictionary *const matroskaToSpotlightMapping
-	= @{
-		@"ARTIST": MDItemAuthors,
-		@"ALBUM": MDItemAlbum,
-		@"LYRICIST": MDItemLyricist,
-		@"PUBLISHER": MDItemPublishers,
-		@"COPYRIGHT": MDItemCopyright,
-		@"DIRECTOR": MDItemDirector,
-		@"PRODUCER": MDItemProducer,
-		@"GENRE": MDItemGenre,
-		@"COMMENT": MDItemComment,
-		@"SHOW": MDItemAlbum,
-		@"SYNOPSIS": MDItemHeadline,
-		@"LYRICS": MDItemTextContent,
-		@"MOOD": MDItemAudiences,
-		@"KEYWORDS": MDItemKeywords,
-		};
-	
-	return matroskaToSpotlightMapping[matroskaKey];
-}
+static NSString * const MDItemAuthors = @"ARTIST";
+static NSString * const MDItemAlbum = @"ALBUM";
+static NSString * const MDItemLyricist = @"LYRICIST";
+static NSString * const MDItemPublishers = @"PUBLISHER";
+static NSString * const MDItemCopyright = @"COPYRIGHT";
+static NSString * const MDItemDirector = @"DIRECTOR";
+static NSString * const MDItemProducer = @"PRODUCER";
+static NSString * const MDItemGenre = @"GENRE";
+static NSString * const MDItemComment = @"COMMENT";
+static NSString * const MDItemHeadline = @"SYNOPSIS";
+static NSString * const MDItemTextContent = @"LYRICS";
+static NSString * const MDItemAudiences = @"MOOD";
+static NSString * const MDItemKeywords = @"KEYWORDS";
 
 bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 {
@@ -803,7 +778,7 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 			string simpleVal = get_simple_value(*simple_tag);
 			NSString *objcName = @(simpleName.c_str());
 			if ([tagDict objectForKey:objcName] != nil) {
-				postError(mkvErrorLevelWarn, CFSTR("Warning, file already has an entry for tag %@! Possibility of multiple languages for same tag?"), objcName);
+				postError(mkvErrorLevelWarn, CFSTR("File already has an entry for tag %@! Possibility of multiple languages for same tag?"), objcName);
 			}
 			// FIXME: HACK: work around "KEYWORDS"
 			if (simpleName == "KEYWORDS") {
@@ -818,19 +793,8 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 		}
 	}
 	
-	NSMutableDictionary<NSString*,id>
-	*toSet = [[NSMutableDictionary alloc] initWithCapacity:tagDict.count];
-	
 	for (NSString *key in tagDict) {
-		id val = tagDict[key];
-		NSString *MDVal = toSpotlightKey(key);
-		if (!MDVal) {
-			continue;
-		}
-		toSet[MDVal] = val;
-	}
-	for (NSString *key in toSet) {
-		id theval = toSet[key];
+		id theval = tagDict[key];
 		if ([key isEqualToString: MDItemAuthors]) {
 			attributes.authorNames = (NSArray<NSString*>*)theval;
 		} else if ([key isEqualToString: MDItemAlbum]) {
@@ -857,6 +821,8 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 			attributes.audiences = (NSArray<NSString*>*)theval;
 		} else if ([key isEqualToString: MDItemKeywords]) {
 			attributes.keywords = (NSArray<NSString*>*)theval;
+		} else {
+			postError(mkvErrorLevelWarn, CFSTR("Unmapped tag %@"), key);
 		}
 	}
 	seenTags = true;
