@@ -123,6 +123,12 @@
 		55E88C4530062F8600F0F466 /* schema.xml in Resources */ = {isa = PBXBuildFile; fileRef = 55868EED1E1C1DA300CDDED1 /* schema.xml */; };
 		55E88C4A3006301400F0F466 /* Debugging.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.c */; };
 		55E88C4D3006360200F0F466 /* MKVNewImporterExtension.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55E88C4C3006360200F0F466 /* MKVNewImporterExtension.mm */; };
+		55E88C4F30073C2F00F0F466 /* Localizable.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */; };
+		55E88C503007407600F0F466 /* libebml.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E161E1C1C3700CDDED1 /* libebml.a */; };
+		55E88C513007407600F0F466 /* libmatroska.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55868E0E1E1C1C2500CDDED1 /* libmatroska.a */; };
+		55E88C523007408300F0F466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
+		55E88C533007409500F0F466 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8AE262D8A22AC00EF2765 /* CoreText.framework */; };
+		55E88C55300740A900F0F466 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E88C54300740A900F0F466 /* CoreSpotlight.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -339,6 +345,8 @@
 		55E88C4630062FC900F0F466 /* MKVNewImporter-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "MKVNewImporter-Bridging-Header.h"; sourceTree = "<group>"; };
 		55E88C4B3006360200F0F466 /* MKVNewImporterExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MKVNewImporterExtension.h; sourceTree = "<group>"; };
 		55E88C4C3006360200F0F466 /* MKVNewImporterExtension.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MKVNewImporterExtension.mm; sourceTree = "<group>"; };
+		55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
+		55E88C54300740A900F0F466 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		55F8388930062AE100974628 /* MKVImporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MKVImporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -384,6 +392,11 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E88C55300740A900F0F466 /* CoreSpotlight.framework in Frameworks */,
+				55E88C533007409500F0F466 /* CoreText.framework in Frameworks */,
+				55E88C523007408300F0F466 /* Foundation.framework in Frameworks */,
+				55E88C503007407600F0F466 /* libebml.a in Frameworks */,
+				55E88C513007407600F0F466 /* libmatroska.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -684,10 +697,11 @@
 		55CBF3511F11454800E60B0B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				55D8AE262D8A22AC00EF2765 /* CoreText.framework */,
+				55CBF3521F11454900E60B0B /* CoreFoundation.framework */,
 				559778BA2D7D8B360018AA56 /* CoreGraphics.framework */,
 				55CBF3561F11458000E60B0B /* CoreServices.framework */,
-				55CBF3521F11454900E60B0B /* CoreFoundation.framework */,
+				55E88C54300740A900F0F466 /* CoreSpotlight.framework */,
+				55D8AE262D8A22AC00EF2765 /* CoreText.framework */,
 				55CBF3531F11454900E60B0B /* Foundation.framework */,
 			);
 			name = Frameworks;
@@ -701,6 +715,7 @@
 				55E88C4630062FC900F0F466 /* MKVNewImporter-Bridging-Header.h */,
 				55E88C4B3006360200F0F466 /* MKVNewImporterExtension.h */,
 				55E88C4C3006360200F0F466 /* MKVNewImporterExtension.mm */,
+				55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */,
 			);
 			path = MKVNewImporter;
 			sourceTree = "<group>";
@@ -979,6 +994,7 @@
 			files = (
 				55E88C4430062F8600F0F466 /* schema.xcstrings in Resources */,
 				55E88C4530062F8600F0F466 /* schema.xml in Resources */,
+				55E88C4F30073C2F00F0F466 /* Localizable.xcstrings in Resources */,
 				55E88C4330062F0B00F0F466 /* OSTypeMap.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

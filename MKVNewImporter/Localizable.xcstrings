@@ -1,0 +1,61 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Matroska file missing EBML Head" : {
+      "comment" : "Matroska file missing EBML Head",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska file missing EBML Head"
+          }
+        }
+      }
+    },
+    "Matroska file too new to be read, version %lld" : {
+      "comment" : "Matroska file too new to be read, version number",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Matroska file too new to be read, version %lld"
+          }
+        }
+      }
+    },
+    "Not a Matroska file" : {
+      "comment" : "Not a Matroska file",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Not a Matroska file"
+          }
+        }
+      }
+    },
+    "Unknown C++ exception caught" : {
+      "comment" : "Unknown C++ exception caught",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown C++ exception caught"
+          }
+        }
+      }
+    },
+    "Unknown Matroska doctype \"%@\"" : {
+      "comment" : "Unknown Matroska doctype",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Unknown Matroska doctype “%@“ was encountered."
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}
