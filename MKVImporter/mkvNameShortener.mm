@@ -179,6 +179,17 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 #define MKV_V_QT "V_QUICKTIME"
 #define MKV_A_QT "A_QUICKTIME"
 
+static OSType StringToOSType(NSString *theString);
+static OSType StringToOSType(NSString *theString)
+{
+#if __is_target_os(macosx)
+	return UTGetOSTypeFromString((__bridge CFStringRef)theString);
+#else
+#error implement me!
+#endif
+}
+
+
 static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 {
 	static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
@@ -205,7 +216,7 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 					if ([entry isKindOfClass:[NSNumber class]]) {
 						osTypeCodecMap2[(NSNumber*)entry] = key;
 					} else /* NSString */ {
-						OSType properOSType = UTGetOSTypeFromString((__bridge CFStringRef)entry);
+						OSType properOSType = StringToOSType(entry);
 						osTypeCodecMap2[@(properOSType)] = key;
 					}
 				}

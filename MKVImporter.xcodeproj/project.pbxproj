@@ -129,6 +129,10 @@
 		55E88C523007408300F0F466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55E88C533007409500F0F466 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8AE262D8A22AC00EF2765 /* CoreText.framework */; };
 		55E88C55300740A900F0F466 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E88C54300740A900F0F466 /* CoreSpotlight.framework */; };
+		55E88C58300744EE00F0F466 /* MatroskaMetadataImport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */; };
+		55E88C593007798F00F0F466 /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
+		55E88C5A3007798F00F0F466 /* ParseSSA.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */; };
+		55E88C5B30077C1D00F0F466 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -347,6 +351,8 @@
 		55E88C4C3006360200F0F466 /* MKVNewImporterExtension.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MKVNewImporterExtension.mm; sourceTree = "<group>"; };
 		55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		55E88C54300740A900F0F466 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
+		55E88C56300744EE00F0F466 /* MatroskaMetadataImport.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatroskaMetadataImport.hpp; sourceTree = "<group>"; };
+		55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MatroskaMetadataImport.mm; sourceTree = "<group>"; };
 		55F8388930062AE100974628 /* MKVImporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MKVImporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -397,6 +403,7 @@
 				55E88C523007408300F0F466 /* Foundation.framework in Frameworks */,
 				55E88C503007407600F0F466 /* libebml.a in Frameworks */,
 				55E88C513007407600F0F466 /* libmatroska.a in Frameworks */,
+				55E88C5B30077C1D00F0F466 /* CoreServices.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -716,6 +723,8 @@
 				55E88C4B3006360200F0F466 /* MKVNewImporterExtension.h */,
 				55E88C4C3006360200F0F466 /* MKVNewImporterExtension.mm */,
 				55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */,
+				55E88C56300744EE00F0F466 /* MatroskaMetadataImport.hpp */,
+				55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */,
 			);
 			path = MKVNewImporter;
 			sourceTree = "<group>";
@@ -1123,6 +1132,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E88C593007798F00F0F466 /* mkvNameShortener.mm in Sources */,
+				55E88C5A3007798F00F0F466 /* ParseSSA.mm in Sources */,
+				55E88C58300744EE00F0F466 /* MatroskaMetadataImport.mm in Sources */,
 				55E88C4D3006360200F0F466 /* MKVNewImporterExtension.mm in Sources */,
 				55E88C4A3006301400F0F466 /* Debugging.c in Sources */,
 			);

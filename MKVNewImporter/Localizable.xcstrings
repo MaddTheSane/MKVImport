@@ -1,6 +1,9 @@
 {
   "sourceLanguage" : "en",
   "strings" : {
+    "Matroska file is empty" : {
+      "comment" : "Matroska file is empty"
+    },
     "Matroska file missing EBML Head" : {
       "comment" : "Matroska file missing EBML Head",
       "localizations" : {
