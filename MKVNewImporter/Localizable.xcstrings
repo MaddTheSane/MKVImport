@@ -7,7 +7,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "CRTError exception caught"
+            "value" : "CRTError exception caught!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Excepción de CRTError atrapada!"
           }
         }
       }
@@ -18,7 +24,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Matroska file is empty."
+            "value" : "The Matroska file is empty."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "El archivo de Matroska está vacío."
           }
         }
       }
@@ -31,6 +43,12 @@
             "state" : "translated",
             "value" : "The Matroska file is missing the EBML Head."
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Al archivo de Matroska le falta la Cabeza de EBML."
+          }
         }
       }
     },
@@ -41,6 +59,12 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Can only read Matroska version 1 and 2 files. This file is version %lld."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Solo se pueden leer los archivos de la versión 1 y 2 de Matroska. Este archivo es la versión %lld."
           }
         }
       }
@@ -53,6 +77,12 @@
             "state" : "translated",
             "value" : "The file is not a Matroska file."
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "El archivo no es un archivo de Matroska."
+          }
         }
       }
     },
@@ -64,6 +94,12 @@
             "state" : "translated",
             "value" : "Unknown C++ exception caught!"
           }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Excepción desconocida de C++ atrapada!"
+          }
         }
       }
     },
@@ -73,7 +109,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown Matroska doctype “matroska” or “webm”, got “%@“."
+            "value" : "Unknown Matroska doctype: expected “matroska” or “webm”, got “%@“."
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tipo de documento Matroska desconocido: esperaba \"matroska\" o \"webm\", obtuvo “%@”."
           }
         }
       }
