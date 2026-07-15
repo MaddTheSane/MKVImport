@@ -41,7 +41,7 @@ void MatroskaMetadataImport::copyDataOver() {
 	if (bpsStorage.count != 0) {
 		// How we're doing this:
 		// * `kMDItemTotalBitRate` is the bitrate of all the tracks.
-		// * `kMDItemVideoBitRate` and `kMDItemAudioBitRate` will be the track with the largest number.
+		// * `kMDItemVideoBitRate` and `kMDItemAudioBitRate` will be the track with the highest bitrate.
 		long long biggestVid = 0;
 		long long biggestAud = 0;
 		uint64_t all = 0;
@@ -501,11 +501,13 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 	}
 	addMediaType(@"Chapters");
 
-	NSMutableDictionary<NSString*,NSMutableArray<NSString*>*> *chapters = [[NSMutableDictionary alloc] init];
+	NSMutableArray<CSLocalizedString*> *chapters = [[NSMutableArray alloc] init];
+	
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
 		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
+		NSMutableDictionary *locString = [[NSMutableDictionary alloc] init];
 		while (chapDisplay && chapDisplay->GetSize() > 0) {
 			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
 			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
@@ -518,22 +520,19 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 			if (!chapLocale) {
 				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
 			}
-			if (chapters[chapLocale] == nil) {
-				chapters[chapLocale] = [[NSMutableArray alloc] init];
-			}
-			[chapters[chapLocale] addObject:chapString.GetValue().length() != 0 ? @(chapString.GetValueUTF8().c_str()) : @""];
+			locString[chapLocale] = chapString.GetValue().length() != 0 ? @(chapString.GetValueUTF8().c_str()) : @"";
+
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}
+		
+		[chapters addObject:[[CSLocalizedString alloc] initWithLocalizedStrings:locString]];
 
 		chapterAtom = FindNextChild<KaxChapterAtom>(edition, *chapterAtom);
 	}
 	
-	if (chapters.count == 1 && ([chapters.allKeys.firstObject isEqualToString:@"en"] || [chapters.allKeys.firstObject isEqualToString:@""])) {
+	if (chapters.count != 0) {
 		CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kChapterNames];
-		[attributes setValue:[[NSArray alloc] initWithArray:chapters[chapters.allKeys.firstObject] copyItems:YES] forCustomKey:attribKey];
-	} else {
-		CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kChapterNames];
-		[attributes setValue:[[NSDictionary alloc] initWithDictionary:chapters copyItems:YES] forCustomKey:attribKey];
+		[attributes setValue:chapters forCustomKey:attribKey];
 	}
 	seenChapters = true;
 
