@@ -51,7 +51,6 @@ static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country=NULL);
-static NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*,NSDictionary<NSString*,id>*>*);
 
 class MatroskaImport final {
 private:
@@ -772,20 +771,6 @@ static std::string get_simple_value(const KaxTagSimple &tag)
 	return tstring ? tstring->GetValueUTF8() : "";
 }
 
-static std::string get_simple_language(const KaxTagSimple &tag)
-{
-	KaxTagLanguageIETF *tlanguage = FindChild<KaxTagLanguageIETF>(tag);
-	KaxTagLangue *tlang = FindChild<KaxTagLangue>(tag);
-	if (tlanguage) {
-		return tlanguage->GetValue();
-	}
-	if (tlang) {
-		return tlang->GetValue();
-	}
-	
-	return "";
-}
-
 static std::optional<uint64_t> get_tuid(const KaxTag &tag)
 {
 	auto targets = FindChild<KaxTagTargets>(&tag);
@@ -841,6 +826,7 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 		@"LYRICS": (NSString*)kMDItemTextContent,
 		@"MOOD": (NSString*)kMDItemAudiences,
 		@"KEYWORDS": (NSString*)kMDItemKeywords,
+		@"TITLE": (NSString*)kMDItemTitle,
 		};
 	
 	return matroskaToSpotlightMapping[matroskaKey];
@@ -851,7 +837,7 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 	if (seenTags) {
 		return true;
 	}
-	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,id>*>
+	NSMutableDictionary<NSString*,id>
 	*tagDict = [[NSMutableDictionary alloc] init];
 	//trackEntries
 	for (const auto child : trackEntries) {
@@ -889,64 +875,39 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 			if (!simple_tag) {
 				continue;
 			}
-			string lang = get_simple_language(*simple_tag);
-			NSString *nsLang = getLanguageCode(lang) ?: @"";
-			if ([nsLang length] != 0) {
-				nsLang = [NSLocale canonicalLocaleIdentifierFromString:nsLang];
-			}
-			if (!tagDict[nsLang]) {
-				tagDict[nsLang] = [[NSMutableDictionary alloc] init];
-			}
 			string simpleName = get_simple_name(*simple_tag);
 			string simpleVal = get_simple_value(*simple_tag);
+			NSString *objcName = @(simpleName.c_str());
+			if ([tagDict objectForKey:objcName] != nil) {
+				postError(mkvErrorLevelWarn, CFSTR("File already has an entry for tag %@! Possibility of multiple languages for same tag?"), objcName);
+			}
 			// FIXME: HACK: work around "KEYWORDS"
 			if (simpleName == "KEYWORDS") {
-				tagDict[nsLang][@(simpleName.c_str())] = commaSeperation(@(simpleVal.c_str()));
+				tagDict[objcName] = commaSeperation(@(simpleVal.c_str()));
 			} else {
 				if (isMultiple(simpleName)) {
-					tagDict[nsLang][@(simpleName.c_str())] = @[@(simpleVal.c_str())];
+					tagDict[objcName] = @[@(simpleVal.c_str())];
 				} else {
-					tagDict[nsLang][@(simpleName.c_str())] = @(simpleVal.c_str());
+					tagDict[objcName] = @(simpleVal.c_str());
 				}
 			}
 		}
 	}
 	
-	NSMutableDictionary<NSString*,NSMutableDictionary<NSString*,id>*>
+	NSMutableDictionary<NSString*,id>
 	*toSet = [[NSMutableDictionary alloc] init];
 	
-	for (NSString *lang in tagDict) {
-		auto subLangDict = tagDict[lang];
-		for (NSString *key in subLangDict) {
-			id val = subLangDict[key];
-			NSString *MDVal = toSpotlightKey(key);
-			if (!MDVal) {
-				continue;
-			}
-			if (!toSet[MDVal]) {
-				toSet[MDVal] = [[NSMutableDictionary alloc] init];
-			}
-			toSet[MDVal][lang] = val;
+	for (NSString *key in tagDict) {
+		id val = tagDict[key];
+		NSString *MDVal = toSpotlightKey(key);
+		if (!MDVal) {
+			continue;
 		}
+		toSet[MDVal] = val;
 	}
-	NSDictionary *copyDict = trimLocales(toSet);
-	[attributes addEntriesFromDictionary:copyDict];
+	[attributes addEntriesFromDictionary:toSet];
 	seenTags = true;
 	return true;
-}
-
-NSDictionary<NSString*,id> *trimLocales(NSDictionary<NSString*, NSDictionary<NSString*, id>*>* toSet)
-{
-	NSMutableDictionary *newDict = [[NSMutableDictionary alloc] initWithCapacity:toSet.count];
-	for (NSString *mdKey in toSet) {
-		NSDictionary<NSString*,id> *langDict = toSet[mdKey];
-		if (langDict.count == 1) {
-			newDict[mdKey] = [langDict[langDict.allKeys.firstObject] copy];
-		} else {
-			newDict[mdKey] = [[NSDictionary alloc] initWithDictionary:langDict copyItems:YES];
-		}
-	}
-	return newDict;
 }
 
 #pragma mark -
