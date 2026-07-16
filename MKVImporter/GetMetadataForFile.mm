@@ -895,7 +895,7 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 	}
 	
 	NSMutableDictionary<NSString*,id>
-	*toSet = [[NSMutableDictionary alloc] init];
+	*toSet = [[NSMutableDictionary alloc] initWithCapacity:tagDict.count];
 	
 	for (NSString *key in tagDict) {
 		id val = tagDict[key];

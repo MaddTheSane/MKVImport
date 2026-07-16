@@ -531,7 +531,7 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 	}
 	
 	if (chapters.count != 0) {
-		CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kChapterNames];
+		CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kChapterNames searchable:YES searchableByDefault:NO unique:NO multiValued:YES];
 		[attributes setValue:chapters forCustomKey:attribKey];
 	}
 	seenChapters = true;
@@ -581,7 +581,7 @@ bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	if ([fonts count] > 0) {
 		[this->fonts addObjectsFromArray:fonts];
 	}
-	CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kAttachedFiles];
+	CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kAttachedFiles searchable:YES searchableByDefault:NO unique:NO multiValued:YES];
 	[attributes setValue:attachmentFiles forCustomKey:attribKey];
 	
 	return true;
