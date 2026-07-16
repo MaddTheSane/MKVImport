@@ -782,7 +782,7 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 			}
 			// FIXME: HACK: work around "KEYWORDS"
 			if (simpleName == "KEYWORDS") {
-				tagDict[objcName] = [@(simpleVal.c_str()) componentsSeparatedByString:@","];
+				tagDict[objcName] = commaSeperation(@(simpleVal.c_str()));
 			} else {
 				if (isMultiple(simpleName)) {
 					tagDict[objcName] = @[@(simpleVal.c_str())];

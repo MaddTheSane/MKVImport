@@ -16,4 +16,7 @@ extern bool getSSASubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track,
 extern bool isSSA(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track);
 extern NSArray<NSString*> * _Nullable fontNamesFromFontData(NSData* _Nonnull rawFont);
 
+/// Separates string by comma, as well as remove any trailing spaces.
+extern NSArray<NSString*> * _Nonnull commaSeperation(NSString * _Nonnull sep);
+
 #endif /* ParseSSA_hpp */

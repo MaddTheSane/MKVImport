@@ -3,6 +3,7 @@
   "strings" : {
     "com_GitHub_MaddTheSane_AttachedFiles" : {
       "extractionState" : "manual",
+      "generatesSymbol" : false,
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -20,6 +21,7 @@
     },
     "com_GitHub_MaddTheSane_AttachedFiles.description" : {
       "extractionState" : "manual",
+      "generatesSymbol" : false,
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -37,6 +39,7 @@
     },
     "com_GitHub_MaddTheSane_ChapterNames" : {
       "extractionState" : "manual",
+      "generatesSymbol" : false,
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -54,6 +57,7 @@
     },
     "com_GitHub_MaddTheSane_ChapterNames.description" : {
       "extractionState" : "manual",
+      "generatesSymbol" : false,
       "localizations" : {
         "en" : {
           "stringUnit" : {
@@ -70,5 +74,5 @@
       }
     }
   },
-  "version" : "1.0"
+  "version" : "1.1"
 }

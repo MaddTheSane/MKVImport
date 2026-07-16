@@ -901,7 +901,7 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 			string simpleVal = get_simple_value(*simple_tag);
 			// FIXME: HACK: work around "KEYWORDS"
 			if (simpleName == "KEYWORDS") {
-				tagDict[nsLang][@(simpleName.c_str())] = [@(simpleVal.c_str()) componentsSeparatedByString:@","];
+				tagDict[nsLang][@(simpleName.c_str())] = commaSeperation(@(simpleVal.c_str()));
 			} else {
 				if (isMultiple(simpleName)) {
 					tagDict[nsLang][@(simpleName.c_str())] = @[@(simpleVal.c_str())];

@@ -10,6 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+__attribute__((__visibility__("default")))
 @interface MKVNewImporterExtension : CSImportExtension
 
 @end

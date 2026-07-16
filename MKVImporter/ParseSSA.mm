@@ -18,9 +18,6 @@ using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using std::string;
 
-/// Separates string by comma, as well as remove any trailing spaces.
-static NSArray<NSString*> *commaSeperation(NSString *sep);
-
 bool getSSASubtitleFontList(LIBMATROSKA_NAMESPACE::KaxTrackEntry & track, LIBEBML_NAMESPACE::EbmlStream & mkvStream, NSMutableSet<NSString*> *__nonnull fontList)
 {
 	KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(track);
@@ -136,7 +133,7 @@ NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 	return fontNames;
 }
 
-static NSArray<NSString*> *commaSeperation(NSString *sep)
+NSArray<NSString*> *commaSeperation(NSString *sep)
 {
 	NSMutableArray<NSString*> *mutArr = [[sep componentsSeparatedByString:@","] mutableCopy];
 	for (NSInteger i = 0; i < mutArr.count; i++) {
