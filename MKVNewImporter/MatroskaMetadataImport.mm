@@ -730,6 +730,7 @@ static NSString * const MDItemHeadline = @"SYNOPSIS";
 static NSString * const MDItemTextContent = @"LYRICS";
 static NSString * const MDItemAudiences = @"MOOD";
 static NSString * const MDItemKeywords = @"KEYWORDS";
+static NSString * const MDItemTitle = @"TITLE";
 
 bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 {
@@ -821,6 +822,8 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 			attributes.audiences = (NSArray<NSString*>*)theval;
 		} else if ([key isEqualToString: MDItemKeywords]) {
 			attributes.keywords = (NSArray<NSString*>*)theval;
+		} else if ([key isEqualToString:MDItemTitle]) {
+			attributes.title = (NSString*)theval;
 		} else {
 			postError(mkvErrorLevelWarn, CFSTR("Unmapped tag %@"), key);
 		}
