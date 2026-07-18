@@ -30,7 +30,10 @@ static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 static NSString *getLocaleCode(const KaxChapLanguageIETF * language);
-
+/// Create from ``libebml::UTFstring``'s UTF-32 data instead of from its UTF-8 data.
+///
+/// Hopefully it'll be faster than converting from UTF-8 to UTF-16.
+static NSString *getNSStringFromUTFstring(const UTFstring &sourceString);
 
 void MatroskaMetadataImport::copyDataOver() {
 	attributes.mediaTypes = mediaTypes.array;
@@ -286,17 +289,17 @@ bool MatroskaMetadataImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	}
 	
 	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
-		NSString *nsTitle = @(title.GetValueUTF8().c_str());
+		NSString *nsTitle = getNSStringFromUTFstring(title);
 		attributes.title = nsTitle;
 	}
 	
 	{
 		NSMutableArray *creator = [NSMutableArray arrayWithCapacity:2];
 		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
-			[creator addObject:@(writingApp.GetValueUTF8().c_str())];
+			[creator addObject:getNSStringFromUTFstring(writingApp)];
 		}
 		if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
-			[creator addObject:@(muxingApp.GetValueUTF8().c_str())];
+			[creator addObject:getNSStringFromUTFstring(muxingApp)];
 		}
 		
 		if (creator.count != 0) {
@@ -343,8 +346,7 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
 			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
-				const string cppTrackName = trackName.GetValueUTF8();
-				NSString *nsTrackName = @(cppTrackName.c_str());
+				NSString *nsTrackName = getNSStringFromUTFstring(trackName);
 				[trackNames addObject:nsTrackName];
 			}
 		}
@@ -479,7 +481,7 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 	}
 	attributes.codecs = codecSet.array;
 	if (trackNames.count > 0) {
-		attributes.layerNames = [trackNames copy];
+		attributes.layerNames = trackNames;
 	}
 	if (biggestWidth != 0 && biggestHeight != 0) {
 		attributes.pixelHeight = @(biggestHeight);
@@ -520,7 +522,7 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 			if (!chapLocale) {
 				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
 			}
-			locString[chapLocale] = chapString.GetValue().length() != 0 ? @(chapString.GetValueUTF8().c_str()) : @"";
+			locString[chapLocale] = chapString.GetValue().length() != 0 ? getNSStringFromUTFstring(chapString) : @"";
 
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}
@@ -564,7 +566,7 @@ bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
-		const std::string fileName = GetChild<KaxFileName>(*attachedFile).GetValueUTF8();
+		NSString *fileName = getNSStringFromUTFstring(GetChild<KaxFileName>(*attachedFile));
 		const std::string mime = GetChild<KaxMimeType>(*attachedFile).GetValue();
 		if (MIMEIsFont(mime)) {
 			const auto &rawData = GetChild<KaxFileData>(*attachedFile);
@@ -574,7 +576,7 @@ bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 				[fonts addObjectsFromArray:fontArray];
 			}
 		}
-		[attachmentFiles addObject:@(fileName.c_str())];
+		[attachmentFiles addObject:fileName];
 		
 		attachedFile = FindNextChild<KaxAttached>(attachmentEntries, *attachedFile);
 	}
@@ -674,10 +676,10 @@ static std::string get_simple_name(const KaxTagSimple &tag)
 	return tname ? tname->GetValueUTF8() : "";
 }
 
-static std::string get_simple_value(const KaxTagSimple &tag)
+static NSString *get_simple_value(const KaxTagSimple &tag)
 {
 	const KaxTagString *tstring = FindChild<KaxTagString>(tag);
-	return tstring ? tstring->GetValueUTF8() : "";
+	return tstring ? getNSStringFromUTFstring(*tstring) : @"";
 }
 
 static std::optional<uint64_t> get_tuid(const KaxTag &tag)
@@ -755,9 +757,9 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 					continue;
 				}
 				string simpleName = get_simple_name(*simple_tag);
-				string simpleVal = get_simple_value(*simple_tag);
+				NSString *simpleVal = get_simple_value(*simple_tag);
 				if (simpleName == "BPS") {
-					bpsStorage[@(trackID.value())] = @(simpleVal.c_str());
+					bpsStorage[@(trackID.value())] = simpleVal;
 					break;
 				}
 			}
@@ -776,19 +778,19 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 				continue;
 			}
 			string simpleName = get_simple_name(*simple_tag);
-			string simpleVal = get_simple_value(*simple_tag);
+			NSString *simpleVal = get_simple_value(*simple_tag);
 			NSString *objcName = @(simpleName.c_str());
 			if ([tagDict objectForKey:objcName] != nil) {
 				postError(mkvErrorLevelWarn, CFSTR("File already has an entry for tag %@! Possibility of multiple languages for same tag?"), objcName);
 			}
 			// FIXME: HACK: work around "KEYWORDS"
 			if (simpleName == "KEYWORDS") {
-				tagDict[objcName] = commaSeperation(@(simpleVal.c_str()));
+				tagDict[objcName] = commaSeperation(simpleVal);
 			} else {
 				if (isMultiple(simpleName)) {
-					tagDict[objcName] = @[@(simpleVal.c_str())];
+					tagDict[objcName] = @[simpleVal];
 				} else {
-					tagDict[objcName] = @(simpleVal.c_str());
+					tagDict[objcName] = simpleVal;
 				}
 			}
 		}
@@ -937,4 +939,20 @@ static NSString *getLocaleCode(const KaxChapLanguageIETF * language)
 	}
 	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
 	return locale;
+}
+
+static NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
+{
+	//simple sanity check, just in case...
+	if (sourceString.length() == 0) {
+		return @"";
+	}
+	
+	NSString *toRet = [[NSString alloc] initWithBytes:sourceString.c_str() length:sourceString.length() * sizeof(wchar_t) encoding:NSUTF32LittleEndianStringEncoding];
+	if (!toRet) {
+		// huh, odd. Try the UTF-8 string instead
+		toRet = @(sourceString.GetUTF8().c_str());
+	}
+	
+	return toRet;
 }
