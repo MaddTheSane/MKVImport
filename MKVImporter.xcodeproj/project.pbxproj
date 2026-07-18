@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 70;
+	objectVersion = 54;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -117,6 +117,9 @@
 		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
 		55D8AE272D8A22AC00EF2765 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8AE262D8A22AC00EF2765 /* CoreText.framework */; };
 		55E76F69233A07FD00EAEE1F /* Debugging.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.c */; };
+		55E81001300B3FD8006DF5B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55E80FFD300B3FD8006DF5B4 /* Assets.xcassets */; };
+		55E81002300B3FD8006DF5B4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55E80FFF300B3FD8006DF5B4 /* MainMenu.xib */; };
+		55E81003300B3FD8006DF5B4 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55E80FFC300B3FD8006DF5B4 /* AppDelegate.swift */; };
 		55E88C3030062BC100F0F466 /* MKVNewImporter.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 55E88C2930062BC000F0F466 /* MKVNewImporter.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		55E88C4330062F0B00F0F466 /* OSTypeMap.plist in Resources */ = {isa = PBXBuildFile; fileRef = 55E88C4230062F0B00F0F466 /* OSTypeMap.plist */; };
 		55E88C4430062F8600F0F466 /* schema.xcstrings in Resources */ = {isa = PBXBuildFile; fileRef = 559778BE2D7D9DB90018AA56 /* schema.xcstrings */; };
@@ -343,6 +346,9 @@
 		55D8AE262D8A22AC00EF2765 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
 		55E76F67233A07FD00EAEE1F /* Debugging.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Debugging.c; sourceTree = "<group>"; };
 		55E76F68233A07FD00EAEE1F /* Debugging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debugging.h; sourceTree = "<group>"; };
+		55E80FFC300B3FD8006DF5B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		55E80FFD300B3FD8006DF5B4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		55E80FFE300B3FD8006DF5B4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		55E88C2930062BC000F0F466 /* MKVNewImporter.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = MKVNewImporter.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		55E88C3730062BD400F0F466 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		55E88C4230062F0B00F0F466 /* OSTypeMap.plist */ = {isa = PBXFileReference; lastKnownFileType = file.bplist; path = OSTypeMap.plist; sourceTree = "<group>"; };
@@ -355,10 +361,6 @@
 		55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MatroskaMetadataImport.mm; sourceTree = "<group>"; };
 		55F8388930062AE100974628 /* MKVImporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MKVImporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
-
-/* Begin PBXFileSystemSynchronizedRootGroup section */
-		55F8388A30062AE100974628 /* MKVImporter Helper */ = {isa = PBXFileSystemSynchronizedRootGroup; explicitFileTypes = {}; explicitFolders = (); path = "MKVImporter Helper"; sourceTree = "<group>"; };
-/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		55239B681E301A1200B5B7D0 /* Frameworks */ = {
@@ -479,7 +481,7 @@
 				55868E1A1E1C1C3B00CDDED1 /* Third-party */,
 				55868DF91E1C189B00CDDED1 /* MKVImporter */,
 				55239B6C1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
-				55F8388A30062AE100974628 /* MKVImporter Helper */,
+				55E81000300B3FD8006DF5B4 /* MKVImporter Helper */,
 				55E88C3830062BD400F0F466 /* MKVNewImporter */,
 				55CBF3511F11454800E60B0B /* Frameworks */,
 				55868DF81E1C189B00CDDED1 /* Products */,
@@ -714,6 +716,16 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		55E81000300B3FD8006DF5B4 /* MKVImporter Helper */ = {
+			isa = PBXGroup;
+			children = (
+				55E80FFC300B3FD8006DF5B4 /* AppDelegate.swift */,
+				55E80FFD300B3FD8006DF5B4 /* Assets.xcassets */,
+				55E80FFF300B3FD8006DF5B4 /* MainMenu.xib */,
+			);
+			path = "MKVImporter Helper";
+			sourceTree = "<group>";
+		};
 		55E88C3830062BD400F0F466 /* MKVNewImporter */ = {
 			isa = PBXGroup;
 			children = (
@@ -915,9 +927,6 @@
 			dependencies = (
 				55E88C2F30062BC100F0F466 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				55F8388A30062AE100974628 /* MKVImporter Helper */,
-			);
 			name = "MKVImporter Helper";
 			packageProductDependencies = (
 			);
@@ -1012,6 +1021,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E81001300B3FD8006DF5B4 /* Assets.xcassets in Resources */,
+				55E81002300B3FD8006DF5B4 /* MainMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1144,6 +1155,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55E81003300B3FD8006DF5B4 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1186,6 +1198,17 @@
 			targetProxy = 55E88C3F30062C1400F0F466 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		55E80FFF300B3FD8006DF5B4 /* MainMenu.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				55E80FFE300B3FD8006DF5B4 /* Base */,
+			);
+			name = MainMenu.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		55239B701E301A1200B5B7D0 /* Debug */ = {
