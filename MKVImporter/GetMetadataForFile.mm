@@ -51,10 +51,6 @@ static NSString *getLanguageCode(KaxTrackEntry & track);
 static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country=NULL);
-/// Create from ``libebml::UTFstring``'s UTF-32 data instead of from its UTF-8 data.
-///
-/// Hopefully it'll be faster than converting from UTF-8 to UTF-16.
-static NSString *getNSStringFromUTFstring(const UTFstring &sourceString);
 
 class MatroskaImport final {
 private:
@@ -1066,20 +1062,4 @@ static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterC
 	}
 	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
 	return locale;
-}
-
-static NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
-{
-	//simple sanity check, just in case...
-	if (sourceString.length() == 0) {
-		return @"";
-	}
-	
-	NSString *toRet = [[NSString alloc] initWithBytes:sourceString.c_str() length:sourceString.length() * sizeof(wchar_t) encoding:NSUTF32LittleEndianStringEncoding];
-	if (!toRet) {
-		// huh, odd. Try the UTF-8 string instead
-		toRet = @(sourceString.GetUTF8().c_str());
-	}
-	
-	return toRet;
 }

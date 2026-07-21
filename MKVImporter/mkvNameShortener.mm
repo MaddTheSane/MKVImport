@@ -260,7 +260,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 	}
 	
 	if (codecName && codecName->GetSize() != 0) {
-		return @(codecName->GetValueUTF8().c_str());
+		return getNSStringFromUTFstring(*codecName);
 	}
 	
 	const string &codecString(*tr_codec);
@@ -314,4 +314,20 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 	postError(mkvErrorLevelWarn, CFSTR("Unknown codec type %@"), @(codecString.c_str()));
 
 	return nil;
+}
+
+NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
+{
+	//simple sanity check, just in case...
+	if (sourceString.length() == 0) {
+		return @"";
+	}
+	
+	NSString *toRet = [[NSString alloc] initWithBytes:sourceString.c_str() length:sourceString.length() * sizeof(wchar_t) encoding:NSUTF32LittleEndianStringEncoding];
+	if (!toRet) {
+		// huh, odd. Try the UTF-8 string instead
+		toRet = @(sourceString.GetUTF8().c_str());
+	}
+	
+	return toRet;
 }
