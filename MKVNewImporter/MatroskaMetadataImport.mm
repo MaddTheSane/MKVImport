@@ -499,9 +499,8 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 	}
 	addMediaType(@"Chapters");
 
-	NSMutableArray<CSLocalizedString*> *chapters = [[NSMutableArray alloc] init];
-	
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
+	NSMutableArray<CSLocalizedString*> *chapters = [[NSMutableArray alloc] initWithCapacity:edition.ListSize()];
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
 		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);

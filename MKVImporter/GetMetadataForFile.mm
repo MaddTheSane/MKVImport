@@ -594,8 +594,8 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	}
 	addMediaType(@"Chapters");
 
-	NSMutableDictionary<NSString*,NSMutableArray<NSString*>*> *chapters = [[NSMutableDictionary alloc] init];
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
+	NSMutableDictionary<NSString*,NSMutableArray<NSString*>*> *chapters = [[NSMutableDictionary alloc] initWithCapacity:edition.ListSize()];
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
 		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
