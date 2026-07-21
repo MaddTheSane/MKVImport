@@ -185,7 +185,26 @@ static OSType StringToOSType(NSString *theString)
 #if __is_target_os(macosx)
 	return UTGetOSTypeFromString((__bridge CFStringRef)theString);
 #else
-#error implement me!
+	//TODO: fix endian issues… when a new Big Endian Mac comes forward, I guess.
+	unsigned char ourVals[5] = {0};
+	if ([theString getBytes:ourVals maxLength:5 usedLength:NULL encoding:NSMacOSRomanStringEncoding options:0 range:NSMakeRange(0, 4) remainingRange:NULL]) {
+		OSType toRet = 0;
+		toRet = ourVals[3];
+		toRet |= ourVals[2] << 8;
+		toRet |= ourVals[1] << 16;
+		toRet |= ourVals[0] << 24;
+
+		return toRet;
+	} else {
+		NSData *ourDat = [theString dataUsingEncoding:NSMacOSRomanStringEncoding];
+		if (ourDat.length == 4) {
+			OSType ourType = 0;
+			[ourDat getBytes:&ourType range:NSMakeRange(0, 4)];
+			return __builtin_bswap32(ourType);
+		}
+	}
+	postError(mkvErrorLevelWarn, CFSTR("Could not get an OSType encoding for '%@'"), theString);
+	return 0;
 #endif
 }
 
