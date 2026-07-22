@@ -48,9 +48,9 @@ using std::string;
 
 static inline NSString *getLanguageCode(const string & cppLang);
 static NSString *getLanguageCode(KaxTrackEntry & track);
-static NSString *getLanguageCode(const KaxLanguageIETF & language);
+static inline NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
-static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country=NULL);
+static NSString *getLocaleCode(const KaxChapLanguageIETF * language);
 
 class MatroskaImport final {
 private:
@@ -606,7 +606,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			KaxChapLanguageIETF * chapIETF = FindChild<KaxChapLanguageIETF>(*chapDisplay);
 			NSString *chapLocale;
 			if (chapIETF) {
-				chapLocale = getLocaleCode(chapIETF, chapCountry);
+				chapLocale = getLocaleCode(chapIETF);
 			}
 			if (!chapLocale) {
 				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
@@ -1046,19 +1046,12 @@ static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCo
 	return locale;
 }
 
-static NSString *getLocaleCode(const KaxChapLanguageIETF * language, KaxChapterCountry * country)
+static NSString *getLocaleCode(const KaxChapLanguageIETF * language)
 {
 	const string &threeLang(*language);
 	NSString *locale = getLanguageCode(threeLang);
 	if (!locale) {
 		return nil;
-	}
-	if (country) {
-		string theCountry(*country);
-		if (theCountry.length() == 0) {
-			return locale;
-		}
-		locale = [locale stringByAppendingFormat:@"_%s", theCountry.c_str()];
 	}
 	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
 	return locale;
