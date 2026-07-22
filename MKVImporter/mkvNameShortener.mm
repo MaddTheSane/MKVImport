@@ -180,6 +180,14 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 #define MKV_A_QT "A_QUICKTIME"
 
 static OSType StringToOSType(NSString *theString);
+static NSString *OSTypeToString(OSType codec);
+
+typedef NS_ENUM(NSInteger, MKVMediaType) {
+	MKVMediaTypeVideo,
+	MKVMediaTypeAudio,
+	MKVMediaTypeSubtitles
+};
+
 static OSType StringToOSType(NSString *theString)
 {
 #if __is_target_os(macosx)
@@ -208,10 +216,24 @@ static OSType StringToOSType(NSString *theString)
 #endif
 }
 
+static NSString *OSTypeToString(OSType codec)
+{
+	union OSTypeBridge {
+		char cStr[4];
+		OSType type;
+	} ourCodec;
+	ourCodec.type = CFSwapInt32BigToHost(codec);
+	NSString *outName = [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:NSMacOSRomanStringEncoding];
+	if (outName.length != 4) {
+		return nil;
+	}
+	return outName;
+}
 
-static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
+static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool macEncoding = true)
 {
 	static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
+	static NSBundle *videoToolbox;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		@autoreleasepool {
@@ -241,8 +263,48 @@ static NSString *osType2CodecName(OSType codec, bool macEncoding = true)
 				}
 			}
 			osTypeCodecMap = [osTypeCodecMap2 copy];
+			videoToolbox = [NSBundle bundleWithIdentifier:@"com.apple.MediaToolbox"];
+			if (!videoToolbox) {
+				videoToolbox = [NSBundle bundleWithPath:@"/System/Library/Frameworks/MediaToolbox.framework"];
+			}
 		}
 	});
+	do {
+		if (!videoToolbox) {
+			break;
+		}
+		// Try VideoToolbox first
+		static NSString * const videoPrefix = @"vide";
+		static NSString * const audioPrefix = @"soun";
+		static NSString * const subsPrefix = @"text";
+		NSString *fullTest;
+		
+		// first, try generating the string from the OSType.
+		
+		NSString *toString = OSTypeToString(codec);
+		if (!toString) {
+			// exit early if we don't get a good string back.
+			break;
+		}
+		
+		switch(mediaType) {
+			case MKVMediaTypeVideo:
+				fullTest = [videoPrefix stringByAppendingString:toString];
+				break;
+			case MKVMediaTypeAudio:
+				fullTest = [audioPrefix stringByAppendingString:toString];
+				break;
+			case MKVMediaTypeSubtitles:
+				fullTest = [subsPrefix stringByAppendingString:toString];
+				break;
+		}
+		
+		NSString *translated = [videoToolbox localizedStringForKey:fullTest value:nil table:@"MediaAndSubtypes"];
+		if (translated && ![translated isEqualToString:fullTest]) {
+			return translated;
+		}
+		
+	} while (false);
 	NSString *codecName = osTypeCodecMap[@(codec)];
 	if (codecName) {
 		return codecName;
@@ -293,7 +355,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		
 		// offset to biCompression in BITMAPINFO
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer() + 16;
-		return osType2CodecName((p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3], false);
+		return osType2CodecName((p[0] << 24) | (p[1] << 16) | (p[2] << 8) | p[3], MKVMediaTypeVideo, false);
 		
 	} else if (codecString == MKV_A_MS) {
 		// acm compatibility mode, twocc is in private info
@@ -310,7 +372,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		if (isFound) {
 			return location->second;
 		}
-		return osType2CodecName('ms\0\0' | twocc, false);
+		return osType2CodecName('ms\0\0' | twocc, MKVMediaTypeAudio, false);
 		
 	} else if (codecString == MKV_V_QT || codecString == MKV_A_QT) {
 		// QT compatibility mode, private info is the ImageDescription structure, big endian
@@ -321,7 +383,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		
 		// starts at the 4CC
 		unsigned char *p = (unsigned char *) codecPrivate->GetBuffer();
-		return osType2CodecName((p[4] << 24) | (p[5] << 16) | (p[6] << 8) | p[7]);
+		return osType2CodecName((p[4] << 24) | (p[5] << 16) | (p[6] << 8) | p[7], codecString == MKV_V_QT ? MKVMediaTypeVideo : MKVMediaTypeAudio);
 		
 	} else {
 		auto location = kMatroskaCodecIDs.find(codecString);
