@@ -280,7 +280,7 @@ bool MatroskaMetadataImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	attributes.duration = @((movieDuration * timecodeScale1) / 1e9);
 	
 	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
-		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetValue()];
+		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetEpochDate()];
 		attributes.contentCreationDate = createDate;
 	}
 	
