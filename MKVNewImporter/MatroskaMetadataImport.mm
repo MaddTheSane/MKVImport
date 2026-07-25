@@ -45,20 +45,12 @@ void MatroskaMetadataImport::copyDataOver() {
 		long long biggestAud = 0;
 		uint64_t all = 0;
 		
-		//combine the two.
-		NSMutableDictionary<NSNumber*, NSArray*> *combinedDict = [[NSMutableDictionary alloc] initWithCapacity: [trackIDAndTypes count]];
-		for (NSNumber *value in trackIDAndTypes) {
-			NSString *bps = bpsStorage[value];
-			if (!bps) {
+		for (NSNumber *key in trackIDAndTypes) {
+			NSNumber *trackType = trackIDAndTypes[key];
+			NSString *bpsStr = bpsStorage[key];
+			if (!bpsStr) {
 				continue;
 			}
-			combinedDict[value] = @[trackIDAndTypes[value], bps];
-		}
-		
-		for (NSArray *ourArray in [combinedDict allValues]) {
-			NSNumber *trackType = ourArray[0];
-			NSString *bpsStr = ourArray[1];
-			//Convert bps to a numerical value.
 			long long bps = bpsStr.longLongValue;
 			all += bps;
 			
