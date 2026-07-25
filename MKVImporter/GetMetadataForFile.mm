@@ -727,28 +727,28 @@ bool MatroskaImport::ReadMetaSeek(KaxSeekHead &seekHead)
 }
 
 template <typename T>
-T *
+const T *
 FindChild(libebml::EbmlMaster const &m) {
-	return static_cast<T *>(m.FindFirstElt(EBML_INFO(T)));
+	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
 }
 
 template <typename T>
-T *
+const T *
 FindChild(libebml::EbmlElement const &e) {
 	auto &m = dynamic_cast<libebml::EbmlMaster const &>(e);
-	return static_cast<T *>(m.FindFirstElt(EBML_INFO(T)));
+	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
 }
 
-template <typename A> A*
+template <typename A> const A*
 FindChild(libebml::EbmlMaster const *m) {
-	return static_cast<A *>(m->FindFirstElt(EBML_INFO(A)));
+	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
 }
 
-template <typename A> A*
+template <typename A> const A*
 FindChild(libebml::EbmlElement const *e) {
 	auto m = dynamic_cast<libebml::EbmlMaster const *>(e);
 	assert(m);
-	return static_cast<A *>(m->FindFirstElt(EBML_INFO(A)));
+	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
 }
 
 static std::string get_simple_name(const KaxTagSimple &tag)

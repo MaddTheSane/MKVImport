@@ -407,7 +407,7 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 	NSString *toRet = [[NSString alloc] initWithBytes:sourceString.c_str() length:sourceString.length() * sizeof(wchar_t) encoding:NSUTF32LittleEndianStringEncoding];
 	if (!toRet) {
 		// huh, odd. Try the UTF-8 string instead
-		toRet = @(sourceString.GetUTF8().c_str());
+		toRet = [NSString stringWithUTF8String:sourceString.GetUTF8().c_str()];
 	}
 	
 	return toRet;
