@@ -103,21 +103,6 @@ bool isSSA(KaxTrackEntry & track)
 	return SSAMatches.contains(codecString);
 }
 
-bool isSSA2(KaxTrackEntry & track)
-{
-	KaxCodecID *tr_codec = FindChild<KaxCodecID>(track);
-	if (tr_codec == NULL)
-		return false;
-	
-	const string &codecString(*tr_codec);
-	
-	if (codecString == "S_ASS" || codecString == "S_TEXT/ASS") {
-		return true;
-	}
-	
-	return false;
-}
-
 NSArray<NSString*> * fontNamesFromFontData(NSData* rawFont)
 {
 	NSArray *arr = (NSArray*)CFBridgingRelease(CTFontManagerCreateFontDescriptorsFromData((CFDataRef)rawFont));
