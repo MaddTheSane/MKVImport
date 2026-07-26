@@ -588,7 +588,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	addMediaType(@"Chapters");
 
 	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
-	NSMutableDictionary<NSString*,NSMutableArray<NSString*>*> *chapters = [[NSMutableDictionary alloc] initWithCapacity:edition.ListSize()];
+	NSMutableDictionary<NSString*,NSMutableArray<NSString*>*> *chapters = [[NSMutableDictionary alloc] init];
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
 		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
@@ -605,7 +605,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
 			}
 			if (chapters[chapLocale] == nil) {
-				chapters[chapLocale] = [[NSMutableArray alloc] init];
+				chapters[chapLocale] = [[NSMutableArray alloc] initWithCapacity:edition.ListSize()];
 			}
 			[chapters[chapLocale] addObject:chapString.GetValue().length() != 0 ? getNSStringFromUTFstring(chapString) : @""];
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
