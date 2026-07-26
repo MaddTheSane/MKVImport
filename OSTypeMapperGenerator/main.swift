@@ -480,7 +480,7 @@ private func mainFunc() {
 		toRet.append(FourCharCodec(cType: "CEA 608", fourocc: .string("c608")))
 		
 		//Code taken from libavformat/mov.c from ffmpeg
-		toRet.append(FourCharCodec(cType: "Targa", fourocc: .osType(0x43696E8e)))
+		toRet.append(FourCharCodec(cType: "Targa", fourocc: .osType(0x43696E8E)))
 
 		return toRet
 	}()
