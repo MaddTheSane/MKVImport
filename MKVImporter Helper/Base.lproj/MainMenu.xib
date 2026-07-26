@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="17150" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
+<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="24765" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" customObjectInstantitationMethod="direct">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17150"/>
+        <deployment identifier="macosx"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="24765"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -11,9 +12,11 @@
             </connections>
         </customObject>
         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
-        <customObject id="-3" userLabel="Application"/>
-        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModuleProvider="target">
+        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+        <customObject id="Voe-Tx-rLC" customClass="AppDelegate" customModule="MKVImporter_Helper" customModuleProvider="target">
             <connections>
+                <outlet property="infoTextView" destination="NoW-mj-72C" id="YgG-1a-ZDd"/>
+                <outlet property="statusImage" destination="3oD-UK-i2J" id="4aZ-im-Poj"/>
                 <outlet property="window" destination="QvC-M9-y7g" id="gIp-Ho-8D9"/>
             </connections>
         </customObject>
@@ -682,17 +685,44 @@
         </menu>
         <window title="MKVImporter Helper" allowsToolTipsWhenApplicationIsInactive="NO" autorecalculatesKeyViewLoop="NO" releasedWhenClosed="NO" animationBehavior="default" id="QvC-M9-y7g">
             <windowStyleMask key="styleMask" titled="YES" closable="YES" miniaturizable="YES" resizable="YES"/>
-            <windowPositionMask key="initialPositionMask" leftStrut="YES" rightStrut="YES" topStrut="YES" bottomStrut="YES"/>
-            <rect key="contentRect" x="335" y="390" width="480" height="360"/>
-            <rect key="screenRect" x="0.0" y="0.0" width="2560" height="1415"/>
+            <rect key="contentRect" x="335" y="390" width="301" height="232"/>
+            <rect key="screenRect" x="0.0" y="0.0" width="1512" height="949"/>
             <view key="contentView" id="EiT-Mj-1SZ">
-                <rect key="frame" x="0.0" y="0.0" width="480" height="360"/>
+                <rect key="frame" x="0.0" y="0.0" width="301" height="232"/>
                 <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <textField focusRingType="none" verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="NoW-mj-72C">
+                        <rect key="frame" x="42" y="201" width="67" height="16"/>
+                        <textFieldCell key="cell" selectable="YES" title="Thinking…" id="jJp-3w-PGx">
+                            <font key="font" metaFont="system"/>
+                            <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                            <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                        </textFieldCell>
+                    </textField>
+                    <imageView horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="3oD-UK-i2J">
+                        <rect key="frame" x="20" y="196" width="16" height="16"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="16" id="J9m-zH-JHh"/>
+                            <constraint firstAttribute="width" constant="16" id="rh2-L0-Hgp"/>
+                        </constraints>
+                        <imageCell key="cell" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="NSStatusNone" id="GAN-Dx-LCs"/>
+                    </imageView>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="3oD-UK-i2J" firstAttribute="leading" secondItem="EiT-Mj-1SZ" secondAttribute="leading" constant="20" symbolic="YES" id="62m-fA-7wE"/>
+                    <constraint firstItem="3oD-UK-i2J" firstAttribute="top" secondItem="EiT-Mj-1SZ" secondAttribute="top" constant="20" symbolic="YES" id="P2s-1Q-S3z"/>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="NoW-mj-72C" secondAttribute="trailing" constant="20" symbolic="YES" id="Q7n-ex-HkZ"/>
+                    <constraint firstItem="NoW-mj-72C" firstAttribute="firstBaseline" secondItem="3oD-UK-i2J" secondAttribute="centerY" id="S8b-Nf-ai9"/>
+                    <constraint firstItem="NoW-mj-72C" firstAttribute="leading" secondItem="3oD-UK-i2J" secondAttribute="trailing" constant="8" symbolic="YES" id="h62-uE-27o"/>
+                </constraints>
             </view>
             <connections>
                 <outlet property="delegate" destination="Voe-Tx-rLC" id="top-28-M4D"/>
             </connections>
-            <point key="canvasLocation" x="200" y="400"/>
+            <point key="canvasLocation" x="110.5" y="336"/>
         </window>
     </objects>
+    <resources>
+        <image name="NSStatusNone" width="16" height="16"/>
+    </resources>
 </document>

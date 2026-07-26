@@ -10,6 +10,7 @@
 		550E47962FC2D55F000C5747 /* NSURLCallback.mm in Sources */ = {isa = PBXBuildFile; fileRef = 550E47952FC2D55F000C5747 /* NSURLCallback.mm */; };
 		55239B6E1E301A1200B5B7D0 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55239B6D1E301A1200B5B7D0 /* main.swift */; };
 		5528F5CD1E6DF7AB0001D475 /* ParseSSA.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */; };
+		552C83D63015E51F00F20875 /* MKVImporter.mdimporter in Copy Spotlight Importer */ = {isa = PBXBuildFile; fileRef = 55868DF71E1C189B00CDDED1 /* MKVImporter.mdimporter */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		557B87F71E1EC5C200F2133E /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
 		55868DFC1E1C189B00CDDED1 /* main.c in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFB1E1C189B00CDDED1 /* main.c */; };
 		55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */; };
@@ -146,6 +147,13 @@
 			remoteGlobalIDString = 55239B6A1E301A1200B5B7D0;
 			remoteInfo = OSTypeMapperGenerator;
 		};
+		552C83D33015E4AD00F20875 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 55868DF61E1C189B00CDDED1;
+			remoteInfo = MKVImporter;
+		};
 		55868EE71E1C1D6800CDDED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 55868DEF1E1C189B00CDDED1 /* Project object */;
@@ -199,6 +207,17 @@
 			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		552C83D53015E4F200F20875 /* Copy Spotlight Importer */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = Contents/Library/Spotlight;
+			dstSubfolderSpec = 1;
+			files = (
+				552C83D63015E51F00F20875 /* MKVImporter.mdimporter in Copy Spotlight Importer */,
+			);
+			name = "Copy Spotlight Importer";
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 		55E88C3130062BC100F0F466 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -923,11 +942,13 @@
 				55F8388630062AE100974628 /* Frameworks */,
 				55F8388730062AE100974628 /* Resources */,
 				55E88C3130062BC100F0F466 /* Embed Foundation Extensions */,
+				552C83D53015E4F200F20875 /* Copy Spotlight Importer */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				55E88C2F30062BC100F0F466 /* PBXTargetDependency */,
+				552C83D43015E4AD00F20875 /* PBXTargetDependency */,
 			);
 			name = "MKVImporter Helper";
 			packageProductDependencies = (
@@ -1168,6 +1189,11 @@
 			isa = PBXTargetDependency;
 			target = 55239B6A1E301A1200B5B7D0 /* OSTypeMapperGenerator */;
 			targetProxy = 55239B721E301A1E00B5B7D0 /* PBXContainerItemProxy */;
+		};
+		552C83D43015E4AD00F20875 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 55868DF61E1C189B00CDDED1 /* MKVImporter */;
+			targetProxy = 552C83D33015E4AD00F20875 /* PBXContainerItemProxy */;
 		};
 		55868EE81E1C1D6800CDDED1 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

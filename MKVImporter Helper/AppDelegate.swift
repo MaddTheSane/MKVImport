@@ -12,9 +12,17 @@ import Cocoa
 class AppDelegate: NSObject, NSApplicationDelegate {
 
 	@IBOutlet var window: NSWindow!
-
-
+	@IBOutlet weak var statusImage: NSImageView!
+	@IBOutlet weak var infoTextView: NSTextField!
+	
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
+		if NSWorkspace.shared.urlsForApplications(withBundleIdentifier: "uk.org.marginal.qlvideo").isEmpty {
+			infoTextView.stringValue = "Everything should be okay!"
+			statusImage.image = NSImage(named: NSImage.statusAvailableName)
+		} else {
+			infoTextView.stringValue = "QuickLook Video may prevent the importer from working!"
+			statusImage.image = NSImage(named: NSImage.statusPartiallyAvailableName)
+		}
 		// Insert code here to initialize your application
 	}
 
