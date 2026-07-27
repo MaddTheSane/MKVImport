@@ -355,8 +355,10 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	KaxMuxingApp & muxingApp = GetChild<KaxMuxingApp>(segmentInfo);
 	KaxSegmentUID * kaxUID = FindChild<KaxSegmentUID>(segmentInfo);
 	if (kaxUID && kaxUID->GetSize() == 16) {
-		NSUUID *theUUID = [[NSUUID alloc] initWithUUIDBytes:kaxUID->GetBuffer()];
-		attributes[(NSString*)kMDItemIdentifier] = theUUID.UUIDString;
+		uint8_t *const theBytes = kaxUID->GetBuffer();
+		CFUUIDRef theUUID = CFUUIDCreateWithBytes(kCFAllocatorDefault, theBytes[0], theBytes[1], theBytes[2], theBytes[3], theBytes[4], theBytes[5], theBytes[6], theBytes[7], theBytes[8], theBytes[9], theBytes[10], theBytes[11], theBytes[12], theBytes[13], theBytes[14], theBytes[15]);
+		attributes[(NSString*)kMDItemIdentifier] = CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, theUUID));
+		CFRelease(theUUID);
 	}
 
 	double movieDuration = double(duration);
