@@ -45,12 +45,9 @@ void MatroskaMetadataImport::copyDataOver() {
 		long long biggestAud = 0;
 		uint64_t all = 0;
 		
-		for (NSNumber *key in trackIDAndTypes) {
+		for (NSNumber *key in bpsStorage) {
 			NSNumber *trackType = trackIDAndTypes[key];
 			NSString *bpsStr = bpsStorage[key];
-			if (!bpsStr) {
-				continue;
-			}
 			long long bps = bpsStr.longLongValue;
 			all += bps;
 			
