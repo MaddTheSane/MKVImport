@@ -645,7 +645,7 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	addMediaType(@"Attachments");
 	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
 	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
-	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
+	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
 		NSString *fileName = getNSStringFromUTFstring(GetChild<KaxFileName>(*attachedFile)) ?: @"";
@@ -828,8 +828,7 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 	if (seenTags) {
 		return true;
 	}
-	NSMutableDictionary<NSString*,id>
-	*tagDict = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary<NSString*,id> *tagDict = [[NSMutableDictionary alloc] init];
 	//trackEntries
 	for (const auto child : trackEntries) {
 		auto tag = dynamic_cast<const KaxTag *>(child);
@@ -883,6 +882,12 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 				}
 			}
 		}
+	}
+	
+	if (tagDict.count == 0) {
+		// return early.
+		seenTags = true;
+		return true;
 	}
 	
 	NSMutableDictionary<NSString*,id>

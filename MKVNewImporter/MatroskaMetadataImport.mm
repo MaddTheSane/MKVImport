@@ -547,7 +547,7 @@ bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	addMediaType(@"Attachments");
 	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
 	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
-	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] init];
+	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
 		NSString *fileName = getNSStringFromUTFstring(GetChild<KaxFileName>(*attachedFile));
@@ -778,6 +778,12 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 				}
 			}
 		}
+	}
+	
+	if (tagDict.count == 0) {
+		// return early.
+		seenTags = true;
+		return true;
 	}
 	
 	for (NSString *key in tagDict) {
