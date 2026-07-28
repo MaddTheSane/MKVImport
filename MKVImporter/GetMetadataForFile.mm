@@ -58,7 +58,8 @@ private:
 	_ebmlFile(createCallbackForURL(path)),
 	_aStream(EbmlStream(*_ebmlFile)),
 	attributes(attribs),
-	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false) {
+	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false),
+	seenAttachments(false) {
 		mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
 		fonts = [[NSMutableSet alloc] initWithCapacity:50];
 		segmentOffset = 0;
@@ -206,6 +207,7 @@ private:
 	bool seenTracks;
 	bool seenChapters;
 	bool seenTags;
+	bool seenAttachments;
 
 	std::vector<MatroskaSeek>	levelOneElements;
 	
@@ -642,6 +644,9 @@ static bool MIMEIsFont(const string &mimeName) {
 
 bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 {
+	if (seenAttachments) {
+		return true;
+	}
 	addMediaType(@"Attachments");
 	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
 	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
@@ -666,6 +671,7 @@ bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
 		[this->fonts addObjectsFromArray:fonts];
 	}
 	attributes[kAttachedFiles] = [attachmentFiles copy];
+	seenAttachments = true;
 	return true;
 }
 

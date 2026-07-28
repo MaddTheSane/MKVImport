@@ -36,7 +36,8 @@ private:
 	_aStream(EbmlStream(_ebmlFile)),
 	attributes(attribs),
 	fileURL(path),
-	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false) {
+	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false),
+	seenAttachments(false)  {
 		mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
 		fonts = [[NSMutableSet alloc] initWithCapacity:50];
 		segmentOffset = 0;
@@ -118,6 +119,7 @@ private:
 	bool seenTracks;
 	bool seenChapters;
 	bool seenTags;
+	bool seenAttachments;
 
 	std::vector<MatroskaSeek>	levelOneElements;
 	

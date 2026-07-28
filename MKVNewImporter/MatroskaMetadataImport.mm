@@ -544,6 +544,9 @@ static bool MIMEIsFont(const string &mimeName) {
 
 bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 {
+	if (seenAttachments) {
+		return true;
+	}
 	addMediaType(@"Attachments");
 	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
 	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
@@ -569,7 +572,7 @@ bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	}
 	CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kAttachedFiles searchable:YES searchableByDefault:NO unique:NO multiValued:YES];
 	[attributes setValue:attachmentFiles forCustomKey:attribKey];
-	
+	seenAttachments = true;
 	return true;
 }
 
