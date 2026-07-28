@@ -31,6 +31,24 @@ static NSString *getLanguageCode(const KaxLanguageIETF & language);
 static NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country=NULL);
 static NSString *getLocaleCode(const KaxChapLanguageIETF * language);
 
+MatroskaMetadataImport::MatroskaMetadataImport(NSURL* _Nonnull path,
+											   CSSearchableItemAttributeSet* _Nonnull attribs):
+_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)),
+attributes(attribs), fileURL(path), seenInfo(false), seenTracks(false), seenChapters(false),
+seenTags(false), seenAttachments(false) {
+	mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
+	fonts = [[NSMutableSet alloc] initWithCapacity:50];
+	segmentOffset = 0;
+	el_l0 = NULL;
+	el_l1 = NULL;
+	bpsStorage = [[NSMutableDictionary alloc] init];
+	trackIDAndTypes = [[NSMutableDictionary alloc] init];
+}
+
+inline void MatroskaMetadataImport::addMediaType(NSString * _Nonnull theType) {
+	[mediaTypes addObject:theType];
+}
+
 void MatroskaMetadataImport::copyDataOver() {
 	attributes.mediaTypes = mediaTypes.array;
 	if (fonts.count != 0) {
@@ -235,7 +253,7 @@ bool MatroskaMetadataImport::ProcessLevel1Element()
 		return ReadTags(*static_cast<KaxTags *>(el_l1));
 		
 	} else if (theID == EBML_ID(KaxCues)) {
-		el_l1->SkipData(_aStream, EBML_CLASS_SEMCONTEXT(KaxCues), dummyElt, true);
+		el_l1->SkipData(_aStream, EBML_CLASS_CONTEXT(KaxCues), dummyElt, true);
 		return true;
 		
 	}

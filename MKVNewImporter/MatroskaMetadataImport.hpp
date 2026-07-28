@@ -31,21 +31,7 @@
 
 class MatroskaMetadataImport final {
 private:
-	MatroskaMetadataImport(NSURL* _Nonnull path, CSSearchableItemAttributeSet* _Nonnull attribs):
-	_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
-	_aStream(EbmlStream(_ebmlFile)),
-	attributes(attribs),
-	fileURL(path),
-	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false),
-	seenAttachments(false)  {
-		mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
-		fonts = [[NSMutableSet alloc] initWithCapacity:50];
-		segmentOffset = 0;
-		el_l0 = NULL;
-		el_l1 = NULL;
-		bpsStorage = [[NSMutableDictionary alloc] init];
-		trackIDAndTypes = [[NSMutableDictionary alloc] init];
-	}
+	MatroskaMetadataImport(NSURL* _Nonnull path, CSSearchableItemAttributeSet* _Nonnull attribs);
 	virtual ~MatroskaMetadataImport();
 	bool ReadSegmentInfo(libmatroska::KaxInfo &segmentInfo);
 	bool ReadTracks(libmatroska::KaxTracks &trackEntries);
@@ -94,9 +80,7 @@ private:
 	bool ProcessLevel1Element();
 	
 	bool iterateData(NSError * _Nullable * _Nonnull outErr);
-	inline void addMediaType(NSString * _Nonnull theType) {
-		[mediaTypes addObject:theType];
-	}
+	inline void addMediaType(NSString * _Nonnull theType);
 	
 public:
 	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);

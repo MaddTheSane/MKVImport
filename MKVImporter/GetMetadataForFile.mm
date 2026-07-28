@@ -333,7 +333,7 @@ bool MatroskaImport::ProcessLevel1Element()
 		return ReadTags(*static_cast<KaxTags *>(el_l1));
 		
 	} else if (theID == EBML_ID(KaxCues)) {
-		el_l1->SkipData(_aStream, EBML_CLASS_SEMCONTEXT(KaxCues), dummyElt, true);
+		el_l1->SkipData(_aStream, EBML_CLASS_CONTEXT(KaxCues), dummyElt, true);
 		return true;
 		
 	}
