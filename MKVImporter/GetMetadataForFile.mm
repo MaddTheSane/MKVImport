@@ -438,7 +438,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		NSString *codec;
 		switch (uint8(type)) {
 			case track_video:
-				addMediaType(localizedVideoToolboxMediaAndSubtypes(MKVIVideoToolboxVideoCodePrefix, @"Video"));
+				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxVideoCodePrefix, @"Video"));
 			{
 				KaxTrackVideo &vidTrack = GetChild<KaxTrackVideo>(track);
 				KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(vidTrack);
@@ -465,7 +465,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_audio:
-				addMediaType(localizedVideoToolboxMediaAndSubtypes(MKVIVideoToolboxAudioCodePrefix, @"Sound"));
+				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxAudioCodePrefix, @"Sound"));
 			{
 				KaxTrackAudio &audTrack = GetChild<KaxTrackAudio>(track);
 				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
@@ -484,7 +484,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_subtitle:
-				addMediaType(localizedVideoToolboxMediaAndSubtypes(MKVIVideoToolboxSubtitleCodePrefix, @"Subtitle"));
+				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxSubtitleCodePrefix, @"Subtitle"));
 			if (isSSA(track)) {
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
 				bool success = getSSASubtitleFontList(track, _aStream, tmpFonts);
@@ -496,7 +496,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_complex:
-				addMediaType(localizedVideoToolboxMediaAndSubtypes(MKVIVideoToolboxMuxedCodePrefix, @"Muxed"));
+				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxMuxedCodePrefix, @"Muxed"));
 			{
 				KaxTrackVideo *vidTrack = FindChild<KaxTrackVideo>(track);
 				if (vidTrack) {

@@ -50,7 +50,7 @@ using std::string;
 #define kAudioFormatLinearPCM @"Linear PCM"
 
 typedef std::unordered_map<unsigned short, NSString* const> WavCodec;
-typedef std::unordered_map<std::string, NSString* const> MatroskaQT_Codec;
+typedef std::unordered_map<std::string, std::pair<NSString* const, NSString* const>> MatroskaQT_Codec;
 
 //TODO/FIXME: should this be exaustive?
 static const WavCodec kWavCodecIDs = {
@@ -67,108 +67,108 @@ static const WavCodec kWavCodecIDs = {
 
 static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	// video codecs:
-	{ "V_AV1", @"AV1" },
-	{ "V_UNCOMPRESSED", @"Raw Video" },
-	{ "V_MPEG4/ISO/ASP", kMPEG4VisualCodecType },
-	{ "V_MPEG4/ISO/SP", kMPEG4VisualCodecType },
-	{ "V_MPEG4/ISO/AP", kMPEG4VisualCodecType },
-	{ "V_MPEG4/ISO/AVC", kH264CodecType },
-	{ "V_MPEGH/ISO/HEVC", @"HEVC" },
-	{ "V_MPEG4/MS/V3", kVideoFormatMSMPEG4v3 },
-	{ "V_MPEG1", kMPEG1VisualCodecType },
-	{ "V_MPEG2", kMPEG2VisualCodecType },
-	{ "V_REAL/RV10", @"RealVideo 1.0" },
-	{ "V_REAL/RV20", @"RealVideo G2" },
-	{ "V_REAL/RV30", @"RealVideo 8" },
-	{ "V_REAL/RV40", @"RealVideo 9" },
-	{ "V_THEORA", @"Theora" },
-	{ "V_SNOW", @"Snow" },
-	{ "V_VP8", kVideoFormatVP8 },
-	{ "V_VP9", @"VP9" },
-	{ "V_PRORES", @"ProRes" },
-	{ "V_MJPEG", @"Motion JPEG" },
-	{ "V_FFV1", @"FF Video Codec 1" },
-	{ "V_AVS2", @"AVS2-P2" },
-	{ "V_AVS3", @"AVS3-P2" },
+	{ "V_AV1", {@"AV1", @"videav01"} },
+	{ "V_UNCOMPRESSED", {@"Raw Video", nil} },
+	{ "V_MPEG4/ISO/ASP", {kMPEG4VisualCodecType, nil} },
+	{ "V_MPEG4/ISO/SP", {kMPEG4VisualCodecType, nil} },
+	{ "V_MPEG4/ISO/AP", {kMPEG4VisualCodecType, nil} },
+	{ "V_MPEG4/ISO/AVC", {kH264CodecType, @"videavc1"} },
+	{ "V_MPEGH/ISO/HEVC", {@"HEVC", @"videhvc1"} },
+	{ "V_MPEG4/MS/V3", {kVideoFormatMSMPEG4v3, nil} },
+	{ "V_MPEG1", {kMPEG1VisualCodecType, @"videmp1v"} },
+	{ "V_MPEG2", {kMPEG2VisualCodecType, @"videmp2v"} },
+	{ "V_REAL/RV10", {@"RealVideo 1.0", nil} },
+	{ "V_REAL/RV20", {@"RealVideo G2", nil} },
+	{ "V_REAL/RV30", {@"RealVideo 8", nil} },
+	{ "V_REAL/RV40", {@"RealVideo 9", nil} },
+	{ "V_THEORA", {@"Theora", nil} },
+	{ "V_SNOW", {@"Snow", nil} },
+	{ "V_VP8", {kVideoFormatVP8, nil} },
+	{ "V_VP9", {@"VP9", nil} },
+	{ "V_PRORES", {@"ProRes", nil} }, // NOT VideoToolboxing this because there are too many variants.
+	{ "V_MJPEG", {@"Motion JPEG", nil} },
+	{ "V_FFV1", {@"FF Video Codec 1", nil} },
+	{ "V_AVS2", {@"AVS2-P2", nil} },
+	{ "V_AVS3", {@"AVS3-P2", nil} },
 	
 	// audio codecs:
-	{ "A_EAC3", kAudioFormatEAC3 },
-	{ "A_AAC", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG4/LC", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG4/MAIN", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG4/LC/SBR", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG4/SSR", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG4/LTP", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG2/LC", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG2/MAIN", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG2/LC/SBR", kAudioFormatMPEG4AAC },
-	{ "A_AAC/MPEG2/SSR", kAudioFormatMPEG4AAC },
-	{ "A_MPEG/L1", kAudioFormatMPEGLayer1 },
-	{ "A_MPEG/L2", kAudioFormatMPEGLayer2 },
-	{ "A_TRUEHD", @"TrueHD" },
-	{ "A_MPEG/L3", kAudioFormatMPEGLayer3 },
-	{ "A_AC3", kAudioFormatAC3 },
+	{ "A_EAC3", {kAudioFormatEAC3, nil} },
+	{ "A_AAC", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG4/LC", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG4/MAIN", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG4/LC/SBR", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG4/SSR", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG4/LTP", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG2/LC", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG2/MAIN", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG2/LC/SBR", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_AAC/MPEG2/SSR", {kAudioFormatMPEG4AAC, nil} },
+	{ "A_MPEG/L1", {kAudioFormatMPEGLayer1, nil} },
+	{ "A_MPEG/L2", {kAudioFormatMPEGLayer2, nil} },
+	{ "A_TRUEHD", {@"TrueHD", nil} },
+	{ "A_MPEG/L3", {kAudioFormatMPEGLayer3, nil} },
+	{ "A_AC3", {kAudioFormatAC3, nil} },
 	// FIXME: anything special for these two?
-	{ "A_AC3/BSID9", kAudioFormatAC3 },
-	{ "A_AC3/BSID10", kAudioFormatAC3 },
-	{ "A_VORBIS", kAudioFormatXiphVorbis },
-	{ "A_FLAC", kAudioFormatXiphFLAC },
-	{ "A_PCM/INT/LIT", kAudioFormatLinearPCM },
-	{ "A_PCM/INT/BIG", kAudioFormatLinearPCM },
-	{ "A_PCM/FLOAT/IEEE", kAudioFormatLinearPCM },
-	{ "A_DTS", kAudioFormatDTS },
-	{ "A_DTS/LOSSLESS", @"DTS Lossless" },
-	{ "A_DTS/EXPRESS", @"DTS Express" },
-	{ "A_TTA1", @"The True Audio" },
-	{ "A_WAVPACK4", @"WavPack" },
-	{ "A_REAL/14_4", @"RealAudio 1" },
-	{ "A_REAL/28_8", @"RealAudio 2" },
-	{ "A_REAL/COOK", @"RealAudio Cook" },
-	{ "A_REAL/SIPR", @"Sipro Voice" },
-	{ "A_REAL/RALF", @"RealAudio Lossless" },
-	{ "A_REAL/ATRC", @"ATRAC3" },
-	{ "A_OPUS", @"Opus" },
-	{ "A_ALAC", @"Apple Lossless" },
-	{ "A_ATRAC/AT1", @"ATRAC1" },
+	{ "A_AC3/BSID9", {kAudioFormatAC3, nil} },
+	{ "A_AC3/BSID10", {kAudioFormatAC3, nil} },
+	{ "A_VORBIS", {kAudioFormatXiphVorbis, nil} },
+	{ "A_FLAC", {kAudioFormatXiphFLAC, nil} },
+	{ "A_PCM/INT/LIT", {kAudioFormatLinearPCM, nil} },
+	{ "A_PCM/INT/BIG", {kAudioFormatLinearPCM, nil} },
+	{ "A_PCM/FLOAT/IEEE", {kAudioFormatLinearPCM, nil} },
+	{ "A_DTS", {kAudioFormatDTS, nil} },
+	{ "A_DTS/LOSSLESS", {@"DTS Lossless", nil} },
+	{ "A_DTS/EXPRESS", {@"DTS Express", nil} },
+	{ "A_TTA1", {@"The True Audio", nil} },
+	{ "A_WAVPACK4", {@"WavPack", nil} },
+	{ "A_REAL/14_4", {@"RealAudio 1", nil} },
+	{ "A_REAL/28_8", {@"RealAudio 2", nil} },
+	{ "A_REAL/COOK", {@"RealAudio Cook", nil} },
+	{ "A_REAL/SIPR", {@"Sipro Voice", nil} },
+	{ "A_REAL/RALF", {@"RealAudio Lossless", nil} },
+	{ "A_REAL/ATRC", {@"ATRAC3", nil} },
+	{ "A_OPUS", {@"Opus", nil} },
+	{ "A_ALAC", {@"Apple Lossless", @"sounalac"} },
+	{ "A_ATRAC/AT1", {@"ATRAC1", nil} },
 	
 	// subtitles:
 #if 0
-	{ "S_IMAGE/BMP", @kBMPCodecType },
+	{ "S_IMAGE/BMP", {kBMPCodecType, nil} },
 #endif
-	{ "S_TEXT/USF", @"Universal Subtitles" },
-	{ "S_TEXT/SSA", kSubFormatSSA },
-	{ "S_SSA", kSubFormatSSA },
-	{ "S_TEXT/ASS", kSubFormatASS },
-	{ "S_ASS", kSubFormatASS },
-	{ "S_TEXT/UTF8", kSubFormatSubRip },
-	{ "S_TEXT/ASCII", kSubFormatSubRip },
-	{ "S_VOBSUB", kSubFormatVobSub },
-	{ "S_DVBSUB", @"DVB Subtitles" },
-	{ "S_KATE", @"Karaoke And Text Encapsulation" },
-	{ "S_TEXT/WEBVTT", @"WebVTT" },
-	{ "S_HDMV/PGS", @"HDMV PGS" },
-	{ "S_HDMV/TEXTST", @"HDMV Text" },
+	{ "S_TEXT/USF", {@"Universal Subtitles", nil} },
+	{ "S_TEXT/SSA", {kSubFormatSSA, nil} },
+	{ "S_SSA", {kSubFormatSSA, nil} },
+	{ "S_TEXT/ASS", {kSubFormatASS, nil} },
+	{ "S_ASS", {kSubFormatASS, nil} },
+	{ "S_TEXT/UTF8", {kSubFormatSubRip, nil} },
+	{ "S_TEXT/ASCII", {kSubFormatSubRip, nil} },
+	{ "S_VOBSUB", {kSubFormatVobSub, nil} },
+	{ "S_DVBSUB", {@"DVB Subtitles", nil} },
+	{ "S_KATE", {@"Karaoke And Text Encapsulation", nil} },
+	{ "S_TEXT/WEBVTT", {@"WebVTT", nil} },
+	{ "S_HDMV/PGS", {@"HDMV PGS", nil} },
+	{ "S_HDMV/TEXTST", {@"HDMV Text", nil} },
 	
 #ifdef UNSUPPORTEDCODECS
 	// Currently unsupported codecs:
-	{ "V_MSWMV", @"WMV" }, // Video, Microsoft Video
-	{ "V_INDEO5", kVideoCodecIndeo5 }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
-	{ "V_MJPEG2000", @"Motion JPEG2000" }, // Video, MJpeg 2000
-	{ "V_MJPEG2000LL", @"Motion JPEG2000 Lossless" }, // Video, MJpeg Lossless
-	{ "V_DV", @"DV Video" }, // Video, DV Video, type 1 (audio and video mixed)
-	{ "V_TARKIN", @"Ogg Tarkin" }, // Video, Ogg Tarkin
-	{ "V_ON2VP4", @"VP4" }, // Video, ON2, VP4
-	{ "V_ON2VP5", kVideoFormatVP5 }, // Video, ON2, VP5
-	{ "V_3IVX", @"3ivx" }, // Video, 3ivX (is D4 decoder downwards compatible?)
-	{ "V_HUFFYUV", @"HuffYuv" }, // Video, HuffYuv, lossless; auch als VfW möglich
-	{ "V_COREYUV", @"CoreYuv" }, // Video, CoreYuv, lossless; auch als VfW möglich
-	{ "V_RUDUDU", @"Rududu Wavelet" }, // Nicola's Rududu Wavelet codec
-	{ "A_MPC", @"musepack SV8" },
+	{ "V_MSWMV", {@"WMV", nil} }, // Video, Microsoft Video
+	{ "V_INDEO5", {kVideoCodecIndeo5, nil} }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
+	{ "V_MJPEG2000", {@"Motion JPEG2000", nil} }, // Video, MJpeg 2000
+	{ "V_MJPEG2000LL", {@"Motion JPEG2000 Lossless", nil} }, // Video, MJpeg Lossless
+	{ "V_DV", {@"DV Video", nil} }, // Video, DV Video, type 1 (audio and video mixed)
+	{ "V_TARKIN", {@"Ogg Tarkin", nil} }, // Video, Ogg Tarkin
+	{ "V_ON2VP4", {@"VP4", nil} }, // Video, ON2, VP4
+	{ "V_ON2VP5", {kVideoFormatVP5, nil} }, // Video, ON2, VP5
+	{ "V_3IVX", {@"3ivx", nil} }, // Video, 3ivX (is D4 decoder downwards compatible?)
+	{ "V_HUFFYUV", {@"HuffYuv", nil} }, // Video, HuffYuv, lossless; auch als VfW möglich
+	{ "V_COREYUV", {@"CoreYuv", nil} }, // Video, CoreYuv, lossless; auch als VfW möglich
+	{ "V_RUDUDU", {@"Rududu Wavelet", nil} }, // Nicola's Rududu Wavelet codec
+	{ "A_MPC", {@"musepack SV8", nil} },
 #endif
 	
 #ifndef NO_DEPRECATED_CODECS
-	{"A_QUICKTIME/QDMC", @"QDesign Music"},
-	{"A_QUICKTIME/QDM2", @"QDesign Music v2"},
+	{"A_QUICKTIME/QDMC", {@"QDesign Music", nil}},
+	{"A_QUICKTIME/QDM2", {@"QDesign Music v2", nil}},
 #endif
 };
 
@@ -181,7 +181,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 
 static OSType StringToOSType(NSString *theString);
 static NSString *OSTypeToString(OSType codec);
-static NSBundle *videoToolboxBundle(void);
+static NSBundle *mediaToolboxBundle(void);
 
 typedef NS_ENUM(NSInteger, MKVMediaType) {
 	MKVMediaTypeVideo,
@@ -219,12 +219,12 @@ static OSType StringToOSType(NSString *theString)
 
 #pragma mark - Video Toolbox helpers
 
-NSString * const MKVIVideoToolboxVideoCodePrefix = @"vide";
-NSString * const MKVIVideoToolboxAudioCodePrefix = @"soun";
-NSString * const MKVIVideoToolboxSubtitleCodePrefix = @"sbtl";
-NSString * const MKVIVideoToolboxMuxedCodePrefix = @"muxx";
+NSString * const MKVIMediaToolboxVideoCodePrefix = @"vide";
+NSString * const MKVIMediaToolboxAudioCodePrefix = @"soun";
+NSString * const MKVIMediaToolboxSubtitleCodePrefix = @"sbtl";
+NSString * const MKVIMediaToolboxMuxedCodePrefix = @"muxx";
 
-static NSBundle *videoToolboxBundle(void)
+static NSBundle *mediaToolboxBundle(void)
 {
 	static NSBundle *videoToolbox;
 	static dispatch_once_t onceToken;
@@ -237,9 +237,9 @@ static NSBundle *videoToolboxBundle(void)
 	return videoToolbox;
 }
 
-NSString * _Nullable localizedVideoToolboxMediaAndSubtypes(NSString * _Nonnull key, NSString * _Nullable value)
+NSString * _Nullable localizedMediaToolboxMediaAndSubtypes(NSString * _Nonnull key, NSString * _Nullable value)
 {
-	NSBundle *ourBundle = videoToolboxBundle();
+	NSBundle *ourBundle = mediaToolboxBundle();
 	if (!ourBundle) {
 		return value;
 	}
@@ -297,7 +297,7 @@ static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool mac
 		}
 	});
 	do {
-		if (videoToolboxBundle() == nil) {
+		if (mediaToolboxBundle() == nil) {
 			break;
 		}
 		// Try VideoToolbox first
@@ -313,17 +313,17 @@ static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool mac
 		
 		switch(mediaType) {
 			case MKVMediaTypeVideo:
-				fullTest = [MKVIVideoToolboxVideoCodePrefix stringByAppendingString:toString];
+				fullTest = [MKVIMediaToolboxVideoCodePrefix stringByAppendingString:toString];
 				break;
 			case MKVMediaTypeAudio:
-				fullTest = [MKVIVideoToolboxAudioCodePrefix stringByAppendingString:toString];
+				fullTest = [MKVIMediaToolboxAudioCodePrefix stringByAppendingString:toString];
 				break;
 			case MKVMediaTypeSubtitles:
-				fullTest = [MKVIVideoToolboxSubtitleCodePrefix stringByAppendingString:toString];
+				fullTest = [MKVIMediaToolboxSubtitleCodePrefix stringByAppendingString:toString];
 				break;
 		}
 		
-		NSString *translated = localizedVideoToolboxMediaAndSubtypes(fullTest, nil);
+		NSString *translated = localizedMediaToolboxMediaAndSubtypes(fullTest, nil);
 		if (translated && ![translated isEqualToString:fullTest]) {
 			return translated;
 		}
@@ -413,7 +413,14 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		auto location = kMatroskaCodecIDs.find(codecString);
 		bool isFound = location != kMatroskaCodecIDs.end();
 		if (isFound) {
-			return location->second;
+			NSString *VTCodec = location->second.second;
+			if (VTCodec) {
+				NSString *localizedCodec = localizedMediaToolboxMediaAndSubtypes(VTCodec, nil);
+				if (![localizedCodec isEqualToString:VTCodec]) {
+					return localizedCodec;
+				}
+			}
+			return location->second.first;
 		}
 	}
 	postError(mkvErrorLevelWarn, CFSTR("Unknown codec type %@"), @(codecString.c_str()));
