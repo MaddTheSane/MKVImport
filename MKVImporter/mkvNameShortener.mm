@@ -181,6 +181,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 
 static OSType StringToOSType(NSString *theString);
 static NSString *OSTypeToString(OSType codec);
+static NSBundle *videoToolboxBundle(void);
 
 typedef NS_ENUM(NSInteger, MKVMediaType) {
 	MKVMediaTypeVideo,
@@ -216,6 +217,37 @@ static OSType StringToOSType(NSString *theString)
 #endif
 }
 
+#pragma mark - Video Toolbox helpers
+
+NSString * const MKVIVideoToolboxVideoCodePrefix = @"vide";
+NSString * const MKVIVideoToolboxAudioCodePrefix = @"soun";
+NSString * const MKVIVideoToolboxSubtitleCodePrefix = @"sbtl";
+NSString * const MKVIVideoToolboxMuxedCodePrefix = @"muxx";
+
+static NSBundle *videoToolboxBundle(void)
+{
+	static NSBundle *videoToolbox;
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		videoToolbox = [NSBundle bundleWithIdentifier:@"com.apple.MediaToolbox"];
+		if (!videoToolbox) {
+			videoToolbox = [NSBundle bundleWithPath:@"/System/Library/Frameworks/MediaToolbox.framework"];
+		}
+	});
+	return videoToolbox;
+}
+
+NSString * _Nullable localizedVideoToolboxMediaAndSubtypes(NSString * _Nonnull key, NSString * _Nullable value)
+{
+	NSBundle *ourBundle = videoToolboxBundle();
+	if (!ourBundle) {
+		return value;
+	}
+	return [ourBundle localizedStringForKey:key value:value table:@"MediaAndSubtypes"];
+}
+
+#pragma mark -
+
 static NSString *OSTypeToString(OSType codec)
 {
 	union OSTypeBridge {
@@ -233,7 +265,6 @@ static NSString *OSTypeToString(OSType codec)
 static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool macEncoding = true)
 {
 	static NSDictionary<NSNumber*, NSString*> *osTypeCodecMap;
-	static NSBundle *videoToolbox;
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
 		@autoreleasepool {
@@ -263,20 +294,13 @@ static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool mac
 				}
 			}
 			osTypeCodecMap = [osTypeCodecMap2 copy];
-			videoToolbox = [NSBundle bundleWithIdentifier:@"com.apple.MediaToolbox"];
-			if (!videoToolbox) {
-				videoToolbox = [NSBundle bundleWithPath:@"/System/Library/Frameworks/MediaToolbox.framework"];
-			}
 		}
 	});
 	do {
-		if (!videoToolbox) {
+		if (videoToolboxBundle() == nil) {
 			break;
 		}
 		// Try VideoToolbox first
-		static NSString * const videoPrefix = @"vide";
-		static NSString * const audioPrefix = @"soun";
-		static NSString * const subsPrefix = @"text";
 		NSString *fullTest;
 		
 		// first, try generating the string from the OSType.
@@ -289,22 +313,22 @@ static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool mac
 		
 		switch(mediaType) {
 			case MKVMediaTypeVideo:
-				fullTest = [videoPrefix stringByAppendingString:toString];
+				fullTest = [MKVIVideoToolboxVideoCodePrefix stringByAppendingString:toString];
 				break;
 			case MKVMediaTypeAudio:
-				fullTest = [audioPrefix stringByAppendingString:toString];
+				fullTest = [MKVIVideoToolboxAudioCodePrefix stringByAppendingString:toString];
 				break;
 			case MKVMediaTypeSubtitles:
-				fullTest = [subsPrefix stringByAppendingString:toString];
+				fullTest = [MKVIVideoToolboxSubtitleCodePrefix stringByAppendingString:toString];
 				break;
 		}
 		
-		NSString *translated = [videoToolbox localizedStringForKey:fullTest value:nil table:@"MediaAndSubtypes"];
+		NSString *translated = localizedVideoToolboxMediaAndSubtypes(fullTest, nil);
 		if (translated && ![translated isEqualToString:fullTest]) {
 			return translated;
 		}
-		
 	} while (false);
+	
 	NSString *codecName = osTypeCodecMap[@(codec)];
 	if (codecName) {
 		return codecName;
