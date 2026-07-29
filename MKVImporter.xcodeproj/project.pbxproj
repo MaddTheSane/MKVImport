@@ -137,6 +137,8 @@
 		55E88C593007798F00F0F466 /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
 		55E88C5A3007798F00F0F466 /* ParseSSA.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */; };
 		55E88C5B30077C1D00F0F466 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
+		55F21DE4301AA780000AAEE3 /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F21DE3301AA780000AAEE3 /* MediaToolbox.framework */; };
+		55F21DE5301AA789000AAEE3 /* MediaToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55F21DE3301AA780000AAEE3 /* MediaToolbox.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -379,6 +381,7 @@
 		55E88C54300740A900F0F466 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
 		55E88C56300744EE00F0F466 /* MatroskaMetadataImport.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatroskaMetadataImport.hpp; sourceTree = "<group>"; };
 		55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MatroskaMetadataImport.mm; sourceTree = "<group>"; };
+		55F21DE3301AA780000AAEE3 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		55F8388930062AE100974628 /* MKVImporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MKVImporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -394,6 +397,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F21DE4301AA780000AAEE3 /* MediaToolbox.framework in Frameworks */,
 				55D8AE272D8A22AC00EF2765 /* CoreText.framework in Frameworks */,
 				55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */,
 				55868EEB1E1C1D6F00CDDED1 /* libebml.a in Frameworks */,
@@ -420,6 +424,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				55F21DE5301AA789000AAEE3 /* MediaToolbox.framework in Frameworks */,
 				55E88C55300740A900F0F466 /* CoreSpotlight.framework in Frameworks */,
 				55E88C533007409500F0F466 /* CoreText.framework in Frameworks */,
 				55E88C523007408300F0F466 /* Foundation.framework in Frameworks */,
@@ -732,6 +737,7 @@
 				55E88C54300740A900F0F466 /* CoreSpotlight.framework */,
 				55D8AE262D8A22AC00EF2765 /* CoreText.framework */,
 				55CBF3531F11454900E60B0B /* Foundation.framework */,
+				55F21DE3301AA780000AAEE3 /* MediaToolbox.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

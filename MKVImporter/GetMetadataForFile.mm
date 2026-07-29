@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #include <CoreFoundation/CoreFoundation.h>
+#include <MediaToolbox/MediaToolbox.h>
 #include "GetMetadataForFile.h"
 #include "matroska/FileKax.h"
 #include "ebml/StdIOCallback.h"
@@ -438,7 +439,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		NSString *codec;
 		switch (uint8(type)) {
 			case track_video:
-				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxVideoCodePrefix, @"Video"));
+				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Video)));
 			{
 				KaxTrackVideo &vidTrack = GetChild<KaxTrackVideo>(track);
 				KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(vidTrack);
@@ -465,7 +466,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_audio:
-				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxAudioCodePrefix, @"Sound"));
+				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Audio)));
 			{
 				KaxTrackAudio &audTrack = GetChild<KaxTrackAudio>(track);
 				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
@@ -484,7 +485,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_subtitle:
-				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxSubtitleCodePrefix, @"Subtitle"));
+				addMediaType((NSString*)CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Subtitle)));
 			if (isSSA(track)) {
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
 				bool success = getSSASubtitleFontList(track, _aStream, tmpFonts);
@@ -496,7 +497,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_complex:
-				addMediaType(localizedMediaToolboxMediaAndSubtypes(MKVIMediaToolboxMuxedCodePrefix, @"Muxed"));
+				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Muxed)));
 			{
 				KaxTrackVideo *vidTrack = FindChild<KaxTrackVideo>(track);
 				if (vidTrack) {
