@@ -50,10 +50,21 @@ using std::string;
 #define AudioFormatXiphVorbis @"Vorbis"
 #define AudioFormatLinearPCM @"Linear PCM"
 
+typedef NS_ENUM(int, MKVCodecLocations) {
+	MKVCodecLocationQuickTimeVideo,
+	MKVCodecLocationQuickTimeAudio,
+	MKVCodecLocationVideoForWindows,
+	MKVCodecLocationWindowsSound,
+	MKVCodecLocationBare,
+};
+
+typedef NSString* _Nullable (ExpandedCodecInfo)(const KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata);
+
 struct CodecMapping {
 	NSString *const codecName;
 	CMMediaType mediaType=0;
 	FourCharCode codec=0;
+	ExpandedCodecInfo *moreComplex=NULL;
 };
 
 typedef std::unordered_map<unsigned short, const CodecMapping> WavCodec;
@@ -322,7 +333,7 @@ static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool mac
 	return outName;
 }
 
-NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
+NSString *mkvCodecShortener(KaxTrackEntry &tr_entry, NSMutableDictionary *_Nullable outExtended)
 {
 	KaxCodecID *tr_codec = FindChild<KaxCodecID>(tr_entry);
 	KaxCodecName *codecName = FindChild<KaxCodecName>(tr_entry);
@@ -360,6 +371,12 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		auto location = kWavCodecIDs.find(twocc);
 		bool isFound = location != kWavCodecIDs.end();
 		if (isFound) {
+			if (location->second.moreComplex != NULL) {
+				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationWindowsSound, outExtended);
+				if (toOut) {
+					return toOut;
+				}
+			}
 			if (location->second.mediaType != 0) {
 				NSString *localizedCodec = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(location->second.mediaType, location->second.codec));
 				if (localizedCodec) {
@@ -386,6 +403,12 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		bool isFound = location != kMatroskaCodecIDs.end();
 		if (isFound) {
 			CMMediaType mediaType = location->second.mediaType;
+			if (location->second.moreComplex != NULL) {
+				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationBare, outExtended);
+				if (toOut) {
+					return toOut;
+				}
+			}
 			if (mediaType != 0) {
 				NSString *localizedCodec = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(mediaType, location->second.codec));
 				if (localizedCodec && ![localizedCodec isEqualToString:OSTypeToString(location->second.codec, true) ?: @""]) {
