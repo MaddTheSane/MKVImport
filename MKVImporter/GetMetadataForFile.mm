@@ -189,6 +189,10 @@ private:
 		[mediaTypes addObject:theType];
 	}
 	
+	inline void addMediaType(CFStringRef CF_CONSUMED theType) {
+		addMediaType((NSString*)CFBridgingRelease(theType));
+	}
+	
 public:
 	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path);
 	
@@ -359,7 +363,8 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	KaxSegmentUID * kaxUID = FindChild<KaxSegmentUID>(segmentInfo);
 	if (kaxUID && kaxUID->GetSize() == 16) {
 		uint8_t *const theBytes = kaxUID->GetBuffer();
-		CFUUIDRef theUUID = CFUUIDCreateWithBytes(kCFAllocatorDefault, theBytes[0], theBytes[1], theBytes[2], theBytes[3], theBytes[4], theBytes[5], theBytes[6], theBytes[7], theBytes[8], theBytes[9], theBytes[10], theBytes[11], theBytes[12], theBytes[13], theBytes[14], theBytes[15]);
+		CFUUIDBytes theUUIDBytes(theBytes[0], theBytes[1], theBytes[2], theBytes[3], theBytes[4], theBytes[5], theBytes[6], theBytes[7], theBytes[8], theBytes[9], theBytes[10], theBytes[11], theBytes[12], theBytes[13], theBytes[14], theBytes[15]);
+		CFUUIDRef theUUID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, theUUIDBytes);
 		attributes[(NSString*)kMDItemIdentifier] = CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, theUUID));
 		CFRelease(theUUID);
 	}
@@ -439,7 +444,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 		NSString *codec;
 		switch (uint8(type)) {
 			case track_video:
-				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Video)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Video));
 			{
 				KaxTrackVideo &vidTrack = GetChild<KaxTrackVideo>(track);
 				KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(vidTrack);
@@ -466,7 +471,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_audio:
-				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Audio)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Audio));
 			{
 				KaxTrackAudio &audTrack = GetChild<KaxTrackAudio>(track);
 				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
@@ -485,7 +490,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_subtitle:
-				addMediaType((NSString*)CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Subtitle)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Subtitle));
 			if (isSSA(track)) {
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
 				bool success = getSSASubtitleFontList(track, _aStream, tmpFonts);
@@ -497,7 +502,7 @@ bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_complex:
-				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Muxed)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Muxed));
 			{
 				KaxTrackVideo *vidTrack = FindChild<KaxTrackVideo>(track);
 				if (vidTrack) {

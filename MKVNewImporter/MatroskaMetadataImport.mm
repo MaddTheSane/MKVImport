@@ -50,6 +50,10 @@ inline void MatroskaMetadataImport::addMediaType(NSString * _Nonnull theType) {
 	[mediaTypes addObject:theType];
 }
 
+inline void MatroskaMetadataImport::addMediaType(CFStringRef CF_CONSUMED theType) {
+	addMediaType((NSString*)CFBridgingRelease(theType));
+}
+
 void MatroskaMetadataImport::copyDataOver() {
 	attributes.mediaTypes = mediaTypes.array;
 	if (fonts.count != 0) {
@@ -357,7 +361,7 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 		NSString *codec;
 		switch (uint8(type)) {
 			case track_video:
-				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Video)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Video));
 			{
 				KaxTrackVideo &vidTrack = GetChild<KaxTrackVideo>(track);
 				KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(vidTrack);
@@ -384,7 +388,7 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_audio:
-				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Audio)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Audio));
 			{
 				KaxTrackAudio &audTrack = GetChild<KaxTrackAudio>(track);
 				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
@@ -403,7 +407,7 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_subtitle:
-				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Subtitle)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Subtitle));
 			if (isSSA(track)) {
 				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
 				bool success = getSSASubtitleFontList(track, _aStream, tmpFonts);
@@ -415,7 +419,7 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 				break;
 				
 			case track_complex:
-				addMediaType(CFBridgingRelease(MTCopyLocalizedNameForMediaType(kCMMediaType_Muxed)));
+				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Muxed));
 			{
 				KaxTrackVideo *vidTrack = FindChild<KaxTrackVideo>(track);
 				if (vidTrack) {
@@ -456,7 +460,6 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 					}
 				}
 			}
-
 				codec = mkvCodecShortener(track);
 				break;
 				

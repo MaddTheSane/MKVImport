@@ -81,6 +81,7 @@ private:
 	
 	bool iterateData(NSError * _Nullable * _Nonnull outErr);
 	inline void addMediaType(NSString * _Nonnull theType);
+	inline void addMediaType(CFStringRef _Nonnull CF_CONSUMED theType);
 	
 public:
 	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);
