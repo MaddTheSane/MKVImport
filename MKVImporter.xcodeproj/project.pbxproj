@@ -1090,7 +1090,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "cd \"${SRCROOT}\"/MKVNewImporter\npwd\n\"${BUILT_PRODUCTS_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist\necho \"${SRCROOT}\"/MKVNewImporter/OSTypeMap.plist\n";
+			shellScript = "cd \"${SRCROOT}\"/MKVNewImporter\n\"${BUILT_PRODUCTS_DIR}\"/OSTypeMapperGenerator OSTypeMap.plist\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
