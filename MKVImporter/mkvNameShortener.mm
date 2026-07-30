@@ -186,6 +186,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 #define MKV_A_QT "A_QUICKTIME"
 
 static OSType StringToOSType(NSString *theString);
+static NSString *OSTypeToString(OSType codec, bool macEncoding);
 
 typedef NS_ENUM(NSInteger, MKVMediaType) {
 	MKVMediaTypeVideo,
@@ -219,6 +220,25 @@ static OSType StringToOSType(NSString *theString)
 	postError(mkvErrorLevelWarn, CFSTR("Could not get an OSType encoding for '%@'"), theString);
 	return 0;
 #endif
+}
+
+static NSString *OSTypeToString(OSType codec, bool macEncoding)
+{
+	union OSTypeBridge {
+		char cStr[4];
+		OSType type;
+	} ourCodec;
+	ourCodec.type = CFSwapInt32BigToHost(codec);
+	NSString *outName;
+	if (macEncoding) {
+		outName = [[NSString alloc] initWithBytes:ourCodec.cStr length: 4 encoding:NSMacOSRomanStringEncoding];
+	} else {
+		outName = CFBridgingRelease(::CFStringCreateWithBytes(kCFAllocatorDefault, (const unsigned char*)ourCodec.cStr, 4, kCFStringEncodingDOSLatinUS, false));
+	}
+	if (outName.length != 4) {
+		return nil;
+	}
+	return outName;
 }
 
 static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool macEncoding = true)
@@ -269,7 +289,7 @@ static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool mac
 				break;
 		}
 		
-		if (fullTest) {
+		if (fullTest && ![fullTest isEqualToString:OSTypeToString(codec, macEncoding) ?: @""]) {
 			return fullTest;
 		}
 	}
@@ -361,7 +381,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 			CMMediaType mediaType = location->second.second.mediaType;
 			if (mediaType != 0) {
 				NSString *localizedCodec = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(mediaType, location->second.second.codec));
-				if (localizedCodec) {
+				if (localizedCodec && ![localizedCodec isEqualToString:OSTypeToString(location->second.second.codec, true) ?: @""]) {
 					return localizedCodec;
 				}
 			}
