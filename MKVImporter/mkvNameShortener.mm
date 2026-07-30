@@ -52,24 +52,24 @@ using std::string;
 
 struct CodecMapping {
 	NSString *const codecName;
-	CMMediaType mediaType;
-	FourCharCode codec;
+	CMMediaType mediaType=0;
+	FourCharCode codec=0;
 };
 
-typedef std::unordered_map<unsigned short, NSString* const> WavCodec;
+typedef std::unordered_map<unsigned short, const CodecMapping> WavCodec;
 typedef std::unordered_map<std::string, const CodecMapping> MatroskaQT_Codec;
 
 //TODO/FIXME: should this be exaustive?
 static const WavCodec kWavCodecIDs = {
-	{ 0x50, AudioFormatMPEGLayer2 },
-	{ 0x55, AudioFormatMPEGLayer3 },
-	{ 0x2000, AudioFormatAC3 },
-	{ 0x2001, AudioFormatDTS },
-	{ 0xff, AudioFormatMPEG4AAC },
-	{ 0xf1ac, AudioFormatXiphFLAC },
-	{ 0x0160, @"WMA 1" },
-	{ 0x0161, @"WMA 2" },
-	{ 0x0162, @"WMA Pro" },
+	{ 0x50, CodecMapping(AudioFormatMPEGLayer2, kCMMediaType_Audio, kAudioFormatMPEGLayer2) },
+	{ 0x55, CodecMapping(AudioFormatMPEGLayer3, kCMMediaType_Audio, kAudioFormatMPEGLayer3) },
+	{ 0x2000, CodecMapping(AudioFormatAC3, kCMMediaType_Audio, kAudioFormatAC3) },
+	{ 0x2001, CodecMapping(AudioFormatDTS) },
+	{ 0xff, CodecMapping(AudioFormatMPEG4AAC, kCMMediaType_Audio, kAudioFormatMPEG4AAC) },
+	{ 0xf1ac, CodecMapping(AudioFormatXiphFLAC, kCMMediaType_Audio, kAudioFormatFLAC) },
+	{ 0x0160, CodecMapping(@"WMA 1") },
+	{ 0x0161, CodecMapping(@"WMA 2") },
+	{ 0x0162, CodecMapping(@"WMA Pro") },
 };
 
 static const MatroskaQT_Codec kMatroskaCodecIDs = {
@@ -360,7 +360,13 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry)
 		auto location = kWavCodecIDs.find(twocc);
 		bool isFound = location != kWavCodecIDs.end();
 		if (isFound) {
-			return location->second;
+			if (location->second.mediaType != 0) {
+				NSString *localizedCodec = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(location->second.mediaType, location->second.codec));
+				if (localizedCodec) {
+					return localizedCodec;
+				}
+			}
+			return location->second.codecName;
 		}
 		return osType2CodecName('ms\0\0' | twocc, MKVMediaTypeAudio, false);
 		
