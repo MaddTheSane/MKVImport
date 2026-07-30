@@ -64,7 +64,7 @@ static const WavCodec kWavCodecIDs = {
 	{ 0x50, CodecMapping(AudioFormatMPEGLayer2, kCMMediaType_Audio, kAudioFormatMPEGLayer2) },
 	{ 0x55, CodecMapping(AudioFormatMPEGLayer3, kCMMediaType_Audio, kAudioFormatMPEGLayer3) },
 	{ 0x2000, CodecMapping(AudioFormatAC3, kCMMediaType_Audio, kAudioFormatAC3) },
-	{ 0x2001, CodecMapping(AudioFormatDTS) },
+	{ 0x2001, CodecMapping(AudioFormatDTS, kCMMediaType_Audio, 'DTS ') },
 	{ 0xff, CodecMapping(AudioFormatMPEG4AAC, kCMMediaType_Audio, kAudioFormatMPEG4AAC) },
 	{ 0xf1ac, CodecMapping(AudioFormatXiphFLAC, kCMMediaType_Audio, kAudioFormatFLAC) },
 	{ 0x0160, CodecMapping(@"WMA 1") },
@@ -84,19 +84,19 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "V_MPEG4/MS/V3", CodecMapping(kVideoFormatMSMPEG4v3, kCMMediaType_Video, 'MP43') },
 	{ "V_MPEG1", CodecMapping(kMPEG1VisualCodecType, kCMMediaType_Video, kCMVideoCodecType_MPEG1Video) },
 	{ "V_MPEG2", CodecMapping(kMPEG2VisualCodecType, kCMMediaType_Video, kCMVideoCodecType_MPEG2Video) },
-	{ "V_REAL/RV10", CodecMapping(@"RealVideo 1.0", 0, 0) },
-	{ "V_REAL/RV20", CodecMapping(@"RealVideo G2", 0, 0) },
-	{ "V_REAL/RV30", CodecMapping(@"RealVideo 8", 0, 0) },
-	{ "V_REAL/RV40", CodecMapping(@"RealVideo 9", 0, 0) },
+	{ "V_REAL/RV10", CodecMapping(@"RealVideo 1.0", kCMMediaType_Video, 'RV10') },
+	{ "V_REAL/RV20", CodecMapping(@"RealVideo G2", kCMMediaType_Video, 'RV20') },
+	{ "V_REAL/RV30", CodecMapping(@"RealVideo 8", kCMMediaType_Video, 0x30335652) },
+	{ "V_REAL/RV40", CodecMapping(@"RealVideo 9", kCMMediaType_Video, 0x30345652) },
 	{ "V_THEORA", CodecMapping(@"Theora", 0, 0) },
-	{ "V_SNOW", CodecMapping(@"Snow", 0, 0) },
+	{ "V_SNOW", CodecMapping(@"Snow", kCMMediaType_Video, 0x574F4E53) },
 	{ "V_VP8", CodecMapping(kVideoFormatVP8, kCMMediaType_Video, 'VP80') },
 	{ "V_VP9", CodecMapping(@"VP9", kCMMediaType_Video, kCMVideoCodecType_VP9) },
 	{ "V_PRORES", CodecMapping(@"ProRes", 0, 0) }, // NOT MediaToolboxing this because there are too many variants.
 	{ "V_MJPEG", CodecMapping(@"Motion JPEG", kCMMediaType_Video, 'mjpa') },
 	{ "V_FFV1", CodecMapping(@"FF Video Codec 1", kCMMediaType_Video, 'ffv1') },
-	{ "V_AVS2", CodecMapping(@"AVS2-P2", 0, 0) },
-	{ "V_AVS3", CodecMapping(@"AVS3-P2", 0, 0) },
+	{ "V_AVS2", CodecMapping(@"AVS2-P2", kCMMediaType_Video, 'avs2') },
+	{ "V_AVS3", CodecMapping(@"AVS3-P2", kCMMediaType_Video, 'avs3') },
 	
 	// audio codecs:
 	{ "A_EAC3", CodecMapping(AudioFormatEAC3, kCMMediaType_Audio, kAudioFormatEnhancedAC3) },
@@ -112,7 +112,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "A_AAC/MPEG2/SSR", CodecMapping(AudioFormatMPEG4AAC, kCMMediaType_Audio, kAudioFormatMPEG4AAC) },
 	{ "A_MPEG/L1", CodecMapping(AudioFormatMPEGLayer1, kCMMediaType_Audio, kAudioFormatMPEGLayer1) },
 	{ "A_MPEG/L2", CodecMapping(AudioFormatMPEGLayer2, kCMMediaType_Audio, kAudioFormatMPEGLayer2) },
-	{ "A_TRUEHD", CodecMapping(@"TrueHD", 0, 0) },
+	{ "A_TRUEHD", CodecMapping(@"TrueHD", kCMMediaType_Audio, 'mlpa') },
 	{ "A_MPEG/L3", CodecMapping(AudioFormatMPEGLayer3, kCMMediaType_Audio, kAudioFormatMPEGLayer3) },
 	{ "A_AC3", CodecMapping(AudioFormatAC3, kCMMediaType_Audio, kAudioFormatAC3) },
 	// FIXME: anything special for these two?
@@ -159,7 +159,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 #ifdef UNSUPPORTEDCODECS
 	// Currently unsupported codecs:
 	{ "V_MSWMV", CodecMapping(@"WMV", 0, 0) }, // Video, Microsoft Video
-	{ "V_INDEO5", CodecMapping(kVideoCodecIndeo5, kCMMediaType_Video, 'Jvt3') }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
+	{ "V_INDEO5", CodecMapping(kVideoCodecIndeo5, kCMMediaType_Video, 'IV50') }, // Video, Indeo 5; transmuxed from AVI or created using VfW codec
 	{ "V_MJPEG2000", CodecMapping(@"Motion JPEG2000", 0, 0) }, // Video, MJpeg 2000
 	{ "V_MJPEG2000LL", CodecMapping(@"Motion JPEG2000 Lossless", 0, 0) }, // Video, MJpeg Lossless
 	{ "V_DV", CodecMapping(@"DV Video", 0, 0) }, // Video, DV Video, type 1 (audio and video mixed)
