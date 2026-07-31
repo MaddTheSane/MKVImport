@@ -65,6 +65,12 @@ struct CodecMapping {
 	CMMediaType mediaType=0;
 	FourCharCode codec=0;
 	ExpandedCodecInfo *moreComplex=NULL;
+	
+	CodecMapping(NSString *const acodecName, CMMediaType amediaType=0, FourCharCode acodec=0, ExpandedCodecInfo *amoreComplex=NULL):
+	codecName(acodecName),
+	mediaType(amediaType),
+	codec(acodec),
+	moreComplex(amoreComplex) {}
 };
 
 typedef std::unordered_map<unsigned short, const CodecMapping> WavCodec;
