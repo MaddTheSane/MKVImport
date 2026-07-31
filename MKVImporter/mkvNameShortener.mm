@@ -58,7 +58,9 @@ typedef NS_ENUM(int, MKVCodecLocations) {
 	MKVCodecLocationBare,
 };
 
-typedef NSString* _Nullable (ExpandedCodecInfo)(const KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata);
+struct CodecMapping;
+
+typedef NSString* _Nullable (ExpandedCodecInfo)(const KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
 
 struct CodecMapping {
 	NSString *const codecName;
@@ -66,7 +68,10 @@ struct CodecMapping {
 	FourCharCode codec=0;
 	ExpandedCodecInfo *moreComplex=NULL;
 	
-	CodecMapping(NSString *const acodecName, CMMediaType amediaType=0, FourCharCode acodec=0, ExpandedCodecInfo *amoreComplex=NULL):
+	CodecMapping(NSString *const acodecName,
+				 CMMediaType amediaType=0,
+				 FourCharCode acodec=0,
+				 ExpandedCodecInfo *amoreComplex=NULL):
 	codecName(acodecName),
 	mediaType(amediaType),
 	codec(acodec),
@@ -378,7 +383,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry, NSMutableDictionary *_Nulla
 		bool isFound = location != kWavCodecIDs.end();
 		if (isFound) {
 			if (location->second.moreComplex != NULL) {
-				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationWindowsSound, outExtended);
+				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationWindowsSound, &(location->second), outExtended);
 				if (toOut) {
 					return toOut;
 				}
@@ -410,7 +415,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry, NSMutableDictionary *_Nulla
 		if (isFound) {
 			CMMediaType mediaType = location->second.mediaType;
 			if (location->second.moreComplex != NULL) {
-				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationBare, outExtended);
+				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationBare, &(location->second), outExtended);
 				if (toOut) {
 					return toOut;
 				}
