@@ -110,7 +110,6 @@ void MatroskaMetadataImport::copyDataOver() {
 }
 
 MatroskaMetadataImport::~MatroskaMetadataImport() {
-	attributes = nil;
 	mediaTypes = nil;
 	if (el_l1) {
 		delete el_l1;
