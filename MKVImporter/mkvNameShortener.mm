@@ -441,6 +441,11 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 		return @"";
 	}
 	
+	//Encountered in one webm file:
+	if (sourceString.length() == 1 && sourceString.c_str()[0] == 0) {
+		return @"";
+	}
+	
 	NSString *toRet = [[NSString alloc] initWithBytes:sourceString.c_str() length:sourceString.length() * sizeof(wchar_t) encoding:NSUTF32LittleEndianStringEncoding];
 	if (!toRet) {
 		// huh, odd. Try the UTF-8 string instead
