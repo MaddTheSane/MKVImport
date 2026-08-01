@@ -614,7 +614,7 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 			if (chapters[chapLocale] == nil) {
 				chapters[chapLocale] = [[NSMutableArray alloc] initWithCapacity:edition.ListSize()];
 			}
-			[chapters[chapLocale] addObject:chapString.GetValue().length() != 0 ? getNSStringFromUTFstring(chapString) : @""];
+			[chapters[chapLocale] addObject:getNSStringFromUTFstring(chapString) ?: @""];
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}
 

@@ -527,7 +527,7 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 			if (!chapLocale) {
 				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
 			}
-			locString[chapLocale] = chapString.GetValue().length() != 0 ? getNSStringFromUTFstring(chapString) : @"";
+			locString[chapLocale] = getNSStringFromUTFstring(chapString) ?: @"";
 
 			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
 		}

@@ -27,10 +27,10 @@ extern NSString *__nullable mkvCodecShortener(LIBMATROSKA_NAMESPACE::KaxTrackEnt
 ///
 /// Hopefully it'll be faster than converting from UTF-8 to UTF-16.
 ///
-/// Falls back to reading the UTF-8 string if NSString can't understand the UTF-32 values. Also will
+/// Falls back to reading the UTF-8 string if `NSString` can't understand the UTF-32 values. Also will
 /// return an empty string if `UTFstring` is empty.
 ///
-/// Will return `nil` if the value cannot be converted to an NSString.
+/// Will return `nil` if the value cannot be converted to an `NSString`.
 extern NSString * _Nullable getNSStringFromUTFstring(const LIBEBML_NAMESPACE::UTFstring &sourceString);
 
 NS_ASSUME_NONNULL_END
