@@ -774,6 +774,10 @@ static NSString *get_simple_value(const KaxTagSimple &tag)
 	return tstring ? getNSStringFromUTFstring(*tstring) : @"";
 }
 
+/// Returns the track ID of the specified tag, if any.
+///
+/// Currently, we only care about track IDs for getting BPS info, otherwise we skip if this returns a value.
+/// @returns The track numerical ID linked to the tag, or `std::nullopt` if there isn't one.
 static std::optional<uint64_t> get_tuid(const KaxTag &tag)
 {
 	auto targets = FindChild<KaxTagTargets>(&tag);
@@ -789,6 +793,8 @@ static std::optional<uint64_t> get_tuid(const KaxTag &tag)
 	return tuid->GetValue();
 }
 
+/// Returns the chapter ID of the specified tag, if any.
+/// @returns The chapter numerical ID linked to the tag, or `std::nullopt` if there isn't one.
 static std::optional<uint64_t> get_cuid(const KaxTag &tag)
 {
 	auto targets = FindChild<KaxTagTargets>(&tag);
@@ -840,7 +846,7 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 	if (seenTags) {
 		return true;
 	}
-	NSMutableDictionary<NSString*,id> *tagDict = [[NSMutableDictionary alloc] init];
+	NSMutableDictionary<NSString*,id> *tagDict = [[NSMutableDictionary alloc] initWithCapacity:trackEntries.ListSize()];
 	//trackEntries
 	for (const auto child : trackEntries) {
 		auto tag = dynamic_cast<const KaxTag *>(child);
@@ -882,6 +888,9 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 			NSString *objcName = @(simpleName.c_str());
 			if ([tagDict objectForKey:objcName] != nil) {
 				postError(mkvErrorLevelWarn, CFSTR("File already has an entry for tag %@! Possibility of multiple languages for same tag?"), objcName);
+			}
+			if (simpleVal.length == 0) {
+				continue;
 			}
 			// FIXME: HACK: work around "KEYWORDS"
 			if (simpleName == "KEYWORDS") {
