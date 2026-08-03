@@ -127,7 +127,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "V_AVS2", CodecMapping(@"AVS2-P2", kCMMediaType_Video, 'avs2') },
 	{ "V_AVS3", CodecMapping(@"AVS3-P2", kCMMediaType_Video, 'avs3') },
 	{ "V_VC1", CodecMapping(@"VC-1") },
-//	{ "V_MPEGI/ISO/VVC", CodecMapping(@"VVC") }, // Not in common use/not complete
+//	{ "V_MPEGI/ISO/VVC", CodecMapping(@"VVC") }, // Not in common use/not complete?
 	{ "V_DIRAC", CodecMapping(@"BBC Dirac") },
 	
 	// audio codecs:
@@ -147,7 +147,6 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "A_TRUEHD", CodecMapping(@"TrueHD", kCMMediaType_Audio, 'mlpa') },
 	{ "A_MPEG/L3", CodecMapping(AudioFormatMPEGLayer3, kCMMediaType_Audio, kAudioFormatMPEGLayer3) },
 	{ "A_AC3", CodecMapping(AudioFormatAC3, kCMMediaType_Audio, kAudioFormatAC3) },
-	// FIXME: anything special for these two?
 	{ "A_AC3/BSID9", CodecMapping(AudioFormatAC3, kCMMediaType_Audio, kAudioFormatAC3) },
 	{ "A_AC3/BSID10", CodecMapping(AudioFormatAC3, kCMMediaType_Audio, kAudioFormatAC3) },
 	{ "A_VORBIS", CodecMapping(AudioFormatXiphVorbis, 0, 0) },
