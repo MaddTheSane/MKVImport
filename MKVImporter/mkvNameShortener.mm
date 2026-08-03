@@ -81,6 +81,7 @@ struct CodecMapping {
 #pragma mark - ExpandedCodecInfo function declarations
 
 static NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
+static NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
 
 #pragma mark -
 
@@ -103,7 +104,7 @@ static const WavCodec kWavCodecIDs = {
 static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	// video codecs:
 	{ "V_AV1", CodecMapping(@"AV1", kCMMediaType_Video, kCMVideoCodecType_AV1) },
-	{ "V_UNCOMPRESSED", CodecMapping(@"Raw Video", 0, 0) },
+	{ "V_UNCOMPRESSED", CodecMapping(@"Raw Video", 0, 0, ExpandedCodecInfo_RAWVideo) },
 	{ "V_MPEG4/ISO/ASP", CodecMapping(kMPEG4VisualCodecType, kCMMediaType_Video, kCMVideoCodecType_MPEG4Video) },
 	{ "V_MPEG4/ISO/SP", CodecMapping(kMPEG4VisualCodecType, kCMMediaType_Video, kCMVideoCodecType_MPEG4Video) },
 	{ "V_MPEG4/ISO/AP", CodecMapping(kMPEG4VisualCodecType, kCMMediaType_Video, kCMVideoCodecType_MPEG4Video) },
@@ -504,6 +505,47 @@ NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entr
 
 	if (fullTest && ![fullTest isEqualToString:OSTypeToString(toRet, true) ?: @""]) {
 		return fullTest;
+	}
+	
+	return nil;
+}
+
+NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata)
+{
+	auto & videoTrack = GetChild<KaxTrackVideo>(tr_entry);
+	auto colorspace = FindChild<KaxVideoColourSpace>(videoTrack);
+	if (colorspace == NULL || colorspace->GetSize() <= 3) {
+		return nil;
+	}
+	
+	unsigned char *ourVals = (unsigned char *)colorspace->GetBuffer();
+
+	//TODO: fill this out!
+	static const std::unordered_map<OSType, CMPixelFormatType> mapRaw = {
+//		{'Y42B', std::nullopt},// No 1:1 conversion
+		{'I420', kCVPixelFormatType_420YpCbCr8Planar},
+		{'v408', kCMPixelFormat_4444YpCbCrA8},
+	};
+	
+	OSType toRet = 0;
+	toRet  = ourVals[3];
+	toRet |= ourVals[2] << 8;
+	toRet |= ourVals[1] << 16;
+	toRet |= ourVals[0] << 24;
+	
+	NSString *fullTest = nil;
+	auto iter = mapRaw.find(toRet);
+	bool isFound = iter != mapRaw.end();
+	if (!isFound) {
+		fullTest = (NSString *)CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, toRet));
+		if (fullTest && ![fullTest isEqualToString:OSTypeToString(toRet, true) ?: @""]) {
+			return fullTest;
+		}
+	} else {
+		fullTest = (NSString *)CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, iter->second));
+		if (fullTest && ![fullTest isEqualToString:OSTypeToString(iter->second, true) ?: @""]) {
+			return fullTest;
+		}
 	}
 	
 	return nil;
