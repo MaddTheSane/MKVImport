@@ -60,7 +60,7 @@ typedef NS_ENUM(int, MKVCodecLocations) {
 
 struct CodecMapping;
 
-typedef NSString* _Nullable (ExpandedCodecInfo)(const KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
+typedef NSString* _Nullable (ExpandedCodecInfo)(KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
 
 struct CodecMapping {
 	NSString *const codecName;
@@ -77,6 +77,12 @@ struct CodecMapping {
 	codec(acodec),
 	moreComplex(amoreComplex) {}
 };
+
+#pragma mark - ExpandedCodecInfo function declarations
+
+static NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
+
+#pragma mark -
 
 typedef std::unordered_map<unsigned short, const CodecMapping> WavCodec;
 typedef std::unordered_map<std::string, const CodecMapping> MatroskaQT_Codec;
@@ -114,7 +120,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "V_SNOW", CodecMapping(@"Snow", kCMMediaType_Video, 0x574F4E53) },
 	{ "V_VP8", CodecMapping(kVideoFormatVP8, kCMMediaType_Video, 'VP80') },
 	{ "V_VP9", CodecMapping(@"VP9", kCMMediaType_Video, kCMVideoCodecType_VP9) },
-	{ "V_PRORES", CodecMapping(@"ProRes", 0, 0) }, // NOT MediaToolboxing this because there are too many variants.
+	{ "V_PRORES", CodecMapping(@"ProRes", 0, 0, ExpandedCodecInfo_PRORES) },
 	{ "V_MJPEG", CodecMapping(@"Motion JPEG", kCMMediaType_Video, 'mjpa') },
 	{ "V_FFV1", CodecMapping(@"FF Video Codec 1", kCMMediaType_Video, 'ffv1') },
 	{ "V_AVS2", CodecMapping(@"AVS2-P2", kCMMediaType_Video, 'avs2') },
@@ -453,4 +459,47 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 	}
 	
 	return toRet;
+}
+
+#pragma mark -
+
+/// Gets the localized codec name from a ProRes-defined Matroska track.
+///
+/// From the [Matroska Codec Specs](https://www.matroska.org/technical/codec_specs.html#v_prores)
+///
+/// Codec Name: Apple ProRes
+///
+/// Initialization: The `CodecPrivate` contains the FourCC as found in MP4 movies:
+///
+/// * ap4x: ProRes 4444 XQ
+/// * ap4h: ProRes 4444
+/// * apch: ProRes 422 High Quality
+/// * apcn: ProRes 422 Standard Definition
+/// * apcs: ProRes 422 LT
+/// * apco: ProRes 422 Proxy
+/// * aprh: ProRes RAW High Quality
+/// * aprn: ProRes RAW Standard Definition
+NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata)
+{
+	KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
+	if (codecPrivate == NULL || codecPrivate->GetSize() <= 3) {
+		// Too small (or not present)!
+		return nil;
+	}
+	
+	unsigned char *ourVals = (unsigned char *)codecPrivate->GetBuffer();
+	
+	OSType toRet = 0;
+	toRet  = ourVals[3];
+	toRet |= ourVals[2] << 8;
+	toRet |= ourVals[1] << 16;
+	toRet |= ourVals[0] << 24;
+
+	NSString *fullTest = (NSString *)CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, toRet));
+
+	if (fullTest && ![fullTest isEqualToString:OSTypeToString(toRet, true) ?: @""]) {
+		return fullTest;
+	}
+	
+	return nil;
 }
