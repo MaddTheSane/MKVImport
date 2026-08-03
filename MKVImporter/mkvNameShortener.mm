@@ -123,8 +123,12 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "V_PRORES", CodecMapping(@"ProRes", 0, 0, ExpandedCodecInfo_PRORES) },
 	{ "V_MJPEG", CodecMapping(@"Motion JPEG", kCMMediaType_Video, 'mjpa') },
 	{ "V_FFV1", CodecMapping(@"FF Video Codec 1", kCMMediaType_Video, 'ffv1') },
+	{ "V_CAVS", CodecMapping(@"AVS1-P2", kCMMediaType_Video, 'avs1') },
 	{ "V_AVS2", CodecMapping(@"AVS2-P2", kCMMediaType_Video, 'avs2') },
 	{ "V_AVS3", CodecMapping(@"AVS3-P2", kCMMediaType_Video, 'avs3') },
+	{ "V_VC1", CodecMapping(@"VC-1") },
+//	{ "V_MPEGI/ISO/VVC", CodecMapping(@"VVC") }, // Not in common use/not complete
+	{ "V_DIRAC", CodecMapping(@"BBC Dirac") },
 	
 	// audio codecs:
 	{ "A_EAC3", CodecMapping(AudioFormatEAC3, kCMMediaType_Audio, kAudioFormatEnhancedAC3) },
@@ -165,6 +169,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "A_OPUS", CodecMapping(@"Opus", kCMMediaType_Audio, kAudioFormatOpus) },
 	{ "A_ALAC", CodecMapping(@"Apple Lossless", kCMMediaType_Audio, kAudioFormatAppleLossless) },
 	{ "A_ATRAC/AT1", CodecMapping(@"ATRAC1", 0, 0) },
+	{ "A_MLP", CodecMapping(@"MLP (DVD-Audio)", 0, 0) },
 	
 	// subtitles:
 #if 0
@@ -183,6 +188,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "S_TEXT/WEBVTT", CodecMapping(@"WebVTT", kCMMediaType_Subtitle, kCMSubtitleFormatType_WebVTT) },
 	{ "S_HDMV/PGS", CodecMapping(@"HDMV PGS", 0, 0) },
 	{ "S_HDMV/TEXTST", CodecMapping(@"HDMV Text", kCMMediaType_Subtitle, 'hdmt') },
+	{ "S_ARIBSUB", CodecMapping(@"ARIB Caption") },
 	
 #ifdef UNSUPPORTEDCODECS
 	// Currently unsupported codecs:
