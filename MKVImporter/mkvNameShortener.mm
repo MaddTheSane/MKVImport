@@ -11,6 +11,7 @@
 #include "mkvNameShortener.hpp"
 #include <string>
 #include <unordered_map>
+#include <unordered_set>
 #include "Debugging.h"
 
 using namespace LIBMATROSKA_NAMESPACE;
@@ -487,6 +488,11 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 /// * aprn: ProRes RAW Standard Definition
 NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata)
 {
+	static const std::unordered_set<OSType> validProRes =
+	{kCMVideoCodecType_AppleProRes4444XQ, kCMVideoCodecType_AppleProRes4444,
+		kCMVideoCodecType_AppleProRes422HQ, kCMVideoCodecType_AppleProRes422,
+		kCMVideoCodecType_AppleProRes422LT, kCMVideoCodecType_AppleProRes422Proxy,
+		kCMVideoCodecType_AppleProResRAW, kCMVideoCodecType_AppleProResRAWHQ};
 	KaxCodecPrivate *codecPrivate = FindChild<KaxCodecPrivate>(tr_entry);
 	if (codecPrivate == NULL || codecPrivate->GetSize() <= 3) {
 		// Too small (or not present)!
@@ -500,6 +506,12 @@ NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entr
 	toRet |= ourVals[2] << 8;
 	toRet |= ourVals[1] << 16;
 	toRet |= ourVals[0] << 24;
+	
+	// is it one of the recognized formats?
+	if (!validProRes.contains(toRet)) {
+		// if not, return nil;
+		return nil;
+	}
 
 	NSString *fullTest = (NSString *)CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, toRet));
 

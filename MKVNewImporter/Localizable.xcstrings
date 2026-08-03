@@ -92,13 +92,13 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown C++ exception caught!"
+            "value" : "Unknown C++ exception caught!!"
           }
         },
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "¡Excepción desconocida de C++ atrapada!"
+            "value" : "¡¡Excepción desconocida de C++ atrapada!!"
           }
         }
       }
@@ -115,7 +115,7 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Tipo de documento Matroska desconocido: esperaba \"matroska\" o \"webm\", obtuvo “%@”."
+            "value" : "Tipo de documento Matroska desconocido: esperaba “matroska” o “webm”, obtuvo “%@”."
           }
         }
       }
