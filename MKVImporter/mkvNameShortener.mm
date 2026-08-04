@@ -472,20 +472,20 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 
 /// Gets the localized codec name from a ProRes-defined Matroska track.
 ///
-/// From the [Matroska Codec Specs](https://www.matroska.org/technical/codec_specs.html#v_prores)
+/// From the [Matroska Codec Specs](https://www.matroska.org/technical/codec_specs.html#v_prores):
 ///
 /// Codec Name: Apple ProRes
 ///
 /// Initialization: The `CodecPrivate` contains the FourCC as found in MP4 movies:
 ///
-/// * ap4x: ProRes 4444 XQ
-/// * ap4h: ProRes 4444
-/// * apch: ProRes 422 High Quality
-/// * apcn: ProRes 422 Standard Definition
-/// * apcs: ProRes 422 LT
-/// * apco: ProRes 422 Proxy
-/// * aprh: ProRes RAW High Quality
-/// * aprn: ProRes RAW Standard Definition
+/// * `ap4x`: ProRes 4444 XQ
+/// * `ap4h`: ProRes 4444
+/// * `apch`: ProRes 422 High Quality
+/// * `apcn`: ProRes 422 Standard Definition
+/// * `apcs`: ProRes 422 LT
+/// * `apco`: ProRes 422 Proxy
+/// * `aprh`: ProRes RAW High Quality
+/// * `aprn`: ProRes RAW Standard Definition
 NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata)
 {
 	static const std::unordered_set<OSType> validProRes =

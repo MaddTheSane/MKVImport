@@ -514,7 +514,7 @@ bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
 	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
 	while (chapterAtom && chapterAtom->GetSize() > 0) {
 		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
-		NSMutableDictionary *locString = [[NSMutableDictionary alloc] init];
+		NSMutableDictionary *locString = [[NSMutableDictionary alloc] initWithCapacity:chapDisplay ? chapDisplay->ListSize() : 0];
 		while (chapDisplay && chapDisplay->GetSize() > 0) {
 			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
 			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
