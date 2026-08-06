@@ -13,6 +13,8 @@
 #include <stdarg.h>
 #include <CoreFoundation/CoreFoundation.h>
 
+CF_ASSUME_NONNULL_BEGIN
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -35,5 +37,7 @@ extern void postErrorVA(mkvErrorLevel level, CFStringRef format, va_list list) C
 #ifdef __cplusplus
 }
 #endif
+
+CF_ASSUME_NONNULL_END
 
 #endif /* Debugging_hpp */
