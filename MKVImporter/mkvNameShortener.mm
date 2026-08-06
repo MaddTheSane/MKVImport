@@ -59,9 +59,7 @@ typedef NS_ENUM(int, MKVCodecLocations) {
 	MKVCodecLocationBare,
 };
 
-struct CodecMapping;
-
-typedef NSString* _Nullable (ExpandedCodecInfo)(KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
+typedef NSString* _Nullable (ExpandedCodecInfo)(KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata);
 
 struct CodecMapping {
 	NSString *const codecName;
@@ -81,8 +79,8 @@ struct CodecMapping {
 
 #pragma mark - ExpandedCodecInfo function declarations
 
-static NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
-static NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata);
+static NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata);
+static NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata);
 
 #pragma mark -
 
@@ -402,7 +400,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry, NSMutableDictionary *_Nulla
 		bool isFound = location != kWavCodecIDs.end();
 		if (isFound) {
 			if (location->second.moreComplex != NULL) {
-				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationWindowsSound, &(location->second), outExtended);
+				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationWindowsSound, outExtended);
 				if (toOut) {
 					return toOut;
 				}
@@ -434,7 +432,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry, NSMutableDictionary *_Nulla
 		if (isFound) {
 			CMMediaType mediaType = location->second.mediaType;
 			if (location->second.moreComplex != NULL) {
-				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationBare, &(location->second), outExtended);
+				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationBare, outExtended);
 				if (toOut) {
 					return toOut;
 				}
@@ -492,7 +490,7 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 /// * `apco`: ProRes 422 Proxy
 /// * `aprh`: ProRes RAW High Quality
 /// * `aprn`: ProRes RAW Standard Definition
-NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata)
+NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata)
 {
 	static const std::unordered_set<OSType> validProRes =
 	{kCMVideoCodecType_AppleProRes4444XQ, kCMVideoCodecType_AppleProRes4444,
@@ -528,7 +526,7 @@ NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entr
 	return nil;
 }
 
-NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, CodecMapping const* _Nonnull mappedCodec, NSMutableDictionary *_Nullable additionalMetadata)
+NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata)
 {
 	auto & videoTrack = GetChild<KaxTrackVideo>(tr_entry);
 	auto colorspace = FindChild<KaxVideoColourSpace>(videoTrack);
