@@ -176,7 +176,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 #if 0
 	{ "S_IMAGE/BMP", CodecMapping(kBMPCodecType, 0, 0) },
 #endif
-	{ "S_TEXT/USF", CodecMapping(@"Universal Subtitles", kCMMediaType_Subtitle, 'usf ') },
+	{ "S_TEXT/USF", CodecMapping(@"Universal Subtitle", kCMMediaType_Subtitle, 'usf ') },
 	{ "S_TEXT/SSA", CodecMapping(kSubFormatSSA, 0, 0) },
 	{ "S_SSA", CodecMapping(kSubFormatSSA, 0, 0) },
 	{ "S_TEXT/ASS", CodecMapping(kSubFormatASS, 0, 0) },
@@ -184,7 +184,7 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 	{ "S_TEXT/UTF8", CodecMapping(kSubFormatSubRip, kCMMediaType_Subtitle, kCMSubtitleFormatType_3GText) },
 	{ "S_TEXT/ASCII", CodecMapping(kSubFormatSubRip, kCMMediaType_Subtitle, kCMSubtitleFormatType_3GText) },
 	{ "S_VOBSUB", CodecMapping(kSubFormatVobSub, 0, 0) },
-	{ "S_DVBSUB", CodecMapping(@"DVB Subtitles", 0, 0) },
+	{ "S_DVBSUB", CodecMapping(@"DVB Subtitle", 0, 0) },
 	{ "S_KATE", CodecMapping(@"Karaoke And Text Encapsulation", 0, 0) },
 	{ "S_TEXT/WEBVTT", CodecMapping(@"WebVTT", kCMMediaType_Subtitle, kCMSubtitleFormatType_WebVTT) },
 	{ "S_HDMV/PGS", CodecMapping(@"HDMV PGS", 0, 0) },
@@ -235,14 +235,20 @@ static OSType StringToOSType(NSString *theString)
 #if __is_target_os(macosx)
 	return UTGetOSTypeFromString((__bridge CFStringRef)theString);
 #else
-	//TODO: fix endian issues… when a new Big Endian Mac comes forward, I guess.
 	unsigned char ourVals[5] = {0};
 	if ([theString getBytes:ourVals maxLength:5 usedLength:NULL encoding:NSMacOSRomanStringEncoding options:0 range:NSMakeRange(0, 4) remainingRange:NULL]) {
-		OSType toRet = 0;
-		toRet = ourVals[3];
+		OSType toRet;
+#ifdef __BIG_ENDIAN__
+		toRet  = ourVals[0];
+		toRet |= ourVals[1] << 8;
+		toRet |= ourVals[2] << 16;
+		toRet |= ourVals[3] << 24;
+#else
+		toRet  = ourVals[3];
 		toRet |= ourVals[2] << 8;
 		toRet |= ourVals[1] << 16;
 		toRet |= ourVals[0] << 24;
+#endif
 
 		return toRet;
 	} else {
@@ -250,7 +256,7 @@ static OSType StringToOSType(NSString *theString)
 		if (ourDat.length == 4) {
 			OSType ourType = 0;
 			[ourDat getBytes:&ourType range:NSMakeRange(0, 4)];
-			return __builtin_bswap32(ourType);
+			return CFSwapInt32BigToHost(ourType);
 		}
 	}
 	postError(mkvErrorLevelWarn, CFSTR("Could not get an OSType encoding for '%@'"), theString);
@@ -461,7 +467,7 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 	
 	NSString *toRet = [[NSString alloc] initWithBytes:sourceString.c_str() length:sourceString.length() * sizeof(wchar_t) encoding:NSUTF32LittleEndianStringEncoding];
 	if (!toRet) {
-		// huh, odd. Try the UTF-8 string instead
+		// Huh, odd. Try the UTF-8 string instead.
 		toRet = [NSString stringWithUTF8String:sourceString.GetUTF8().c_str()];
 	}
 	
@@ -501,7 +507,7 @@ NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entr
 	
 	unsigned char *ourVals = (unsigned char *)codecPrivate->GetBuffer();
 	
-	OSType toRet = 0;
+	OSType toRet;
 	toRet  = ourVals[3];
 	toRet |= ourVals[2] << 8;
 	toRet |= ourVals[1] << 16;
@@ -539,7 +545,7 @@ NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_en
 		{'v408', kCMPixelFormat_4444YpCbCrA8},
 	};
 	
-	OSType toRet = 0;
+	OSType toRet;
 	toRet  = ourVals[3];
 	toRet |= ourVals[2] << 8;
 	toRet |= ourVals[1] << 16;

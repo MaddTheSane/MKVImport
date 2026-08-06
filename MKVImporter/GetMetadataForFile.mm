@@ -363,7 +363,8 @@ bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	KaxSegmentUID * kaxUID = FindChild<KaxSegmentUID>(segmentInfo);
 	if (kaxUID && kaxUID->GetSize() == 16) {
 		uint8_t *const theBytes = kaxUID->GetBuffer();
-		CFUUIDBytes theUUIDBytes = CFUUIDBytes{theBytes[0], theBytes[1], theBytes[2], theBytes[3], theBytes[4], theBytes[5], theBytes[6], theBytes[7], theBytes[8], theBytes[9], theBytes[10], theBytes[11], theBytes[12], theBytes[13], theBytes[14], theBytes[15]};
+		CFUUIDBytes theUUIDBytes;
+		memcpy(&theUUIDBytes, theBytes, sizeof(CFUUIDBytes));
 		CFUUIDRef theUUID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, theUUIDBytes);
 		attributes[(NSString*)kMDItemIdentifier] = CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, theUUID));
 		CFRelease(theUUID);
