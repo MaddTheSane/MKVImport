@@ -365,6 +365,8 @@
 		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55CBF3561F11458000E60B0B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		55D8AE262D8A22AC00EF2765 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
+		55DA09523027C5770051E6DD /* SharedImporter.i */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c.preprocessed; path = SharedImporter.i; sourceTree = "<group>"; };
+		55DA09533027C6DB0051E6DD /* SharedImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedImporter.h; sourceTree = "<group>"; };
 		55E76F67233A07FD00EAEE1F /* Debugging.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Debugging.c; sourceTree = "<group>"; };
 		55E76F68233A07FD00EAEE1F /* Debugging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debugging.h; sourceTree = "<group>"; };
 		55E80FFC300B3FD8006DF5B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -529,6 +531,8 @@
 		55868DF91E1C189B00CDDED1 /* MKVImporter */ = {
 			isa = PBXGroup;
 			children = (
+				55DA09533027C6DB0051E6DD /* SharedImporter.h */,
+				55DA09523027C5770051E6DD /* SharedImporter.i */,
 				55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */,
 				55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */,
 				557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */,
