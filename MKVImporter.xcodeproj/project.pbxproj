@@ -116,6 +116,8 @@
 		55CBF3551F11454900E60B0B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55CBF3581F1145A300E60B0B /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
 		55D8AE272D8A22AC00EF2765 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8AE262D8A22AC00EF2765 /* CoreText.framework */; };
+		55DA09583027D2FD0051E6DD /* MKVSharedImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55DA09573027D2F90051E6DD /* MKVSharedImporter.mm */; };
+		55DA09593027D2FD0051E6DD /* MKVSharedImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55DA09573027D2F90051E6DD /* MKVSharedImporter.mm */; };
 		55E76F69233A07FD00EAEE1F /* Debugging.c in Sources */ = {isa = PBXBuildFile; fileRef = 55E76F67233A07FD00EAEE1F /* Debugging.c */; };
 		55E81001300B3FD8006DF5B4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 55E80FFD300B3FD8006DF5B4 /* Assets.xcassets */; };
 		55E81002300B3FD8006DF5B4 /* MainMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = 55E80FFF300B3FD8006DF5B4 /* MainMenu.xib */; };
@@ -132,7 +134,7 @@
 		55E88C523007408300F0F466 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3531F11454900E60B0B /* Foundation.framework */; };
 		55E88C533007409500F0F466 /* CoreText.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55D8AE262D8A22AC00EF2765 /* CoreText.framework */; };
 		55E88C55300740A900F0F466 /* CoreSpotlight.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E88C54300740A900F0F466 /* CoreSpotlight.framework */; };
-		55E88C58300744EE00F0F466 /* MatroskaMetadataImport.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */; };
+		55E88C58300744EE00F0F466 /* MatroskaExtensionMetadataImporter.mm in Sources */ = {isa = PBXBuildFile; fileRef = 55E88C57300744EE00F0F466 /* MatroskaExtensionMetadataImporter.mm */; };
 		55E88C593007798F00F0F466 /* mkvNameShortener.mm in Sources */ = {isa = PBXBuildFile; fileRef = 557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */; };
 		55E88C5A3007798F00F0F466 /* ParseSSA.mm in Sources */ = {isa = PBXBuildFile; fileRef = 5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */; };
 		55E88C5B30077C1D00F0F466 /* CoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 55CBF3561F11458000E60B0B /* CoreServices.framework */; };
@@ -362,8 +364,8 @@
 		55CBF3531F11454900E60B0B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		55CBF3561F11458000E60B0B /* CoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreServices.framework; path = System/Library/Frameworks/CoreServices.framework; sourceTree = SDKROOT; };
 		55D8AE262D8A22AC00EF2765 /* CoreText.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreText.framework; path = System/Library/Frameworks/CoreText.framework; sourceTree = SDKROOT; };
-		55DA09523027C5770051E6DD /* SharedImporter.i */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c.preprocessed; path = SharedImporter.i; sourceTree = "<group>"; };
-		55DA09533027C6DB0051E6DD /* SharedImporter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SharedImporter.h; sourceTree = "<group>"; };
+		55DA09563027D2E30051E6DD /* MKVSharedImporter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MKVSharedImporter.hpp; sourceTree = "<group>"; };
+		55DA09573027D2F90051E6DD /* MKVSharedImporter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MKVSharedImporter.mm; sourceTree = "<group>"; };
 		55E76F67233A07FD00EAEE1F /* Debugging.c */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.c; path = Debugging.c; sourceTree = "<group>"; };
 		55E76F68233A07FD00EAEE1F /* Debugging.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Debugging.h; sourceTree = "<group>"; };
 		55E80FFC300B3FD8006DF5B4 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -378,8 +380,8 @@
 		55E88C4C3006360200F0F466 /* MKVNewImporterExtension.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MKVNewImporterExtension.mm; sourceTree = "<group>"; };
 		55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		55E88C54300740A900F0F466 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
-		55E88C56300744EE00F0F466 /* MatroskaMetadataImport.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatroskaMetadataImport.hpp; sourceTree = "<group>"; };
-		55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MatroskaMetadataImport.mm; sourceTree = "<group>"; };
+		55E88C56300744EE00F0F466 /* MatroskaExtensionMetadataImporter.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = MatroskaExtensionMetadataImporter.hpp; sourceTree = "<group>"; };
+		55E88C57300744EE00F0F466 /* MatroskaExtensionMetadataImporter.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = MatroskaExtensionMetadataImporter.mm; sourceTree = "<group>"; };
 		55F21DE3301AA780000AAEE3 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		55F8388930062AE100974628 /* MKVImporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MKVImporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -529,8 +531,6 @@
 		55868DF91E1C189B00CDDED1 /* MKVImporter */ = {
 			isa = PBXGroup;
 			children = (
-				55DA09533027C6DB0051E6DD /* SharedImporter.h */,
-				55DA09523027C5770051E6DD /* SharedImporter.i */,
 				55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */,
 				55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */,
 				55868E021E1C189B00CDDED1 /* Importer Read Me.txt */,
@@ -737,16 +737,26 @@
 		55DA09553027D1ED0051E6DD /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				55868EED1E1C1DA300CDDED1 /* schema.xml */,
-				559778BE2D7D9DB90018AA56 /* schema.xcstrings */,
-				557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */,
-				557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */,
-				5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */,
-				5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */,
 				55E76F68233A07FD00EAEE1F /* Debugging.h */,
 				55E76F67233A07FD00EAEE1F /* Debugging.c */,
+				557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */,
+				557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */,
+				55DA09563027D2E30051E6DD /* MKVSharedImporter.hpp */,
+				55DA09573027D2F90051E6DD /* MKVSharedImporter.mm */,
+				5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */,
+				5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */,
+				55DA095A3027E5A90051E6DD /* Resources */,
 			);
 			path = Shared;
+			sourceTree = "<group>";
+		};
+		55DA095A3027E5A90051E6DD /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				55868EED1E1C1DA300CDDED1 /* schema.xml */,
+				559778BE2D7D9DB90018AA56 /* schema.xcstrings */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 		55E81000300B3FD8006DF5B4 /* MKVImporter Helper */ = {
@@ -769,8 +779,8 @@
 				55E88C4B3006360200F0F466 /* MKVNewImporterExtension.h */,
 				55E88C4C3006360200F0F466 /* MKVNewImporterExtension.mm */,
 				55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */,
-				55E88C56300744EE00F0F466 /* MatroskaMetadataImport.hpp */,
-				55E88C57300744EE00F0F466 /* MatroskaMetadataImport.mm */,
+				55E88C56300744EE00F0F466 /* MatroskaExtensionMetadataImporter.hpp */,
+				55E88C57300744EE00F0F466 /* MatroskaExtensionMetadataImporter.mm */,
 			);
 			path = MKVNewImporter;
 			sourceTree = "<group>";
@@ -1119,6 +1129,7 @@
 				55868DFE1E1C189B00CDDED1 /* GetMetadataForFile.mm in Sources */,
 				55E76F69233A07FD00EAEE1F /* Debugging.c in Sources */,
 				5528F5CD1E6DF7AB0001D475 /* ParseSSA.mm in Sources */,
+				55DA09593027D2FD0051E6DD /* MKVSharedImporter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1180,9 +1191,10 @@
 			files = (
 				55E88C593007798F00F0F466 /* mkvNameShortener.mm in Sources */,
 				55E88C5A3007798F00F0F466 /* ParseSSA.mm in Sources */,
-				55E88C58300744EE00F0F466 /* MatroskaMetadataImport.mm in Sources */,
+				55E88C58300744EE00F0F466 /* MatroskaExtensionMetadataImporter.mm in Sources */,
 				55E88C4D3006360200F0F466 /* MKVNewImporterExtension.mm in Sources */,
 				55E88C4A3006301400F0F466 /* Debugging.c in Sources */,
+				55DA09583027D2FD0051E6DD /* MKVSharedImporter.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -1,24 +1,28 @@
 //
-//  MatroskaMetadataImport.hpp
-//  MKVNewImporter
+//  MKVSharedImporter.hpp
+//  MKVImporter
 //
-//  Created by C.W. Betts on 7/14/26.
+//  Created by C.W. Betts on 8/8/26.
 //  Copyright © 2026 C.W. Betts. All rights reserved.
 //
 
-#ifndef MatroskaMetadataImport_hpp
-#define MatroskaMetadataImport_hpp
+#ifndef __MKVSharedImporter_hpp__
+#define __MKVSharedImporter_hpp__
 
 #import <Foundation/Foundation.h>
-#import <CoreSpotlight/CSSearchableItemAttributeSet.h>
+
+#include <string>
 #include <vector>
+#include <iostream>
+#include <functional>
+#include <algorithm>
+#include <unordered_set>
 #include "ebml/EbmlHead.h"
 #include "ebml/EbmlSubHead.h"
 #include "ebml/EbmlStream.h"
 #include "ebml/EbmlContexts.h"
 #include "ebml/EbmlVoid.h"
 #include "ebml/EbmlCrc32.h"
-#include "ebml/StdIOCallback.h"
 #include "matroska/FileKax.h"
 #include "matroska/KaxSegment.h"
 #include "matroska/KaxContexts.h"
@@ -29,13 +33,17 @@
 #include "matroska/KaxSeekHead.h"
 #include "matroska/KaxCuesData.h"
 
-class MatroskaMetadataImport final {
-private:
-	MatroskaMetadataImport(NSURL* _Nonnull path, CSSearchableItemAttributeSet* _Nonnull attribs);
-	virtual ~MatroskaMetadataImport();
+NS_ASSUME_NONNULL_BEGIN
+
+class MatroskaSharedImporter {
+public:
+	MatroskaSharedImporter(NSURL* path);
+	virtual ~MatroskaSharedImporter();
+	
+protected:
 	bool ReadSegmentInfo(libmatroska::KaxInfo &segmentInfo);
 	bool ReadTracks(libmatroska::KaxTracks &trackEntries);
-	bool ReadChapters(libmatroska::KaxChapters &trackEntries);
+	virtual bool ReadChapters(libmatroska::KaxChapters &trackEntries) = 0;
 	bool ReadAttachments(libmatroska::KaxAttachments &trackEntries);
 	bool ReadMetaSeek(libmatroska::KaxSeekHead &trackEntries);
 	bool ReadTags(const libmatroska::KaxTags &trackEntries);
@@ -43,7 +51,8 @@ private:
 	bool isValidMatroska(NSError * _Nullable * _Nonnull outErr);
 	
 	//! Copies over data to `attributes` that can't be done in one iteration.
-	void copyDataOver();
+	virtual void copyDataOver() = 0;
+	
 	EbmlElement * _Nullable NextLevel1Element();
 
 	//! a list of level one elements and their offsets in the segment
@@ -66,7 +75,6 @@ private:
 		uint8_t			idLength;
 		uint64_t		segmentPos;
 	};
-
 	
 	/// we need to save a bit of context when seeking if we're going to seek back
 	/// This function saves `el_l1` and the current file position to the returned context
@@ -79,37 +87,63 @@ private:
 
 	bool ProcessLevel1Element();
 	
-	bool iterateData(NSError * _Nullable * _Nonnull outErr);
-	inline void addMediaType(NSString * _Nonnull theType);
-	inline void addMediaType(CFStringRef _Nonnull CF_CONSUMED theType);
+	bool iterateData(NSError * _Nullable * _Nullable outErr);
+	inline void addMediaType(NSString *theType) {
+		[mediaTypes addObject:theType];
+	}
 	
-public:
-	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);
+	inline void addMediaType(CFStringRef CF_CONSUMED theType) {
+		addMediaType((NSString*)CFBridgingRelease(theType));
+	}
 	
-private:
+protected:
 	StdIOCallback _ebmlFile;
 	EbmlStream _aStream;
 	EbmlElement * _Nullable el_l0;
 	EbmlElement * _Nullable el_l1;
-	CSSearchableItemAttributeSet * _Nonnull attributes;
-	NSMutableOrderedSet<NSString*> * _Nonnull mediaTypes;
-	NSMutableSet<NSString*> * _Nonnull fonts;
-	NSMutableDictionary<NSNumber*,NSString*> * _Nonnull bpsStorage;
-	NSMutableDictionary<NSNumber*,NSNumber*> * _Nonnull trackIDAndTypes;
+	NSMutableOrderedSet<NSString*> *mediaTypes;
+	NSMutableSet<NSString*> *fonts;
+	NSMutableDictionary<NSNumber*,NSString*> *bpsStorage;
+	NSMutableDictionary<NSNumber*,NSNumber*> *trackIDAndTypes;
 	//Kept mainly for debugging
 	NSURL * _Nonnull fileURL;
 	
+private:
 	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
 	bool seenInfo;
 	bool seenTracks;
+protected:
 	bool seenChapters;
+private:
 	bool seenTags;
 	bool seenAttachments;
 
 	std::vector<MatroskaSeek>	levelOneElements;
 	
 	uint64_t					segmentOffset;
+	
+protected:
+	virtual void copyTags(NSDictionary<NSString*,id> *theTags) = 0;
+	virtual void setTitle(NSString *theTags) = 0;
+	virtual void setDuration(NSNumber *theTags) = 0;
+	virtual void setCreationDate(NSDate *theTags) = 0;
+	virtual void setIdentifier(NSString *theTags) = 0;
+	virtual void copyEncodingApplications(NSArray<NSString*> *theTags) = 0;
+	virtual void copyLanguages(NSArray<NSString*> *theTags) = 0;
+	virtual void copyCodecs(NSArray<NSString*> *theTags) = 0;
+	virtual void copyLayerNames(NSArray<NSString*> *theTags) = 0;
+	virtual void copyWidthAndHeight(NSNumber *width, NSNumber *height) = 0;
+	virtual void copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) = 0;
+	virtual void copyAttachedFiles(NSArray<NSString*> *theTags) = 0;
+
 };
 
+#define kChapterNames @"com_GitHub_MaddTheSane_ChapterNames"
+#define kAttachedFiles @"com_GitHub_MaddTheSane_AttachedFiles"
 
-#endif /* MatroskaMetadataImport_hpp */
+extern NSString *getLocaleCode(const libmatroska::KaxChapterLanguage & language, libmatroska::KaxChapterCountry * _Nullable country);
+extern NSString *getLocaleCode(const libmatroska::KaxChapLanguageIETF * language);
+
+NS_ASSUME_NONNULL_END
+
+#endif

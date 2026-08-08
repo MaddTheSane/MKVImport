@@ -12,7 +12,7 @@
 #include "mkvNameShortener.hpp"
 #include "ParseSSA.hpp"
 #include "Debugging.h"
-#include "MatroskaMetadataImport.hpp"
+#include "MatroskaExtensionMetadataImporter.hpp"
 
 NS_ASSUME_NONNULL_BEGIN
 
@@ -31,7 +31,7 @@ NS_ASSUME_NONNULL_BEGIN
 	});
 
 	try {
-		return MatroskaMetadataImport::getMetadata(attributes, contentURL, error);
+		return MatroskaExtensionMetadataImporter::getMetadata(attributes, contentURL, error);
 	} catch (CRTError &anErr) {
 		if (error) {
 			NSString *what = @(anErr.what());

@@ -34,6 +34,7 @@
 #include "matroska/KaxBlockData.h"
 #include "matroska/KaxSeekHead.h"
 #include "matroska/KaxCuesData.h"
+#include "MKVSharedImporter.hpp"
 
 #include "mkvNameShortener.hpp"
 #include "ParseSSA.hpp"
@@ -43,48 +44,18 @@ using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using std::string;
 
-#include "SharedImporter.h"
-
-class MatroskaImport final {
+class MatroskaPlugInMetadataImporter final: MatroskaSharedImporter {
 private:
-	MatroskaImport(NSURL* path, NSMutableDictionary*attribs):
-	_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
-	_aStream(EbmlStream(_ebmlFile)),
-	attributes(attribs),
-	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false),
-	seenAttachments(false) {
-		mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
-		fonts = [[NSMutableSet alloc] initWithCapacity:50];
-		segmentOffset = 0;
-		el_l0 = NULL;
-		el_l1 = NULL;
-		bpsStorage = [[NSMutableDictionary alloc] init];
-		trackIDAndTypes = [[NSMutableDictionary alloc] init];
-	}
-	virtual ~MatroskaImport() {
-		attributes = nil;
-		mediaTypes = nil;
-		if (el_l1) {
-			delete el_l1;
-			el_l1 = NULL;
-		}
+	MatroskaPlugInMetadataImporter(NSURL* path, NSMutableDictionary*attribs):
+	MatroskaSharedImporter(path),
+	attributes(attribs) {
 		
-		if (el_l0) {
-			delete el_l0;
-			el_l0 = NULL;
-		}
 	}
-	bool ReadSegmentInfo(KaxInfo &segmentInfo);
-	bool ReadTracks(KaxTracks &trackEntries);
-	bool ReadChapters(KaxChapters &trackEntries);
-	bool ReadAttachments(KaxAttachments &trackEntries);
-	bool ReadMetaSeek(KaxSeekHead &trackEntries);
-	bool ReadTags(const KaxTags &trackEntries);
-
-	bool isValidMatroska();
+	virtual ~MatroskaPlugInMetadataImporter() = default;
+	bool ReadChapters(KaxChapters &trackEntries) override;
 	
 	//! Copies over data to `attributes` that can't be done in one iteration.
-	void copyDataOver() {
+	void copyDataOver() override {
 		attributes[(NSString*)kMDItemMediaTypes] = [mediaTypes.array copy];
 		if (fonts.count != 0) {
 			attributes[(NSString*)kMDItemFonts] = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
@@ -139,408 +110,48 @@ private:
 			}
 		}
 	}
-	EbmlElement * NextLevel1Element();
-
-	//! a list of level one elements and their offsets in the segment
-	class MatroskaSeek final {
-	public:
-		struct MatroskaSeekContext {
-			EbmlElement		*el_l1;
-			uint64_t		position;
-		};
-		
-		EbmlId GetID() const { return EbmlId(ebmlID, idLength); }
-		bool operator<(const MatroskaSeek &rhs) const { return segmentPos < rhs.segmentPos; }
-		bool operator>(const MatroskaSeek &rhs) const { return segmentPos > rhs.segmentPos; }
-		
-		MatroskaSeekContext GetSeekContext(uint64_t segmentOffset = 0) const {
-			return (MatroskaSeekContext){ NULL, segmentPos + segmentOffset };
-		}
-		
-		uint32_t		ebmlID;
-		uint8_t			idLength;
-		uint64_t		segmentPos;
-	};
-
-	
-	/// we need to save a bit of context when seeking if we're going to seek back
-	/// This function saves `el_l1` and the current file position to the returned context
-	/// and clears `el_l1` to null in preparation for a seek.
-	MatroskaSeek::MatroskaSeekContext SaveContext();
-	
-	/// This function restores `el_l1` to what is saved in the context, deleting the current
-	/// value if not null, and seeks to the specified point in the file.
-	void SetContext(MatroskaSeek::MatroskaSeekContext context);
-
-	bool ProcessLevel1Element();
-	
-	bool iterateData();
-	inline void addMediaType(NSString *theType) {
-		[mediaTypes addObject:theType];
-	}
-	
-	inline void addMediaType(CFStringRef CF_CONSUMED theType) {
-		addMediaType((NSString*)CFBridgingRelease(theType));
-	}
 	
 public:
 	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path);
 	
 private:
-	StdIOCallback _ebmlFile;
-	EbmlStream _aStream;
-	EbmlElement *el_l0;
-	EbmlElement *el_l1;
 	NSMutableDictionary<NSString*,id> *attributes;
-	NSMutableOrderedSet<NSString*> *mediaTypes;
-	NSMutableSet<NSString*> *fonts;
-	NSMutableDictionary<NSNumber*,NSString*> *bpsStorage;
-	NSMutableDictionary<NSNumber*,NSNumber*> *trackIDAndTypes;
 	
-	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
-	bool seenInfo;
-	bool seenTracks;
-	bool seenChapters;
-	bool seenTags;
-	bool seenAttachments;
-
-	std::vector<MatroskaSeek>	levelOneElements;
-	
-	uint64_t					segmentOffset;
+protected:
+	virtual void copyTags(NSDictionary<NSString*,id> *theTags) override;
+	virtual void setTitle(NSString *theTags) override;
+	virtual void setDuration(NSNumber *theTags) override;
+	virtual void setCreationDate(NSDate *theTags) override;
+	virtual void setIdentifier(NSString *theTags) override;
+	virtual void copyEncodingApplications(NSArray<NSString*> *theTags) override;
+	virtual void copyLanguages(NSArray<NSString*> *theTags) override;
+	virtual void copyCodecs(NSArray<NSString*> *theTags) override;
+	virtual void copyLayerNames(NSArray<NSString*> *theTags) override;
+	virtual void copyWidthAndHeight(NSNumber *width, NSNumber *height) override;
+	virtual void copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
+	virtual void copyAttachedFiles(NSArray<NSString*> *theTags) override;
 };
 
-bool MatroskaImport::isValidMatroska()
+bool MatroskaPlugInMetadataImporter::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path)
 {
-	bool valid = true;
-	int upperLevel;
-	el_l0 = _aStream.FindNextID(EBML_INFO(EbmlHead), ~0);
-	if (el_l0 != NULL) {
-		EbmlElement *dummyElt = NULL;
-		
-		el_l0->Read(_aStream, EBML_CLASS_CONTEXT(EbmlHead), upperLevel, dummyElt, true);
-		
-		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
-			postError(mkvErrorLevelWarn, CFSTR("Not a Matroska file"));
-			valid = false;
-			goto exit;
+	MatroskaPlugInMetadataImporter *generatorClass = new MatroskaPlugInMetadataImporter(path, attribs);
+	NSError *err = nil;
+	if (!generatorClass->isValidMatroska(&err)) {
+		if (err) {
+			postError(mkvErrorLevelWarn, CFSTR("%@"), err.debugDescription);
 		}
-		
-		EbmlHead *head = static_cast<EbmlHead *>(el_l0);
-		
-		EDocType & docType = GetChild<EDocType>(*head);
-		const string & cppDocType = string(docType);
-		if (cppDocType != "matroska" && cppDocType != "webm") {
-			postError(mkvErrorLevelWarn, CFSTR("Unknown Matroska doctype \"%@\""), @(cppDocType.c_str()));
-			valid = false;
-			goto exit;
-		}
-		
-		EDocTypeReadVersion & readVersion = GetChild<EDocTypeReadVersion>(*head);
-		if (UInt64(readVersion) > 2) {
-			postError(mkvErrorLevelWarn, CFSTR("Matroska file too new to be read, version %lld"), UInt64(readVersion));
-			valid = false;
-			goto exit;
-		}
-		el_l0->SkipData(_aStream, EBML_CLASS_SEMCONTEXT(EbmlHead));
-
-	} else {
-		postError(mkvErrorLevelWarn, CFSTR("Matroska file missing EBML Head"));
-		valid = false;
-	}
-	
-exit:
-	
-	delete el_l0;
-	el_l0 = NULL;
-	return valid;
-}
-
-bool MatroskaImport::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path)
-{
-	MatroskaImport *generatorClass = new MatroskaImport(path, attribs);
-	if (!generatorClass->isValidMatroska()) {
 		delete generatorClass;
 		return false;
 	}
 	
-	bool isSuccessful = generatorClass->iterateData();
+	bool isSuccessful = generatorClass->iterateData(NULL);
 	if (isSuccessful) generatorClass->copyDataOver();
 	
 	delete generatorClass;
 	return isSuccessful;
 }
 
-bool MatroskaImport::iterateData()
-{
-	bool done = false;
-	bool good = true;
-	el_l0 = _aStream.FindNextID(EBML_INFO(KaxSegment), ~0);
-	if (!el_l0) {
-		return false;		// nothing in the file
-	}
-	
-	segmentOffset = static_cast<KaxSegment *>(el_l0)->GetDataStart();
-
-	while (!done && NextLevel1Element()) {
-		if (EbmlId(*el_l1) == EBML_ID(KaxCluster)) {
-			// all header elements are before clusters in sane files
-			done = true;
-		} else {
-			good = ProcessLevel1Element();
-		}
-		
-		if (!good) {
-			return false;
-		}
-	}
-	
-	return true;
-}
-
-// I have no idea where this even comes from...
-#define nvd "no_variable_data"
-
-bool MatroskaImport::ReadSegmentInfo(KaxInfo &segmentInfo)
-{
-	if (seenInfo) {
-		return true;
-	}
-	
-	KaxDuration & duration = GetChild<KaxDuration>(segmentInfo);
-	KaxTimecodeScale & timecodeScale = GetChild<KaxTimecodeScale>(segmentInfo);
-	KaxTitle & title = GetChild<KaxTitle>(segmentInfo);
-	KaxDateUTC * date = FindChild<KaxDateUTC>(segmentInfo);
-	KaxWritingApp & writingApp = GetChild<KaxWritingApp>(segmentInfo);
-	KaxMuxingApp & muxingApp = GetChild<KaxMuxingApp>(segmentInfo);
-	KaxSegmentUID * kaxUID = FindChild<KaxSegmentUID>(segmentInfo);
-	if (kaxUID && kaxUID->GetSize() == 16) {
-		uint8_t *const theBytes = kaxUID->GetBuffer();
-		CFUUIDBytes theUUIDBytes;
-		memcpy(&theUUIDBytes, theBytes, sizeof(CFUUIDBytes));
-		CFUUIDRef theUUID = CFUUIDCreateFromUUIDBytes(kCFAllocatorDefault, theUUIDBytes);
-		attributes[(NSString*)kMDItemIdentifier] = CFBridgingRelease(CFUUIDCreateString(kCFAllocatorDefault, theUUID));
-		CFRelease(theUUID);
-	}
-
-	double movieDuration = double(duration);
-	UInt64 timecodeScale1 = UInt64(timecodeScale);
-
-	attributes[(NSString*)kMDItemDurationSeconds] = @((movieDuration * timecodeScale1) / 1e9);
-	
-	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
-		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetEpochDate()];
-		attributes[(NSString*)kMDItemContentCreationDate] = createDate;
-	}
-	
-	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
-		NSString *nsTitle = getNSStringFromUTFstring(title);
-		attributes[(NSString*)kMDItemTitle] = nsTitle;
-	}
-	
-	{
-		NSMutableArray *creator = [NSMutableArray arrayWithCapacity:2];
-		if (!writingApp.IsDefaultValue() && writingApp.GetValueUTF8() != nvd) {
-			[creator addObject:getNSStringFromUTFstring(writingApp)];
-		}
-		if (!muxingApp.IsDefaultValue() && muxingApp.GetValueUTF8() != nvd) {
-			[creator addObject:getNSStringFromUTFstring(muxingApp)];
-		}
-		
-		if (creator.count != 0) {
-			attributes[(NSString*)kMDItemEncodingApplications] = [creator copy];
-		}
-	}
-	
-	seenInfo = true;
-	return true;
-}
-
-bool MatroskaImport::ReadTracks(KaxTracks &trackEntries)
-{
-	if (seenTracks) {
-		return true;
-	}
-	
-	NSMutableOrderedSet<NSString*> *langSet = [[NSMutableOrderedSet alloc] init];
-	NSMutableOrderedSet<NSString*> *codecSet = [[NSMutableOrderedSet alloc] init];
-	NSMutableArray<NSString*> *trackNames = [[NSMutableArray alloc] init];
-	//Because there may be more than one video track
-	uint32 biggestWidth = 0;
-	uint32 biggestHeight = 0;
-	int maxChannels = 0;
-	double sampleRate = 0;
-	
-	for (auto trackEntry: trackEntries) {
-		if (EbmlId(*trackEntry) != EBML_ID(KaxTrackEntry)) {
-			continue;
-		}
-		KaxTrackEntry & track = *static_cast<KaxTrackEntry *>(trackEntry);
-		KaxTrackType & type = GetChild<KaxTrackType>(track);
-		KaxTrackUID & tuid = GetChild<KaxTrackUID>(track);
-		//KaxTrackFlagLacing & lacing = GetChild<KaxTrackFlagLacing>(track);
-		
-		//KaxContentEncodings * encodings = FindChild<KaxContentEncodings>(track);
-		trackIDAndTypes[@(tuid.GetValue())] = @(uint8(type));
-		{
-			NSString *nsLang = getLanguageCode(track);
-			if (nsLang) {
-				[langSet addObject:[NSLocale canonicalLocaleIdentifierFromString:nsLang]];
-			}
-		}
-		{
-			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
-			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
-				NSString *nsTrackName = getNSStringFromUTFstring(trackName);
-				[trackNames addObject:nsTrackName];
-			}
-		}
-		NSString *codec;
-		switch (uint8(type)) {
-			case track_video:
-				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Video));
-			{
-				KaxTrackVideo &vidTrack = GetChild<KaxTrackVideo>(track);
-				KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(vidTrack);
-				KaxVideoPixelHeight &curKaxHeight = GetChild<KaxVideoPixelHeight>(vidTrack);
-				///KaxVideoColourSpace
-				uint32 curWidth = uint32(curKaxWidth);
-				uint32 curHeight = uint32(curKaxHeight);
-#ifdef USE_DISPLAY_SIZE
-				KaxVideoDisplayWidth *dispWidth = FindChild<KaxVideoDisplayWidth>(vidTrack);
-				KaxVideoDisplayHeight *dispHeight = FindChild<KaxVideoDisplayHeight>(vidTrack);
-				if (dispWidth && dispWidth->GetValue() != 0) {
-					curWidth = uint32(*dispWidth);
-				}
-				if (dispHeight && dispHeight->GetValue() != 0) {
-					curHeight = uint32(*dispHeight);
-				}
-#endif
-				if (curWidth >= biggestWidth && curHeight >= biggestHeight) {
-					biggestWidth = curWidth;
-					biggestHeight = curHeight;
-				}
-			}
-				codec = mkvCodecShortener(track);
-				break;
-				
-			case track_audio:
-				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Audio));
-			{
-				KaxTrackAudio &audTrack = GetChild<KaxTrackAudio>(track);
-				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
-				KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(audTrack);
-				//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
-				double curSampling = curKaxSampling.GetValue();
-				int curChannels = uint32(curKaxChannels);
-				if (curSampling > sampleRate) {
-					sampleRate = curSampling;
-				}
-				if (curChannels > maxChannels) {
-					maxChannels = curChannels;
-				}
-			}
-				codec = mkvCodecShortener(track);
-				break;
-				
-			case track_subtitle:
-				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Subtitle));
-			if (isSSA(track)) {
-				NSMutableSet *tmpFonts = [[NSMutableSet alloc] init];
-				bool success = getSSASubtitleFontList(track, _aStream, tmpFonts);
-				if (success) {
-					[fonts unionSet:tmpFonts];
-				}
-			}
-				codec = mkvCodecShortener(track);
-				break;
-				
-			case track_complex:
-				addMediaType(MTCopyLocalizedNameForMediaType(kCMMediaType_Muxed));
-			{
-				KaxTrackVideo *vidTrack = FindChild<KaxTrackVideo>(track);
-				if (vidTrack) {
-					KaxVideoPixelWidth &curKaxWidth = GetChild<KaxVideoPixelWidth>(*vidTrack);
-					KaxVideoPixelHeight &curKaxHeight = GetChild<KaxVideoPixelHeight>(*vidTrack);
-					///KaxVideoColourSpace
-					uint32 curWidth = uint32(curKaxWidth);
-					uint32 curHeight = uint32(curKaxHeight);
-#ifdef USE_DISPLAY_SIZE
-					KaxVideoDisplayWidth *dispWidth = FindChild<KaxVideoDisplayWidth>(*vidTrack);
-					KaxVideoDisplayHeight *dispHeight = FindChild<KaxVideoDisplayHeight>(*vidTrack);
-					if (dispWidth && dispWidth->GetValue() != 0) {
-						curWidth = uint32(*dispWidth);
-					}
-					if (dispHeight && dispHeight->GetValue() != 0) {
-						curHeight = uint32(*dispHeight);
-					}
-#endif
-					if (curWidth >= biggestWidth && curHeight >= biggestHeight) {
-						biggestWidth = curWidth;
-						biggestHeight = curHeight;
-					}
-				}
-			}
-			{
-				KaxTrackAudio *audTrack = FindChild<KaxTrackAudio>(track);
-				if (audTrack) {
-					KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(*audTrack);
-					KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(*audTrack);
-					//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
-					double curSampling = curKaxSampling.GetValue();
-					int curChannels = uint32(curKaxChannels);
-					if (curSampling > sampleRate) {
-						sampleRate = curSampling;
-					}
-					if (curChannels > maxChannels) {
-						maxChannels = curChannels;
-					}
-				}
-			}
-
-				codec = mkvCodecShortener(track);
-				break;
-				
-			case track_logo:
-				addMediaType(@"Logo");
-				break;
-				
-			case track_buttons:
-				addMediaType(@"Buttons");
-				break;
-				
-			case track_control:
-				addMediaType(@"Control");
-				break;
-				
-			default:
-				break;
-		}
-		if (codec && codec.length != 0) {
-			[codecSet addObject:codec];
-		}
-	}
-	
-	if (langSet.count > 0) {
-		attributes[(NSString*)kMDItemLanguages] = [langSet.array copy];
-	}
-	attributes[(NSString*)kMDItemCodecs] = [codecSet.array copy];
-	if (trackNames.count > 0) {
-		attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
-	}
-	if (biggestWidth != 0 && biggestHeight != 0) {
-		attributes[(NSString*)kMDItemPixelHeight] = @(biggestHeight);
-		attributes[(NSString*)kMDItemPixelWidth] = @(biggestWidth);
-	}
-	if (maxChannels != 0) {
-		attributes[(NSString*)kMDItemAudioChannelCount] = @(maxChannels);
-		attributes[(NSString*)kMDItemAudioSampleRate] = @(sampleRate);
-	}
-	
-	seenTracks = true;
-	return true;
-}
-
-bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
+bool MatroskaPlugInMetadataImporter::ReadChapters(KaxChapters &chapterEntries)
 {
 	if (seenChapters) {
 		return true;
@@ -584,39 +195,6 @@ bool MatroskaImport::ReadChapters(KaxChapters &chapterEntries)
 	return true;
 }
 
-bool MatroskaImport::ReadAttachments(KaxAttachments &attachmentEntries)
-{
-	if (seenAttachments) {
-		return true;
-	}
-	addMediaType(@"Attachments");
-	KaxAttached *attachedFile = FindChild<KaxAttached>(attachmentEntries);
-	NSMutableArray<NSString*> *attachmentFiles = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
-	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
-	
-	while (attachedFile && attachedFile->GetSize() > 0) {
-		NSString *fileName = getNSStringFromUTFstring(GetChild<KaxFileName>(*attachedFile)) ?: @"";
-		const std::string mime = GetChild<KaxMimeType>(*attachedFile).GetValue();
-		if (MIMEIsFont(mime)) {
-			const auto &rawData = GetChild<KaxFileData>(*attachedFile);
-			NSData *data = [NSData dataWithBytesNoCopy:rawData.GetBuffer() length:rawData.GetSize() freeWhenDone:NO];
-			NSArray *fontArray = fontNamesFromFontData(data);
-			if (fontArray) {
-				[fonts addObjectsFromArray:fontArray];
-			}
-		}
-		[attachmentFiles addObject:fileName];
-		
-		attachedFile = FindNextChild<KaxAttached>(attachmentEntries, *attachedFile);
-	}
-	if ([fonts count] > 0) {
-		[this->fonts addObjectsFromArray:fonts];
-	}
-	attributes[kAttachedFiles] = [attachmentFiles copy];
-	seenAttachments = true;
-	return true;
-}
-
 static NSString *toSpotlightKey(NSString *matroskaKey)
 {
 	static NSDictionary *const matroskaToSpotlightMapping
@@ -641,76 +219,8 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 	return matroskaToSpotlightMapping[matroskaKey];
 }
 
-bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
+void MatroskaPlugInMetadataImporter::copyTags(NSDictionary<NSString*,id> *tagDict)
 {
-	if (seenTags) {
-		return true;
-	}
-	NSMutableDictionary<NSString*,id> *tagDict = [[NSMutableDictionary alloc] initWithCapacity:trackEntries.ListSize()];
-	//trackEntries
-	for (const auto child : trackEntries) {
-		auto tag = dynamic_cast<const KaxTag *>(child);
-		if (!tag) {
-			continue;
-		}
-
-		// only get the BPS tag from track tags.
-		auto trackID = get_tuid(*tag);
-		if (trackID.has_value()) {
-			for (auto const simple_tag_elt : *tag) {
-				const auto simple_tag = dynamic_cast<KaxTagSimple *const>(simple_tag_elt);
-				if (!simple_tag) {
-					continue;
-				}
-				string simpleName = get_simple_name(*simple_tag);
-				NSString *simpleVal = get_simple_value(*simple_tag);
-				if (simpleName == "BPS") {
-					bpsStorage[@(trackID.value())] = simpleVal;
-					break;
-				}
-			}
-			// otherwise exclude tags that refer to specific tracks...
-			continue;
-		}
-		
-		// exclude tags that refer to specific chapters
-		if (get_cuid(*tag).has_value()) {
-			continue;
-		}
-
-		for (auto const simple_tag_elt : *tag) {
-			const auto simple_tag = dynamic_cast<KaxTagSimple *const>(simple_tag_elt);
-			if (!simple_tag) {
-				continue;
-			}
-			string simpleName = get_simple_name(*simple_tag);
-			NSString *simpleVal = get_simple_value(*simple_tag);
-			NSString *objcName = @(simpleName.c_str());
-			if ([tagDict objectForKey:objcName] != nil) {
-				postError(mkvErrorLevelWarn, CFSTR("File already has an entry for tag %@! Possibility of multiple languages for same tag?"), objcName);
-			}
-			if (simpleVal.length == 0) {
-				continue;
-			}
-			// FIXME: HACK: work around "KEYWORDS"
-			if (simpleName == "KEYWORDS") {
-				tagDict[objcName] = commaSeperation(simpleVal);
-			} else {
-				if (isMultiple(simpleName)) {
-					tagDict[objcName] = @[simpleVal];
-				} else {
-					tagDict[objcName] = simpleVal;
-				}
-			}
-		}
-	}
-	
-	if (tagDict.count == 0) {
-		// return early.
-		seenTags = true;
-		return true;
-	}
-	
 	NSMutableDictionary<NSString*,id>
 	*toSet = [[NSMutableDictionary alloc] initWithCapacity:tagDict.count];
 	
@@ -723,8 +233,63 @@ bool MatroskaImport::ReadTags(const KaxTags &trackEntries)
 		toSet[MDVal] = val;
 	}
 	[attributes addEntriesFromDictionary:toSet];
-	seenTags = true;
-	return true;
+}
+
+void MatroskaPlugInMetadataImporter::setTitle(NSString *nsTitle)
+{
+	attributes[(NSString*)kMDItemTitle] = nsTitle;
+}
+
+void MatroskaPlugInMetadataImporter::setDuration(NSNumber *theTags)
+{
+	attributes[(NSString*)kMDItemDurationSeconds] = theTags;
+}
+
+void MatroskaPlugInMetadataImporter::setCreationDate(NSDate *createDate)
+{
+	attributes[(NSString*)kMDItemContentCreationDate] = createDate;
+}
+
+void MatroskaPlugInMetadataImporter::setIdentifier(NSString *theTags)
+{
+	attributes[(NSString*)kMDItemIdentifier] = theTags;
+}
+
+void MatroskaPlugInMetadataImporter::copyEncodingApplications(NSArray<NSString*> *creator)
+{
+	attributes[(NSString*)kMDItemEncodingApplications] = [creator copy];
+}
+
+void MatroskaPlugInMetadataImporter::copyLanguages(NSArray<NSString*> *langSet)
+{
+	attributes[(NSString*)kMDItemLanguages] = [langSet copy];
+}
+
+void MatroskaPlugInMetadataImporter::copyCodecs(NSArray<NSString*> *theTags)
+{
+	attributes[(NSString*)kMDItemCodecs] = [theTags copy];
+}
+
+void MatroskaPlugInMetadataImporter::copyLayerNames(NSArray<NSString*> *trackNames)
+{
+	attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
+}
+
+void MatroskaPlugInMetadataImporter::copyWidthAndHeight(NSNumber *width, NSNumber *height)
+{
+	attributes[(NSString*)kMDItemPixelHeight] = height;
+	attributes[(NSString*)kMDItemPixelWidth] = width;
+}
+
+void MatroskaPlugInMetadataImporter::copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate)
+{
+	attributes[(NSString*)kMDItemAudioChannelCount] = channelCount;
+	attributes[(NSString*)kMDItemAudioSampleRate] = sampleRate;
+}
+
+void MatroskaPlugInMetadataImporter::copyAttachedFiles(NSArray<NSString*> *attachmentFiles)
+{
+	attributes[kAttachedFiles] = [attachmentFiles copy];
 }
 
 #pragma mark -
@@ -754,7 +319,7 @@ Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes
 		NSURL *nsPath = (__bridge NSURL*)pathToFile;
 		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
 		try {
-			ok = MatroskaImport::getMetadata(nsAttribs, nsUTI, nsPath);
+			ok = MatroskaPlugInMetadataImporter::getMetadata(nsAttribs, nsUTI, nsPath);
 		} catch (CRTError &anErr) {
 			postError(mkvErrorLevelSerious, CFSTR("Exception caught! %@"), @(anErr.what()));
 			ok = FALSE;
@@ -767,5 +332,3 @@ Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes
 	// Return the status
 	return ok;
 }
-
-#include "SharedImporter.i"

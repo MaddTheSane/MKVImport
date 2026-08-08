@@ -1,20 +1,41 @@
 //
-//  MatroskaMetadataImport.cpp
-//  MKVNewImporter
+//  MKVSharedImporter.mm
+//  MKVImporter
 //
-//  Created by C.W. Betts on 7/14/26.
+//  Created by C.W. Betts on 8/8/26.
 //  Copyright © 2026 C.W. Betts. All rights reserved.
 //
 
-#include "MatroskaMetadataImport.hpp"
-#import <CoreSpotlight/CoreSpotlight.h>
+#import <Foundation/Foundation.h>
+#include <CoreFoundation/CoreFoundation.h>
 #include <MediaToolbox/MediaToolbox.h>
+#include "GetMetadataForFile.h"
+#include "matroska/FileKax.h"
+#include "ebml/StdIOCallback.h"
+#include "MKVSharedImporter.hpp"
+
 #include <string>
 #include <vector>
 #include <iostream>
 #include <functional>
 #include <algorithm>
 #include <unordered_set>
+#include "ebml/EbmlHead.h"
+#include "ebml/EbmlSubHead.h"
+#include "ebml/EbmlStream.h"
+#include "ebml/EbmlContexts.h"
+#include "ebml/EbmlVoid.h"
+#include "ebml/EbmlCrc32.h"
+#include "matroska/FileKax.h"
+#include "matroska/KaxSegment.h"
+#include "matroska/KaxContexts.h"
+#include "matroska/KaxTracks.h"
+#include "matroska/KaxInfoData.h"
+#include "matroska/KaxCluster.h"
+#include "matroska/KaxBlockData.h"
+#include "matroska/KaxSeekHead.h"
+#include "matroska/KaxCuesData.h"
+
 #include "mkvNameShortener.hpp"
 #include "ParseSSA.hpp"
 #include "Debugging.h"
@@ -23,13 +44,16 @@ using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using std::string;
 
-#include "SharedImporter.h"
+static inline NSString *getLanguageCode(const string & cppLang);
+static NSString *getLanguageCode(KaxTrackEntry & track);
+static inline NSString *getLanguageCode(const KaxLanguageIETF & language);
 
-MatroskaMetadataImport::MatroskaMetadataImport(NSURL* _Nonnull path,
-											   CSSearchableItemAttributeSet* _Nonnull attribs):
-_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)), _aStream(EbmlStream(_ebmlFile)),
-attributes(attribs), fileURL(path), seenInfo(false), seenTracks(false), seenChapters(false),
-seenTags(false), seenAttachments(false) {
+MatroskaSharedImporter::MatroskaSharedImporter(NSURL* path):
+_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
+_aStream(EbmlStream(_ebmlFile)),
+fileURL(path),
+seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false),
+seenAttachments(false) {
 	mediaTypes = [[NSMutableOrderedSet alloc] initWithCapacity:6];
 	fonts = [[NSMutableSet alloc] initWithCapacity:50];
 	segmentOffset = 0;
@@ -39,70 +63,7 @@ seenTags(false), seenAttachments(false) {
 	trackIDAndTypes = [[NSMutableDictionary alloc] init];
 }
 
-inline void MatroskaMetadataImport::addMediaType(NSString * _Nonnull theType) {
-	[mediaTypes addObject:theType];
-}
-
-inline void MatroskaMetadataImport::addMediaType(CFStringRef CF_CONSUMED theType) {
-	addMediaType((NSString*)CFBridgingRelease(theType));
-}
-
-void MatroskaMetadataImport::copyDataOver() {
-	attributes.mediaTypes = mediaTypes.array;
-	if (fonts.count != 0) {
-		attributes.fontNames = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-	}
-	
-	if (bpsStorage.count != 0) {
-		// How we're doing this:
-		// * `kMDItemTotalBitRate` is the bitrate of all the tracks.
-		// * `kMDItemVideoBitRate` and `kMDItemAudioBitRate` will be the track with the highest bitrate.
-		long long biggestVid = 0;
-		long long biggestAud = 0;
-		uint64_t all = 0;
-		
-		for (NSNumber *key in bpsStorage) {
-			NSNumber *trackType = trackIDAndTypes[key];
-			NSString *bpsStr = bpsStorage[key];
-			long long bps = bpsStr.longLongValue;
-			all += bps;
-			
-			// We only care about `track_video`, `track_audio`
-			switch (trackType.unsignedCharValue) {
-				case track_video:
-					biggestVid = std::max(biggestVid, bps);
-					break;
-					
-				case track_audio:
-					biggestAud = std::max(biggestAud, bps);
-					break;
-					
-				case track_complex:
-					//Not dealing with this.
-					break;
-					
-				case track_subtitle:
-					// There's no key for subtitle BPS.
-					break;
-					
-				default:
-					break;
-			}
-		}
-		
-		if (all != 0) {
-			attributes.totalBitRate = @(all);
-			if (biggestVid != 0) {
-				attributes.videoBitRate = @(biggestVid);
-			}
-			if (biggestAud != 0) {
-				attributes.audioBitRate = @(biggestAud);
-			}
-		}
-	}
-}
-
-MatroskaMetadataImport::~MatroskaMetadataImport() {
+MatroskaSharedImporter::~MatroskaSharedImporter() {
 	mediaTypes = nil;
 	if (el_l1) {
 		delete el_l1;
@@ -115,8 +76,7 @@ MatroskaMetadataImport::~MatroskaMetadataImport() {
 	}
 }
 
-
-bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outErr)
+bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outErr)
 {
 	bool valid = true;
 	int upperLevel;
@@ -127,7 +87,7 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		el_l0->Read(_aStream, EBML_CLASS_CONTEXT(EbmlHead), upperLevel, dummyElt, true);
 		
 		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
-			if (!outErr) {
+			if (outErr) {
 				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Not a Matroska file", @"Not a Matroska file"), NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: @"Not a Matroska file"}];
 			}
 			
@@ -140,7 +100,7 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		EDocType & docType = GetChild<EDocType>(*head);
 		const std::string & cppDocType = std::string(docType);
 		if (cppDocType != "matroska" && cppDocType != "webm") {
-			if (!outErr) {
+			if (outErr) {
 				NSString *theDocType = @(cppDocType.c_str());
 				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Unknown Matroska doctype \"%@\"", @"Unknown Matroska doctype"), theDocType], NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: [NSString stringWithFormat:@"Unknown Matroska doctype \"%@\"", theDocType]}];
 			}
@@ -151,7 +111,7 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		
 		EDocTypeReadVersion & readVersion = GetChild<EDocTypeReadVersion>(*head);
 		if (UInt64(readVersion) > 2) {
-			if (!outErr) {
+			if (outErr) {
 				*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: [NSString localizedStringWithFormat: NSLocalizedString(@"Matroska file too new to be read, version %lld", @"Matroska file too new to be read, version number"), UInt64(readVersion)], NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: [NSString stringWithFormat:@"Matroska file too new to be read, version %lld", UInt64(readVersion)]}];
 			}
 			
@@ -161,7 +121,7 @@ bool MatroskaMetadataImport::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		el_l0->SkipData(_aStream, EBML_CLASS_SEMCONTEXT(EbmlHead));
 
 	} else {
-		if (!outErr) {
+		if (outErr) {
 			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Matroska file missing EBML Head", @"Matroska file missing EBML Head"), NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: @"Matroska file missing EBML Head"}];
 		}
 		valid = false;
@@ -174,22 +134,7 @@ exit:
 	return valid;
 }
 
-bool MatroskaMetadataImport::getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr)
-{
-	MatroskaMetadataImport *generatorClass = new MatroskaMetadataImport(path, attribs);
-	if (!generatorClass->isValidMatroska(outErr)) {
-		delete generatorClass;
-		return false;
-	}
-	
-	bool isSuccessful = generatorClass->iterateData(outErr);
-	if (isSuccessful) generatorClass->copyDataOver();
-	
-	delete generatorClass;
-	return isSuccessful;
-}
-
-bool MatroskaMetadataImport::iterateData(NSError * _Nullable * _Nonnull outErr)
+bool MatroskaSharedImporter::iterateData(NSError * _Nullable * _Nullable outErr)
 {
 	bool done = false;
 	bool good = true;
@@ -219,10 +164,48 @@ bool MatroskaMetadataImport::iterateData(NSError * _Nullable * _Nonnull outErr)
 	return true;
 }
 
+bool MatroskaSharedImporter::ProcessLevel1Element()
+{
+	int upperLevel = 0;
+	EbmlElement *dummyElt = NULL;
+	const EbmlId theID(*el_l1);
+	
+	if (theID == EBML_ID(KaxInfo)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxInfo), upperLevel, dummyElt, true);
+		return ReadSegmentInfo(*static_cast<KaxInfo *>(el_l1));
+		
+	} else if (theID == EBML_ID(KaxTracks)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxTracks), upperLevel, dummyElt, true);
+		return ReadTracks(*static_cast<KaxTracks *>(el_l1));
+		
+	} else if (theID == EBML_ID(KaxChapters)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxChapters), upperLevel, dummyElt, true);
+		return ReadChapters(*static_cast<KaxChapters *>(el_l1));
+		
+	} else if (theID == EBML_ID(KaxAttachments)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxAttachments), upperLevel, dummyElt, true);
+		return ReadAttachments(*static_cast<KaxAttachments *>(el_l1));
+		
+	} else if (theID == EBML_ID(KaxSeekHead)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxSeekHead), upperLevel, dummyElt, true);
+		return ReadMetaSeek(*static_cast<KaxSeekHead *>(el_l1));
+		
+	} else if (theID == EBML_ID(KaxTags)) {
+		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxTags), upperLevel, dummyElt, true);
+		return ReadTags(*static_cast<KaxTags *>(el_l1));
+		
+	} else if (theID == EBML_ID(KaxCues)) {
+		el_l1->SkipData(_aStream, EBML_CLASS_CONTEXT(KaxCues), dummyElt, true);
+		return true;
+		
+	}
+	return true;
+}
+
 // I have no idea where this even comes from...
 #define nvd "no_variable_data"
 
-bool MatroskaMetadataImport::ReadSegmentInfo(KaxInfo &segmentInfo)
+bool MatroskaSharedImporter::ReadSegmentInfo(KaxInfo &segmentInfo)
 {
 	if (seenInfo) {
 		return true;
@@ -237,22 +220,22 @@ bool MatroskaMetadataImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	KaxSegmentUID * kaxUID = FindChild<KaxSegmentUID>(segmentInfo);
 	if (kaxUID && kaxUID->GetSize() == 16) {
 		NSUUID *theUUID = [[NSUUID alloc] initWithUUIDBytes:kaxUID->GetBuffer()];
-		attributes.identifier = theUUID.UUIDString;
+		setIdentifier(theUUID.UUIDString);
 	}
 
 	double movieDuration = double(duration);
 	UInt64 timecodeScale1 = UInt64(timecodeScale);
 
-	attributes.duration = @((movieDuration * timecodeScale1) / 1e9);
+	setDuration(@((movieDuration * timecodeScale1) / 1e9));
 	
 	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
 		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetEpochDate()];
-		attributes.contentCreationDate = createDate;
+		setCreationDate(createDate);
 	}
 	
 	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
 		NSString *nsTitle = getNSStringFromUTFstring(title);
-		attributes.title = nsTitle;
+		setTitle(nsTitle);
 	}
 	
 	{
@@ -265,7 +248,7 @@ bool MatroskaMetadataImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 		}
 		
 		if (creator.count != 0) {
-			attributes.encodingApplications = creator;
+			copyEncodingApplications(creator);
 		}
 	}
 	
@@ -273,7 +256,7 @@ bool MatroskaMetadataImport::ReadSegmentInfo(KaxInfo &segmentInfo)
 	return true;
 }
 
-bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
+bool MatroskaSharedImporter::ReadTracks(KaxTracks &trackEntries)
 {
 	if (seenTracks) {
 		return true;
@@ -414,6 +397,7 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 					}
 				}
 			}
+
 				codec = mkvCodecShortener(track);
 				break;
 				
@@ -438,70 +422,41 @@ bool MatroskaMetadataImport::ReadTracks(KaxTracks &trackEntries)
 	}
 	
 	if (langSet.count > 0) {
-		attributes.languages = langSet.array;
+		copyLanguages(langSet.array);
 	}
-	attributes.codecs = codecSet.array;
+	copyCodecs(codecSet.array);
 	if (trackNames.count > 0) {
-		attributes.layerNames = trackNames;
+		copyLayerNames(trackNames);
 	}
 	if (biggestWidth != 0 && biggestHeight != 0) {
-		attributes.pixelHeight = @(biggestHeight);
-		attributes.pixelWidth = @(biggestWidth);
+		copyWidthAndHeight(@(biggestWidth), @(biggestHeight));
 	}
 	if (maxChannels != 0) {
-		attributes.audioChannelCount = @(maxChannels);
-		attributes.audioSampleRate = @(sampleRate);
+		copyAudioInfo(@(maxChannels), @(sampleRate));
 	}
 	
 	seenTracks = true;
 	return true;
 }
 
-bool MatroskaMetadataImport::ReadChapters(KaxChapters &chapterEntries)
-{
-	if (seenChapters) {
-		return true;
-	}
-	addMediaType(@"Chapters");
-
-	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
-	NSMutableArray<CSLocalizedString*> *chapters = [[NSMutableArray alloc] initWithCapacity:edition.ListSize()];
-	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
-	while (chapterAtom && chapterAtom->GetSize() > 0) {
-		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
-		NSMutableDictionary *locString = [[NSMutableDictionary alloc] initWithCapacity:chapDisplay ? chapDisplay->ListSize() : 0];
-		while (chapDisplay && chapDisplay->GetSize() > 0) {
-			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
-			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
-			KaxChapterCountry * chapCountry = FindChild<KaxChapterCountry>(*chapDisplay);
-			KaxChapLanguageIETF * chapIETF = FindChild<KaxChapLanguageIETF>(*chapDisplay);
-			NSString *chapLocale;
-			if (chapIETF) {
-				chapLocale = getLocaleCode(chapIETF);
-			}
-			if (!chapLocale) {
-				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
-			}
-			locString[chapLocale] = getNSStringFromUTFstring(chapString) ?: @"";
-
-			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
-		}
-		
-		[chapters addObject:[[CSLocalizedString alloc] initWithLocalizedStrings:locString]];
-
-		chapterAtom = FindNextChild<KaxChapterAtom>(edition, *chapterAtom);
-	}
+static bool MIMEIsFont(const string &mimeName) {
+	static const std::unordered_set<std::string> fontTypes =
+	{"application/x-font-truetype", "application/x-font-opentype", "font/opentype",
+		"font/truetype", "application/font-sfnt", "application/vnd.ms-opentype",
+		"application/x-font-ttf", "application/x-truetype-font"};
 	
-	if (chapters.count != 0) {
-		CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kChapterNames searchable:YES searchableByDefault:NO unique:NO multiValued:YES];
-		[attributes setValue:chapters forCustomKey:attribKey];
-	}
-	seenChapters = true;
-
-	return true;
+#ifdef USE_STRICT_CASING
+	NSString *preName = @(mimeName.c_str());
+	preName = [preName lowercaseString];
+	string postString = string(preName.UTF8String);
+	bool success = fontTypes.contains(postString);
+#else
+	bool success = fontTypes.contains(mimeName);
+#endif
+	return success;
 }
 
-bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
+bool MatroskaSharedImporter::ReadAttachments(KaxAttachments &attachmentEntries)
 {
 	if (seenAttachments) {
 		return true;
@@ -512,7 +467,7 @@ bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	NSMutableArray<NSString*> *fonts = [[NSMutableArray alloc] initWithCapacity:attachmentEntries.ListSize()];
 	
 	while (attachedFile && attachedFile->GetSize() > 0) {
-		NSString *fileName = getNSStringFromUTFstring(GetChild<KaxFileName>(*attachedFile));
+		NSString *fileName = getNSStringFromUTFstring(GetChild<KaxFileName>(*attachedFile)) ?: @"";
 		const std::string mime = GetChild<KaxMimeType>(*attachedFile).GetValue();
 		if (MIMEIsFont(mime)) {
 			const auto &rawData = GetChild<KaxFileData>(*attachedFile);
@@ -529,28 +484,148 @@ bool MatroskaMetadataImport::ReadAttachments(KaxAttachments &attachmentEntries)
 	if ([fonts count] > 0) {
 		[this->fonts addObjectsFromArray:fonts];
 	}
-	CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kAttachedFiles searchable:YES searchableByDefault:NO unique:NO multiValued:YES];
-	[attributes setValue:attachmentFiles forCustomKey:attribKey];
+	copyAttachedFiles(attachmentFiles);
 	seenAttachments = true;
 	return true;
 }
 
-static NSString * const MDItemAuthors = @"ARTIST";
-static NSString * const MDItemAlbum = @"ALBUM";
-static NSString * const MDItemLyricist = @"LYRICIST";
-static NSString * const MDItemPublishers = @"PUBLISHER";
-static NSString * const MDItemCopyright = @"COPYRIGHT";
-static NSString * const MDItemDirector = @"DIRECTOR";
-static NSString * const MDItemProducer = @"PRODUCER";
-static NSString * const MDItemGenre = @"GENRE";
-static NSString * const MDItemComment = @"COMMENT";
-static NSString * const MDItemHeadline = @"SYNOPSIS";
-static NSString * const MDItemTextContent = @"LYRICS";
-static NSString * const MDItemAudiences = @"MOOD";
-static NSString * const MDItemKeywords = @"KEYWORDS";
-static NSString * const MDItemTitle = @"TITLE";
+bool MatroskaSharedImporter::ReadMetaSeek(KaxSeekHead &seekHead)
+{
+	bool okay = true;
+	KaxSeek *seekEntry = FindChild<KaxSeek>(seekHead);
+	
+	// don't re-read a seek head that's already been read
+	uint64_t currPos = seekHead.GetElementPosition();
+	std::vector<MatroskaSeek>::iterator itr = levelOneElements.begin();
+	for (; itr != levelOneElements.end(); itr++) {
+		if (itr->GetID() == EBML_ID(KaxSeekHead) &&
+			itr->segmentPos + segmentOffset == currPos) {
+			return true;
+		}
+	}
+	
+	while (seekEntry && seekEntry->GetSize() > 0) {
+		MatroskaSeek newSeekEntry;
+		KaxSeekID & seekID = GetChild<KaxSeekID>(*seekEntry);
+		KaxSeekPosition & position = GetChild<KaxSeekPosition>(*seekEntry);
+		EbmlId elementID = EbmlId(seekID.GetBuffer(), (unsigned int)seekID.GetSize());
+		
+		newSeekEntry.ebmlID = elementID.Value;
+		newSeekEntry.idLength = elementID.Length;
+		newSeekEntry.segmentPos = position;
+		
+		// recursively read seek heads that are pointed to by the current one
+		// as well as the level one elements we care about
+		if (elementID == EBML_ID(KaxInfo) ||
+			elementID == EBML_ID(KaxTracks) ||
+			elementID == EBML_ID(KaxChapters) ||
+			elementID == EBML_ID(KaxAttachments) ||
+			elementID == EBML_ID(KaxSeekHead) ||
+			elementID == EBML_ID(KaxTags) ||
+			elementID == EBML_ID(KaxCues)) {
+			
+			MatroskaSeek::MatroskaSeekContext savedContext = SaveContext();
+			SetContext(newSeekEntry.GetSeekContext(segmentOffset));
+			if (NextLevel1Element()) {
+				okay = ProcessLevel1Element();
+			}
+			
+			SetContext(savedContext);
+			if (!okay) {
+				return false;
+			}
+		}
+		
+		levelOneElements.push_back(newSeekEntry);
+		seekEntry = FindNextChild<KaxSeek>(seekHead, *seekEntry);
+	}
+	
+	sort(levelOneElements.begin(), levelOneElements.end());
+	
+	return true;
+}
 
-bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
+template <typename T>
+const T *
+FindChild(libebml::EbmlMaster const &m) {
+	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
+}
+
+template <typename T>
+const T *
+FindChild(libebml::EbmlElement const &e) {
+	auto &m = dynamic_cast<libebml::EbmlMaster const &>(e);
+	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
+}
+
+template <typename A> const A*
+FindChild(libebml::EbmlMaster const *m) {
+	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
+}
+
+template <typename A> const A*
+FindChild(libebml::EbmlElement const *e) {
+	auto m = dynamic_cast<libebml::EbmlMaster const *>(e);
+	assert(m);
+	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
+}
+
+static std::string get_simple_name(const KaxTagSimple &tag)
+{
+	const KaxTagName *tname = FindChild<KaxTagName>(tag);
+	return tname ? tname->GetValueUTF8() : "";
+}
+
+static NSString *get_simple_value(const KaxTagSimple &tag)
+{
+	const KaxTagString *tstring = FindChild<KaxTagString>(tag);
+	return tstring ? getNSStringFromUTFstring(*tstring) : @"";
+}
+
+/// Returns the track ID of the specified tag, if any.
+///
+/// Currently, we only care about track IDs for getting BPS info, otherwise we skip if this returns a value.
+/// @returns The track numerical ID linked to the tag, or `std::nullopt` if there isn't one.
+static std::optional<uint64_t> get_tuid(const KaxTag &tag)
+{
+	auto targets = FindChild<KaxTagTargets>(&tag);
+	if (!targets) {
+		return std::nullopt;
+	}
+	
+	auto tuid = FindChild<KaxTagTrackUID>(targets);
+	if (!tuid) {
+		return std::nullopt;
+	}
+	
+	return tuid->GetValue();
+}
+
+/// Returns the chapter ID of the specified tag, if any.
+/// @returns The chapter numerical ID linked to the tag, or `std::nullopt` if there isn't one.
+static std::optional<uint64_t> get_cuid(const KaxTag &tag)
+{
+	auto targets = FindChild<KaxTagTargets>(&tag);
+	if (!targets) {
+		return std::nullopt;
+	}
+	
+	auto cuid = FindChild<KaxTagChapterUID>(targets);
+	if (!cuid) {
+		return std::nullopt;
+	}
+	
+	return cuid->GetValue();
+}
+
+static bool isMultiple(const std::string& spotlightKey)
+{
+	// ARTIST maps to kMDItemAuthors, while PUBLISHER maps to kMDItemPublishers.
+	static const std::unordered_set<std::string> multiTags2 = {"ARTIST", "PUBLISHER", "MOOD"};
+	return multiTags2.contains(spotlightKey);
+}
+
+bool MatroskaSharedImporter::ReadTags(const KaxTags &trackEntries)
 {
 	if (seenTags) {
 		return true;
@@ -573,9 +648,6 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 				}
 				string simpleName = get_simple_name(*simple_tag);
 				NSString *simpleVal = get_simple_value(*simple_tag);
-				if (simpleVal.length == 0) {
-					continue;
-				}
 				if (simpleName == "BPS") {
 					bpsStorage[@(trackID.value())] = simpleVal;
 					break;
@@ -601,6 +673,9 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 			if ([tagDict objectForKey:objcName] != nil) {
 				postError(mkvErrorLevelWarn, CFSTR("File already has an entry for tag %@! Possibility of multiple languages for same tag?"), objcName);
 			}
+			if (simpleVal.length == 0) {
+				continue;
+			}
 			// FIXME: HACK: work around "KEYWORDS"
 			if (simpleName == "KEYWORDS") {
 				tagDict[objcName] = commaSeperation(simpleVal);
@@ -620,43 +695,115 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 		return true;
 	}
 	
-	for (NSString *key in tagDict) {
-		id theval = tagDict[key];
-		if ([key isEqualToString: MDItemAuthors]) {
-			attributes.authorNames = (NSArray<NSString*>*)theval;
-		} else if ([key isEqualToString: MDItemAlbum]) {
-			attributes.album = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemLyricist]) {
-			attributes.lyricist = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemPublishers]) {
-			attributes.publishers = (NSArray<NSString*>*)theval;
-		} else if ([key isEqualToString: MDItemCopyright]) {
-			attributes.copyright = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemDirector]) {
-			attributes.director = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemProducer]) {
-			attributes.producer = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemGenre]) {
-			attributes.genre = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemComment]) {
-			attributes.comment = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemHeadline]) {
-			attributes.headline = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemTextContent]) {
-			attributes.textContent = (NSString*)theval;
-		} else if ([key isEqualToString: MDItemAudiences]) {
-			attributes.audiences = (NSArray<NSString*>*)theval;
-		} else if ([key isEqualToString: MDItemKeywords]) {
-			attributes.keywords = (NSArray<NSString*>*)theval;
-		} else if ([key isEqualToString:MDItemTitle]) {
-			attributes.title = (NSString*)theval;
-		} else {
-			postError(mkvErrorLevelWarn, CFSTR("Unmapped tag %@"), key);
-		}
-	}
+	copyTags(tagDict);
+	
 	seenTags = true;
 	return true;
 }
 
-#define MatroskaImport MatroskaMetadataImport
-#include "SharedImporter.i"
+#pragma mark - Element code
+
+EbmlElement * MatroskaSharedImporter::NextLevel1Element()
+{
+	int upperLevel = 0;
+	
+	if (el_l1) {
+		el_l1->SkipData(_aStream, el_l1->Generic().Context);
+		delete el_l1;
+		el_l1 = NULL;
+	}
+	
+	el_l1 = _aStream.FindNextElement(el_l0->Generic().Context, upperLevel, ~0, true);
+	
+	// dummy element -> probably corrupt file, search for next element in meta seek and continue from there
+	if (el_l1 && el_l1->IsDummy()) {
+		std::vector<MatroskaSeek>::iterator nextElt;
+		MatroskaSeek currElt;
+		currElt.segmentPos = el_l1->GetElementPosition();
+		currElt.idLength = currElt.ebmlID = 0;
+		
+		nextElt = find_if(levelOneElements.begin(), levelOneElements.end(), bind(std::greater<MatroskaSeek>(), std::placeholders::_1, currElt));
+		if (nextElt != levelOneElements.end()) {
+			SetContext(nextElt->GetSeekContext(segmentOffset));
+			NextLevel1Element();
+		}
+	}
+	
+	return el_l1;
+}
+
+MatroskaSharedImporter::MatroskaSeek::MatroskaSeekContext MatroskaSharedImporter::SaveContext()
+{
+	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile.getFilePointer() };
+	el_l1 = NULL;
+	return ret;
+}
+
+void MatroskaSharedImporter::SetContext(MatroskaSeek::MatroskaSeekContext context)
+{
+	if (el_l1) {
+		delete el_l1;
+	}
+	
+	el_l1 = context.el_l1;
+	_ebmlFile.setFilePointer(context.position);
+}
+
+#pragma mark -
+
+static inline NSString *getLanguageCode(const string & cppLang)
+{
+	if (cppLang == "und") {
+		return nil;
+	}
+	return @(cppLang.c_str());
+}
+
+static NSString *getLanguageCode(KaxTrackEntry & track)
+{
+	const KaxLanguageIETF * ietfLang = FindChild<KaxLanguageIETF>(track);
+	if (ietfLang) {
+		NSString *toRet = getLanguageCode(*ietfLang);
+		if (toRet) {
+			return toRet;
+		}
+	}
+	const KaxTrackLanguage & trackLang = GetChild<KaxTrackLanguage>(track);
+	const string &cppLang(trackLang);
+	return getLanguageCode(cppLang);
+}
+
+static NSString *getLanguageCode(const KaxLanguageIETF & language)
+{
+	const string &threeLang(language);
+	return getLanguageCode(threeLang);
+}
+
+NSString *getLocaleCode(const KaxChapterLanguage & language, KaxChapterCountry * country)
+{
+	const string &threeLang(language);
+	NSString *locale = getLanguageCode(threeLang);
+	if (!locale) {
+		return nil;
+	}
+	if (country) {
+		string theCountry(*country);
+		if (theCountry.length() == 0) {
+			return locale;
+		}
+		locale = [locale stringByAppendingFormat:@"_%s", theCountry.c_str()];
+	}
+	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
+	return locale;
+}
+
+NSString *getLocaleCode(const KaxChapLanguageIETF * language)
+{
+	const string &threeLang(*language);
+	NSString *locale = getLanguageCode(threeLang);
+	if (!locale) {
+		return nil;
+	}
+	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
+	return locale;
+}
