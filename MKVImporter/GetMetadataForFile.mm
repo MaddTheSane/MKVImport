@@ -12,7 +12,6 @@
 #include "GetMetadataForFile.h"
 #include "matroska/FileKax.h"
 #include "ebml/StdIOCallback.h"
-#include "NSURLCallback.hpp"
 
 #include <string>
 #include <vector>
@@ -49,8 +48,8 @@ using std::string;
 class MatroskaImport final {
 private:
 	MatroskaImport(NSURL* path, NSMutableDictionary*attribs):
-	_ebmlFile(createCallbackForURL(path)),
-	_aStream(EbmlStream(*_ebmlFile)),
+	_ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
+	_aStream(EbmlStream(_ebmlFile)),
 	attributes(attribs),
 	seenInfo(false), seenTracks(false), seenChapters(false), seenTags(false),
 	seenAttachments(false) {
@@ -74,8 +73,6 @@ private:
 			delete el_l0;
 			el_l0 = NULL;
 		}
-		delete _ebmlFile;
-		_ebmlFile = NULL;
 	}
 	bool ReadSegmentInfo(KaxInfo &segmentInfo);
 	bool ReadTracks(KaxTracks &trackEntries);
@@ -190,7 +187,7 @@ public:
 	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path);
 	
 private:
-	IOCallback *_ebmlFile;
+	StdIOCallback _ebmlFile;
 	EbmlStream _aStream;
 	EbmlElement *el_l0;
 	EbmlElement *el_l1;
@@ -769,25 +766,6 @@ Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes
 	
 	// Return the status
 	return ok;
-}
-
-#pragma mark - Element code
-
-MatroskaImport::MatroskaSeek::MatroskaSeekContext MatroskaImport::SaveContext()
-{
-	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile->getFilePointer() };
-	el_l1 = NULL;
-	return ret;
-}
-
-void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
-{
-	if (el_l1) {
-		delete el_l1;
-	}
-	
-	el_l1 = context.el_l1;
-	_ebmlFile->setFilePointer(context.position);
 }
 
 #include "SharedImporter.i"

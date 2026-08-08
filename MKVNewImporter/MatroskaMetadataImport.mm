@@ -658,24 +658,5 @@ bool MatroskaMetadataImport::ReadTags(const KaxTags &trackEntries)
 	return true;
 }
 
-#pragma mark - Element code
-
-MatroskaMetadataImport::MatroskaSeek::MatroskaSeekContext MatroskaMetadataImport::SaveContext()
-{
-	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile.getFilePointer() };
-	el_l1 = NULL;
-	return ret;
-}
-
-void MatroskaMetadataImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
-{
-	if (el_l1) {
-		delete el_l1;
-	}
-	
-	el_l1 = context.el_l1;
-	_ebmlFile.setFilePointer(context.position);
-}
-
 #define MatroskaImport MatroskaMetadataImport
 #include "SharedImporter.i"

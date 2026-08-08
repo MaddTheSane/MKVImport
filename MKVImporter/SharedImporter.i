@@ -203,6 +203,23 @@ EbmlElement * MatroskaImport::NextLevel1Element()
 	return el_l1;
 }
 
+MatroskaImport::MatroskaSeek::MatroskaSeekContext MatroskaImport::SaveContext()
+{
+	MatroskaSeek::MatroskaSeekContext ret = { el_l1, _ebmlFile.getFilePointer() };
+	el_l1 = NULL;
+	return ret;
+}
+
+void MatroskaImport::SetContext(MatroskaSeek::MatroskaSeekContext context)
+{
+	if (el_l1) {
+		delete el_l1;
+	}
+	
+	el_l1 = context.el_l1;
+	_ebmlFile.setFilePointer(context.position);
+}
+
 #pragma mark -
 
 static inline NSString *getLanguageCode(const string & cppLang)
