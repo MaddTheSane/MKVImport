@@ -503,6 +503,7 @@
 			isa = PBXGroup;
 			children = (
 				55868E1A1E1C1C3B00CDDED1 /* Third-party */,
+				55DA09553027D1ED0051E6DD /* Shared */,
 				55868DF91E1C189B00CDDED1 /* MKVImporter */,
 				55239B6C1E301A1200B5B7D0 /* OSTypeMapperGenerator */,
 				55E81000300B3FD8006DF5B4 /* MKVImporter Helper */,
@@ -532,12 +533,6 @@
 				55DA09523027C5770051E6DD /* SharedImporter.i */,
 				55868E091E1C1A9D00CDDED1 /* GetMetadataForFile.h */,
 				55868DFD1E1C189B00CDDED1 /* GetMetadataForFile.mm */,
-				557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */,
-				557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */,
-				5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */,
-				5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */,
-				55E76F68233A07FD00EAEE1F /* Debugging.h */,
-				55E76F67233A07FD00EAEE1F /* Debugging.c */,
 				55868E021E1C189B00CDDED1 /* Importer Read Me.txt */,
 				55868E031E1C189B00CDDED1 /* Info.plist */,
 				55868DFA1E1C189B00CDDED1 /* Supporting Files */,
@@ -549,10 +544,8 @@
 		55868DFA1E1C189B00CDDED1 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				55868EED1E1C1DA300CDDED1 /* schema.xml */,
 				55868DFB1E1C189B00CDDED1 /* main.c */,
 				559778BC2D7D9DB80018AA56 /* InfoPlist.xcstrings */,
-				559778BE2D7D9DB90018AA56 /* schema.xcstrings */,
 				557B87F41E1DBA1800F2133E /* MKVImporter.exp */,
 			);
 			name = "Supporting Files";
@@ -739,6 +732,21 @@
 				55F21DE3301AA780000AAEE3 /* MediaToolbox.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		55DA09553027D1ED0051E6DD /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				55868EED1E1C1DA300CDDED1 /* schema.xml */,
+				559778BE2D7D9DB90018AA56 /* schema.xcstrings */,
+				557B87F61E1EC5C200F2133E /* mkvNameShortener.hpp */,
+				557B87F51E1EC5C200F2133E /* mkvNameShortener.mm */,
+				5528F5CC1E6DF7AB0001D475 /* ParseSSA.hpp */,
+				5528F5CB1E6DF7AB0001D475 /* ParseSSA.mm */,
+				55E76F68233A07FD00EAEE1F /* Debugging.h */,
+				55E76F67233A07FD00EAEE1F /* Debugging.c */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		55E81000300B3FD8006DF5B4 /* MKVImporter Helper */ = {
