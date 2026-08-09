@@ -83,8 +83,6 @@ void MatroskaExtensionMetadataImporter::copyDataOver() {
 	}
 }
 
-MatroskaExtensionMetadataImporter::~MatroskaExtensionMetadataImporter() = default;
-
 bool MatroskaExtensionMetadataImporter::getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr)
 {
 	MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(path, attribs);
@@ -143,6 +141,8 @@ bool MatroskaExtensionMetadataImporter::ReadChapters(KaxChapters &chapterEntries
 
 	return true;
 }
+
+#pragma mark -
 
 static NSString * const MDItemAuthors = @"ARTIST";
 static NSString * const MDItemAlbum = @"ALBUM";

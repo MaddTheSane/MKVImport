@@ -331,7 +331,7 @@ bool MatroskaSharedImporter::ReadTracks(KaxTracks &trackEntries)
 				KaxAudioSamplingFreq &curKaxSampling = GetChild<KaxAudioSamplingFreq>(audTrack);
 				KaxAudioChannels &curKaxChannels = GetChild<KaxAudioChannels>(audTrack);
 				//KaxAudioBitDepth &curKaxBitDepth = GetChild<KaxAudioBitDepth>(audTrack);
-				double curSampling = curKaxSampling.GetValue();
+				double curSampling(curKaxSampling);
 				int curChannels = uint32(curKaxChannels);
 				if (curSampling > sampleRate) {
 					sampleRate = curSampling;

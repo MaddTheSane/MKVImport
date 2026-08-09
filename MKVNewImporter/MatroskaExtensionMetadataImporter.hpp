@@ -19,7 +19,7 @@ NS_ASSUME_NONNULL_BEGIN
 class MatroskaExtensionMetadataImporter final: MatroskaSharedImporter {
 private:
 	MatroskaExtensionMetadataImporter(NSURL* _Nonnull path, CSSearchableItemAttributeSet* _Nonnull attribs);
-	virtual ~MatroskaExtensionMetadataImporter();
+	virtual ~MatroskaExtensionMetadataImporter() = default;
 	bool ReadChapters(libmatroska::KaxChapters &trackEntries) override;
 	
 	//! Copies over data to `attributes` that can't be done in one iteration.

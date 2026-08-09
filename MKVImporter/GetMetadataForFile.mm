@@ -34,6 +34,7 @@ private:
 	MatroskaSharedImporter(path),
 	attributes(attribs) { }
 	virtual ~MatroskaPlugInMetadataImporter() = default;
+	
 	bool ReadChapters(KaxChapters &trackEntries) override;
 	
 	//! Copies over data to `attributes` that can't be done in one iteration.
@@ -177,6 +178,8 @@ bool MatroskaPlugInMetadataImporter::ReadChapters(KaxChapters &chapterEntries)
 	return true;
 }
 
+#pragma mark -
+
 static NSString *toSpotlightKey(NSString *matroskaKey)
 {
 	static NSDictionary *const matroskaToSpotlightMapping
@@ -234,7 +237,7 @@ void MatroskaPlugInMetadataImporter::setCreationDate(NSDate *createDate)
 
 void MatroskaPlugInMetadataImporter::setIdentifier(NSString *theTags)
 {
-	attributes[(NSString*)kMDItemIdentifier] = theTags;
+	attributes[(NSString*)kMDItemIdentifier] = [theTags copy];
 }
 
 void MatroskaPlugInMetadataImporter::copyEncodingApplications(NSArray<NSString*> *creator)
