@@ -156,7 +156,7 @@ bool MatroskaPlugInMetadataImporter::ReadChapters(KaxChapters &chapterEntries)
 				chapLocale = getLocaleCode(chapIETF);
 			}
 			if (!chapLocale) {
-				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
+				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"und";
 			}
 			if (chapters[chapLocale] == nil) {
 				chapters[chapLocale] = [[NSMutableArray alloc] initWithCapacity:edition.ListSize()];

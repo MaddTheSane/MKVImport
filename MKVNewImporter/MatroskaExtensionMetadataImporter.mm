@@ -121,7 +121,7 @@ bool MatroskaExtensionMetadataImporter::ReadChapters(KaxChapters &chapterEntries
 				chapLocale = getLocaleCode(chapIETF);
 			}
 			if (!chapLocale) {
-				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"";
+				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"und";
 			}
 			locString[chapLocale] = getNSStringFromUTFstring(chapString) ?: @"";
 

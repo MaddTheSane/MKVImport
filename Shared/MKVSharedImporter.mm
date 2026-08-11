@@ -753,7 +753,7 @@ void MatroskaSharedImporter::SetContext(MatroskaSeek::MatroskaSeekContext contex
 
 static inline NSString *getLanguageCode(const string & cppLang)
 {
-	if (cppLang == "und") {
+	if (cppLang == "und" || cppLang == "") {
 		return nil;
 	}
 	return @(cppLang.c_str());
