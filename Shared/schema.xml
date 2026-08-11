@@ -48,11 +48,9 @@
             <displayattrs>
 				kMDItemTitle
 				kMDItemCodecs
-				kMDItemHasAlphaChannel
 				kMDItemLayerNames
 				kMDItemPixelHeight
 				kMDItemPixelWidth
-				kMDItemColorSpace
             </displayattrs>
             
         </type>

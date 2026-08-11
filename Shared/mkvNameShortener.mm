@@ -221,6 +221,8 @@ static const MatroskaQT_Codec kMatroskaCodecIDs = {
 
 static OSType StringToOSType(NSString *theString);
 static NSString *OSTypeToString(OSType codec, bool macEncoding);
+static inline NSString *getLocalizedNameForMediaSubType(CMMediaType mediaType, FourCharCode mediaSubType);
+static inline NSString *getLocalizedNameForMediaSubType(const CodecMapping &map);
 
 typedef NS_ENUM(NSInteger, MKVMediaType) {
 	MKVMediaTypeVideo,
@@ -319,17 +321,17 @@ static NSString *osType2CodecName(OSType codec, MKVMediaType mediaType, bool mac
 		NSString *fullTest = nil;
 		switch(mediaType) {
 			case MKVMediaTypeVideo:
-				fullTest = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, codec));
+				fullTest = getLocalizedNameForMediaSubType(kCMMediaType_Video, codec);
 				break;
 			case MKVMediaTypeAudio:
-				fullTest = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Audio, codec));
+				fullTest = getLocalizedNameForMediaSubType(kCMMediaType_Audio, codec);
 				break;
 			case MKVMediaTypeSubtitles:
-				fullTest = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Subtitle, codec));
+				fullTest = getLocalizedNameForMediaSubType(kCMMediaType_Subtitle, codec);
 				break;
 		}
 		
-		if (fullTest && ![fullTest isEqualToString:OSTypeToString(codec, macEncoding) ?: @""]) {
+		if (fullTest) {
 			return fullTest;
 		}
 	}
@@ -405,13 +407,7 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry, NSMutableDictionary *_Nulla
 					return toOut;
 				}
 			}
-			if (location->second.mediaType != 0) {
-				NSString *localizedCodec = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(location->second.mediaType, location->second.codec));
-				if (localizedCodec) {
-					return localizedCodec;
-				}
-			}
-			return location->second.codecName;
+			return getLocalizedNameForMediaSubType(location->second);
 		}
 		return osType2CodecName('ms\0\0' | twocc, MKVMediaTypeAudio, false);
 		
@@ -430,20 +426,13 @@ NSString *mkvCodecShortener(KaxTrackEntry &tr_entry, NSMutableDictionary *_Nulla
 		auto location = kMatroskaCodecIDs.find(codecString);
 		bool isFound = location != kMatroskaCodecIDs.end();
 		if (isFound) {
-			CMMediaType mediaType = location->second.mediaType;
 			if (location->second.moreComplex != NULL) {
 				NSString *toOut = (*location->second.moreComplex)(tr_entry, MKVCodecLocationBare, outExtended);
 				if (toOut) {
 					return toOut;
 				}
 			}
-			if (mediaType != 0) {
-				NSString *localizedCodec = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(mediaType, location->second.codec));
-				if (localizedCodec && ![localizedCodec isEqualToString:OSTypeToString(location->second.codec, true) ?: @""]) {
-					return localizedCodec;
-				}
-			}
-			return location->second.codecName;
+			return getLocalizedNameForMediaSubType(location->second);
 		}
 	}
 	postError(mkvErrorLevelWarn, CFSTR("Unknown codec type %@"), @(codecString.c_str()));
@@ -513,17 +502,11 @@ NSString* _Nullable ExpandedCodecInfo_PRORES(libmatroska::KaxTrackEntry &tr_entr
 	
 	// is it one of the recognized formats?
 	if (!validProRes.contains(toRet)) {
-		// if not, return nil;
+		// if not, bail.
 		return nil;
 	}
 
-	NSString *fullTest = (NSString *)CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, toRet));
-
-	if (fullTest && ![fullTest isEqualToString:OSTypeToString(toRet, true) ?: @""]) {
-		return fullTest;
-	}
-	
-	return nil;
+	return getLocalizedNameForMediaSubType(kCMMediaType_Video, toRet);
 }
 
 NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_entry, MKVCodecLocations location, NSMutableDictionary *_Nullable additionalMetadata)
@@ -553,16 +536,36 @@ NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_en
 	auto iter = mapRaw.find(toRet);
 	bool isFound = iter != mapRaw.end();
 	if (!isFound) {
-		fullTest = (NSString *)CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, toRet));
-		if (fullTest && ![fullTest isEqualToString:OSTypeToString(toRet, true) ?: @""]) {
+		fullTest = getLocalizedNameForMediaSubType(kCMMediaType_Video, toRet);
+		if (fullTest) {
 			return fullTest;
 		}
 	} else {
-		fullTest = (NSString *)CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(kCMMediaType_Video, iter->second));
-		if (fullTest && ![fullTest isEqualToString:OSTypeToString(iter->second, true) ?: @""]) {
+		fullTest = getLocalizedNameForMediaSubType(kCMMediaType_Video, iter->second);
+		if (fullTest) {
 			return fullTest;
 		}
 	}
 	
 	return nil;
+}
+
+static inline NSString *getLocalizedNameForMediaSubType(CMMediaType mediaType, FourCharCode mediaSubType) {
+	if (mediaType == 0) {
+		return nil;
+	}
+	NSString *toRet = CFBridgingRelease(MTCopyLocalizedNameForMediaSubType(mediaType, mediaSubType));
+	if (toRet && ![toRet isEqualToString:OSTypeToString(mediaSubType, true) ?: @""]) {
+		return toRet;
+	}
+	return nil;
+}
+
+static inline NSString *getLocalizedNameForMediaSubType(const CodecMapping &map)
+{
+	NSString *toRet = getLocalizedNameForMediaSubType(map.mediaType, map.codec);
+	if (toRet) {
+		return toRet;
+	}
+	return map.codecName;
 }
