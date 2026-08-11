@@ -159,7 +159,7 @@ static NSString * const MDItemAudiences = @"MOOD";
 static NSString * const MDItemKeywords = @"KEYWORDS";
 static NSString * const MDItemTitle = @"TITLE";
 
-void MatroskaExtensionMetadataImporter::copyTags(NSDictionary<NSString*,id> *tagDict)
+void MatroskaExtensionMetadataImporter::pushTags(NSDictionary<NSString*,id> *tagDict)
 {
 	for (NSString *key in tagDict) {
 		id theval = tagDict[key];
@@ -197,59 +197,59 @@ void MatroskaExtensionMetadataImporter::copyTags(NSDictionary<NSString*,id> *tag
 	}
 }
 
-void MatroskaExtensionMetadataImporter::setTitle(NSString *theTags)
+void MatroskaExtensionMetadataImporter::pushTitle(NSString *theTags)
 {
 	attributes.title = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::setDuration(NSNumber *theTags)
+void MatroskaExtensionMetadataImporter::pushDuration(NSNumber *theTags)
 {
 	attributes.duration = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::setCreationDate(NSDate *theTags)
+void MatroskaExtensionMetadataImporter::pushCreationDate(NSDate *theTags)
 {
 	attributes.contentCreationDate = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::setIdentifier(NSString *theTags)
+void MatroskaExtensionMetadataImporter::pushIdentifier(NSString *theTags)
 {
 	attributes.identifier = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::copyEncodingApplications(NSArray<NSString*> *theTags)
+void MatroskaExtensionMetadataImporter::pushEncodingApplications(NSArray<NSString*> *theTags)
 {
 	attributes.encodingApplications = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::copyLanguages(NSArray<NSString*> *theTags)
+void MatroskaExtensionMetadataImporter::pushLanguages(NSArray<NSString*> *theTags)
 {
 	attributes.languages = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::copyCodecs(NSArray<NSString*> *theTags)
+void MatroskaExtensionMetadataImporter::pushCodecs(NSArray<NSString*> *theTags)
 {
 	attributes.codecs = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::copyLayerNames(NSArray<NSString*> *theTags)
+void MatroskaExtensionMetadataImporter::pushLayerNames(NSArray<NSString*> *theTags)
 {
 	attributes.layerNames = theTags;
 }
 
-void MatroskaExtensionMetadataImporter::copyWidthAndHeight(NSNumber *width, NSNumber *height)
+void MatroskaExtensionMetadataImporter::pushWidthAndHeight(NSNumber *width, NSNumber *height)
 {
 	attributes.pixelWidth = width;
 	attributes.pixelHeight = height;
 }
 
-void MatroskaExtensionMetadataImporter::copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate)
+void MatroskaExtensionMetadataImporter::pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate)
 {
 	attributes.audioChannelCount = channelCount;
 	attributes.audioSampleRate = sampleRate;
 }
 
-void MatroskaExtensionMetadataImporter::copyAttachedFiles(NSArray<NSString*> *theTags)
+void MatroskaExtensionMetadataImporter::pushAttachedFiles(NSArray<NSString*> *theTags)
 {
 	CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kAttachedFiles searchable:YES searchableByDefault:NO unique:NO multiValued:YES];
 	[attributes setValue:[theTags copy] forCustomKey:attribKey];

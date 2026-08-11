@@ -112,18 +112,18 @@ private:
 	uint64_t					segmentOffset;
 	
 protected:
-	virtual void copyTags(NSDictionary<NSString*,id> *theTags) = 0;
-	virtual void setTitle(NSString *theTags) = 0;
-	virtual void setDuration(NSNumber *theTags) = 0;
-	virtual void setCreationDate(NSDate *theTags) = 0;
-	virtual void setIdentifier(NSString *theTags) = 0;
-	virtual void copyEncodingApplications(NSArray<NSString*> *theTags) = 0;
-	virtual void copyLanguages(NSArray<NSString*> *theTags) = 0;
-	virtual void copyCodecs(NSArray<NSString*> *theTags) = 0;
-	virtual void copyLayerNames(NSArray<NSString*> *theTags) = 0;
-	virtual void copyWidthAndHeight(NSNumber *width, NSNumber *height) = 0;
-	virtual void copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) = 0;
-	virtual void copyAttachedFiles(NSArray<NSString*> *theTags) = 0;
+	virtual void pushTags(NSDictionary<NSString*,id> *theTags) = 0;
+	virtual void pushTitle(NSString *theTags) = 0;
+	virtual void pushDuration(NSNumber *theTags) = 0;
+	virtual void pushCreationDate(NSDate *theTags) = 0;
+	virtual void pushIdentifier(NSString *theTags) = 0;
+	virtual void pushEncodingApplications(NSArray<NSString*> *theTags) = 0;
+	virtual void pushLanguages(NSArray<NSString*> *theTags) = 0;
+	virtual void pushCodecs(NSArray<NSString*> *theTags) = 0;
+	virtual void pushLayerNames(NSArray<NSString*> *theTags) = 0;
+	virtual void pushWidthAndHeight(NSNumber *width, NSNumber *height) = 0;
+	virtual void pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) = 0;
+	virtual void pushAttachedFiles(NSArray<NSString*> *theTags) = 0;
 
 };
 

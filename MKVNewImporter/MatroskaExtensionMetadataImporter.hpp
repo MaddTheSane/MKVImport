@@ -32,18 +32,18 @@ private:
 	CSSearchableItemAttributeSet * _Nonnull attributes;
 	
 protected:
-	virtual void copyTags(NSDictionary<NSString*,id> *theTags) override;
-	virtual void setTitle(NSString *theTags) override;
-	virtual void setDuration(NSNumber *theTags) override;
-	virtual void setCreationDate(NSDate *theTags) override;
-	virtual void setIdentifier(NSString *theTags) override;
-	virtual void copyEncodingApplications(NSArray<NSString*> *theTags) override;
-	virtual void copyLanguages(NSArray<NSString*> *theTags) override;
-	virtual void copyCodecs(NSArray<NSString*> *theTags) override;
-	virtual void copyLayerNames(NSArray<NSString*> *theTags) override;
-	virtual void copyWidthAndHeight(NSNumber *width, NSNumber *height) override;
-	virtual void copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
-	virtual void copyAttachedFiles(NSArray<NSString*> *theTags) override;
+	virtual void pushTags(NSDictionary<NSString*,id> *theTags) override;
+	virtual void pushTitle(NSString *theTags) override;
+	virtual void pushDuration(NSNumber *theTags) override;
+	virtual void pushCreationDate(NSDate *theTags) override;
+	virtual void pushIdentifier(NSString *theTags) override;
+	virtual void pushEncodingApplications(NSArray<NSString*> *theTags) override;
+	virtual void pushLanguages(NSArray<NSString*> *theTags) override;
+	virtual void pushCodecs(NSArray<NSString*> *theTags) override;
+	virtual void pushLayerNames(NSArray<NSString*> *theTags) override;
+	virtual void pushWidthAndHeight(NSNumber *width, NSNumber *height) override;
+	virtual void pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
+	virtual void pushAttachedFiles(NSArray<NSString*> *theTags) override;
 };
 
 NS_ASSUME_NONNULL_END

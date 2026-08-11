@@ -101,18 +101,18 @@ private:
 	NSMutableDictionary<NSString*,id> *attributes;
 	
 protected:
-	virtual void copyTags(NSDictionary<NSString*,id> *theTags) override;
-	virtual void setTitle(NSString *theTags) override;
-	virtual void setDuration(NSNumber *theTags) override;
-	virtual void setCreationDate(NSDate *theTags) override;
-	virtual void setIdentifier(NSString *theTags) override;
-	virtual void copyEncodingApplications(NSArray<NSString*> *theTags) override;
-	virtual void copyLanguages(NSArray<NSString*> *theTags) override;
-	virtual void copyCodecs(NSArray<NSString*> *theTags) override;
-	virtual void copyLayerNames(NSArray<NSString*> *theTags) override;
-	virtual void copyWidthAndHeight(NSNumber *width, NSNumber *height) override;
-	virtual void copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
-	virtual void copyAttachedFiles(NSArray<NSString*> *theTags) override;
+	virtual void pushTags(NSDictionary<NSString*,id> *theTags) override;
+	virtual void pushTitle(NSString *theTags) override;
+	virtual void pushDuration(NSNumber *theTags) override;
+	virtual void pushCreationDate(NSDate *theTags) override;
+	virtual void pushIdentifier(NSString *theTags) override;
+	virtual void pushEncodingApplications(NSArray<NSString*> *theTags) override;
+	virtual void pushLanguages(NSArray<NSString*> *theTags) override;
+	virtual void pushCodecs(NSArray<NSString*> *theTags) override;
+	virtual void pushLayerNames(NSArray<NSString*> *theTags) override;
+	virtual void pushWidthAndHeight(NSNumber *width, NSNumber *height) override;
+	virtual void pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
+	virtual void pushAttachedFiles(NSArray<NSString*> *theTags) override;
 };
 
 bool MatroskaPlugInMetadataImporter::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path)
@@ -204,7 +204,7 @@ static NSString *toSpotlightKey(NSString *matroskaKey)
 	return matroskaToSpotlightMapping[matroskaKey];
 }
 
-void MatroskaPlugInMetadataImporter::copyTags(NSDictionary<NSString*,id> *tagDict)
+void MatroskaPlugInMetadataImporter::pushTags(NSDictionary<NSString*,id> *tagDict)
 {
 	NSMutableDictionary<NSString*,id>
 	*toSet = [[NSMutableDictionary alloc] initWithCapacity:tagDict.count];
@@ -220,59 +220,59 @@ void MatroskaPlugInMetadataImporter::copyTags(NSDictionary<NSString*,id> *tagDic
 	[attributes addEntriesFromDictionary:toSet];
 }
 
-void MatroskaPlugInMetadataImporter::setTitle(NSString *nsTitle)
+void MatroskaPlugInMetadataImporter::pushTitle(NSString *nsTitle)
 {
 	attributes[(NSString*)kMDItemTitle] = nsTitle;
 }
 
-void MatroskaPlugInMetadataImporter::setDuration(NSNumber *theTags)
+void MatroskaPlugInMetadataImporter::pushDuration(NSNumber *theTags)
 {
 	attributes[(NSString*)kMDItemDurationSeconds] = theTags;
 }
 
-void MatroskaPlugInMetadataImporter::setCreationDate(NSDate *createDate)
+void MatroskaPlugInMetadataImporter::pushCreationDate(NSDate *createDate)
 {
 	attributes[(NSString*)kMDItemContentCreationDate] = createDate;
 }
 
-void MatroskaPlugInMetadataImporter::setIdentifier(NSString *theTags)
+void MatroskaPlugInMetadataImporter::pushIdentifier(NSString *theTags)
 {
 	attributes[(NSString*)kMDItemIdentifier] = [theTags copy];
 }
 
-void MatroskaPlugInMetadataImporter::copyEncodingApplications(NSArray<NSString*> *creator)
+void MatroskaPlugInMetadataImporter::pushEncodingApplications(NSArray<NSString*> *creator)
 {
 	attributes[(NSString*)kMDItemEncodingApplications] = [creator copy];
 }
 
-void MatroskaPlugInMetadataImporter::copyLanguages(NSArray<NSString*> *langSet)
+void MatroskaPlugInMetadataImporter::pushLanguages(NSArray<NSString*> *langSet)
 {
 	attributes[(NSString*)kMDItemLanguages] = [langSet copy];
 }
 
-void MatroskaPlugInMetadataImporter::copyCodecs(NSArray<NSString*> *theTags)
+void MatroskaPlugInMetadataImporter::pushCodecs(NSArray<NSString*> *theTags)
 {
 	attributes[(NSString*)kMDItemCodecs] = [theTags copy];
 }
 
-void MatroskaPlugInMetadataImporter::copyLayerNames(NSArray<NSString*> *trackNames)
+void MatroskaPlugInMetadataImporter::pushLayerNames(NSArray<NSString*> *trackNames)
 {
 	attributes[(NSString*)kMDItemLayerNames] = [trackNames copy];
 }
 
-void MatroskaPlugInMetadataImporter::copyWidthAndHeight(NSNumber *width, NSNumber *height)
+void MatroskaPlugInMetadataImporter::pushWidthAndHeight(NSNumber *width, NSNumber *height)
 {
 	attributes[(NSString*)kMDItemPixelHeight] = height;
 	attributes[(NSString*)kMDItemPixelWidth] = width;
 }
 
-void MatroskaPlugInMetadataImporter::copyAudioInfo(NSNumber *channelCount, NSNumber *sampleRate)
+void MatroskaPlugInMetadataImporter::pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate)
 {
 	attributes[(NSString*)kMDItemAudioChannelCount] = channelCount;
 	attributes[(NSString*)kMDItemAudioSampleRate] = sampleRate;
 }
 
-void MatroskaPlugInMetadataImporter::copyAttachedFiles(NSArray<NSString*> *attachmentFiles)
+void MatroskaPlugInMetadataImporter::pushAttachedFiles(NSArray<NSString*> *attachmentFiles)
 {
 	attributes[kAttachedFiles] = [attachmentFiles copy];
 }

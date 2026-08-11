@@ -220,22 +220,22 @@ bool MatroskaSharedImporter::ReadSegmentInfo(KaxInfo &segmentInfo)
 	KaxSegmentUID * kaxUID = FindChild<KaxSegmentUID>(segmentInfo);
 	if (kaxUID && kaxUID->GetSize() == 16) {
 		NSUUID *theUUID = [[NSUUID alloc] initWithUUIDBytes:kaxUID->GetBuffer()];
-		setIdentifier(theUUID.UUIDString);
+		pushIdentifier(theUUID.UUIDString);
 	}
 
 	double movieDuration = double(duration);
 	UInt64 timecodeScale1 = UInt64(timecodeScale);
 
-	setDuration(@((movieDuration * timecodeScale1) / 1e9));
+	pushDuration(@((movieDuration * timecodeScale1) / 1e9));
 	
 	if (date && !date->IsDefaultValue() && date->GetValue() != 0) {
 		NSDate *createDate = [[NSDate alloc] initWithTimeIntervalSince1970:date->GetEpochDate()];
-		setCreationDate(createDate);
+		pushCreationDate(createDate);
 	}
 	
 	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
 		NSString *nsTitle = getNSStringFromUTFstring(title);
-		setTitle(nsTitle);
+		pushTitle(nsTitle);
 	}
 	
 	{
@@ -248,7 +248,7 @@ bool MatroskaSharedImporter::ReadSegmentInfo(KaxInfo &segmentInfo)
 		}
 		
 		if (creator.count != 0) {
-			copyEncodingApplications(creator);
+			pushEncodingApplications(creator);
 		}
 	}
 	
@@ -422,17 +422,17 @@ bool MatroskaSharedImporter::ReadTracks(KaxTracks &trackEntries)
 	}
 	
 	if (langSet.count > 0) {
-		copyLanguages(langSet.array);
+		pushLanguages(langSet.array);
 	}
-	copyCodecs(codecSet.array);
+	pushCodecs(codecSet.array);
 	if (trackNames.count > 0) {
-		copyLayerNames(trackNames);
+		pushLayerNames(trackNames);
 	}
 	if (biggestWidth != 0 && biggestHeight != 0) {
-		copyWidthAndHeight(@(biggestWidth), @(biggestHeight));
+		pushWidthAndHeight(@(biggestWidth), @(biggestHeight));
 	}
 	if (maxChannels != 0) {
-		copyAudioInfo(@(maxChannels), @(sampleRate));
+		pushAudioInfo(@(maxChannels), @(sampleRate));
 	}
 	
 	seenTracks = true;
@@ -484,7 +484,7 @@ bool MatroskaSharedImporter::ReadAttachments(KaxAttachments &attachmentEntries)
 	if ([fonts count] > 0) {
 		[this->fonts addObjectsFromArray:fonts];
 	}
-	copyAttachedFiles(attachmentFiles);
+	pushAttachedFiles(attachmentFiles);
 	seenAttachments = true;
 	return true;
 }
@@ -695,7 +695,7 @@ bool MatroskaSharedImporter::ReadTags(const KaxTags &trackEntries)
 		return true;
 	}
 	
-	copyTags(tagDict);
+	pushTags(tagDict);
 	
 	seenTags = true;
 	return true;
