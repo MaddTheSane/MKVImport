@@ -32,7 +32,7 @@ public:
 protected:
 	bool ReadSegmentInfo(libmatroska::KaxInfo &segmentInfo);
 	bool ReadTracks(libmatroska::KaxTracks &trackEntries);
-	virtual bool ReadChapters(libmatroska::KaxChapters &trackEntries) = 0;
+	virtual bool ReadChapters(libmatroska::KaxChapters &trackEntries);
 	bool ReadAttachments(libmatroska::KaxAttachments &trackEntries);
 	bool ReadMetaSeek(libmatroska::KaxSeekHead &trackEntries);
 	bool ReadTags(const libmatroska::KaxTags &trackEntries);
@@ -112,7 +112,9 @@ private:
 	uint64_t					segmentOffset;
 	
 protected:
+	/// Is given Matroska tags. Subclasses must match the tags with what the metadata system expects.
 	virtual void pushTags(NSDictionary<NSString*,id> *theTags) = 0;
+	
 	virtual void pushTitle(NSString *theTags) = 0;
 	virtual void pushDuration(NSNumber *theTags) = 0;
 	virtual void pushCreationDate(NSDate *theTags) = 0;

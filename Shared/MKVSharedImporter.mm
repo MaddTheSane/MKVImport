@@ -439,6 +439,55 @@ bool MatroskaSharedImporter::ReadTracks(KaxTracks &trackEntries)
 	return true;
 }
 
+bool MatroskaSharedImporter::ReadChapters(KaxChapters &chapterEntries)
+{
+	if (seenChapters) {
+		return true;
+	}
+	addMediaType(@"Chapters");
+	
+#ifdef EXAMPLE_CHAPTER_INDEXER
+	KaxEditionEntry & edition = GetChild<KaxEditionEntry>(chapterEntries);
+	NSMutableArray<NSDictionary<NSString*,NSString*>*> *chapters = [[NSMutableArray alloc] initWithCapacity:edition.ListSize()];
+	KaxChapterAtom *chapterAtom = FindChild<KaxChapterAtom>(edition);
+	while (chapterAtom && chapterAtom->GetSize() > 0) {
+		KaxChapterDisplay * chapDisplay = FindChild<KaxChapterDisplay>(*chapterAtom);
+		NSMutableDictionary *locString = [[NSMutableDictionary alloc] initWithCapacity:chapDisplay ? chapDisplay->ListSize() : 0];
+		while (chapDisplay && chapDisplay->GetSize() > 0) {
+			KaxChapterString & chapString = GetChild<KaxChapterString>(*chapDisplay);
+			KaxChapterLanguage & chapLang = GetChild<KaxChapterLanguage>(*chapDisplay);
+			KaxChapterCountry * chapCountry = FindChild<KaxChapterCountry>(*chapDisplay);
+			KaxChapLanguageIETF * chapIETF = FindChild<KaxChapLanguageIETF>(*chapDisplay);
+			NSString *chapLocale;
+			if (chapIETF) {
+				chapLocale = getLocaleCode(chapIETF);
+			}
+			if (!chapLocale) {
+				chapLocale = getLocaleCode(chapLang, chapCountry) ?: @"und";
+			}
+			locString[chapLocale] = getNSStringFromUTFstring(chapString) ?: @"";
+
+			chapDisplay = FindNextChild<KaxChapterDisplay>(*chapterAtom, *chapDisplay);
+		}
+		
+		[chapters addObject:locString];
+
+		chapterAtom = FindNextChild<KaxChapterAtom>(edition, *chapterAtom);
+	}
+	
+	if (chapters.count != 0) {
+#warning implement for your plug-in!
+		postError(mkvErrorLevelWarn, CFSTR("Incomplete Metadata fetch found chapters %@ from the file at %@"), chapters, fileURL.path);
+	}
+	
+#else
+	postError(mkvErrorLevelSerious, CFSTR("MatroskaSharedImporter::ReadChapters was called directly. This should not happen, as subclasses should implement their own version"));
+#endif
+	
+	seenChapters = true;
+	return true;
+}
+
 static bool MIMEIsFont(const string &mimeName) {
 	static const std::unordered_set<std::string> fontTypes =
 	{"application/x-font-truetype", "application/x-font-opentype", "font/opentype",
