@@ -121,7 +121,7 @@ bool MatroskaPlugInMetadataImporter::getMetadata(NSMutableDictionary<NSString*,i
 	NSError *err = nil;
 	if (!generatorClass->isValidMatroska(&err)) {
 		if (err) {
-			postError(mkvErrorLevelWarn, CFSTR("%@"), err.debugDescription);
+			postError(mkvErrorLevelWarn, CFSTR("%@"), err.userInfo[NSDebugDescriptionErrorKey] ?: err.debugDescription);
 		}
 		delete generatorClass;
 		return false;
