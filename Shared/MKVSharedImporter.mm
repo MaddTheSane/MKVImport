@@ -233,7 +233,8 @@ bool MatroskaSharedImporter::ReadSegmentInfo(KaxInfo &segmentInfo)
 		pushCreationDate(createDate);
 	}
 	
-	if (!title.IsDefaultValue() && title.GetValue().length() != 0) {
+	//Using GetValueUTF8() here to prevent a costly copy of UTFstring
+	if (!title.IsDefaultValue() && title.GetValueUTF8().length() != 0) {
 		NSString *nsTitle = getNSStringFromUTFstring(title);
 		pushTitle(nsTitle);
 	}
@@ -290,7 +291,8 @@ bool MatroskaSharedImporter::ReadTracks(KaxTracks &trackEntries)
 		}
 		{
 			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
-			if (!trackName.IsDefaultValue() && trackName.GetValue().length() != 0) {
+			//Using GetValueUTF8() here to prevent a costly copy of UTFstring
+			if (!trackName.IsDefaultValue() && trackName.GetValueUTF8().length() != 0) {
 				NSString *nsTrackName = getNSStringFromUTFstring(trackName);
 				[trackNames addObject:nsTrackName];
 			}
@@ -481,7 +483,7 @@ bool MatroskaSharedImporter::ReadChapters(KaxChapters &chapterEntries)
 	}
 	
 #else
-	postError(mkvErrorLevelSerious, CFSTR("MatroskaSharedImporter::ReadChapters was called directly. This should not happen, as subclasses should implement their own version"));
+	postError(mkvErrorLevelSerious, CFSTR("MatroskaSharedImporter::ReadChapters was called directly. This should not happen, as subclasses should implement their own version!"));
 #endif
 	
 	seenChapters = true;
