@@ -24,10 +24,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 			urls = (LSCopyApplicationURLsForBundleIdentifier("uk.org.marginal.qlvideo" as CFString, nil)?.takeRetainedValue() as? [URL]) ?? []
 		}
 		if urls.isEmpty {
-			infoTextView.stringValue = "Everything should be okay!"
+			infoTextView.stringValue = NSLocalizedString("Everything should be okay!", comment: "Everything is good.")
 			statusImage.image = NSImage(named: NSImage.statusAvailableName)
 		} else {
-			infoTextView.stringValue = "QuickLook Video may prevent the importer from working!"
+			infoTextView.stringValue = NSLocalizedString("QuickLook Video may prevent the importer from working!", comment: "QuickLook Video found.")
 			statusImage.image = NSImage(named: NSImage.statusPartiallyAvailableName)
 		}
 		// Insert code here to initialize your application

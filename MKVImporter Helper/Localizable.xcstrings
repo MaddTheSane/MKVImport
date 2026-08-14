@@ -1,0 +1,40 @@
+{
+  "sourceLanguage" : "en",
+  "strings" : {
+    "Everything should be okay!" : {
+      "comment" : "Everything is good.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Everything should be okay!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Todo debería estar bien!"
+          }
+        }
+      }
+    },
+    "QuickLook Video may prevent the importer from working!" : {
+      "comment" : "QuickLook Video found.",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "QuickLook Video may prevent the importer from working!"
+          }
+        },
+        "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡QuickLook Video puede impedir que el importador funcione!"
+          }
+        }
+      }
+    }
+  },
+  "version" : "1.2"
+}
