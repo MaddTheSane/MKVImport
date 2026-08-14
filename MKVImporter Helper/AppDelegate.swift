@@ -16,7 +16,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 	@IBOutlet weak var infoTextView: NSTextField!
 	
 	func applicationDidFinishLaunching(_ aNotification: Notification) {
-		if NSWorkspace.shared.urlsForApplications(withBundleIdentifier: "uk.org.marginal.qlvideo").isEmpty {
+		let urls: [URL]
+		if #available(macOS 12.0, *) {
+			urls = NSWorkspace.shared.urlsForApplications(withBundleIdentifier: "uk.org.marginal.qlvideo")
+		} else {
+			// Fallback on earlier versions
+			urls = (LSCopyApplicationURLsForBundleIdentifier("uk.org.marginal.qlvideo" as CFString, nil)?.takeRetainedValue() as? [URL]) ?? []
+		}
+		if urls.isEmpty {
 			infoTextView.stringValue = "Everything should be okay!"
 			statusImage.image = NSImage(named: NSImage.statusAvailableName)
 		} else {
