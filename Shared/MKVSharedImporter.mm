@@ -213,7 +213,7 @@ bool MatroskaSharedImporter::ReadSegmentInfo(KaxInfo &segmentInfo)
 	
 	KaxDuration & duration = GetChild<KaxDuration>(segmentInfo);
 	KaxTimecodeScale & timecodeScale = GetChild<KaxTimecodeScale>(segmentInfo);
-	KaxTitle & title = GetChild<KaxTitle>(segmentInfo);
+	KaxTitle * title = FindChild<KaxTitle>(segmentInfo);
 	KaxDateUTC * date = FindChild<KaxDateUTC>(segmentInfo);
 	KaxWritingApp & writingApp = GetChild<KaxWritingApp>(segmentInfo);
 	KaxMuxingApp & muxingApp = GetChild<KaxMuxingApp>(segmentInfo);
@@ -234,8 +234,8 @@ bool MatroskaSharedImporter::ReadSegmentInfo(KaxInfo &segmentInfo)
 	}
 	
 	//Using GetValueUTF8() here to prevent a costly copy of UTFstring
-	if (!title.IsDefaultValue() && title.GetValueUTF8().length() != 0) {
-		NSString *nsTitle = getNSStringFromUTFstring(title);
+	if (title && !title->IsDefaultValue() && title->GetValueUTF8().length() != 0) {
+		NSString *nsTitle = getNSStringFromUTFstring(*title);
 		pushTitle(nsTitle);
 	}
 	
@@ -290,10 +290,10 @@ bool MatroskaSharedImporter::ReadTracks(KaxTracks &trackEntries)
 			}
 		}
 		{
-			KaxTrackName & trackName = GetChild<KaxTrackName>(track);
+			KaxTrackName * trackName = FindChild<KaxTrackName>(track);
 			//Using GetValueUTF8() here to prevent a costly copy of UTFstring
-			if (!trackName.IsDefaultValue() && trackName.GetValueUTF8().length() != 0) {
-				NSString *nsTrackName = getNSStringFromUTFstring(trackName);
+			if (trackName && !trackName->IsDefaultValue() && trackName->GetValueUTF8().length() != 0) {
+				NSString *nsTrackName = getNSStringFromUTFstring(*trackName);
 				[trackNames addObject:nsTrackName];
 			}
 		}
