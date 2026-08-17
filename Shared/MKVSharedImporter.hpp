@@ -95,7 +95,7 @@ protected:
 	NSMutableDictionary<NSNumber*,NSString*> *bpsStorage;
 	NSMutableDictionary<NSNumber*,NSNumber*> *trackIDAndTypes;
 	//Kept mainly for debugging
-	NSURL * _Nonnull fileURL;
+	NSURL *fileURL;
 	
 private:
 	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
