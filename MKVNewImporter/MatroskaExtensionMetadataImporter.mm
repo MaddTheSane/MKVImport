@@ -190,7 +190,9 @@ void MatroskaExtensionMetadataImporter::pushTags(NSDictionary<NSString*,id> *tag
 		} else if ([key isEqualToString: MDItemKeywords]) {
 			attributes.keywords = (NSArray<NSString*>*)theval;
 		} else if ([key isEqualToString:MDItemTitle]) {
-			attributes.title = (NSString*)theval;
+			if (attributes.title == nil) {
+				attributes.title = (NSString*)theval;
+			}
 		} else {
 			postError(mkvErrorLevelWarn, CFSTR("Unmapped tag %@"), key);
 		}

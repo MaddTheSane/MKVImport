@@ -210,6 +210,11 @@ void MatroskaPlugInMetadataImporter::pushTags(NSDictionary<NSString*,id> *tagDic
 	*toSet = [[NSMutableDictionary alloc] initWithCapacity:tagDict.count];
 	
 	for (NSString *key in tagDict) {
+		if ([key isEqualToString:@"TITLE"]) {
+			if (toSet[(NSString*)kMDItemTitle] != nil) {
+				continue;
+			}
+		}
 		id val = tagDict[key];
 		NSString *MDVal = toSpotlightKey(key);
 		if (!MDVal) {
