@@ -3,7 +3,7 @@
 #define EBML_DLL_API_H
 
 #ifdef EBML_STATIC_DEFINE
-#  define EBML_DLL_API
+#  define EBML_DLL_API __attribute__((visibility("hidden")))
 #  define EBML_NO_EXPORT
 #else
 #  ifndef EBML_DLL_API
