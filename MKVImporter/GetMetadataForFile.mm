@@ -171,24 +171,7 @@ bool MatroskaPlugInMetadataImporter::ReadChapters(KaxChapters &chapterEntries)
 	if (chapters.count == 1) {
 		attributes[kChapterNames] = [[NSArray alloc] initWithArray:chapters[chapters.allKeys.firstObject] copyItems:YES];
 	} else {
-		// Huh, I thought Spotlight would respect multiple locales for this. Doesn't seem to want to, though...
-		NSArray<NSString*> *biggest = @[];
-		NSString *biggestKey = @"";
-		for (NSString *key in chapters) {
-			NSArray<NSString*> *theArray = chapters[key];
-			if (theArray.count > biggest.count) {
-				biggest = theArray;
-				biggestKey = key;
-			} else if (theArray.count == biggest.count) {
-				// Ugh, this is needed to make it deterministic!
-				// Doing the simplest: alphabetical.
-				if ([biggestKey compare:key] == NSOrderedDescending) {
-					biggest = theArray;
-					biggestKey = key;
-				}
-			}
-		}
-		attributes[kChapterNames] = [[NSArray alloc] initWithArray:biggest copyItems:YES];
+		attributes[kChapterNames] = [[NSDictionary alloc] initWithDictionary:chapters copyItems:YES];
 	}
 	seenChapters = true;
 
