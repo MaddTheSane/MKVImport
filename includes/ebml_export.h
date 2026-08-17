@@ -9,10 +9,10 @@
 #  ifndef EBML_DLL_API
 #    ifdef ebml_EXPORTS
         /* We are building this library */
-#      define EBML_DLL_API __attribute__((visibility("hidden")))
+#      define EBML_DLL_API __attribute__((visibility("default")))
 #    else
         /* We are using this library */
-#      define EBML_DLL_API __attribute__((visibility("hidden")))
+#      define EBML_DLL_API __attribute__((visibility("default")))
 #    endif
 #  endif
 
