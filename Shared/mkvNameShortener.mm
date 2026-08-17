@@ -465,6 +465,8 @@ NSString *getNSStringFromUTFstring(const UTFstring &sourceString)
 
 /// Gets the localized codec name from a ProRes-defined Matroska track.
 ///
+/// \returns a localized ProRes codec name, or `nil` if the codec isn't any of the known codecs.
+///
 /// From the [Matroska Codec Specs](https://www.matroska.org/technical/codec_specs.html#v_prores):
 ///
 /// Codec Name: Apple ProRes
@@ -514,6 +516,7 @@ NSString* _Nullable ExpandedCodecInfo_RAWVideo(libmatroska::KaxTrackEntry &tr_en
 	auto & videoTrack = GetChild<KaxTrackVideo>(tr_entry);
 	auto colorspace = FindChild<KaxVideoColourSpace>(videoTrack);
 	if (colorspace == NULL || colorspace->GetSize() <= 3) {
+		// Too small (or not present)
 		return nil;
 	}
 	
