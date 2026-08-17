@@ -1438,6 +1438,7 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Matroska Plug-in Importer";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017-2026 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_STYLE = BUNDLE;
@@ -1466,6 +1467,7 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVImporter/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = "Matroska Plug-in Importer";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017-2026 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_STYLE = BUNDLE;
@@ -1579,7 +1581,7 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVNewImporter/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MKVNewImporter;
+				INFOPLIST_KEY_CFBundleDisplayName = "Matroska Extension Importer";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 C.W. Betts. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1625,7 +1627,7 @@
 					Vendor/libmatroska,
 				);
 				INFOPLIST_FILE = MKVNewImporter/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = MKVNewImporter;
+				INFOPLIST_KEY_CFBundleDisplayName = "Matroska Extension Importer";
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2026 C.W. Betts. All rights reserved.";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (

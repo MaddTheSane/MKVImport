@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>CSExtensionLabel</key>
-	<string>Matroska New Importer</string>
+	<string>Matroska Extension Importer</string>
 	<key>NSExtension</key>
 	<dict>
 		<key>NSExtensionAttributes</key>
