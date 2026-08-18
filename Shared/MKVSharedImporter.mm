@@ -64,7 +64,6 @@ seenAttachments(false) {
 }
 
 MatroskaSharedImporter::~MatroskaSharedImporter() {
-	mediaTypes = nil;
 	if (el_l1) {
 		delete el_l1;
 		el_l1 = NULL;
