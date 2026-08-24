@@ -182,6 +182,11 @@ bool MatroskaSharedImporter::ProcessLevel1Element()
 		return ReadChapters(*static_cast<KaxChapters *>(el_l1));
 		
 	} else if (theID == EBML_ID(KaxAttachments)) {
+		// As attachments can be fairly large, don't read them again.
+		if (seenAttachments) {
+			el_l1->SkipData(_aStream, EBML_CLASS_CONTEXT(KaxAttachments), dummyElt, true);
+			return true;
+		}
 		el_l1->Read(_aStream, EBML_CLASS_CONTEXT(KaxAttachments), upperLevel, dummyElt, true);
 		return ReadAttachments(*static_cast<KaxAttachments *>(el_l1));
 		
