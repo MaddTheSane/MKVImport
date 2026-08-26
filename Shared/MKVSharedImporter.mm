@@ -40,6 +40,9 @@
 #include "ParseSSA.hpp"
 #include "Debugging.h"
 
+// I have no idea where this even comes from...
+#define nvd "no_variable_data"
+
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using std::string;
@@ -47,6 +50,47 @@ using std::string;
 static inline NSString *getLanguageCode(const string & cppLang);
 static NSString *getLanguageCode(KaxTrackEntry & track);
 static inline NSString *getLanguageCode(const KaxLanguageIETF & language);
+static bool MIMEIsFont(const string &mimeName);
+static std::string get_simple_name(const KaxTagSimple &tag);
+static NSString *get_simple_value(const KaxTagSimple &tag);
+
+/// If a Matroska tag is mapped to a Spotlight entry that has multiple values (an array).
+static bool isMultipleTag(const std::string& spotlightKey);
+
+/// Returns the track ID of the specified tag, if any.
+///
+/// Currently, we only care about track IDs for getting BPS info, otherwise we skip if this returns a value.
+/// @returns The track numerical ID linked to the tag, or `std::nullopt` if there isn't one.
+static std::optional<uint64_t> get_tuid(const KaxTag &tag);
+
+/// Returns the chapter ID of the specified tag, if any.
+/// @returns The chapter numerical ID linked to the tag, or `std::nullopt` if there isn't one.
+static std::optional<uint64_t> get_cuid(const KaxTag &tag);
+
+template <typename T>
+const T *
+FindChild(libebml::EbmlMaster const &m) {
+	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
+}
+
+template <typename T>
+const T *
+FindChild(libebml::EbmlElement const &e) {
+	auto &m = dynamic_cast<libebml::EbmlMaster const &>(e);
+	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
+}
+
+template <typename A> const A*
+FindChild(libebml::EbmlMaster const *m) {
+	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
+}
+
+template <typename A> const A*
+FindChild(libebml::EbmlElement const *e) {
+	auto m = dynamic_cast<libebml::EbmlMaster const *>(e);
+	assert(m);
+	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
+}
 
 MatroskaSharedImporter::MatroskaSharedImporter(NSURL* path):
 _ebmlFile(StdIOCallback(path.fileSystemRepresentation, MODE_READ)),
@@ -205,9 +249,6 @@ bool MatroskaSharedImporter::ProcessLevel1Element()
 	}
 	return true;
 }
-
-// I have no idea where this even comes from...
-#define nvd "no_variable_data"
 
 bool MatroskaSharedImporter::ReadSegmentInfo(KaxInfo &segmentInfo)
 {
@@ -494,23 +535,6 @@ bool MatroskaSharedImporter::ReadChapters(KaxChapters &chapterEntries)
 	return true;
 }
 
-static bool MIMEIsFont(const string &mimeName) {
-	static const std::unordered_set<std::string> fontTypes =
-	{"application/x-font-truetype", "application/x-font-opentype", "font/opentype",
-		"font/truetype", "application/font-sfnt", "application/vnd.ms-opentype",
-		"application/x-font-ttf", "application/x-truetype-font"};
-	
-#ifdef USE_STRICT_CASING
-	NSString *preName = @(mimeName.c_str());
-	preName = [preName lowercaseString];
-	string postString = string(preName.UTF8String);
-	bool success = fontTypes.contains(postString);
-#else
-	bool success = fontTypes.contains(mimeName);
-#endif
-	return success;
-}
-
 bool MatroskaSharedImporter::ReadAttachments(KaxAttachments &attachmentEntries)
 {
 	if (seenAttachments) {
@@ -600,86 +624,6 @@ bool MatroskaSharedImporter::ReadMetaSeek(KaxSeekHead &seekHead)
 	return true;
 }
 
-template <typename T>
-const T *
-FindChild(libebml::EbmlMaster const &m) {
-	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
-}
-
-template <typename T>
-const T *
-FindChild(libebml::EbmlElement const &e) {
-	auto &m = dynamic_cast<libebml::EbmlMaster const &>(e);
-	return static_cast<const T *>(m.FindFirstElt(EBML_INFO(T)));
-}
-
-template <typename A> const A*
-FindChild(libebml::EbmlMaster const *m) {
-	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
-}
-
-template <typename A> const A*
-FindChild(libebml::EbmlElement const *e) {
-	auto m = dynamic_cast<libebml::EbmlMaster const *>(e);
-	assert(m);
-	return static_cast<const A *>(m->FindFirstElt(EBML_INFO(A)));
-}
-
-static std::string get_simple_name(const KaxTagSimple &tag)
-{
-	const KaxTagName *tname = FindChild<KaxTagName>(tag);
-	return tname ? tname->GetValueUTF8() : "";
-}
-
-static NSString *get_simple_value(const KaxTagSimple &tag)
-{
-	const KaxTagString *tstring = FindChild<KaxTagString>(tag);
-	return tstring ? getNSStringFromUTFstring(*tstring) : @"";
-}
-
-/// Returns the track ID of the specified tag, if any.
-///
-/// Currently, we only care about track IDs for getting BPS info, otherwise we skip if this returns a value.
-/// @returns The track numerical ID linked to the tag, or `std::nullopt` if there isn't one.
-static std::optional<uint64_t> get_tuid(const KaxTag &tag)
-{
-	auto targets = FindChild<KaxTagTargets>(&tag);
-	if (!targets) {
-		return std::nullopt;
-	}
-	
-	auto tuid = FindChild<KaxTagTrackUID>(targets);
-	if (!tuid) {
-		return std::nullopt;
-	}
-	
-	return tuid->GetValue();
-}
-
-/// Returns the chapter ID of the specified tag, if any.
-/// @returns The chapter numerical ID linked to the tag, or `std::nullopt` if there isn't one.
-static std::optional<uint64_t> get_cuid(const KaxTag &tag)
-{
-	auto targets = FindChild<KaxTagTargets>(&tag);
-	if (!targets) {
-		return std::nullopt;
-	}
-	
-	auto cuid = FindChild<KaxTagChapterUID>(targets);
-	if (!cuid) {
-		return std::nullopt;
-	}
-	
-	return cuid->GetValue();
-}
-
-static bool isMultiple(const std::string& spotlightKey)
-{
-	// ARTIST maps to kMDItemAuthors, while PUBLISHER maps to kMDItemPublishers.
-	static const std::unordered_set<std::string> multiTags2 = {"ARTIST", "PUBLISHER", "MOOD"};
-	return multiTags2.contains(spotlightKey);
-}
-
 bool MatroskaSharedImporter::ReadTags(const KaxTags &trackEntries)
 {
 	if (seenTags) {
@@ -735,7 +679,7 @@ bool MatroskaSharedImporter::ReadTags(const KaxTags &trackEntries)
 			if (simpleName == "KEYWORDS") {
 				tagDict[objcName] = commaSeperation(simpleVal);
 			} else {
-				if (isMultiple(simpleName)) {
+				if (isMultipleTag(simpleName)) {
 					tagDict[objcName] = @[simpleVal];
 				} else {
 					tagDict[objcName] = simpleVal;
@@ -861,4 +805,70 @@ NSString *getLocaleCode(const KaxChapLanguageIETF * language)
 	}
 	locale = [NSLocale canonicalLocaleIdentifierFromString:locale];
 	return locale;
+}
+
+static bool MIMEIsFont(const string &mimeName) {
+	static const std::unordered_set<std::string> fontTypes =
+	{"application/x-font-truetype", "application/x-font-opentype", "font/opentype",
+		"font/truetype", "application/font-sfnt", "application/vnd.ms-opentype",
+		"application/x-font-ttf", "application/x-truetype-font"};
+	
+#ifdef USE_STRICT_CASING
+	NSString *preName = @(mimeName.c_str());
+	preName = [preName lowercaseString];
+	string postString = string(preName.UTF8String);
+	bool success = fontTypes.contains(postString);
+#else
+	bool success = fontTypes.contains(mimeName);
+#endif
+	return success;
+}
+
+static std::string get_simple_name(const KaxTagSimple &tag)
+{
+	const KaxTagName *tname = FindChild<KaxTagName>(tag);
+	return tname ? tname->GetValueUTF8() : "";
+}
+
+static NSString *get_simple_value(const KaxTagSimple &tag)
+{
+	const KaxTagString *tstring = FindChild<KaxTagString>(tag);
+	return tstring ? getNSStringFromUTFstring(*tstring) : @"";
+}
+
+static std::optional<uint64_t> get_tuid(const KaxTag &tag)
+{
+	auto targets = FindChild<KaxTagTargets>(&tag);
+	if (!targets) {
+		return std::nullopt;
+	}
+	
+	auto tuid = FindChild<KaxTagTrackUID>(targets);
+	if (!tuid) {
+		return std::nullopt;
+	}
+	
+	return tuid->GetValue();
+}
+
+static std::optional<uint64_t> get_cuid(const KaxTag &tag)
+{
+	auto targets = FindChild<KaxTagTargets>(&tag);
+	if (!targets) {
+		return std::nullopt;
+	}
+	
+	auto cuid = FindChild<KaxTagChapterUID>(targets);
+	if (!cuid) {
+		return std::nullopt;
+	}
+	
+	return cuid->GetValue();
+}
+
+static bool isMultipleTag(const std::string& spotlightKey)
+{
+	// ARTIST maps to kMDItemAuthors, while PUBLISHER maps to kMDItemPublishers.
+	static const std::unordered_set<std::string> multiTags2 = {"ARTIST", "PUBLISHER", "MOOD"};
+	return multiTags2.contains(spotlightKey);
 }
