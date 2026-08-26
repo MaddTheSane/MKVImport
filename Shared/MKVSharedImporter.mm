@@ -135,6 +135,9 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 			}
 			
 			valid = false;
+			if (dummyElt) {
+				delete dummyElt;
+			}
 			goto exit;
 		}
 		
@@ -149,6 +152,9 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 			}
 			
 			valid = false;
+			if (dummyElt) {
+				delete dummyElt;
+			}
 			goto exit;
 		}
 		
@@ -159,10 +165,16 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 			}
 			
 			valid = false;
+			if (dummyElt) {
+				delete dummyElt;
+			}
 			goto exit;
 		}
 		el_l0->SkipData(_aStream, EBML_CLASS_SEMCONTEXT(EbmlHead));
 
+		if (dummyElt) {
+			delete dummyElt;
+		}
 	} else {
 		if (outErr) {
 			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Matroska file missing EBML Head", @"Matroska file missing EBML Head"), NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: @"Matroska file missing EBML Head"}];
