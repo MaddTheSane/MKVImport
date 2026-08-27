@@ -11,6 +11,20 @@
 
 #import <Foundation/Foundation.h>
 #import <CoreSpotlight/CSSearchableItemAttributeSet.h>
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
+
+bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);
+
+NS_ASSUME_NONNULL_END
+
+#ifdef __cplusplus
+}
+
 #include <vector>
 #include "MKVSharedImporter.hpp"
 
@@ -44,8 +58,14 @@ protected:
 	virtual void pushWidthAndHeight(NSNumber *width, NSNumber *height) override;
 	virtual void pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
 	virtual void pushAttachedFiles(NSArray<NSString*> *theTags) override;
+	
+public:
+
+	friend bool ::extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);
 };
 
 NS_ASSUME_NONNULL_END
+
+#endif
 
 #endif /* MatroskaMetadataImport_hpp */

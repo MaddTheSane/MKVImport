@@ -256,3 +256,32 @@ void MatroskaExtensionMetadataImporter::pushAttachedFiles(NSArray<NSString*> *th
 	CSCustomAttributeKey *attribKey = [[CSCustomAttributeKey alloc] initWithKeyName:kAttachedFiles searchable:YES searchableByDefault:NO unique:NO multiValued:YES];
 	[attributes setValue:[theTags copy] forCustomKey:attribKey];
 }
+
+#pragma mark -
+
+bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr)
+{
+	static dispatch_once_t onceToken;
+	dispatch_once(&onceToken, ^{
+		matroska_init();
+		atexit_b(^{
+			matroska_done();
+		});
+	});
+
+	try {
+		return MatroskaExtensionMetadataImporter::getMetadata(attribs, path, outErr);
+	} catch (CRTError &anErr) {
+		if (outErr) {
+			NSString *what = @(anErr.what());
+			*outErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:anErr.getError() userInfo:@{NSLocalizedDescriptionKey: what, NSURLErrorKey: path, NSLocalizedFailureErrorKey: NSLocalizedString(@"CRTError exception caught", @"CRTError exception caught"), NSDebugDescriptionErrorKey: what}];
+		}
+		return NO;
+	} catch (...) {
+		if (outErr) {
+			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSURLErrorKey: path, NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown C++ exception caught", @"Unknown C++ exception caught"), NSDebugDescriptionErrorKey: @"Unknown C++ exception caught"}];
+		}
+		return NO;
+	}
+	return NO;
+}
