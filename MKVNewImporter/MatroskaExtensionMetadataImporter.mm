@@ -83,7 +83,7 @@ void MatroskaExtensionMetadataImporter::copyDataOver() {
 	}
 }
 
-bool MatroskaExtensionMetadataImporter::getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr)
+bool MatroskaExtensionMetadataImporter::getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr)
 {
 	MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(path, attribs);
 	if (!generatorClass->isValidMatroska(outErr)) {
@@ -259,7 +259,7 @@ void MatroskaExtensionMetadataImporter::pushAttachedFiles(NSArray<NSString*> *th
 
 #pragma mark -
 
-bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr)
+bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr)
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{

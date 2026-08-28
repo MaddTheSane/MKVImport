@@ -18,7 +18,7 @@ extern "C" {
 
 NS_ASSUME_NONNULL_BEGIN
 
-bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);
+bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
 
 NS_ASSUME_NONNULL_END
 
@@ -40,7 +40,7 @@ private:
 	void copyDataOver() override;
 	
 public:
-	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);
+	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
 	
 private:
 	CSSearchableItemAttributeSet * _Nonnull attributes;
@@ -61,7 +61,7 @@ protected:
 	
 public:
 
-	friend bool ::extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nonnull outErr);
+	friend bool ::extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
 };
 
 NS_ASSUME_NONNULL_END
