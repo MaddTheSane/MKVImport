@@ -382,7 +382,7 @@
 		55E88C4C3006360200F0F466 /* MKVNewImporterExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MKVNewImporterExtension.m; sourceTree = "<group>"; };
 		55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */ = {isa = PBXFileReference; lastKnownFileType = text.json.xcstrings; path = Localizable.xcstrings; sourceTree = "<group>"; };
 		55E88C54300740A900F0F466 /* CoreSpotlight.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreSpotlight.framework; path = System/Library/Frameworks/CoreSpotlight.framework; sourceTree = SDKROOT; };
-		55E88C56300744EE00F0F466 /* MatroskaExtensionMetadataImporter.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; path = MatroskaExtensionMetadataImporter.hpp; sourceTree = "<group>"; };
+		55E88C56300744EE00F0F466 /* MatroskaExtensionMetadataImporter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MatroskaExtensionMetadataImporter.h; sourceTree = "<group>"; };
 		55E88C57300744EE00F0F466 /* MatroskaExtensionMetadataImporter.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = MatroskaExtensionMetadataImporter.mm; sourceTree = "<group>"; };
 		55F21DE3301AA780000AAEE3 /* MediaToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaToolbox.framework; path = System/Library/Frameworks/MediaToolbox.framework; sourceTree = SDKROOT; };
 		55F8388930062AE100974628 /* MKVImporter Helper.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "MKVImporter Helper.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -782,7 +782,7 @@
 				55E88C4B3006360200F0F466 /* MKVNewImporterExtension.h */,
 				55E88C4C3006360200F0F466 /* MKVNewImporterExtension.m */,
 				55E88C4E30073C2F00F0F466 /* Localizable.xcstrings */,
-				55E88C56300744EE00F0F466 /* MatroskaExtensionMetadataImporter.hpp */,
+				55E88C56300744EE00F0F466 /* MatroskaExtensionMetadataImporter.h */,
 				55E88C57300744EE00F0F466 /* MatroskaExtensionMetadataImporter.mm */,
 			);
 			path = MKVNewImporter;

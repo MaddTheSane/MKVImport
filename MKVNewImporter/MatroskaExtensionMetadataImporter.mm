@@ -6,7 +6,7 @@
 //  Copyright © 2026 C.W. Betts. All rights reserved.
 //
 
-#include "MatroskaExtensionMetadataImporter.hpp"
+#import "MatroskaExtensionMetadataImporter.h"
 #import <CoreSpotlight/CoreSpotlight.h>
 #include <MediaToolbox/MediaToolbox.h>
 #include <string>
@@ -18,6 +18,45 @@
 #include "mkvNameShortener.hpp"
 #include "ParseSSA.hpp"
 #include "Debugging.h"
+#include "MKVSharedImporter.hpp"
+
+NS_ASSUME_NONNULL_BEGIN
+
+class MatroskaExtensionMetadataImporter final: MatroskaSharedImporter {
+private:
+	MatroskaExtensionMetadataImporter(NSURL* _Nonnull path, CSSearchableItemAttributeSet* _Nonnull attribs);
+	virtual ~MatroskaExtensionMetadataImporter() = default;
+	bool ReadChapters(libmatroska::KaxChapters &trackEntries) override;
+	
+	//! Copies over data to `attributes` that can't be done in one iteration.
+	void copyDataOver() override;
+	
+public:
+	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
+	
+private:
+	CSSearchableItemAttributeSet * _Nonnull attributes;
+	
+protected:
+	virtual void pushTags(NSDictionary<NSString*,id> *theTags) override;
+	virtual void pushTitle(NSString *theTags) override;
+	virtual void pushDuration(NSNumber *theTags) override;
+	virtual void pushCreationDate(NSDate *theTags) override;
+	virtual void pushIdentifier(NSString *theTags) override;
+	virtual void pushEncodingApplications(NSArray<NSString*> *theTags) override;
+	virtual void pushLanguages(NSArray<NSString*> *theTags) override;
+	virtual void pushCodecs(NSArray<NSString*> *theTags) override;
+	virtual void pushLayerNames(NSArray<NSString*> *theTags) override;
+	virtual void pushWidthAndHeight(NSNumber *width, NSNumber *height) override;
+	virtual void pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
+	virtual void pushAttachedFiles(NSArray<NSString*> *theTags) override;
+	
+public:
+
+	friend bool ::extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
+};
+
+NS_ASSUME_NONNULL_END
 
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;

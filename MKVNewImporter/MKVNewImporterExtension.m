@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "MKVNewImporterExtension.h"
-#include "MatroskaExtensionMetadataImporter.hpp"
+#import "MatroskaExtensionMetadataImporter.h"
 
 NS_ASSUME_NONNULL_BEGIN
 
