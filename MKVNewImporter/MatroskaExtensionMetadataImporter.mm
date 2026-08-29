@@ -24,15 +24,85 @@ NS_ASSUME_NONNULL_BEGIN
 
 class MatroskaExtensionMetadataImporter final: MatroskaSharedImporter {
 private:
-	MatroskaExtensionMetadataImporter(NSURL* _Nonnull path, CSSearchableItemAttributeSet* _Nonnull attribs);
+	MatroskaExtensionMetadataImporter(NSURL* _Nonnull path,
+									  CSSearchableItemAttributeSet* _Nonnull attribs):
+	MatroskaSharedImporter(path),
+	attributes(attribs) {}
+
 	virtual ~MatroskaExtensionMetadataImporter() = default;
 	bool ReadChapters(libmatroska::KaxChapters &trackEntries) override;
 	
 	//! Copies over data to `attributes` that can't be done in one iteration.
-	void copyDataOver() override;
+	void copyDataOver() override
+	{
+		attributes.mediaTypes = mediaTypes.array;
+		if (fonts.count != 0) {
+			attributes.fontNames = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
+		}
+		
+		if (bpsStorage.count != 0) {
+			// How we're doing this:
+			// * `kMDItemTotalBitRate` is the bitrate of all the tracks.
+			// * `kMDItemVideoBitRate` and `kMDItemAudioBitRate` will be the track with the highest bitrate.
+			long long biggestVid = 0;
+			long long biggestAud = 0;
+			uint64_t all = 0;
+			
+			for (NSNumber *key in bpsStorage) {
+				NSNumber *trackType = trackIDAndTypes[key];
+				NSString *bpsStr = bpsStorage[key];
+				long long bps = bpsStr.longLongValue;
+				all += bps;
+				
+				// We only care about `track_video`, `track_audio`
+				switch (trackType.unsignedCharValue) {
+					case track_video:
+						biggestVid = std::max(biggestVid, bps);
+						break;
+						
+					case track_audio:
+						biggestAud = std::max(biggestAud, bps);
+						break;
+						
+					case track_complex:
+						//Not dealing with this.
+						break;
+						
+					case track_subtitle:
+						// There's no key for subtitle BPS.
+						break;
+						
+					default:
+						break;
+				}
+			}
+			
+			if (all != 0) {
+				attributes.totalBitRate = @(all);
+				if (biggestVid != 0) {
+					attributes.videoBitRate = @(biggestVid);
+				}
+				if (biggestAud != 0) {
+					attributes.audioBitRate = @(biggestAud);
+				}
+			}
+		}
+	}
 	
-public:
-	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
+	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr)
+	{
+		MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(path, attribs);
+		if (!generatorClass->isValidMatroska(outErr)) {
+			delete generatorClass;
+			return false;
+		}
+		
+		bool isSuccessful = generatorClass->iterateData(outErr);
+		if (isSuccessful) generatorClass->copyDataOver();
+		
+		delete generatorClass;
+		return isSuccessful;
+	}
 	
 private:
 	CSSearchableItemAttributeSet * _Nonnull attributes;
@@ -61,81 +131,6 @@ NS_ASSUME_NONNULL_END
 using namespace LIBMATROSKA_NAMESPACE;
 using namespace LIBEBML_NAMESPACE;
 using std::string;
-
-MatroskaExtensionMetadataImporter::MatroskaExtensionMetadataImporter(NSURL* _Nonnull path,
-											   CSSearchableItemAttributeSet* _Nonnull attribs):
-MatroskaSharedImporter(path),
-attributes(attribs) {}
-
-void MatroskaExtensionMetadataImporter::copyDataOver() {
-	attributes.mediaTypes = mediaTypes.array;
-	if (fonts.count != 0) {
-		attributes.fontNames = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];
-	}
-	
-	if (bpsStorage.count != 0) {
-		// How we're doing this:
-		// * `kMDItemTotalBitRate` is the bitrate of all the tracks.
-		// * `kMDItemVideoBitRate` and `kMDItemAudioBitRate` will be the track with the highest bitrate.
-		long long biggestVid = 0;
-		long long biggestAud = 0;
-		uint64_t all = 0;
-		
-		for (NSNumber *key in bpsStorage) {
-			NSNumber *trackType = trackIDAndTypes[key];
-			NSString *bpsStr = bpsStorage[key];
-			long long bps = bpsStr.longLongValue;
-			all += bps;
-			
-			// We only care about `track_video`, `track_audio`
-			switch (trackType.unsignedCharValue) {
-				case track_video:
-					biggestVid = std::max(biggestVid, bps);
-					break;
-					
-				case track_audio:
-					biggestAud = std::max(biggestAud, bps);
-					break;
-					
-				case track_complex:
-					//Not dealing with this.
-					break;
-					
-				case track_subtitle:
-					// There's no key for subtitle BPS.
-					break;
-					
-				default:
-					break;
-			}
-		}
-		
-		if (all != 0) {
-			attributes.totalBitRate = @(all);
-			if (biggestVid != 0) {
-				attributes.videoBitRate = @(biggestVid);
-			}
-			if (biggestAud != 0) {
-				attributes.audioBitRate = @(biggestAud);
-			}
-		}
-	}
-}
-
-bool MatroskaExtensionMetadataImporter::getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr)
-{
-	MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(path, attribs);
-	if (!generatorClass->isValidMatroska(outErr)) {
-		delete generatorClass;
-		return false;
-	}
-	
-	bool isSuccessful = generatorClass->iterateData(outErr);
-	if (isSuccessful) generatorClass->copyDataOver();
-	
-	delete generatorClass;
-	return isSuccessful;
-}
 
 bool MatroskaExtensionMetadataImporter::ReadChapters(KaxChapters &chapterEntries)
 {
