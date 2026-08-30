@@ -128,6 +128,10 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		EbmlElement *dummyElt = NULL;
 		
 		el_l0->Read(_aStream, EBML_CLASS_CONTEXT(EbmlHead), upperLevel, dummyElt, true);
+		if (dummyElt) {
+			delete dummyElt;
+			dummyElt = NULL;
+		}
 		
 		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
 			if (outErr) {
@@ -135,9 +139,6 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 			}
 			
 			valid = false;
-			if (dummyElt) {
-				delete dummyElt;
-			}
 			goto exit;
 		}
 		
@@ -152,9 +153,6 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 			}
 			
 			valid = false;
-			if (dummyElt) {
-				delete dummyElt;
-			}
 			goto exit;
 		}
 		
@@ -165,16 +163,10 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 			}
 			
 			valid = false;
-			if (dummyElt) {
-				delete dummyElt;
-			}
 			goto exit;
 		}
 		el_l0->SkipData(_aStream, EBML_CLASS_SEMCONTEXT(EbmlHead));
 
-		if (dummyElt) {
-			delete dummyElt;
-		}
 	} else {
 		if (outErr) {
 			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadCorruptFileError userInfo:@{NSLocalizedDescriptionKey: NSLocalizedString(@"Matroska file missing EBML Head", @"Matroska file missing EBML Head"), NSURLErrorKey: fileURL, NSDebugDescriptionErrorKey: @"Matroska file missing EBML Head"}];
