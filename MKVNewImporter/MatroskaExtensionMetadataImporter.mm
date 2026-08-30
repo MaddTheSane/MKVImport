@@ -89,21 +89,6 @@ private:
 		}
 	}
 	
-	static bool getMetadata(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr)
-	{
-		MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(path, attribs);
-		if (!generatorClass->isValidMatroska(outErr)) {
-			delete generatorClass;
-			return false;
-		}
-		
-		bool isSuccessful = generatorClass->iterateData(outErr);
-		if (isSuccessful) generatorClass->copyDataOver();
-		
-		delete generatorClass;
-		return isSuccessful;
-	}
-	
 private:
 	CSSearchableItemAttributeSet * _Nonnull attributes;
 	
@@ -304,7 +289,19 @@ bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL 
 	});
 
 	try {
-		return MatroskaExtensionMetadataImporter::getMetadata(attribs, path, outErr);
+		MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(path, attribs);
+		if (!generatorClass->isValidMatroska(outErr)) {
+			delete generatorClass;
+			return false;
+		}
+		
+		bool isSuccessful = generatorClass->iterateData(outErr);
+		if (isSuccessful) {
+			generatorClass->copyDataOver();
+		}
+		
+		delete generatorClass;
+		return isSuccessful;
 	} catch (CRTError &anErr) {
 		if (outErr) {
 			NSString *what = @(anErr.what());

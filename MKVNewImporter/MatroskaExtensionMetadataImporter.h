@@ -18,7 +18,7 @@ extern "C" {
 
 NS_ASSUME_NONNULL_BEGIN
 
-bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
+extern bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
 
 NS_ASSUME_NONNULL_END
 
