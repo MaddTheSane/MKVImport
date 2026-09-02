@@ -122,17 +122,12 @@ MatroskaSharedImporter::~MatroskaSharedImporter() {
 bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outErr)
 {
 	bool valid = true;
-	int upperLevel;
+	int upperLevel = 0;
 	EbmlElement *el_l0 = _aStream.FindNextID(EBML_INFO(EbmlHead), ~0);
 	if (el_l0 != NULL) {
 		EbmlElement *dummyElt = NULL;
 		
 		el_l0->Read(_aStream, EBML_CLASS_CONTEXT(EbmlHead), upperLevel, dummyElt, true);
-		if (dummyElt) {
-			// prevent a memory leak.
-			delete dummyElt;
-			dummyElt = NULL;
-		}
 		
 		if (EbmlId(*el_l0) != EBML_ID(EbmlHead)) {
 			if (outErr) {
