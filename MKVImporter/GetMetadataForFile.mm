@@ -228,7 +228,7 @@ void MatroskaPlugInMetadataImporter::pushTags(NSDictionary<NSString*,id> *tagDic
 
 void MatroskaPlugInMetadataImporter::pushTitle(NSString *nsTitle)
 {
-	attributes[(NSString*)kMDItemTitle] = nsTitle;
+	attributes[(NSString*)kMDItemTitle] = [nsTitle copy];
 }
 
 void MatroskaPlugInMetadataImporter::pushDuration(NSNumber *theTags)
