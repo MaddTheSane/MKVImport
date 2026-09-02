@@ -210,6 +210,7 @@ void MatroskaPlugInMetadataImporter::pushTags(NSDictionary<NSString*,id> *tagDic
 	*toSet = [[NSMutableDictionary alloc] initWithCapacity:tagDict.count];
 	
 	for (NSString *key in tagDict) {
+		// Prefer title found in SegmentInfo.
 		if ([key isEqualToString:@"TITLE"]) {
 			if (toSet[(NSString*)kMDItemTitle] != nil) {
 				continue;

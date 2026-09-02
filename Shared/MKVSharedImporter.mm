@@ -129,6 +129,7 @@ bool MatroskaSharedImporter::isValidMatroska(NSError * _Nullable * _Nonnull outE
 		
 		el_l0->Read(_aStream, EBML_CLASS_CONTEXT(EbmlHead), upperLevel, dummyElt, true);
 		if (dummyElt) {
+			// prevent a memory leak.
 			delete dummyElt;
 			dummyElt = NULL;
 		}

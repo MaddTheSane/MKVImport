@@ -209,6 +209,7 @@ void MatroskaExtensionMetadataImporter::pushTags(NSDictionary<NSString*,id> *tag
 		} else if ([key isEqualToString: MDItemKeywords]) {
 			attributes.keywords = (NSArray<NSString*>*)theval;
 		} else if ([key isEqualToString:MDItemTitle]) {
+			// Prefer title found in SegmentInfo.
 			if (attributes.title == nil) {
 				attributes.title = (NSString*)theval;
 			}
@@ -310,7 +311,7 @@ bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL 
 		return NO;
 	} catch (...) {
 		if (outErr) {
-			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:-1 userInfo:@{NSURLErrorKey: path, NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown C++ exception caught", @"Unknown C++ exception caught"), NSDebugDescriptionErrorKey: @"Unknown C++ exception caught"}];
+			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:@{NSURLErrorKey: path, NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown C++ exception caught", @"Unknown C++ exception caught"), NSDebugDescriptionErrorKey: @"Unknown C++ exception caught"}];
 		}
 		return NO;
 	}
