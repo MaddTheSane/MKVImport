@@ -1273,6 +1273,7 @@
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CODE_SIGN_IDENTITY = "-";
 				DEAD_CODE_STRIPPING = YES;
+				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1286,6 +1287,7 @@
 				ARCHS = "$(NATIVE_ARCH_ACTUAL)";
 				CODE_SIGN_IDENTITY = "-";
 				DEAD_CODE_STRIPPING = YES;
+				LLVM_LTO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1471,6 +1473,7 @@
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2017-2026 C.W. Betts. All rights reserved.";
 				INSTALL_PATH = /Library/Spotlight;
 				LIBRARY_STYLE = BUNDLE;
+				LLVM_LTO = YES;
 				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.github.maddthesane.MKVImporter;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1517,6 +1520,7 @@
 					includes,
 				);
 				KEEP_PRIVATE_EXTERNS = YES;
+				LLVM_LTO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
@@ -1559,6 +1563,7 @@
 					includes,
 				);
 				KEEP_PRIVATE_EXTERNS = YES;
+				LLVM_LTO = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos macosx";
@@ -1711,6 +1716,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				LLVM_LTO = YES_THIN;
 				MARKETING_VERSION = 1.3.2;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.github.maddthesane.MKVImporter-Helper";
 				PRODUCT_NAME = "$(TARGET_NAME)";
