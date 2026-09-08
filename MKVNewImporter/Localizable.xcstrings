@@ -109,7 +109,7 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Unknown Matroska doctype: expected “matroska” or “webm”, got “%@“."
+            "value" : "Unknown Matroska doctype: expected “matroska” or “webm”, got “%@“ instead."
           }
         },
         "es" : {
