@@ -94,9 +94,6 @@ private:
 		}
 	}
 	
-public:
-	static bool getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path);
-	
 private:
 	NSMutableDictionary<NSString*,id> *attributes;
 	
@@ -113,26 +110,9 @@ protected:
 	virtual void pushWidthAndHeight(NSNumber *width, NSNumber *height) override;
 	virtual void pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
 	virtual void pushAttachedFiles(NSArray<NSString*> *theTags) override;
+	
+	friend Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes, CFStringRef contentTypeUTI, CFURLRef pathToFile);
 };
-
-bool MatroskaPlugInMetadataImporter::getMetadata(NSMutableDictionary<NSString*,id> *attribs, NSString *uti, NSURL *path)
-{
-	MatroskaPlugInMetadataImporter *generatorClass = new MatroskaPlugInMetadataImporter(path, attribs);
-	NSError *err = nil;
-	if (!generatorClass->isValidMatroska(&err)) {
-		if (err) {
-			postError(mkvErrorLevelWarn, CFSTR("%@"), err.userInfo[NSDebugDescriptionErrorKey] ?: err.debugDescription);
-		}
-		delete generatorClass;
-		return false;
-	}
-	
-	bool isSuccessful = generatorClass->iterateData(NULL);
-	if (isSuccessful) generatorClass->copyDataOver();
-	
-	delete generatorClass;
-	return isSuccessful;
-}
 
 bool MatroskaPlugInMetadataImporter::ReadChapters(KaxChapters &chapterEntries)
 {
@@ -308,9 +288,21 @@ Boolean GetMetadataForURL(void *thisInterface, CFMutableDictionaryRef attributes
 	@autoreleasepool {
 		auto nsAttribs = (__bridge NSMutableDictionary<NSString*,id>*)attributes;
 		NSURL *nsPath = (__bridge NSURL*)pathToFile;
-		NSString *nsUTI = (__bridge NSString*)contentTypeUTI;
 		try {
-			ok = MatroskaPlugInMetadataImporter::getMetadata(nsAttribs, nsUTI, nsPath);
+			MatroskaPlugInMetadataImporter *generatorClass = new MatroskaPlugInMetadataImporter(nsPath, nsAttribs);
+			NSError *err = nil;
+			if (!generatorClass->isValidMatroska(&err)) {
+				if (err) {
+					postError(mkvErrorLevelWarn, CFSTR("%@"), err.userInfo[NSDebugDescriptionErrorKey] ?: err.debugDescription);
+				}
+				delete generatorClass;
+				return false;
+			}
+			
+			ok = generatorClass->iterateData(NULL);
+			if (ok) generatorClass->copyDataOver();
+			
+			delete generatorClass;
 		} catch (CRTError &anErr) {
 			postError(mkvErrorLevelSerious, CFSTR("Exception caught! %@"), @(anErr.what()));
 			ok = FALSE;
