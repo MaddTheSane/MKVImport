@@ -1,14 +1,15 @@
 //
-//  MatroskaExtensionMetadataImporter.cpp
+//  MKVNewImporterExtension.mm
 //  MKVNewImporter
 //
 //  Created by C.W. Betts on 7/14/26.
 //  Copyright © 2026 C.W. Betts. All rights reserved.
 //
 
-#import "MatroskaExtensionMetadataImporter.h"
+#import <Foundation/Foundation.h>
 #import <CoreSpotlight/CoreSpotlight.h>
 #include <MediaToolbox/MediaToolbox.h>
+#import "MKVNewImporterExtension.h"
 #include <string>
 #include <vector>
 #include <iostream>
@@ -22,8 +23,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-class MatroskaExtensionMetadataImporter final: MatroskaSharedImporter {
-private:
+class MatroskaExtensionMetadataImporter final: public MatroskaSharedImporter {
+public:
 	MatroskaExtensionMetadataImporter(NSURL* _Nonnull path,
 									  CSSearchableItemAttributeSet* _Nonnull attribs):
 	MatroskaSharedImporter(path),
@@ -105,10 +106,6 @@ protected:
 	virtual void pushWidthAndHeight(NSNumber *width, NSNumber *height) override;
 	virtual void pushAudioInfo(NSNumber *channelCount, NSNumber *sampleRate) override;
 	virtual void pushAttachedFiles(NSArray<NSString*> *theTags) override;
-	
-public:
-
-	friend bool ::extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr);
 };
 
 NS_ASSUME_NONNULL_END
@@ -279,7 +276,11 @@ void MatroskaExtensionMetadataImporter::pushAttachedFiles(NSArray<NSString*> *th
 
 #pragma mark -
 
-bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL * _Nonnull path, NSError * _Nullable * _Nullable outErr)
+@implementation MKVNewImporterExtension
+
+- (BOOL)updateAttributes:(CSSearchableItemAttributeSet * _Nonnull)attributes
+			forFileAtURL:(NSURL * _Nonnull)contentURL
+				   error:(NSError * _Nullable * _Nonnull)error
 {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -290,13 +291,13 @@ bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL 
 	});
 
 	try {
-		MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(path, attribs);
-		if (!generatorClass->isValidMatroska(outErr)) {
+		MatroskaExtensionMetadataImporter *generatorClass = new MatroskaExtensionMetadataImporter(contentURL, attributes);
+		if (!generatorClass->isValidMatroska(error)) {
 			delete generatorClass;
 			return false;
 		}
 		
-		bool isSuccessful = generatorClass->iterateData(outErr);
+		bool isSuccessful = generatorClass->iterateData(error);
 		if (isSuccessful) {
 			generatorClass->copyDataOver();
 		}
@@ -304,16 +305,18 @@ bool extensionInfoGetter(CSSearchableItemAttributeSet * _Nonnull attribs, NSURL 
 		delete generatorClass;
 		return isSuccessful;
 	} catch (CRTError &anErr) {
-		if (outErr) {
+		if (error) {
 			NSString *what = @(anErr.what());
-			*outErr = [NSError errorWithDomain:NSPOSIXErrorDomain code:anErr.getError() userInfo:@{NSLocalizedDescriptionKey: what, NSURLErrorKey: path, NSLocalizedFailureErrorKey: NSLocalizedString(@"CRTError exception caught", @"CRTError exception caught"), NSDebugDescriptionErrorKey: what}];
+			*error = [NSError errorWithDomain:NSPOSIXErrorDomain code:anErr.getError() userInfo:@{NSLocalizedDescriptionKey: what, NSURLErrorKey: contentURL, NSLocalizedFailureErrorKey: NSLocalizedString(@"CRTError exception caught", @"CRTError exception caught"), NSDebugDescriptionErrorKey: what}];
 		}
 		return NO;
 	} catch (...) {
-		if (outErr) {
-			*outErr = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:@{NSURLErrorKey: path, NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown C++ exception caught", @"Unknown C++ exception caught"), NSDebugDescriptionErrorKey: @"Unknown C++ exception caught"}];
+		if (error) {
+			*error = [NSError errorWithDomain:NSCocoaErrorDomain code:NSFileReadUnknownError userInfo:@{NSURLErrorKey: contentURL, NSLocalizedDescriptionKey: NSLocalizedString(@"Unknown C++ exception caught", @"Unknown C++ exception caught"), NSDebugDescriptionErrorKey: @"Unknown C++ exception caught"}];
 		}
 		return NO;
 	}
 	return NO;
 }
+
+@end

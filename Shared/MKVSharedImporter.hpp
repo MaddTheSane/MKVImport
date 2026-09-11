@@ -37,8 +37,11 @@ protected:
 	bool ReadMetaSeek(libmatroska::KaxSeekHead &trackEntries);
 	bool ReadTags(const libmatroska::KaxTags &trackEntries);
 
+public:
 	bool isValidMatroska(NSError * _Nullable * _Nonnull outErr);
+	bool iterateData(NSError * _Nullable * _Nullable outErr);
 	
+protected:
 	//! Copies over data to `attributes` that can't be done in one iteration.
 	virtual void copyDataOver() = 0;
 	
@@ -76,7 +79,6 @@ protected:
 
 	bool ProcessLevel1Element();
 	
-	bool iterateData(NSError * _Nullable * _Nullable outErr);
 	inline void addMediaType(NSString *theType) {
 		[mediaTypes addObject:theType];
 	}
@@ -85,7 +87,6 @@ protected:
 		addMediaType((NSString*)CFBridgingRelease(theType));
 	}
 	
-protected:
 	StdIOCallback _ebmlFile;
 	EbmlStream _aStream;
 	EbmlElement * _Nullable el_l0;
