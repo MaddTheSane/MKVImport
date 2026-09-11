@@ -38,7 +38,8 @@ private:
 	bool ReadChapters(KaxChapters &trackEntries) override;
 	
 	//! Copies over data to `attributes` that can't be done in one iteration.
-	void copyDataOver() override {
+	void copyDataOver() override
+	{
 		attributes[(NSString*)kMDItemMediaTypes] = [mediaTypes.array copy];
 		if (fonts.count != 0) {
 			attributes[(NSString*)kMDItemFonts] = [fonts.allObjects sortedArrayUsingSelector:@selector(caseInsensitiveCompare:)];

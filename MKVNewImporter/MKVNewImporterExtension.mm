@@ -23,6 +23,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// Matroska Metadata importer class for the Spotlight extension API.
 class MatroskaExtensionMetadataImporter final: public MatroskaSharedImporter {
 public:
 	MatroskaExtensionMetadataImporter(NSURL* _Nonnull path,

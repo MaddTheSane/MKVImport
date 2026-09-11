@@ -41,10 +41,10 @@ public:
 	bool isValidMatroska(NSError * _Nullable * _Nonnull outErr);
 	bool iterateData(NSError * _Nullable * _Nullable outErr);
 	
-protected:
 	//! Copies over data to `attributes` that can't be done in one iteration.
 	virtual void copyDataOver() = 0;
 	
+protected:
 	EbmlElement * _Nullable NextLevel1Element();
 
 	//! a list of level one elements and their offsets in the segment
@@ -113,7 +113,7 @@ private:
 	uint64_t					segmentOffset;
 	
 protected:
-	/// Is given Matroska tags. Subclasses must match the keys and tags with what the metadata system expects.
+	/// Is given Matroska tags. Subclasses _must_ match the keys and tags with what the metadata system expects.
 	virtual void pushTags(NSDictionary<NSString*,id> *theTags) = 0;
 	
 	virtual void pushTitle(NSString *theTags) = 0;
