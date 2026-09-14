@@ -98,16 +98,14 @@ protected:
 	//Kept mainly for debugging
 	NSURL *fileURL;
 	
-private:
 	// FIXME: we're getting duplicates. This works around it, but doesn't fix it.
 	bool seenInfo;
 	bool seenTracks;
-protected:
 	bool seenChapters;
-private:
 	bool seenTags;
 	bool seenAttachments;
 
+private:
 	std::vector<MatroskaSeek>	levelOneElements;
 	
 	uint64_t					segmentOffset;
