@@ -15,6 +15,12 @@
             "state" : "needs_review",
             "value" : "¡Excepción de CRTError atrapada!"
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Se detectó una excepción CRTError!"
+          }
         }
       }
     },
@@ -31,6 +37,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "El archivo de Matroska está vacío."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "El archivo Matroska está vacío."
           }
         }
       }
@@ -49,6 +61,12 @@
             "state" : "needs_review",
             "value" : "Al archivo de Matroska le falta la Cabeza de EBML."
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "El archivo Matroska falta la cabecera EBML."
+          }
         }
       }
     },
@@ -65,6 +83,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Solo se pueden leer los archivos de la versión 1 y 2 de Matroska. Este archivo es la versión %lld."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Solo puedo leer los archivos de la versión 1 y 2 de Matroska. Este archivo es la versión %lld."
           }
         }
       }
@@ -83,6 +107,12 @@
             "state" : "needs_review",
             "value" : "El archivo no es un archivo de Matroska."
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "El archivo no es un archivo Matroska."
+          }
         }
       }
     },
@@ -100,6 +130,12 @@
             "state" : "needs_review",
             "value" : "¡¡Excepción desconocida de C++ atrapada!!"
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "¡Se detectó una excepción desconocida de C++!!"
+          }
         }
       }
     },
@@ -115,7 +151,13 @@
         "es" : {
           "stringUnit" : {
             "state" : "needs_review",
-            "value" : "Tipo de documento Matroska desconocido: esperaba “matroska” o “webm”, obtuvo “%@”."
+            "value" : "Documento de Matroska desconocido: se esperaba “matroska” o “webm”, se obtuvo “%@”."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Tipo de documento Matroska desconocido: se esperaba “matroska” o “webm”, pero se obtuvo “%@”."
           }
         }
       }

@@ -16,6 +16,12 @@
             "state" : "needs_review",
             "value" : "Importador de enchufes de Matroska"
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Importador plug-in Matroska"
+          }
         }
       }
     },
@@ -29,8 +35,7 @@
             "value" : "MKVImporter"
           }
         }
-      },
-      "shouldTranslate" : false
+      }
     },
     "Matroska Audio File" : {
       "localizations" : {
@@ -94,6 +99,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Derechos de autor © 2017-2026 C.W. Betts. Todos los derechos reservados."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Copyright © 2017-2026 C.W. Betts. Todos los derechos reservados."
           }
         }
       }
@@ -163,6 +174,12 @@
             "state" : "translated",
             "value" : "Medios WebM"
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medios WebM"
+          }
         }
       }
     },
@@ -175,6 +192,12 @@
           }
         },
         "es" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Medios WebM"
+          }
+        },
+        "es-419" : {
           "stringUnit" : {
             "state" : "translated",
             "value" : "Medios WebM"

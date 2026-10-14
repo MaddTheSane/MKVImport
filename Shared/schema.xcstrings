@@ -16,6 +16,12 @@
             "state" : "needs_review",
             "value" : "Adjuntos"
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Adjuntos"
+          }
         }
       }
     },
@@ -30,6 +36,12 @@
           }
         },
         "es" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Archivos adicionales que están incrustados en el archivo."
+          }
+        },
+        "es-419" : {
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Archivos adicionales que están incrustados en el archivo."
@@ -52,6 +64,12 @@
             "state" : "needs_review",
             "value" : "Nombres de capítulos"
           }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Nombres de capítulos"
+          }
         }
       }
     },
@@ -69,6 +87,12 @@
           "stringUnit" : {
             "state" : "needs_review",
             "value" : "Títulos de los capítulos del archivo."
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "needs_review",
+            "value" : "Títulos de los capítulos en el archivo."
           }
         }
       }
