@@ -163,7 +163,7 @@ bool MatroskaPlugInMetadataImporter::ReadChapters(KaxChapters &chapterEntries)
 
 static NSString *toSpotlightKey(NSString *matroskaKey)
 {
-	static NSDictionary *const matroskaToSpotlightMapping
+	static NSDictionary<NSString*,NSString*> *const matroskaToSpotlightMapping
 	= @{
 		@"ARTIST": (NSString*)kMDItemAuthors,
 		@"ALBUM": (NSString*)kMDItemAlbum,
